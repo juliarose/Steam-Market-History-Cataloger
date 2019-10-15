@@ -1,0 +1,61 @@
+{
+  "manifest_version": 2,
+  "name": "Steam Market History Cataloger",
+  "description": "Indexes your Steam Market transactions to be viewable within the extension and exportable to JSON and CSV.",
+  "version": "1.0.0",
+  "icons": {
+    "16": "images/icon16.png",
+    "48": "images/icon48.png",
+    "128": "images/icon128.png"
+  },
+  "browser_action": {
+    "default_icon": "images/icon.png",
+    "default_popup": "views/popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://steamcommunity.com/*"
+      ],
+      "exclude_matches": [
+        "https://steamcommunity.com/login/*"
+      ],
+      "js": [
+        "js/content/helpers/utils.js",
+        "js/content/steamcommunity.js"
+      ],
+      "run_at": "document_end"
+    },
+    {
+      "matches": [
+        "https://steamcommunity.com/market*"
+      ],
+      "js": [
+        "js/content/helpers/injectScript.js",
+        "js/content/steamcommunity.market.js"
+      ],
+      "css": [
+        "css/content/steamcommunity.market.css"
+      ],
+      "run_at": "document_end"
+    }
+  ],
+  "web_accessible_resources": [
+    "js/content/injects/*.js",
+    "js/content/modules/*.js",
+    "js/app/money.js",
+    "js/app/currency.js"
+  ],
+  "background": {
+    "persistent": true,
+    "page": "views/background.html"
+  },
+  "permissions": [
+    "*://steamcommunity.com/*",
+    "*://*.steampowered.com/*",
+    "https://store.steampowered.com/account/history/", 
+    "https://store.steampowered.com/account/AjaxLoadMoreHistory/*", 
+    "storage",
+    "unlimitedStorage"
+  ]
+}

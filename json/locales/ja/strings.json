@@ -1,0 +1,151 @@
+{
+    "months": {
+        "abbreviations": []
+    },
+    "ui": {
+        "tables": {
+            "empty": "何も映っていない。",
+            "next": "次",
+            "previous": "前",
+            "download": "ダウンロード"
+        },
+        "names": {
+            "appname": "アプリ",
+            "date": "日付",
+            "month": "月",
+            "type": "タイプ",
+            "sale": "販売合計",
+            "sale_count": "セール数",
+            "purchase": "購入合計",
+            "purchase_count": "購入数",
+            "name_color": "色",
+            "background_color": "背景色",
+            "name": "名",
+            "market_name": "名",
+            "market_hash_name": "名",
+            "year": "年",
+            "appid": "アプリ",
+            "is_credit": "販売タイプ",
+            "index": "索引",
+            "after_date": "日付後",
+            "before_date": "日付の前に",
+            "before": "前",
+            "after": "後に",
+            "start": "開始",
+            "end": "終わり"
+        },
+        "values": {
+            "is_credit": {
+                "0": "購入",
+                "1": "販売"
+            },
+            "name_color": {
+                "476291": "青",
+                "38F3AB": "ターコイズ",
+                "4D7455": "緑",
+                "7D6D00": "黄",
+                "8650AC": "紫の",
+                "AA0000": "赤",
+                "CF6A32": "オレンジ",
+                "D2D2D2": "グレー",
+                "FAFAFA": "白",
+                "32CD32": "エメラルド",
+                "ADE55C": "春の緑",
+                "8847FF": "バイオレット",
+                "4682B4": "スチールブルー"
+            }
+        },
+        "titles": {
+            "update": "更新",
+            "load": "負荷",
+            "annual": "年次",
+            "app": "アプリ",
+            "last_n_days": "最後の％s日",
+            "showing_last_n_days": "最近の％s日を表示中",
+            "steam_market": "蒸気市場",
+            "start_loading": "今すぐロードを開始",
+            "view_all": "全て見る",
+            "view_recent": "最近見ます",
+            "view_totals": "合計を見る",
+            "update_listings": "リストを更新する",
+            "purchase_history": "購入履歴",
+            "preferences": "設定",
+            "monthly": "毎月"
+        }
+    },
+    "db": {
+        "listings": {
+            "names": {
+                "transaction_id": "トランザクションID",
+                "appid": "アプリID",
+                "contextid": "コンテキストID",
+                "assetid": "資産ID",
+                "classid": "クラスID",
+                "instanceid": "インスタンスID",
+                "price": "価格",
+                "is_credit": "クレジット",
+                "date_listed": "出品日",
+                "date_acted": "に作用",
+                "name_color": "色",
+                "background_color": "背景色",
+                "name": "名",
+                "market_name": "名",
+                "market_hash_name": "名",
+                "index": "索引"
+            },
+            "column_names": {
+                "transaction_id": "トランザクションID",
+                "appid": "アプリID",
+                "contextid": "コンテキストID",
+                "assetid": "資産ID",
+                "classid": "クラスID",
+                "instanceid": "インスタンスID",
+                "price": "価格",
+                "is_credit": "​",
+                "date_listed": "出品日",
+                "date_acted": "に作用",
+                "name_color": "色",
+                "background_color": "背景色",
+                "name": "名",
+                "market_name": "名",
+                "market_hash_name": "名",
+                "index": "索引"
+            }
+        },
+        "accounttransactions": {
+            "names": {
+                "transaction_id": "トランザクションID",
+                "transaction_type": "タイプ",
+                "price": "合計",
+                "is_credit": "クレジット",
+                "count": "カウント",
+                "date": "日付"
+            },
+            "column_names": {
+                "transaction_id": "トランザクションID",
+                "transaction_type": "タイプ",
+                "price": "合計",
+                "is_credit": "​",
+                "count": "カウント",
+                "date": "日付"
+            },
+            "identifiers": {
+                "transaction_type": {
+                    "Market Transaction": 1,
+                    "In-Game Purchase": 2,
+                    "Purchase": 3,
+                    "Gift Purchase": 4,
+                    "Refund": 5
+                }
+            }
+        },
+        "gameitems": {
+            "names": {
+                "app": "アプリ",
+                "name": "名",
+                "price": "価格",
+                "count": "カウント"
+            }
+        }
+    }
+}

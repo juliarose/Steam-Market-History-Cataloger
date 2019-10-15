@@ -1,0 +1,1038 @@
+
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+@import url('https://fonts.googleapis.com/css?family=Slabo+27px');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300');
+
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+table, caption, tbody, tfoot, thead, tr, th, td {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+html {
+    font-size: 13px;
+}
+
+body {
+    /*
+    background: url('/images/layout/bg.jpg') no-repeat center center fixed;
+    background-size: cover;
+    */
+    background-color: #B7BDC4;
+    font-size: 13px;
+    color: #253242;
+    line-height: 1.8em;
+    font-family: "Open Sans", Corbel, "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "DejaVu Sans", "Bitstream Vera Sans", "Liberation Sans", Verdana, "Verdana Ref", sans-serif;
+}
+
+main {
+    position: relative;
+    padding: 4em 0;
+}
+
+/**************************************************/
+/* Headings
+/**************************************************/
+h1, h2, h3, h4, h5, h6 {
+    font-size: 1.6em;
+    font-weight: bold;
+    font-family: "Open Sans Condensed", sans-serif;
+    margin-bottom: 0.4em;
+    line-height: 1.8em;
+}
+
+h1 {
+    font-size: 2.4em;
+    border-bottom: 1px solid #253242;
+}
+
+/**************************************************/
+/* Inputs
+/**************************************************/
+input, select {
+    border: 1px solid #9DA2A8;
+    color: #36404D;
+    background-color: #C0C5CC;
+    box-shadow: 0px 1px 1px 1px rgba(138, 142, 148, 0.2);
+    padding: 0.5em 0.8em 0.5em 0.8em;
+    border-radius: 2px;
+    margin-right: 0.4em;
+    font-size: 0.85em;
+}
+
+input:disabled,
+select:disabled {
+    color: #566475;
+    background-color: #ADB1B8;
+}
+
+select {
+    min-width: 5em;
+    padding: 0.4em;
+}
+
+input[type=checkbox] {
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    margin: 0; /* Removes leftover margin */
+}
+
+input:focus {
+    outline: thin dotted;
+    outline-color: #36404D;
+}
+
+input[type=text].active {
+    border-color: #20A98A;
+    color: #119074;
+}
+
+input[type=date] {
+    position: relative;
+    width: 100%;
+    width: 9em;
+    height: 1.2em;
+    font-family: "Open Sans", Corbel, "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "DejaVu Sans", "Bitstream Vera Sans", "Liberation Sans", Verdana, "Verdana Ref", sans-serif;
+}
+
+input[type=date].active {
+    border-color: #20A98A;
+    color: #119074;
+}
+
+input[type=date]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    display: none;
+}
+
+input[type=date]::-webkit-calendar-picker-indicator {
+    color: transparent;
+    cursor: pointer;
+    background: none;
+    z-index: 1;
+}
+
+input[type=date]:before {
+    content: '\00a0';
+    content: '\25BF';
+    background: none;
+    cursor: pointer;
+    display: block;
+    position: absolute;
+    top: 20%;
+    right: 1em;
+}
+
+input[type=date]::-webkit-clear-button {
+    cursor: pointer;
+    padding-right: 0.3em;
+}
+
+/* May do something with these later */
+input[type=date]::-webkit-datetime-edit {
+    
+}
+input[type=date]::-webkit-datetime-edit-fields-wrapper {
+    
+}
+
+input[type=date]::-webkit-datetime-edit-text {
+}
+
+/*
+input[type=date]::-webkit-datetime-edit-month-field {
+    background-color: #F9FBFC;
+    text-transform: uppercase;
+}
+
+input[type=date]::-webkit-datetime-edit-day-field {
+    text-transform: uppercase;
+}
+
+input[type=date]::-webkit-datetime-edit-year-field {
+    text-transform: uppercase;
+}
+*/
+
+input[type=date]::-webkit-clear-button {
+    
+}
+
+/**************************************************/
+/* Tables
+/**************************************************/
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table tbody a {
+    color: #A4ABB3;
+    text-decoration: none;
+}
+
+td {
+    padding: 12px 12px;
+}
+
+th {
+    padding: 8px 12px;
+    line-height: 3em;
+    font-size: 0.8em;
+    color: #253242;
+    text-align: left;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-top: 1px solid #36404D;
+    white-space: nowrap;
+}
+
+tbody tr {
+    line-height: 1.6em;
+    color: #A4ABB3;
+    border-bottom: 1px solid #546173;
+    background-color: #36404D;
+}
+
+tbody tr:last-child {
+    border-bottom: none;
+}
+
+th.sortable {
+    cursor: pointer;
+    position: relative;
+    user-select: none;
+}
+
+th.sortable:after {
+    margin-left: 0.7em;
+    margin-top: -0.1em;
+    position: absolute;
+}
+
+th.sortable.desc:after {
+    content: ' \25B5';
+}
+
+th.sortable.desc:after {
+    content: ' \25B5';
+}
+
+th.sortable.asc:after {
+    content: ' \25BF';
+}
+
+th.sortable:hover {
+    color: #5D6C80;
+}
+
+td.price {
+    color: #C9CBCC;
+    text-align: right;
+}
+
+table .price,
+table .number {
+    text-align: right;
+}
+
+table .date {
+    width: 6.2em;
+}
+
+table .center {
+    text-align: center;
+}
+
+table .right {
+    text-align: right;
+}
+
+td.price {
+    width: 4.8em;
+    text-align: right;
+    font-weight: bold;
+}
+
+td.cond {
+    width: 1.4em;
+    font-weight: bold;
+    color: #B8B9BA;
+}
+
+.loss .sale-type {
+    color: #F9836A;
+}
+
+.gain .sale-type {
+    color: #20A98A;
+}
+
+/* since this column is empty we center the arrow */
+th.sortable.sale-type:after {
+    margin-left: -0.2em;
+}
+
+.empty-table {
+    border-radius: 5px;
+    font-size: 1.2em;
+    line-height: 1.6em;
+    padding: 1.4em 1.8em;
+    margin-top: 1em;
+    background-color: transparent;
+    border: 1px solid #36404D;
+    color: #253242;
+}
+
+/**************************************************/
+/* Buttons
+/**************************************************/
+button,
+.button {
+    border-radius: 5px;
+    border: 1px solid #8F9396;
+    color: #36404D;
+    padding: 0.5em 1.2em;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    line-height: 1.2em;
+    position: relative;
+    margin-right: 0.4em;
+    font-size: 0.85em;
+    cursor: pointer;
+    user-select: none;
+    box-shadow: 0px 1px 1px 1px rgba(138, 142, 148, 0.2);
+    background: #C5CAD1; /* Old browsers */
+    background: -moz-linear-gradient(left, #C5CAD1 0%, #C0C5CC 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(left, #C5CAD1 0%, #C0C5CC 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to right, #C5CAD1 0%, #C0C5CC 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#C5CAD1', endColorstr='#C0C5CC',GradientType=1 ); /* IE6-9 */
+}
+
+a .button {
+    font-weight: bold;
+    color: #D8DEE6;
+    border: 1px solid #11997b;
+    box-shadow: none;
+    /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#119074+0,11997b+100 */
+    background: #119074; /* Old browsers */
+    background: -moz-linear-gradient(left,  #119074 0%, #11997b 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(left,  #119074 0%,#11997b 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to right,  #119074 0%,#11997b 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#119074', endColorstr='#11997b',GradientType=1 ); /* IE6-9 */
+}
+
+a.placeholder .button {
+    cursor: default;
+}
+
+a .button:hover {
+    border: 1px solid #1FA385;
+    background: #1FA385;
+}
+
+button:hover,
+.button:hover {
+    background: #CACFD6;
+}
+
+button:active,
+.button:active {
+    background: #C0C5CC;
+}
+
+button.active,
+.button.active {
+    border-color: #20A98A;
+    color: #119074;
+}
+
+/* for icons */
+.button i {
+    margin-right: 0.4em;
+}
+
+.large.button {
+    width: 100%;
+    font-size: 1.3em;
+    padding: 1.2em 1.6em;
+    box-sizing: border-box;
+    border-color: #E6ECF2;
+    box-shadow: 0px 1px 6px 1px rgba(138, 142, 148, 0.6);
+    text-shadow: 1px 1px 2px #F0F3F5;
+    background: #DFE1E6; /* Old browsers */
+    background: -moz-linear-gradient(left, #DFE1E6 0%, #D7D9DE 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(left, #DFE1E6 0%, #D7D9DE 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to right, #DFE1E6 0%, #D7D9DE 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#DFE1E6', endColorstr='#D7D9DE',GradientType=1 ); /* IE6-9 */
+}
+
+.large.button:hover {
+    background: #DFE1E6;
+}
+
+.long.button {
+    width: 12em;
+}
+
+.action.button {
+    border-color: #E8D7AE;
+    /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#e3d39a+0,d9caa3+100 */
+    background: #e3d39a; /* Old browsers */
+    background: -moz-linear-gradient(left,  #e3d39a 0%, #d9caa3 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(left,  #e3d39a 0%,#d9caa3 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to right,  #e3d39a 0%,#d9caa3 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e3d39a', endColorstr='#d9caa3',GradientType=1 ); /* IE6-9 */
+}
+
+.action.button:hover {
+    background: #e3d39a;
+}
+
+.action.button:active {
+    background: #F0E0AA;
+}
+
+.steam.button {
+    color: #A4D7F5;
+    text-shadow: none;
+    border-color: #27688C;
+    background: #276283; /* Old browsers */
+    background: -moz-linear-gradient(left,  #276283 0%, #214F6A 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(left,  #276283 0%,#214F6A 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to right,  #276283 0%,#214F6A 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#276283', endColorstr='#214F6A',GradientType=1 ); /* IE6-9 */
+}
+
+.steam.button:hover {
+    background: #276283;
+}
+
+.steam.button:active {
+    background: #27688C;
+}
+
+/**************************************************/
+/* Alerts
+/**************************************************/
+.alert {
+    border-radius: 5px;
+    font-size: 1.2em;
+    line-height: 1.6em;
+    padding: 1.4em 1.8em;
+    width: 100%;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    color: #253242;
+    background-color: #CED1D6;
+    border: 1px solid #D3D6DB;
+}
+
+.alert p {
+    padding: 1.4em 1.8em;
+}
+
+/**************************************************/
+/* Dropdowns
+/**************************************************/
+.dropdown .button {
+    padding: 0.5em 2.2em 0.5em 1em;
+}
+
+.dropdown .button:after {
+    content: ' \25BF';
+    position: absolute;
+    top: 20%;
+    right: 1em;
+}
+
+.circle:before {
+    content: '\25CF ';
+    margin-right: 0.4em;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    display: inline-block;
+}
+
+.dropdown-content {
+    position: absolute;
+    z-index: 1;
+    right: 0.4em;
+    background-color: #F9FBFC;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.2);
+}
+
+.dropdown-content a {
+    color: #202429;
+    padding: 8px 12px;
+    text-decoration: none;
+    display: block;
+    min-width: 160px;
+}
+
+.dropdown-content a:hover {
+    background-color: #D0D6DE;
+}
+
+.dropdown-content a.none {
+    color: #909499;
+}
+
+/**************************************************/
+/* Layout
+/**************************************************/
+main.unloaded {
+    visibility: hidden;
+}
+
+.grid-container {
+    max-width: 800px;
+    min-width: 600px;
+    padding: 0 1em;
+    margin: 0 auto;
+}
+
+.grid-container:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.mini .grid-container {
+    max-width: 520px;
+    min-width: 520px;
+}
+
+.stretch {
+    width: 100%;
+    background-color: #1D1D1E;
+}
+
+.section {
+    margin-bottom: 1.6em;
+}
+
+.section:last-child {
+    margin-bottom: 0;
+}
+
+.indent {
+    padding: 1em;
+}
+
+.header {
+    margin-top: 1.6em;
+}
+
+/**************************************************/
+/* Header stripes
+/**************************************************/
+.stripe,
+.load-progress-bar {
+    height: 0.5em;
+    background-color: #36404D;
+    width: 100%;
+}
+
+.load-progress-bar {
+    background-color: #20A98A;
+    width: 0;
+}
+
+/**************************************************/
+/* Controls
+/**************************************************/
+.control {
+    user-select: none;
+}
+
+.table-controls {
+    text-align: right;
+}
+
+.table-controls.top {
+    margin-bottom: 1em;
+}
+
+.table-controls.bottom {
+    margin-top: 1em;
+}
+
+.table-controls .item {
+    text-align: left;
+}
+
+.table-controls button {
+    margin-right: 0;
+}
+
+.item:last-child .button {
+    margin-right: 0;
+}
+
+.item:last-child .dropdown-content {
+    right: 0;
+}
+
+.controls .table-title {
+    line-height: inherit;
+    margin: 0;
+}
+
+/**************************************************/
+/* Pagination
+/**************************************************/
+.pagination {
+    display: inline-block;
+}
+
+.pagination div {
+    display: inline-block;
+}
+
+.pagination .index {
+    width: 6.4em;
+    font-size: 0.9em;
+    text-align: center;
+    margin-right: 0.4em;
+}
+
+.pagination .index input,
+.pagination .index .range {
+    font-size: 0.9em;
+}
+
+.pagination .index .range {
+    margin-left: 0.4em;
+    display: inline-block;
+}
+
+.pagination .control.previous {
+    border-top-right-radius: 0; 
+    border-bottom-right-radius: 0;
+    border-right: 0;
+    margin-right: 0;
+}
+
+.pagination .control.next {
+    border-top-left-radius: 0; 
+    border-bottom-left-radius: 0;
+    border-left: 1px solid #86898C !important;
+}
+
+.pagination .control.disabled {
+    color: #747980;
+    border-color: #7D838A;
+    background: #B0B5BD;
+}
+
+.pagination .control.disabled:hover {
+    background: #B0B5BD;
+}
+
+/**************************************************/
+/* Loading display
+/**************************************************/
+.center-spinner {
+    width: 64px;
+    margin: 0 auto;
+}
+
+.content-loader {
+    width: 64px;
+    float: left;
+    position: absolute;
+    top: 0.6em;
+    left: 0.6em;
+    z-index: -1;
+}
+
+.lds-default {
+  display: inline-block;
+  position: relative;
+  width: 64px;
+  height: 64px;
+}
+
+.lds-default div {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  background: #253242;
+  border-radius: 50%;
+  animation: lds-default 1.2s linear infinite;
+}
+
+.lds-default div:nth-child(1) {
+    animation-delay: 0s;
+    top: 29px;
+    left: 53px;
+}
+
+.lds-default div:nth-child(2) {
+    animation-delay: -0.1s;
+    top: 18px;
+    left: 50px;
+}
+
+.lds-default div:nth-child(3) {
+    animation-delay: -0.2s;
+    top: 9px;
+    left: 41px;
+}
+
+.lds-default div:nth-child(4) {
+    animation-delay: -0.3s;
+    top: 6px;
+    left: 29px;
+}
+
+.lds-default div:nth-child(5) {
+    animation-delay: -0.4s;
+    top: 9px;
+    left: 18px;
+}
+
+.lds-default div:nth-child(6) {
+    animation-delay: -0.5s;
+    top: 18px;
+    left: 9px;
+}
+
+.lds-default div:nth-child(7) {
+    animation-delay: -0.6s;
+    top: 29px;
+    left: 6px;
+}
+
+.lds-default div:nth-child(8) {
+    animation-delay: -0.7s;
+    top: 41px;
+    left: 9px;
+}
+
+.lds-default div:nth-child(9) {
+    animation-delay: -0.8s;
+    top: 50px;
+    left: 18px;
+}
+
+.lds-default div:nth-child(10) {
+    animation-delay: -0.9s;
+    top: 53px;
+    left: 29px;
+}
+
+.lds-default div:nth-child(11) {
+    animation-delay: -1s;
+    top: 50px;
+    left: 41px;
+}
+
+.lds-default div:nth-child(12) {
+    animation-delay: -1.1s;
+    top: 41px;
+    left: 50px;
+}
+
+@keyframes lds-default {
+    0%, 20%, 80%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.5);
+    }
+}
+
+/* CSS spinner from https://loading.io/css/ */
+.lds-spinner {
+    color: official;
+    display: inline-block;
+    position: relative;
+    width: 64px;
+    height: 64px;
+}
+
+.lds-spinner div {
+    transform-origin: 32px 32px;
+    animation: lds-spinner 1.2s linear infinite;
+}
+
+.lds-spinner div:after {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 3px;
+    left: 29px;
+    width: 5px;
+    height: 14px;
+    border-radius: 20%;
+    background: #253242;
+}
+
+.ids-spinner-small {
+    width: 40px;
+    height: 40px;
+}
+
+.ids-spinner-small div {
+    transform-origin: 20px 20px;
+}
+
+.ids-spinner-small:after {
+    top: 2px;
+    left: 18px;
+    width: 3px;
+    height: 9px;
+}
+
+.lds-spinner div:nth-child(1) {
+    transform: rotate(0deg);
+    animation-delay: -1.1s;
+}
+
+.lds-spinner div:nth-child(2) {
+    transform: rotate(30deg);
+    animation-delay: -1s;
+}
+
+.lds-spinner div:nth-child(3) {
+    transform: rotate(60deg);
+    animation-delay: -0.9s;
+}
+
+.lds-spinner div:nth-child(4) {
+    transform: rotate(90deg);
+    animation-delay: -0.8s;
+}
+
+.lds-spinner div:nth-child(5) {
+    transform: rotate(120deg);
+    animation-delay: -0.7s;
+}
+
+.lds-spinner div:nth-child(6) {
+    transform: rotate(150deg);
+    animation-delay: -0.6s;
+}
+
+.lds-spinner div:nth-child(7) {
+    transform: rotate(180deg);
+    animation-delay: -0.5s;
+}
+
+.lds-spinner div:nth-child(8) {
+    transform: rotate(210deg);
+    animation-delay: -0.4s;
+}
+
+.lds-spinner div:nth-child(9) {
+    transform: rotate(240deg);
+    animation-delay: -0.3s;
+}
+
+.lds-spinner div:nth-child(10) {
+    transform: rotate(270deg);
+    animation-delay: -0.2s;
+}
+
+.lds-spinner div:nth-child(11) {
+    transform: rotate(300deg);
+    animation-delay: -0.1s;
+}
+
+.lds-spinner div:nth-child(12) {
+    transform: rotate(330deg);
+    animation-delay: 0s;
+}
+
+@keyframes lds-spinner {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes progress-ellipsis {
+    20% {
+        content: '\00a0\00a0\00a0';
+    }
+    40% {
+        content: '.\00a0\00a0';
+    }
+    60% {
+        content: '..\00a0';
+    }
+    80% {
+        content: '...';
+    }
+}
+
+.progress-load {
+    position: absolute;
+    z-index: -1;
+    top: 24px;
+    left: 12px;
+    width: 64px;
+    height: 64px;
+    text-align: center;
+}
+
+/**************************************************/
+/* Tooltips
+/**************************************************/
+.tooltip {    
+    z-index: 100;
+    position: absolute;
+    background-color: #13161A;
+    background-image: url('/images/layout/item_tooltip.png');
+    background-repeat: no-repeat;
+    color: #B3B3B3;
+    font-weight: normal;
+    padding: 22px 12px;
+    line-height: 1.4em;
+    box-sizing: border-box;
+    border: 2px solid #FFFFFF;
+    box-shadow: 0px 1px 1px 1px rgba(138, 142, 148, 0.2);
+    width: 354px;
+}
+
+.tooltip .header-image {
+    display: table-cell;
+    vertical-align: middle;
+    height: 192px;
+}
+
+.tooltip h4 {
+    font-size: 1.8em;
+    margin-bottom: 0;
+}
+
+/**************************************************/
+/* Generic
+/**************************************************/
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+.absolute-center {
+    position: absolute;
+    z-index: -1;
+    top: 50%;
+    left: 50%;
+    width: 64px;
+    height: 64px;
+    margin-top: -32px;
+    margin-left: -32px;
+    text-align: center;
+}
+
+.hidden {
+    /* Something with this class should definitely appear hidden */
+    display: none !important;
+}
+
+/**************************************************/
+/* Progress
+/**************************************************/
+/* CSS progress bars based on https://css-tricks.com/css3-progress-bars */
+
+.meter {
+    width: 100%;
+    height: 0.8em;
+    position: relative;
+    user-select: none;
+    background: #FFFFFF;
+    /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#39424e+0,39424e+100&0.2+0,0.39+100 */
+    background: -moz-linear-gradient(top, rgba(57,66,78,0.2) 0%, rgba(57,66,78,0.39) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, rgba(57,66,78,0.2) 0%,rgba(57,66,78,0.39) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, rgba(57,66,78,0.2) 0%,rgba(57,66,78,0.39) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3339424e', endColorstr='#6339424e',GradientType=0 ); /* IE6-9 */
+}
+
+.meter > span {
+    display: block;
+    height: 100%;
+    background-color: rgb(32,169,138);
+    background-image: -webkit-gradient(
+      linear,
+      left bottom,
+      left top,
+      color-stop(0, rgb(32,169,138)),
+      color-stop(1, rgb(28,199,160))
+     );
+    background-image: -moz-linear-gradient(
+      center bottom,
+      rgb(43,194,83) 37%,
+      rgb(84,240,84) 69%
+     );
+    position: relative;
+    overflow: hidden;
+}
+
+.meter > span:after, .animate > span > span {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+    background-image: -webkit-gradient(
+        linear, 0 0, 100% 100%, 
+        color-stop(.25, rgba(255, 255, 255, .2)), 
+        color-stop(.25, transparent), color-stop(.5, transparent), 
+        color-stop(.5, rgba(255, 255, 255, .2)), 
+        color-stop(.75, rgba(255, 255, 255, .2)), 
+        color-stop(.75, transparent), to(transparent)
+    );
+    background-image: -moz-linear-gradient(
+        -45deg, 
+        rgba(255, 255, 255, .2) 25%, 
+        transparent 25%, 
+        transparent 50%, 
+        rgba(255, 255, 255, .2) 50%, 
+        rgba(255, 255, 255, .2) 75%, 
+        transparent 75%, 
+        transparent
+    );
+    z-index: 1;
+    -webkit-background-size: 50px 50px;
+    -moz-background-size: 50px 50px;
+    -webkit-animation: move 2s linear infinite;
+    overflow: hidden;
+}
+
+.animate > span:after {
+    display: none;
+}
+
+@-webkit-keyframes move {
+    0% {
+       background-position: 0 0;
+    }
+    100% {
+       background-position: 50px 50px;
+    }
+}
+
+.nostripes > span > span, .nostripes > span:after {
+    -webkit-animation: none;
+    background-image: none;
+}

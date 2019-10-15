@@ -1,0 +1,164 @@
+{
+    "months": {
+        "abbreviations": [
+            "Ιαν",
+            "Φεβ",
+            "Μαρ",
+            "Απρ",
+            "Μαϊ",
+            "Ιουν",
+            "Ιουλ",
+            "Αυγ",
+            "Σεπ",
+            "Οκτ",
+            "Νοε",
+            "Δεκ"
+        ]
+    },
+    "ui": {
+        "tables": {
+            "empty": "Τίποτα για προβολή.",
+            "next": "Επόμενο",
+            "previous": "Προηγούμενος",
+            "download": "Κατεβάστε"
+        },
+        "names": {
+            "appname": "App",
+            "date": "Ημερομηνία",
+            "month": "Μήνας",
+            "type": "Τύπος",
+            "sale": "Σύνολο πωλήσεων",
+            "sale_count": "Καταμέτρηση πωλήσεων",
+            "purchase": "Σύνολο αγορών",
+            "purchase_count": "Καταμέτρηση αγορών",
+            "name_color": "Χρώμα",
+            "background_color": "Χρώμα του φόντου",
+            "name": "Ονομα",
+            "market_name": "Ονομα",
+            "market_hash_name": "Ονομα",
+            "year": "Ετος",
+            "appid": "App",
+            "is_credit": "Τύπος πώλησης",
+            "index": "Δείκτης",
+            "after_date": "Μετά την ημερομηνίαν ταυτήν",
+            "before_date": "Πριν από την ημερομηνία",
+            "before": "Πριν",
+            "after": "Μετά",
+            "start": "Αρχή",
+            "end": "Τέλος"
+        },
+        "values": {
+            "is_credit": {
+                "0": "Αγορά",
+                "1": "Πώληση"
+            },
+            "name_color": {
+                "476291": "Μπλε",
+                "38F3AB": "Τουρκουάζ",
+                "4D7455": "Πράσινος",
+                "7D6D00": "Κίτρινος",
+                "8650AC": "Μωβ",
+                "AA0000": "το κόκκινο",
+                "CF6A32": "Πορτοκάλι",
+                "D2D2D2": "Γκρί",
+                "FAFAFA": "λευκό",
+                "32CD32": "σμαράγδι",
+                "ADE55C": "Άνοιξη πράσινο",
+                "8847FF": "Βιολέτα",
+                "4682B4": "Steel Blue"
+            }
+        },
+        "titles": {
+            "update": "Εκσυγχρονίζω",
+            "load": "Φορτώνω",
+            "annual": "Ετήσιος",
+            "app": "App",
+            "last_n_days": "Τελευταίες ημέρες% s",
+            "showing_last_n_days": "Εμφάνιση τελευταίων% s ημερών",
+            "steam_market": "Αγορά ατμού",
+            "start_loading": "Ξεκινήστε τη φόρτωση τώρα",
+            "view_all": "Δείτε όλα",
+            "view_recent": "Προβολή πρόσφατων",
+            "view_totals": "Δείτε σύνολα",
+            "update_listings": "Ενημέρωση λιστών",
+            "purchase_history": "Ιστορικό αγορών",
+            "preferences": "Προτιμήσεις",
+            "monthly": "Μηνιαίος"
+        }
+    },
+    "db": {
+        "listings": {
+            "names": {
+                "transaction_id": "Ταυτότητα συναλλαγής",
+                "appid": "Αναγνωριστικό εφαρμογής",
+                "contextid": "Αναγνωριστικό περιβάλλοντος",
+                "assetid": "Αναγνωριστικό περιουσιακών στοιχείων",
+                "classid": "Αναγνωριστικό κλάσης",
+                "instanceid": "Αναγνωριστικό συμβάντος",
+                "price": "Τιμή",
+                "is_credit": "Πίστωση",
+                "date_listed": "РАЗМЕЩЕНО",
+                "date_acted": "ДАТА СДЕЛКИ",
+                "name_color": "Χρώμα",
+                "background_color": "Χρώμα του φόντου",
+                "name": "Ονομα",
+                "market_name": "Ονομα",
+                "market_hash_name": "Ονομα",
+                "index": "Δείκτης"
+            },
+            "column_names": {
+                "transaction_id": "Ταυτότητα συναλλαγής",
+                "appid": "Αναγνωριστικό εφαρμογής",
+                "contextid": "Αναγνωριστικό περιβάλλοντος",
+                "assetid": "Αναγνωριστικό περιουσιακών στοιχείων",
+                "classid": "Αναγνωριστικό κλάσης",
+                "instanceid": "Αναγνωριστικό συμβάντος",
+                "price": "Τιμή",
+                "is_credit": "​",
+                "date_listed": "РАЗМЕЩЕНО",
+                "date_acted": "ДАТА СДЕЛКИ",
+                "name_color": "Χρώμα",
+                "background_color": "Χρώμα του φόντου",
+                "name": "Ονομα",
+                "market_name": "Ονομα",
+                "market_hash_name": "Ονομα",
+                "index": "Δείκτης"
+            }
+        },
+        "accounttransactions": {
+            "names": {
+                "transaction_id": "Ταυτότητα συναλλαγής",
+                "transaction_type": "Τύπος",
+                "price": "Σύνολο",
+                "is_credit": "Πίστωση",
+                "count": "μετρώ",
+                "date": "Ημερομηνία"
+            },
+            "column_names": {
+                "transaction_id": "Ταυτότητα συναλλαγής",
+                "transaction_type": "Τύπος",
+                "price": "Σύνολο",
+                "is_credit": "​",
+                "count": "μετρώ",
+                "date": "Ημερομηνία"
+            },
+            "identifiers": {
+                "transaction_type": {
+                    "Market Transaction": 1,
+                    "In-Game Purchase": 2,
+                    "Purchase": 3,
+                    "Gift Purchase": 4,
+                    "Refund": 5
+                }
+            }
+        },
+        "gameitems": {
+            "names": {
+                "app": "App",
+                "name": "Ονομα",
+                "price": "Τιμή",
+                "count": "μετρώ"
+            }
+        }
+    }
+}

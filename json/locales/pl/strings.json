@@ -1,0 +1,164 @@
+{
+    "months": {
+        "abbreviations": [
+            "stycznia|stycz",
+            "lutego|luty",
+            "marca|mar",
+            "kwietnia|kwiec",
+            "maja|maj",
+            "czerwca|czerw",
+            "lipca|lip",
+            "sierpnia|sierp",
+            "września|wrześ|wrzes",
+            "października|paźdz|pazdz",
+            "listopada|listop",
+            "grudnia|grudz"
+        ]
+    },
+    "ui": {
+        "tables": {
+            "empty": "Nic do wyświetlenia.",
+            "next": "Kolejny",
+            "previous": "Poprzedni",
+            "download": "Ściągnij"
+        },
+        "names": {
+            "appname": "App",
+            "date": "Data",
+            "month": "Miesiąc",
+            "type": "Rodzaj",
+            "sale": "Całkowita sprzedaż",
+            "sale_count": "Liczba sprzedaży",
+            "purchase": "Zakup łącznie",
+            "purchase_count": "Liczba zakupów",
+            "name_color": "Kolor",
+            "background_color": "Kolor tła",
+            "name": "Imię",
+            "market_name": "Imię",
+            "market_hash_name": "Imię",
+            "year": "Rok",
+            "appid": "App",
+            "is_credit": "Typ sprzedaży",
+            "index": "Indeks",
+            "after_date": "Po dacie",
+            "before_date": "Przed datą",
+            "before": "Przed",
+            "after": "Po",
+            "start": "Początek",
+            "end": "Koniec"
+        },
+        "values": {
+            "is_credit": {
+                "0": "Zakup",
+                "1": "Sprzedaż"
+            },
+            "name_color": {
+                "476291": "niebieski",
+                "38F3AB": "Turkus",
+                "4D7455": "Zielony",
+                "7D6D00": "Żółty",
+                "8650AC": "Fioletowy",
+                "AA0000": "Czerwony",
+                "CF6A32": "Pomarańczowy",
+                "D2D2D2": "Szary",
+                "FAFAFA": "Biały",
+                "32CD32": "Szmaragd",
+                "ADE55C": "Wiosenna zieleń",
+                "8847FF": "Fioletowy",
+                "4682B4": "Stalowo - niebieski"
+            }
+        },
+        "titles": {
+            "update": "Aktualizacja",
+            "load": "Obciążenie",
+            "annual": "Roczny",
+            "app": "App",
+            "last_n_days": "Ostatnie% s dni",
+            "showing_last_n_days": "Wyświetlanie ostatnich% s dni",
+            "steam_market": "Rynek Steam",
+            "start_loading": "Zacznij ładować teraz",
+            "view_all": "Pokaż wszystkie",
+            "view_recent": "Wyświetl ostatnie",
+            "view_totals": "Wyświetl sumy",
+            "update_listings": "Aktualizuj listę",
+            "purchase_history": "Historia zakupów",
+            "preferences": "Preferencje",
+            "monthly": "Miesięczny"
+        }
+    },
+    "db": {
+        "listings": {
+            "names": {
+                "transaction_id": "Identyfikator transakcji",
+                "appid": "Identyfikator aplikacji",
+                "contextid": "ID kontekstu",
+                "assetid": "ID zasobu",
+                "classid": "Identyfikator klasy",
+                "instanceid": "Identyfikator instancji",
+                "price": "Cena £",
+                "is_credit": "Kredyt",
+                "date_listed": "Wymienione na",
+                "date_acted": "Działał dalej",
+                "name_color": "Kolor",
+                "background_color": "Kolor tła",
+                "name": "Imię",
+                "market_name": "Imię",
+                "market_hash_name": "Imię",
+                "index": "Indeks"
+            },
+            "column_names": {
+                "transaction_id": "Identyfikator transakcji",
+                "appid": "Identyfikator aplikacji",
+                "contextid": "ID kontekstu",
+                "assetid": "ID zasobu",
+                "classid": "Identyfikator klasy",
+                "instanceid": "Identyfikator instancji",
+                "price": "Cena £",
+                "is_credit": "​",
+                "date_listed": "Wymienione na",
+                "date_acted": "Działał dalej",
+                "name_color": "Kolor",
+                "background_color": "Kolor tła",
+                "name": "Imię",
+                "market_name": "Imię",
+                "market_hash_name": "Imię",
+                "index": "Indeks"
+            }
+        },
+        "accounttransactions": {
+            "names": {
+                "transaction_id": "Identyfikator transakcji",
+                "transaction_type": "Rodzaj",
+                "price": "Całkowity",
+                "is_credit": "Kredyt",
+                "count": "Liczyć",
+                "date": "Data"
+            },
+            "column_names": {
+                "transaction_id": "Identyfikator transakcji",
+                "transaction_type": "Rodzaj",
+                "price": "Całkowity",
+                "is_credit": "​",
+                "count": "Liczyć",
+                "date": "Data"
+            },
+            "identifiers": {
+                "transaction_type": {
+                    "Market Transaction": 1,
+                    "In-Game Purchase": 2,
+                    "Purchase": 3,
+                    "Gift Purchase": 4,
+                    "Refund": 5
+                }
+            }
+        },
+        "gameitems": {
+            "names": {
+                "app": "App",
+                "name": "Imię",
+                "price": "Cena £",
+                "count": "Liczyć"
+            }
+        }
+    }
+}

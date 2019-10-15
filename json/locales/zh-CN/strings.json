@@ -1,0 +1,151 @@
+{
+    "months": {
+        "abbreviations": []
+    },
+    "ui": {
+        "tables": {
+            "empty": "无内容显示。",
+            "next": "下一个",
+            "previous": "以前",
+            "download": "下载"
+        },
+        "names": {
+            "appname": "应用",
+            "date": "日期",
+            "month": "月",
+            "type": "类型",
+            "sale": "销售总额",
+            "sale_count": "销售数量",
+            "purchase": "购买总计",
+            "purchase_count": "购买计数",
+            "name_color": "颜色",
+            "background_color": "背景颜色",
+            "name": "名称",
+            "market_name": "名称",
+            "market_hash_name": "名称",
+            "year": "年",
+            "appid": "应用",
+            "is_credit": "销售类型",
+            "index": "指数",
+            "after_date": "日期之后",
+            "before_date": "在日期之前",
+            "before": "之前",
+            "after": "后",
+            "start": "开始",
+            "end": "结束"
+        },
+        "values": {
+            "is_credit": {
+                "0": "采购",
+                "1": "拍卖"
+            },
+            "name_color": {
+                "476291": "蓝色",
+                "38F3AB": "绿松石",
+                "4D7455": "绿色",
+                "7D6D00": "黄色",
+                "8650AC": "紫色",
+                "AA0000": "红色",
+                "CF6A32": "橙子",
+                "D2D2D2": "灰色",
+                "FAFAFA": "白色",
+                "32CD32": "翠",
+                "ADE55C": "春天的绿色",
+                "8847FF": "紫色",
+                "4682B4": "钢蓝"
+            }
+        },
+        "titles": {
+            "update": "更新",
+            "load": "加载",
+            "annual": "全年",
+            "app": "应用",
+            "last_n_days": "最后％s天",
+            "showing_last_n_days": "显示最近％s天",
+            "steam_market": "蒸汽市场",
+            "start_loading": "立即开始加载",
+            "view_all": "查看全部",
+            "view_recent": "查看最近",
+            "view_totals": "查看总计",
+            "update_listings": "更新列表",
+            "purchase_history": "购买历史",
+            "preferences": "喜好",
+            "monthly": "每月一次"
+        }
+    },
+    "db": {
+        "listings": {
+            "names": {
+                "transaction_id": "交易ID",
+                "appid": "应用程序ID",
+                "contextid": "上下文ID",
+                "assetid": "资产ID",
+                "classid": "班级号",
+                "instanceid": "实例ID",
+                "price": "价钱",
+                "is_credit": "信用",
+                "date_listed": "上市",
+                "date_acted": "采取行动",
+                "name_color": "颜色",
+                "background_color": "背景颜色",
+                "name": "名称",
+                "market_name": "名称",
+                "market_hash_name": "名称",
+                "index": "指数"
+            },
+            "column_names": {
+                "transaction_id": "交易ID",
+                "appid": "应用程序ID",
+                "contextid": "上下文ID",
+                "assetid": "资产ID",
+                "classid": "班级号",
+                "instanceid": "实例ID",
+                "price": "价钱",
+                "is_credit": "​",
+                "date_listed": "上市",
+                "date_acted": "采取行动",
+                "name_color": "颜色",
+                "background_color": "背景颜色",
+                "name": "名称",
+                "market_name": "名称",
+                "market_hash_name": "名称",
+                "index": "指数"
+            }
+        },
+        "accounttransactions": {
+            "names": {
+                "transaction_id": "交易ID",
+                "transaction_type": "类型",
+                "price": "总",
+                "is_credit": "信用",
+                "count": "计数",
+                "date": "日期"
+            },
+            "column_names": {
+                "transaction_id": "交易ID",
+                "transaction_type": "类型",
+                "price": "总",
+                "is_credit": "​",
+                "count": "计数",
+                "date": "日期"
+            },
+            "identifiers": {
+                "transaction_type": {
+                    "Market Transaction": 1,
+                    "In-Game Purchase": 2,
+                    "Purchase": 3,
+                    "Gift Purchase": 4,
+                    "Refund": 5
+                }
+            }
+        },
+        "gameitems": {
+            "names": {
+                "app": "应用",
+                "name": "名称",
+                "price": "价钱",
+                "count": "计数"
+            }
+        }
+    }
+}

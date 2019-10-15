@@ -1,0 +1,164 @@
+{
+    "months": {
+        "abbreviations": [
+            "Oca",
+            "Şub",
+            "Mar",
+            "Nis",
+            "May",
+            "Haz",
+            "Tem",
+            "Ağu",
+            "Eyl",
+            "Eki",
+            "Kas",
+            "Ara"
+        ]
+    },
+    "ui": {
+        "tables": {
+            "empty": "Gösterilecek bir şey yok.",
+            "next": "Sonraki",
+            "previous": "Önceki",
+            "download": "İndir"
+        },
+        "names": {
+            "appname": "Uygulama",
+            "date": "tarih",
+            "month": "Ay",
+            "type": "tip",
+            "sale": "Satış Toplamı",
+            "sale_count": "Satış Sayısı",
+            "purchase": "Satın Alma Toplamı",
+            "purchase_count": "Satın Alma Sayısı",
+            "name_color": "Renk",
+            "background_color": "Arka plan rengi",
+            "name": "isim",
+            "market_name": "isim",
+            "market_hash_name": "isim",
+            "year": "Yıl",
+            "appid": "Uygulama",
+            "is_credit": "Satış türü",
+            "index": "indeks",
+            "after_date": "Tarihten Sonra",
+            "before_date": "Tarihten Önce",
+            "before": "Önce",
+            "after": "Sonra",
+            "start": "başla",
+            "end": "Son"
+        },
+        "values": {
+            "is_credit": {
+                "0": "Satın alma",
+                "1": "Satış"
+            },
+            "name_color": {
+                "476291": "Mavi",
+                "38F3AB": "Turkuaz",
+                "4D7455": "Yeşil",
+                "7D6D00": "Sarı",
+                "8650AC": "Mor",
+                "AA0000": "Kırmızı",
+                "CF6A32": "Portakal",
+                "D2D2D2": "Gri",
+                "FAFAFA": "Beyaz",
+                "32CD32": "Zümrüt",
+                "ADE55C": "İlkbahar yesili",
+                "8847FF": "Menekşe",
+                "4682B4": "Çelik mavi"
+            }
+        },
+        "titles": {
+            "update": "Güncelleştirme",
+            "load": "Yük",
+            "annual": "Yıllık",
+            "app": "Uygulama",
+            "last_n_days": "Son% s gün",
+            "showing_last_n_days": "Son% s gün gösteriliyor",
+            "steam_market": "Buhar pazarı",
+            "start_loading": "Şimdi yüklemeye başla",
+            "view_all": "Hepsini gör",
+            "view_recent": "Son görüntüle",
+            "view_totals": "Toplamları görüntüle",
+            "update_listings": "Listeleri güncelle",
+            "purchase_history": "Satın alım geçmişi",
+            "preferences": "Tercihler",
+            "monthly": "Aylık"
+        }
+    },
+    "db": {
+        "listings": {
+            "names": {
+                "transaction_id": "İşlem Kimliği",
+                "appid": "Uygulama kimliği",
+                "contextid": "İçerik Kimliği",
+                "assetid": "Varlık Kimliği",
+                "classid": "Sınıf kimliği",
+                "instanceid": "Örnek Kimliği",
+                "price": "Fiyat",
+                "is_credit": "Kredi",
+                "date_listed": "Listelenen",
+                "date_acted": "Harekete geç",
+                "name_color": "Renk",
+                "background_color": "Arka plan rengi",
+                "name": "isim",
+                "market_name": "isim",
+                "market_hash_name": "isim",
+                "index": "indeks"
+            },
+            "column_names": {
+                "transaction_id": "İşlem Kimliği",
+                "appid": "Uygulama kimliği",
+                "contextid": "İçerik Kimliği",
+                "assetid": "Varlık Kimliği",
+                "classid": "Sınıf kimliği",
+                "instanceid": "Örnek Kimliği",
+                "price": "Fiyat",
+                "is_credit": "​",
+                "date_listed": "Listelenen",
+                "date_acted": "Harekete geç",
+                "name_color": "Renk",
+                "background_color": "Arka plan rengi",
+                "name": "isim",
+                "market_name": "isim",
+                "market_hash_name": "isim",
+                "index": "indeks"
+            }
+        },
+        "accounttransactions": {
+            "names": {
+                "transaction_id": "İşlem Kimliği",
+                "transaction_type": "tip",
+                "price": "Genel Toplam",
+                "is_credit": "Kredi",
+                "count": "saymak",
+                "date": "tarih"
+            },
+            "column_names": {
+                "transaction_id": "İşlem Kimliği",
+                "transaction_type": "tip",
+                "price": "Genel Toplam",
+                "is_credit": "​",
+                "count": "saymak",
+                "date": "tarih"
+            },
+            "identifiers": {
+                "transaction_type": {
+                    "Market Transaction": 1,
+                    "In-Game Purchase": 2,
+                    "Purchase": 3,
+                    "Gift Purchase": 4,
+                    "Refund": 5
+                }
+            }
+        },
+        "gameitems": {
+            "names": {
+                "app": "Uygulama",
+                "name": "isim",
+                "price": "Fiyat",
+                "count": "saymak"
+            }
+        }
+    }
+}

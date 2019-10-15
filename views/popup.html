@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Market Databaser</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous" />
+    <link rel="stylesheet" type="text/css" href="/css/views/base.css" />
+    <link rel="stylesheet" type="text/css" href="/css/views/popup.css" />
+</head>
+
+<body>
+    <main class="main">
+        <div id="contents" class="grid-container section">
+            <div id="controls">
+                <div class="large steam button" id="steam-market-btn"><i class="fab fa-steam fa-fw"></i> <span>Steam market</span></div>
+                <div class="large logged-in action button hidden" id="start-loading-btn"><i class="fas fa-sync-alt fa-fw"></i> <span>Start loading now</span></div>
+                <div class="large logged-in button" id="view-page-btn"><i class="fas fa-table fa-fw"></i> <span>View all</span></div>
+                <div class="large logged-in button" id="view-recent-page-btn"><i class="fas fa-table fa-fw"></i> <span>View recent</span></div>
+                <div class="large logged-in button" id="view-totals-page-btn"><i class="fas fa-table fa-fw"></i> <span>View totals</span></div>
+                <div class="large logged-in button" id="load-listings-page-btn"><i class="fas fa-database fa-fw"></i> <span>Update listings</span></div>
+                <div class="large logged-in button" id="load-purchases-page-btn"><i class="fas fa-receipt fa-fw"></i> Purchase history</span></div>
+                <div class="large logged-in button" id="preferences-page-btn"><i class="fas fa-cog fa-fw"></i> <span>Preferences</span></div>
+            </div>
+            <div id="user">
+            </div>
+        </div>
+    </main>
+    
+    <script src="/js/lib/velocity.min.js" type="text/javascript"></script>
+    <script src="/js/lib/velocity.ui.min.js" type="text/javascript"></script>
+    <script src="/js/lib/dexie.js" type="text/javascript"></script>
+    <script src="/js/views/ui.base.js" type="module"></script>
+    <script src="/js/views/popup.js" type="module"></script>
+</body>
+
+</html>

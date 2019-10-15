@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Market Databaser</title>
+    <link rel="stylesheet" type="text/css" href="/css/views/base.css" />
+    <link rel="stylesheet" type="text/css" href="/css/views/listings.css" />
+    <link rel="stylesheet" type="text/css" href="/css/views/load.css" />
+</head>
+
+<body>
+    <div class="stripe"></div>
+    <div id="progress" class="load-progress-bar"></div>
+    <main id="main" class="main unloaded">
+        <div class="grid-container">
+            <div class="meter animate hidden">
+                <span style="width: 40%"><span></span></span>
+            </div>
+            <div id="query" class="query"></div>
+            <div id="results"></div>
+        </div>
+        
+    </main>
+    
+    <script src="/js/lib/velocity.min.js" type="text/javascript"></script>
+    <script src="/js/lib/velocity.ui.min.js" type="text/javascript"></script>
+    <script src="/js/lib/dexie.js" type="text/javascript"></script>
+    <script src="/js/views/ui.base.js" type="module"></script>
+    <script src="/js/views/ui.view.js" type="module"></script>
+    <script src="/js/views/test.js" type="module"></script>
+</body>
+
+</html>

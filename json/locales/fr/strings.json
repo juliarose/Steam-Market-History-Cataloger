@@ -1,0 +1,164 @@
+{
+    "months": {
+        "abbreviations": [
+            "janv|jan",
+            "févr|fev",
+            "mars|mar",
+            "avr",
+            "mai",
+            "juin|jun",
+            "juil|jul",
+            "août",
+            "sept|sep",
+            "oct",
+            "nov",
+            "déc"
+        ]
+    },
+    "ui": {
+        "tables": {
+            "empty": "Rien à afficher.",
+            "next": "Suivant",
+            "previous": "précédent",
+            "download": "Télécharger"
+        },
+        "names": {
+            "appname": "App",
+            "date": "Rendez-vous amoureux",
+            "month": "Mois",
+            "type": "Type",
+            "sale": "Total de la vente",
+            "sale_count": "Nombre de vente",
+            "purchase": "Total de l'achat",
+            "purchase_count": "Compte d'achat",
+            "name_color": "Couleur",
+            "background_color": "Couleur de fond",
+            "name": "prénom",
+            "market_name": "prénom",
+            "market_hash_name": "prénom",
+            "year": "Année",
+            "appid": "App",
+            "is_credit": "Type de vente",
+            "index": "Indice",
+            "after_date": "Après la date",
+            "before_date": "Avant la date",
+            "before": "Avant",
+            "after": "Après",
+            "start": "Début",
+            "end": "Fin"
+        },
+        "values": {
+            "is_credit": {
+                "0": "achat",
+                "1": "Vente"
+            },
+            "name_color": {
+                "476291": "Bleu",
+                "38F3AB": "Turquoise",
+                "4D7455": "vert",
+                "7D6D00": "Jaune",
+                "8650AC": "Violet",
+                "AA0000": "rouge",
+                "CF6A32": "Orange",
+                "D2D2D2": "Gris",
+                "FAFAFA": "blanc",
+                "32CD32": "émeraude",
+                "ADE55C": "Vert printanier",
+                "8847FF": "Violet",
+                "4682B4": "Bleu acier"
+            }
+        },
+        "titles": {
+            "update": "Mettre à jour",
+            "load": "Charge",
+            "annual": "Annuel",
+            "app": "App",
+            "last_n_days": "Derniers% s jours",
+            "showing_last_n_days": "Affichage des derniers% s jours",
+            "steam_market": "Marché vapeur",
+            "start_loading": "Commencez à charger maintenant",
+            "view_all": "Voir tout",
+            "view_recent": "Voir les récents",
+            "view_totals": "Voir les totaux",
+            "update_listings": "Mise à jour des listes",
+            "purchase_history": "Historique d'achat",
+            "preferences": "Préférences",
+            "monthly": "Mensuel"
+        }
+    },
+    "db": {
+        "listings": {
+            "names": {
+                "transaction_id": "identifiant de transaction",
+                "appid": "ID de l'application",
+                "contextid": "ID de contexte",
+                "assetid": "ID d'actif",
+                "classid": "Identifiant de classe",
+                "instanceid": "ID d'instance",
+                "price": "Prix",
+                "is_credit": "Crédit",
+                "date_listed": "Listé sur",
+                "date_acted": "Mis en oeuvre",
+                "name_color": "Couleur",
+                "background_color": "Couleur de fond",
+                "name": "prénom",
+                "market_name": "prénom",
+                "market_hash_name": "prénom",
+                "index": "Indice"
+            },
+            "column_names": {
+                "transaction_id": "identifiant de transaction",
+                "appid": "ID de l'application",
+                "contextid": "ID de contexte",
+                "assetid": "ID d'actif",
+                "classid": "Identifiant de classe",
+                "instanceid": "ID d'instance",
+                "price": "Prix",
+                "is_credit": "​",
+                "date_listed": "Listé sur",
+                "date_acted": "Mis en oeuvre",
+                "name_color": "Couleur",
+                "background_color": "Couleur de fond",
+                "name": "prénom",
+                "market_name": "prénom",
+                "market_hash_name": "prénom",
+                "index": "Indice"
+            }
+        },
+        "accounttransactions": {
+            "names": {
+                "transaction_id": "identifiant de transaction",
+                "transaction_type": "Type",
+                "price": "Total",
+                "is_credit": "Crédit",
+                "count": "Compter",
+                "date": "Rendez-vous amoureux"
+            },
+            "column_names": {
+                "transaction_id": "identifiant de transaction",
+                "transaction_type": "Type",
+                "price": "Total",
+                "is_credit": "​",
+                "count": "Compter",
+                "date": "Rendez-vous amoureux"
+            },
+            "identifiers": {
+                "transaction_type": {
+                    "Market Transaction": 1,
+                    "In-Game Purchase": 2,
+                    "Purchase": 3,
+                    "Gift Purchase": 4,
+                    "Refund": 5
+                }
+            }
+        },
+        "gameitems": {
+            "names": {
+                "app": "App",
+                "name": "prénom",
+                "price": "Prix",
+                "count": "Compter"
+            }
+        }
+    }
+}

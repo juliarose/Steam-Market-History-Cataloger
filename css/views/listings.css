@@ -1,0 +1,85 @@
+
+/* Listing table related styles */
+td .market-name,
+td .market-name a {
+    color: #C9CBCC;
+}
+
+td .market-name a {
+    text-decoration: none;
+}
+
+h4.table-title {
+    float: left;
+}
+
+td .market-name {
+    font-weight: bold;
+}
+
+td .game-name {
+    font-size: 0.85em;
+}
+
+td.image {
+    padding: 0 2px;
+}
+
+td.image img {
+    vertical-align: middle;
+}
+
+td .item-icon {
+    width: 34px;
+    height: 34px;
+}
+
+td .item-icon-wrapper {
+    vertical-align: middle;
+    padding: 0.3em;
+    margin: 0.2em;
+    border-radius: 50%;
+    border: 2px solid #A3B8D1;
+    background-color: #323A45;
+    width: 34px;
+    height: 34px;
+}
+
+.query {
+    text-align: right;
+    margin-bottom: 0.6em;
+}
+
+.query .item {
+    text-align: left;
+    display: inline-block;
+    margin-right: 0.6em;
+}
+
+.query .item * {
+    margin: 0;
+}
+
+.query .item:last-child {
+    margin-right: 0;
+}
+
+.date-box {
+}
+
+.dates .item {
+    
+}
+
+.date-box label {
+    padding: 0 1em;
+    font-size: 0.85em;
+}
+
+.query .item.date-box {
+    text-align: right;
+}
+
+.query .dates {
+    margin-bottom: 0.6em;
+}

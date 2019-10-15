@@ -1,0 +1,164 @@
+{
+    "months": {
+        "abbreviations": [
+            "Jan",
+            "Feb",
+            "Mar",
+            "Apr",
+            "May",
+            "Jun|June",
+            "Jul|July",
+            "Aug",
+            "Sep|Sept",
+            "Oct",
+            "Nov",
+            "Dec"
+        ]
+    },
+    "ui": {
+        "titles": {
+            "update": "Update",
+            "load": "Load",
+            "annual": "Annual",
+            "app": "App",
+            "last_n_days": "Last %s days",
+            "showing_last_n_days": "Showing last %s days",
+            "steam_market": "Steam market",
+            "start_loading": "Start loading now",
+            "view_all": "View all",
+            "view_recent": "View recent",
+            "view_totals": "View totals",
+            "update_listings": "Update listings",
+            "purchase_history": "Purchase history",
+            "preferences": "Preferences",
+            "monthly": "Monthly"
+        },
+        "tables": {
+            "empty": "Nothing to display.",
+            "next": "Next",
+            "previous": "Previous",
+            "download": "Download"
+        },
+        "names": {
+            "appname": "App",
+            "date": "Date",
+            "month": "Month",
+            "type": "Type",
+            "sale": "Sale Total",
+            "sale_count": "Sale Count",
+            "purchase": "Purchase Total",
+            "purchase_count": "Purchase Count",
+            "name_color": "Color",
+            "background_color": "Background Color",
+            "name": "Name",
+            "market_name": "Name",
+            "market_hash_name": "Name",
+            "year": "Year",
+            "appid": "App",
+            "is_credit": "Sale Type",
+            "index": "Index",
+            "after_date": "After Date",
+            "before_date": "Before Date",
+            "before": "Before",
+            "after": "After",
+            "start": "Start",
+            "end": "End"
+        },
+        "values": {
+            "is_credit": {
+                "0": "Purchase",
+                "1": "Sale"
+            },
+            "name_color": {
+                "476291": "Blue",
+                "38F3AB": "Turquoise",
+                "4D7455": "Green",
+                "7D6D00": "Yellow",
+                "8650AC": "Purple",
+                "AA0000": "Red",
+                "CF6A32": "Orange",
+                "D2D2D2": "Grey",
+                "FAFAFA": "White",
+                "32CD32": "Emerald",
+                "ADE55C": "Spring Green",
+                "8847FF": "Violet",
+                "4682B4": "Steel Blue"
+            }
+        }
+    },
+    "db": {
+        "listings": {
+            "names": {
+                "transaction_id": "Transaction ID",
+                "appid": "App ID",
+                "contextid": "Context ID",
+                "assetid": "Asset ID",
+                "classid": "Class ID",
+                "instanceid": "Instance ID",
+                "price": "Price",
+                "is_credit": "Credit",
+                "date_listed": "Listed On",
+                "date_acted": "Acted On",
+                "name_color": "Color",
+                "background_color": "Background Color",
+                "name": "Name",
+                "market_name": "Name",
+                "market_hash_name": "Name",
+                "index": "Index"
+            },
+            "column_names": {
+                "transaction_id": "Transaction ID",
+                "appid": "App ID",
+                "contextid": "Context ID",
+                "assetid": "Asset ID",
+                "classid": "Class ID",
+                "instanceid": "Instance ID",
+                "price": "Price",
+                "is_credit": "​",
+                "date_listed": "Listed On",
+                "date_acted": "Acted On",
+                "name_color": "Color",
+                "background_color": "Background Color",
+                "name": "Name",
+                "market_name": "Name",
+                "market_hash_name": "Name",
+                "index": "Index"
+            }
+        },
+        "accounttransactions": {
+            "names": {
+                "transaction_id": "Transaction ID",
+                "transaction_type": "Type",
+                "price": "Total",
+                "is_credit": "Credit",
+                "count": "Count",
+                "date": "Date"
+            },
+            "column_names": {
+                "transaction_id": "Transaction ID",
+                "transaction_type": "Type",
+                "price": "Total",
+                "is_credit": "​",
+                "count": "Count",
+                "date": "Date"
+            },
+            "identifiers": {
+                "transaction_type": {
+                    "Market Transaction": 1,
+                    "In-Game Purchase": 2,
+                    "Purchase": 3,
+                    "Gift Purchase": 4,
+                    "Refund": 5
+                }
+            }
+        },
+        "gameitems": {
+            "names": {
+                "app": "App",
+                "name": "Name",
+                "price": "Price",
+                "count": "Count"
+            }
+        }
+    }
+}

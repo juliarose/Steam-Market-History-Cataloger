@@ -1,0 +1,164 @@
+{
+    "months": {
+        "abbreviations": [
+            "jan",
+            "febr|feb",
+            "márc|már|mar",
+            "ápr",
+            "máj",
+            "jún",
+            "júl",
+            "aug",
+            "szept|sep",
+            "okt",
+            "nov",
+            "dec"
+        ]
+    },
+    "ui": {
+        "tables": {
+            "empty": "Semmi nem látható.",
+            "next": "Következő",
+            "previous": "Előző",
+            "download": "Letöltés"
+        },
+        "names": {
+            "appname": "App",
+            "date": "Dátum",
+            "month": "Hónap",
+            "type": "típus",
+            "sale": "Eladó összesen",
+            "sale_count": "Eladó szám",
+            "purchase": "Összes vásárlás",
+            "purchase_count": "Vásárlási szám",
+            "name_color": "Szín",
+            "background_color": "Háttérszín",
+            "name": "Név",
+            "market_name": "Név",
+            "market_hash_name": "Név",
+            "year": "Év",
+            "appid": "App",
+            "is_credit": "Eladó típus",
+            "index": "Index",
+            "after_date": "Dátum után",
+            "before_date": "Dátum előtt",
+            "before": "Előtt",
+            "after": "Után",
+            "start": "Rajt",
+            "end": "vég"
+        },
+        "values": {
+            "is_credit": {
+                "0": "Vásárlás",
+                "1": "Eladás"
+            },
+            "name_color": {
+                "476291": "Kék",
+                "38F3AB": "Türkiz",
+                "4D7455": "Zöld",
+                "7D6D00": "Sárga",
+                "8650AC": "Lila",
+                "AA0000": "Piros",
+                "CF6A32": "narancs",
+                "D2D2D2": "Szürke",
+                "FAFAFA": "fehér",
+                "32CD32": "Smaragd",
+                "ADE55C": "Tavaszi zöld",
+                "8847FF": "Ibolya",
+                "4682B4": "Acél kék"
+            }
+        },
+        "titles": {
+            "update": "frissítés",
+            "load": "Betöltés",
+            "annual": "Évi",
+            "app": "App",
+            "last_n_days": "Utolsó% s napok",
+            "showing_last_n_days": "Az utolsó% s napok megjelenítése",
+            "steam_market": "Gőzpiac",
+            "start_loading": "Most kezdje el a betöltést",
+            "view_all": "Összes megtekintése",
+            "view_recent": "Utolsó megtekintése",
+            "view_totals": "Összes összeg megtekintése",
+            "update_listings": "Frissítések listája",
+            "purchase_history": "Vásárlási előzmények",
+            "preferences": "preferenciák",
+            "monthly": "Havi"
+        }
+    },
+    "db": {
+        "listings": {
+            "names": {
+                "transaction_id": "Tranzakció azonosítója",
+                "appid": "Alkalmazásazonosító",
+                "contextid": "Kontextusazonosító",
+                "assetid": "Eszközazonosító",
+                "classid": "Osztály azonosító",
+                "instanceid": "Példányazonosító",
+                "price": "Ár",
+                "is_credit": "Hitel",
+                "date_listed": "Listázva",
+                "date_acted": "Jelentkezett",
+                "name_color": "Szín",
+                "background_color": "Háttérszín",
+                "name": "Név",
+                "market_name": "Név",
+                "market_hash_name": "Név",
+                "index": "Index"
+            },
+            "column_names": {
+                "transaction_id": "Tranzakció azonosítója",
+                "appid": "Alkalmazásazonosító",
+                "contextid": "Kontextusazonosító",
+                "assetid": "Eszközazonosító",
+                "classid": "Osztály azonosító",
+                "instanceid": "Példányazonosító",
+                "price": "Ár",
+                "is_credit": "​",
+                "date_listed": "Listázva",
+                "date_acted": "Jelentkezett",
+                "name_color": "Szín",
+                "background_color": "Háttérszín",
+                "name": "Név",
+                "market_name": "Név",
+                "market_hash_name": "Név",
+                "index": "Index"
+            }
+        },
+        "accounttransactions": {
+            "names": {
+                "transaction_id": "Tranzakció azonosítója",
+                "transaction_type": "típus",
+                "price": "Teljes",
+                "is_credit": "Hitel",
+                "count": "Számol",
+                "date": "Dátum"
+            },
+            "column_names": {
+                "transaction_id": "Tranzakció azonosítója",
+                "transaction_type": "típus",
+                "price": "Teljes",
+                "is_credit": "​",
+                "count": "Számol",
+                "date": "Dátum"
+            },
+            "identifiers": {
+                "transaction_type": {
+                    "Market Transaction": 1,
+                    "In-Game Purchase": 2,
+                    "Purchase": 3,
+                    "Gift Purchase": 4,
+                    "Refund": 5
+                }
+            }
+        },
+        "gameitems": {
+            "names": {
+                "app": "App",
+                "name": "Név",
+                "price": "Ár",
+                "count": "Számol"
+            }
+        }
+    }
+}

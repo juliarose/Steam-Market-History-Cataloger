@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Load listings</title>
+    <link rel="stylesheet" type="text/css" href="/css/views/base.css" />
+    <link rel="stylesheet" type="text/css" href="/css/views/listings.css" />
+    <link rel="stylesheet" type="text/css" href="/css/views/load.css" />
+</head>
+
+<body>
+    <div class="stripe"></div>
+    <div id="load-progress" class="meter animate">
+        <span class="meter-progress" style="width: 0"><span></span></span>
+    </div>
+    <main id="main" class="main unloaded">
+        <div id="stats" class="grid-container section header">
+            <div id="counts" class="item counts">
+                <div id="listing-count" class="item">
+                    <div class="value"></div>
+                    <div class="label">Transactions</div>
+                </div>
+            </div>
+        </div>
+        <div class="grid-container section" id="load-controls">
+            <div class="large button" id="get-history">Update</div>
+            
+        </div>
+        <div class="grid-container section" id="results">
+        </div>
+    </main>
+    
+    <script src="/js/lib/velocity.min.js" type="text/javascript"></script>
+    <script src="/js/lib/velocity.ui.min.js" type="text/javascript"></script>
+    <script src="/js/lib/dexie.js" type="text/javascript"></script>
+    <script src="/js/views/ui.base.js" type="module"></script>
+    <script src="/js/views/ui.view.js" type="module"></script>
+    <script src="/js/views/load_listings.js" type="module"></script>
+</body>
+
+</html>

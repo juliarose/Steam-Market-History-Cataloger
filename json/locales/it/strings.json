@@ -1,0 +1,164 @@
+{
+    "months": {
+        "abbreviations": [
+            "gen",
+            "feb",
+            "mar",
+            "apr",
+            "mag",
+            "giu",
+            "lug",
+            "ago",
+            "set",
+            "ott",
+            "nov",
+            "dic"
+        ]
+    },
+    "ui": {
+        "tables": {
+            "empty": "Niente da mostrare.",
+            "next": "Il prossimo",
+            "previous": "Precedente",
+            "download": "Scaricare"
+        },
+        "names": {
+            "appname": "App",
+            "date": "Data",
+            "month": "Mese",
+            "type": "genere",
+            "sale": "Vendita totale",
+            "sale_count": "Conteggio delle vendite",
+            "purchase": "Totale acquisti",
+            "purchase_count": "Conteggio acquisti",
+            "name_color": "Colore",
+            "background_color": "Colore di sfondo",
+            "name": "Nome",
+            "market_name": "Nome",
+            "market_hash_name": "Nome",
+            "year": "Anno",
+            "appid": "App",
+            "is_credit": "Tipo di vendita",
+            "index": "Indice",
+            "after_date": "Dopo la data",
+            "before_date": "Prima della data",
+            "before": "Prima",
+            "after": "Dopo",
+            "start": "Inizio",
+            "end": "Fine"
+        },
+        "values": {
+            "is_credit": {
+                "0": "Acquista",
+                "1": "saldi"
+            },
+            "name_color": {
+                "476291": "Blu",
+                "38F3AB": "Turchese",
+                "4D7455": "verde",
+                "7D6D00": "Giallo",
+                "8650AC": "Viola",
+                "AA0000": "Rosso",
+                "CF6A32": "arancia",
+                "D2D2D2": "Grigio",
+                "FAFAFA": "bianca",
+                "32CD32": "Smeraldo",
+                "ADE55C": "Verde primavera",
+                "8847FF": "Viola",
+                "4682B4": "Blu acciaio"
+            }
+        },
+        "titles": {
+            "update": "Aggiornare",
+            "load": "Caricare",
+            "annual": "Annuale",
+            "app": "App",
+            "last_n_days": "Ultimi% s giorni",
+            "showing_last_n_days": "Mostra gli ultimi% s giorni",
+            "steam_market": "Mercato del vapore",
+            "start_loading": "Inizia a caricare ora",
+            "view_all": "Guarda tutto",
+            "view_recent": "Visualizza recenti",
+            "view_totals": "Visualizza i totali",
+            "update_listings": "Aggiorna elenchi",
+            "purchase_history": "Cronologia degli acquisti",
+            "preferences": "Preferenze",
+            "monthly": "Mensile"
+        }
+    },
+    "db": {
+        "listings": {
+            "names": {
+                "transaction_id": "ID transazione",
+                "appid": "ID app",
+                "contextid": "ID contesto",
+                "assetid": "ID risorsa",
+                "classid": "ID della classe",
+                "instanceid": "ID istanza",
+                "price": "Prezzo",
+                "is_credit": "Credito",
+                "date_listed": "Elencato su",
+                "date_acted": "Agito",
+                "name_color": "Colore",
+                "background_color": "Colore di sfondo",
+                "name": "Nome",
+                "market_name": "Nome",
+                "market_hash_name": "Nome",
+                "index": "Indice"
+            },
+            "column_names": {
+                "transaction_id": "ID transazione",
+                "appid": "ID app",
+                "contextid": "ID contesto",
+                "assetid": "ID risorsa",
+                "classid": "ID della classe",
+                "instanceid": "ID istanza",
+                "price": "Prezzo",
+                "is_credit": "​",
+                "date_listed": "Elencato su",
+                "date_acted": "Agito",
+                "name_color": "Colore",
+                "background_color": "Colore di sfondo",
+                "name": "Nome",
+                "market_name": "Nome",
+                "market_hash_name": "Nome",
+                "index": "Indice"
+            }
+        },
+        "accounttransactions": {
+            "names": {
+                "transaction_id": "ID transazione",
+                "transaction_type": "genere",
+                "price": "Totale",
+                "is_credit": "Credito",
+                "count": "Contare",
+                "date": "Data"
+            },
+            "column_names": {
+                "transaction_id": "ID transazione",
+                "transaction_type": "genere",
+                "price": "Totale",
+                "is_credit": "​",
+                "count": "Contare",
+                "date": "Data"
+            },
+            "identifiers": {
+                "transaction_type": {
+                    "Market Transaction": 1,
+                    "In-Game Purchase": 2,
+                    "Purchase": 3,
+                    "Gift Purchase": 4,
+                    "Refund": 5
+                }
+            }
+        },
+        "gameitems": {
+            "names": {
+                "app": "App",
+                "name": "Nome",
+                "price": "Prezzo",
+                "count": "Contare"
+            }
+        }
+    }
+}

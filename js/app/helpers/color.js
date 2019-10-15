@@ -1,0 +1,167 @@
+'use strict';
+
+/**
+ * @namespace Color
+ */
+const Color = {
+    /**
+     * Lighten a color.
+     * @memberOf Color
+     * @param {String} color - 6-digit hexadecimal number of color.
+     * @param {Number} [ratio=0.5] - Strength of effect.
+     * @returns {String} 6-digit hexadecimal number of result.
+     */
+    lighten: function(color, ratio = 0.5) {
+        let results = [];
+        
+        // 3 times for R,G,B
+        for (let i = 0; i < 3; i++) {
+            // if i is 0, this will select the first two letters,
+            // convert them to decimal, add 255, then multiply by ratio
+            let calc = (toDecimal(getChannel(color, i)) + 255) * ratio;
+            // decimal must not be over 255
+            let decimal = Math.floor(Math.min(calc, 255));
+            let hex = toHex(decimal);
+            
+            results.push(hex);
+        }
+        
+        return results.join('');
+    },
+    /**
+     * Darken a color.
+     * @memberOf Color
+     * @param {String} color - 6-digit hexadecimal number of color.
+     * @param {Number} [ratio=0.5] - Strength of effect.
+     * @returns {String} 6-digit hexadecimal number of result.
+     */
+    darken: function(color, ratio) {
+        let results = [];
+        
+        for (let i = 0; i < 3; i++) {
+            let decimal = Math.floor(toDecimal(getChannel(color, i)) * (1 - ratio));
+            let hex = toHex(decimal);
+            
+            results.push(hex);
+        }
+        
+        return results.join('');
+    },
+    /**
+     * Blend two colors.
+     * @memberOf Color
+     * @param {String} color1 - 6-digit hexadecimal number of first color.
+     * @param {String} color2 - 6-digit hexadecimal number of second color.
+     * @param {Number} [ratio=0.5] - Strength of effect.
+     * @returns {String} 6-digit hexadecimal number of result.
+     */
+    blend: function(color1, color2, ratio = 0.5) {
+        let results = [];
+        
+        for (let i = 0; i < 3; i++) {
+            let calc1 = (toDecimal(getChannel(color1, i)) * (1 - ratio));
+            let calc2 = (toDecimal(getChannel(color2, i)) * ratio);
+            let decimal = Math.floor(calc1 + calc2);
+            let hex = toHex(decimal);
+            
+            results.push(hex);
+        }
+        
+        return results.join('');
+    },
+    /**
+     * Convert color to rgba string for use in CSS.
+     * @memberOf Color
+     * @param {String} color - 6-digit hexadecimal number of color.
+     * @param {Number} [alpha=1] - Opacity of color.
+     * @returns {String} Rgba string of color.
+     */
+    rgba: function(color, alpha = 1) {
+        let results = [];
+        
+        for (let i = 0; i < 3; i++) {
+            let decimal = Math.floor(toDecimal(getChannel(color, i)));
+            
+            results.push(decimal);
+        }
+        
+        // add value for alpha
+        results.push(alpha);
+        
+        return 'rgba(' + results.join(',') + ')';
+    },
+    /**
+     * Get the luminance of a color.
+     * @memberOf Color
+     * @param {String} color - 6-digit hexadecimal number of first color.
+     * @returns {Nunber} Luminance of color.
+     */
+    luminance: function(color) {
+        // get luminance using
+        // https://www.w3.org/TR/WCAG20-TECHS/G17.html#G17-tests
+        let result = 0;
+        let values = [
+            0.2126,
+            0.7152,
+            0.0722
+        ];
+        let min = 0.03928;
+        
+        for (let i = 0; i < 3; i++) {
+            let ratio = toDecimal(getChannel(color, i)) / 255;
+            let value = values[i];
+            let calc = ratio;
+            
+            if (calc <= min) {
+                calc /= 12.92;
+            } else {
+                calc = Math.pow((calc + 0.055) / 1.055, 2.4);
+            }
+            
+            calc *= value;
+            result += calc;
+        }
+        
+        return result;
+    }
+};
+
+/**
+ * Get individual color channel from color.
+ * @param {String} color - 6-digit hexadecimal number of color.
+ * @param {Number} position - Position of color (0-2).
+ * @returns {String} Value of channel.
+ *
+ * @example
+ * getChannel('00FF00', 1); // 'FF'
+ */
+function getChannel(color, position) {
+    return color.substr(position * 2, 2);
+}
+
+/**
+ * Convert a decimal number to a hexadecimal number in a 2-digit format.
+ * @param {Number} decimal - Decimal number.
+ * @returns {String} Hexadecimal number.
+ */
+function toHex(decimal) {
+    let n = decimal.toString(16).toUpperCase();
+    
+    if (n.length === 1) {
+        // must be 2 characters
+        return '0' + n;
+    } else {
+        return n;
+    }
+}
+
+/**
+ * Convert a hexadecimal number to a decimal number.
+ * @param {String} hex - Hexadecimal number.
+ * @returns {Number} Decimal number.
+ */
+function toDecimal(hex) {
+    return parseInt(hex, 16);
+}
+
+export {Color};

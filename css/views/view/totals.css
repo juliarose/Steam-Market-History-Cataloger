@@ -1,0 +1,20 @@
+
+table .year {
+    width: 6em;
+}
+
+table .number {
+    width: 16%;
+}
+
+table .more {
+    width: 16%;
+}
+
+.table-wrapper {
+    margin-bottom: 2em;
+}
+
+.table-wrapper:last-child {
+    margin-bottom: 0;
+}

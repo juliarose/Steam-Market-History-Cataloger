@@ -1,0 +1,73 @@
+
+
+body {
+    width: 240px;
+    padding: 0.8em;
+}
+
+.main {
+    padding: 0;
+}
+
+.large.button {
+    text-align: left;
+    margin: 0;
+    margin-bottom: 0.4em;
+    padding-top: 0.3em;
+    padding-bottom: 0.3em;
+    padding-left: 0.6em;
+    padding-right: 0.6em;
+    font-size: 1.2em;
+}
+
+
+.button:last-child {
+    margin-bottom: 0;
+}
+
+.grid-container {
+    width: 100%;
+    min-width: 0;
+    padding: 0;
+}
+
+#user {
+    margin-top: 1em;
+    text-align: left;
+    line-height: 1.4em;
+}
+
+#user .name {
+    font-weight: bold;
+}
+
+#user .text {
+    margin-top: 2px;
+}
+
+#user .count {
+    
+}
+
+#user .avatar img {
+    border-radius: 50%;
+    display: block;
+}
+
+#user .avatar .img-wrapper {
+}
+
+#user .text {
+    vertical-align:top;
+    display: inline-block
+}
+
+#user .avatar {
+    vertical-align:top;
+    display: inline-block;
+    margin-right: 0.6em;
+}
+
+.app-error {
+    font-weight: bold;
+}

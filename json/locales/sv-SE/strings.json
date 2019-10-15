@@ -1,0 +1,164 @@
+{
+    "months": {
+        "abbreviations": [
+            "jan",
+            "feb",
+            "mar",
+            "apr",
+            "maj",
+            "jun",
+            "jul",
+            "aug",
+            "sep",
+            "okt",
+            "nov",
+            "dec"
+        ]
+    },
+    "ui": {
+        "tables": {
+            "empty": "Inget att visa.",
+            "next": "Nästa",
+            "previous": "Tidigare",
+            "download": "Ladda ner"
+        },
+        "names": {
+            "appname": "App",
+            "date": "Datum",
+            "month": "Månad",
+            "type": "Typ",
+            "sale": "Försäljning Totalt",
+            "sale_count": "Försäljningsräkning",
+            "purchase": "Inköp totalt",
+            "purchase_count": "Köpräkning",
+            "name_color": "Färg",
+            "background_color": "Bakgrundsfärg",
+            "name": "namn",
+            "market_name": "namn",
+            "market_hash_name": "namn",
+            "year": "År",
+            "appid": "App",
+            "is_credit": "Försäljningstyp",
+            "index": "Index",
+            "after_date": "Efter datum",
+            "before_date": "Före datum",
+            "before": "Innan",
+            "after": "Efter",
+            "start": "Start",
+            "end": "Slutet"
+        },
+        "values": {
+            "is_credit": {
+                "0": "Inköp",
+                "1": "Försäljning"
+            },
+            "name_color": {
+                "476291": "Blå",
+                "38F3AB": "Turkos",
+                "4D7455": "Grön",
+                "7D6D00": "Gul",
+                "8650AC": "Lila",
+                "AA0000": "Röd",
+                "CF6A32": "Orange",
+                "D2D2D2": "Grå",
+                "FAFAFA": "Vit",
+                "32CD32": "Smaragd",
+                "ADE55C": "Vårgrön",
+                "8847FF": "Violett",
+                "4682B4": "Stålblå"
+            }
+        },
+        "titles": {
+            "update": "Uppdatering",
+            "load": "Ladda",
+            "annual": "Årlig",
+            "app": "App",
+            "last_n_days": "Senaste% s dagar",
+            "showing_last_n_days": "Visar senaste% s dagar",
+            "steam_market": "Ångmarknad",
+            "start_loading": "Börja ladda nu",
+            "view_all": "Visa alla",
+            "view_recent": "Visa nyligen",
+            "view_totals": "Visa totals",
+            "update_listings": "Uppdatera listor",
+            "purchase_history": "Köphistorik",
+            "preferences": "Inställningar",
+            "monthly": "En gång i månaden"
+        }
+    },
+    "db": {
+        "listings": {
+            "names": {
+                "transaction_id": "Transaktions ID",
+                "appid": "App ID",
+                "contextid": "Kontext ID",
+                "assetid": "Tillgångs-ID",
+                "classid": "Klass ID",
+                "instanceid": "Instans-ID",
+                "price": "Pris",
+                "is_credit": "Kreditera",
+                "date_listed": "Listade på",
+                "date_acted": "Åtgärdad",
+                "name_color": "Färg",
+                "background_color": "Bakgrundsfärg",
+                "name": "namn",
+                "market_name": "namn",
+                "market_hash_name": "namn",
+                "index": "Index"
+            },
+            "column_names": {
+                "transaction_id": "Transaktions ID",
+                "appid": "App ID",
+                "contextid": "Kontext ID",
+                "assetid": "Tillgångs-ID",
+                "classid": "Klass ID",
+                "instanceid": "Instans-ID",
+                "price": "Pris",
+                "is_credit": "​",
+                "date_listed": "Listade på",
+                "date_acted": "Åtgärdad",
+                "name_color": "Färg",
+                "background_color": "Bakgrundsfärg",
+                "name": "namn",
+                "market_name": "namn",
+                "market_hash_name": "namn",
+                "index": "Index"
+            }
+        },
+        "accounttransactions": {
+            "names": {
+                "transaction_id": "Transaktions ID",
+                "transaction_type": "Typ",
+                "price": "Total",
+                "is_credit": "Kreditera",
+                "count": "Räkna",
+                "date": "Datum"
+            },
+            "column_names": {
+                "transaction_id": "Transaktions ID",
+                "transaction_type": "Typ",
+                "price": "Total",
+                "is_credit": "​",
+                "count": "Räkna",
+                "date": "Datum"
+            },
+            "identifiers": {
+                "transaction_type": {
+                    "Market Transaction": 1,
+                    "In-Game Purchase": 2,
+                    "Purchase": 3,
+                    "Gift Purchase": 4,
+                    "Refund": 5
+                }
+            }
+        },
+        "gameitems": {
+            "names": {
+                "app": "App",
+                "name": "namn",
+                "price": "Pris",
+                "count": "Räkna"
+            }
+        }
+    }
+}

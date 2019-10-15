@@ -1,0 +1,151 @@
+{
+    "months": {
+        "abbreviations": []
+    },
+    "ui": {
+        "tables": {
+            "empty": "Ei mitään esitettävää.",
+            "next": "Seuraava",
+            "previous": "Edellinen",
+            "download": "ladata"
+        },
+        "names": {
+            "appname": "Sovellus",
+            "date": "Treffi",
+            "month": "Kuukausi",
+            "type": "Tyyppi",
+            "sale": "Myynti yhteensä",
+            "sale_count": "Myynnin määrä",
+            "purchase": "Ostot yhteensä",
+            "purchase_count": "Ostoluku",
+            "name_color": "Väri",
+            "background_color": "Taustaväri",
+            "name": "Nimi",
+            "market_name": "Nimi",
+            "market_hash_name": "Nimi",
+            "year": "vuosi",
+            "appid": "Sovellus",
+            "is_credit": "Myyntityyppi",
+            "index": "Indeksi",
+            "after_date": "Päivämäärän jälkeen",
+            "before_date": "Ennen päivämäärää",
+            "before": "Ennen",
+            "after": "Jälkeen",
+            "start": "alkaa",
+            "end": "pää"
+        },
+        "values": {
+            "is_credit": {
+                "0": "Ostaa",
+                "1": "myynti"
+            },
+            "name_color": {
+                "476291": "Sininen",
+                "38F3AB": "Turkoosi",
+                "4D7455": "Vihreä",
+                "7D6D00": "Keltainen",
+                "8650AC": "Violetti",
+                "AA0000": "Punainen",
+                "CF6A32": "Oranssi",
+                "D2D2D2": "Harmaa",
+                "FAFAFA": "Valkoinen",
+                "32CD32": "Smaragdi",
+                "ADE55C": "Keväänvihreä",
+                "8847FF": "Violetti",
+                "4682B4": "Teräs sininen"
+            }
+        },
+        "titles": {
+            "update": "Päivittää",
+            "load": "Ladata",
+            "annual": "vuotuinen",
+            "app": "Sovellus",
+            "last_n_days": "Viimeiset% s päivää",
+            "showing_last_n_days": "Näytetään viimeiset% s päivää",
+            "steam_market": "Höyrymarkkinat",
+            "start_loading": "Aloita lataaminen nyt",
+            "view_all": "Näytä kaikki",
+            "view_recent": "Näytä viimeisin",
+            "view_totals": "Näytä yhteensä",
+            "update_listings": "Päivitä luettelot",
+            "purchase_history": "Ostohistoria",
+            "preferences": "Asetukset",
+            "monthly": "Kuukausittain"
+        }
+    },
+    "db": {
+        "listings": {
+            "names": {
+                "transaction_id": "Transaktiotunnus",
+                "appid": "Sovelluksen tunnus",
+                "contextid": "Kontekstitunnus",
+                "assetid": "Omaisuuden tunnus",
+                "classid": "Luokan tunnus",
+                "instanceid": "Esimerkkitunnus",
+                "price": "Hinta",
+                "is_credit": "Luotto",
+                "date_listed": "Listattu päällä",
+                "date_acted": "Toiminut",
+                "name_color": "Väri",
+                "background_color": "Taustaväri",
+                "name": "Nimi",
+                "market_name": "Nimi",
+                "market_hash_name": "Nimi",
+                "index": "Indeksi"
+            },
+            "column_names": {
+                "transaction_id": "Transaktiotunnus",
+                "appid": "Sovelluksen tunnus",
+                "contextid": "Kontekstitunnus",
+                "assetid": "Omaisuuden tunnus",
+                "classid": "Luokan tunnus",
+                "instanceid": "Esimerkkitunnus",
+                "price": "Hinta",
+                "is_credit": "​",
+                "date_listed": "Listattu päällä",
+                "date_acted": "Toiminut",
+                "name_color": "Väri",
+                "background_color": "Taustaväri",
+                "name": "Nimi",
+                "market_name": "Nimi",
+                "market_hash_name": "Nimi",
+                "index": "Indeksi"
+            }
+        },
+        "accounttransactions": {
+            "names": {
+                "transaction_id": "Transaktiotunnus",
+                "transaction_type": "Tyyppi",
+                "price": "Kaikki yhteensä",
+                "is_credit": "Luotto",
+                "count": "Kreivi",
+                "date": "Treffi"
+            },
+            "column_names": {
+                "transaction_id": "Transaktiotunnus",
+                "transaction_type": "Tyyppi",
+                "price": "Kaikki yhteensä",
+                "is_credit": "​",
+                "count": "Kreivi",
+                "date": "Treffi"
+            },
+            "identifiers": {
+                "transaction_type": {
+                    "Market Transaction": 1,
+                    "In-Game Purchase": 2,
+                    "Purchase": 3,
+                    "Gift Purchase": 4,
+                    "Refund": 5
+                }
+            }
+        },
+        "gameitems": {
+            "names": {
+                "app": "Sovellus",
+                "name": "Nimi",
+                "price": "Hinta",
+                "count": "Kreivi"
+            }
+        }
+    }
+}

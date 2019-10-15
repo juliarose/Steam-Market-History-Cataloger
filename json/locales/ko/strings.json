@@ -1,0 +1,164 @@
+{
+    "months": {
+        "abbreviations": [
+            "Jan",
+            "Feb",
+            "Mar",
+            "Apr",
+            "May",
+            "June|Jun",
+            "July|Jul",
+            "Aug",
+            "Sept",
+            "Oct",
+            "Nov",
+            "Dec"
+        ]
+    },
+    "ui": {
+        "tables": {
+            "empty": "표시 할 내용이 없습니다.",
+            "next": "다음 것",
+            "previous": "너무 이른",
+            "download": "다운로드"
+        },
+        "names": {
+            "appname": "앱",
+            "date": "날짜",
+            "month": "달",
+            "type": "유형",
+            "sale": "판매 합계",
+            "sale_count": "판매 횟수",
+            "purchase": "구매 합계",
+            "purchase_count": "구매 횟수",
+            "name_color": "색깔",
+            "background_color": "배경색",
+            "name": "이름",
+            "market_name": "이름",
+            "market_hash_name": "이름",
+            "year": "년",
+            "appid": "앱",
+            "is_credit": "판매 유형",
+            "index": "색인",
+            "after_date": "날짜 이후",
+            "before_date": "이전 날짜",
+            "before": "전에",
+            "after": "후",
+            "start": "스타트",
+            "end": "종료"
+        },
+        "values": {
+            "is_credit": {
+                "0": "매수",
+                "1": "판매"
+            },
+            "name_color": {
+                "476291": "푸른",
+                "38F3AB": "터키 옥",
+                "4D7455": "녹색",
+                "7D6D00": "노랑",
+                "8650AC": "자",
+                "AA0000": "빨간",
+                "CF6A32": "주황색",
+                "D2D2D2": "회색",
+                "FAFAFA": "화이트",
+                "32CD32": "에메랄드",
+                "ADE55C": "봄 그린",
+                "8847FF": "제비꽃",
+                "4682B4": "스틸 블루"
+            }
+        },
+        "titles": {
+            "update": "최신 정보",
+            "load": "하중",
+            "annual": "일년생 식물",
+            "app": "앱",
+            "last_n_days": "지난 % s 일",
+            "showing_last_n_days": "지난 % s 일 표시",
+            "steam_market": "증기 시장",
+            "start_loading": "지금로드 시작",
+            "view_all": "모두보기",
+            "view_recent": "최근보기",
+            "view_totals": "총계보기",
+            "update_listings": "목록 업데이트",
+            "purchase_history": "구매 내역",
+            "preferences": "환경 설정",
+            "monthly": "월간 간행물"
+        }
+    },
+    "db": {
+        "listings": {
+            "names": {
+                "transaction_id": "거래 ID",
+                "appid": "앱 ID",
+                "contextid": "컨텍스트 ID",
+                "assetid": "애셋 ID",
+                "classid": "클래스 ID",
+                "instanceid": "인스턴스 ID",
+                "price": "가격",
+                "is_credit": "신용",
+                "date_listed": "상장 된",
+                "date_acted": "위에 행동 한",
+                "name_color": "색깔",
+                "background_color": "배경색",
+                "name": "이름",
+                "market_name": "이름",
+                "market_hash_name": "이름",
+                "index": "색인"
+            },
+            "column_names": {
+                "transaction_id": "거래 ID",
+                "appid": "앱 ID",
+                "contextid": "컨텍스트 ID",
+                "assetid": "애셋 ID",
+                "classid": "클래스 ID",
+                "instanceid": "인스턴스 ID",
+                "price": "가격",
+                "is_credit": "​",
+                "date_listed": "상장 된",
+                "date_acted": "위에 행동 한",
+                "name_color": "색깔",
+                "background_color": "배경색",
+                "name": "이름",
+                "market_name": "이름",
+                "market_hash_name": "이름",
+                "index": "색인"
+            }
+        },
+        "accounttransactions": {
+            "names": {
+                "transaction_id": "거래 ID",
+                "transaction_type": "유형",
+                "price": "합계",
+                "is_credit": "신용",
+                "count": "카운트",
+                "date": "날짜"
+            },
+            "column_names": {
+                "transaction_id": "거래 ID",
+                "transaction_type": "유형",
+                "price": "합계",
+                "is_credit": "​",
+                "count": "카운트",
+                "date": "날짜"
+            },
+            "identifiers": {
+                "transaction_type": {
+                    "Market Transaction": 1,
+                    "In-Game Purchase": 2,
+                    "Purchase": 3,
+                    "Gift Purchase": 4,
+                    "Refund": 5
+                }
+            }
+        },
+        "gameitems": {
+            "names": {
+                "app": "앱",
+                "name": "이름",
+                "price": "가격",
+                "count": "카운트"
+            }
+        }
+    }
+}

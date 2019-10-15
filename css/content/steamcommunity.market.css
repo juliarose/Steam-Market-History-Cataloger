@@ -1,0 +1,40 @@
+
+#tabContentsMyMarketHistoryRowsContents {
+    padding-right: 6px;
+    max-height: 500px !important;
+    overflow-y: scroll;
+}
+
+#tabContentsMyMarketHistoryRowsContents::-webkit-scrollbar {
+    width: 12px;
+}
+
+#tabContentsMyMarketHistoryRowsContents::-webkit-scrollbar-track {
+    background: #16202D;
+}
+
+#tabContentsMyMarketHistoryRowsContents::-webkit-scrollbar-thumb {
+    background: #0A0E14
+}
+
+#tabContentsMyMarketHistoryRows .market_listing_table_header {
+    padding-right: 18px;
+}
+
+#tabContentsMyMarketHistoryRows .market_listing_item_img,
+#tabContentsMyMarketHistoryRows .market_listing_gainorloss {
+    cursor: pointer;
+}
+
+.gotofield {
+    width: 66px;
+}
+
+.optionbtn {
+    margin-right: 4px;
+    box-sizing: border-box;
+}
+
+.market_listing_row:first-child {
+    margin-top: 0 !important;
+}

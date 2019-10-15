@@ -1,0 +1,1 @@
+injectScript('js/content/injects/steamcommunity.market.js');

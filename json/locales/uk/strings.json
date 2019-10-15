@@ -1,0 +1,164 @@
+{
+    "months": {
+        "abbreviations": [
+            "січ",
+            "лют",
+            "бер",
+            "кві",
+            "тра",
+            "чер",
+            "лип",
+            "сер",
+            "вер",
+            "жов",
+            "лис",
+            "гру"
+        ]
+    },
+    "ui": {
+        "tables": {
+            "empty": "Нічого не відображається.",
+            "next": "Далі",
+            "previous": "Попередній",
+            "download": "Завантажити"
+        },
+        "names": {
+            "appname": "App",
+            "date": "Дата",
+            "month": "Місяць",
+            "type": "Тип",
+            "sale": "Продаж Всього",
+            "sale_count": "Розрахунок продажів",
+            "purchase": "Загальна сума покупки",
+            "purchase_count": "Кількість придбань",
+            "name_color": "Колір",
+            "background_color": "Колір фону",
+            "name": "Ім'я",
+            "market_name": "Ім'я",
+            "market_hash_name": "Ім'я",
+            "year": "Рік",
+            "appid": "App",
+            "is_credit": "Тип продажу",
+            "index": "Індекс",
+            "after_date": "Після дати",
+            "before_date": "До дати",
+            "before": "Раніше",
+            "after": "Після",
+            "start": "Початок",
+            "end": "Кінець"
+        },
+        "values": {
+            "is_credit": {
+                "0": "Придбати",
+                "1": "Продаж"
+            },
+            "name_color": {
+                "476291": "Синій",
+                "38F3AB": "Бірюза",
+                "4D7455": "Зелений",
+                "7D6D00": "Жовтий",
+                "8650AC": "Фіолетовий",
+                "AA0000": "Червоний",
+                "CF6A32": "Помаранчевий",
+                "D2D2D2": "Сірий",
+                "FAFAFA": "Білий",
+                "32CD32": "Смарагд",
+                "ADE55C": "Весняний зелений",
+                "8847FF": "Фіолетовий",
+                "4682B4": "Сталь блакитний"
+            }
+        },
+        "titles": {
+            "update": "Оновлення",
+            "load": "Завантаження",
+            "annual": "Щорічний",
+            "app": "App",
+            "last_n_days": "Останні% s днів",
+            "showing_last_n_days": "Показ останніх% s днів",
+            "steam_market": "Паровий ринок",
+            "start_loading": "Почніть завантаження зараз",
+            "view_all": "Подивитись все",
+            "view_recent": "Переглянути останні",
+            "view_totals": "Переглянути підсумки",
+            "update_listings": "Оновити списки",
+            "purchase_history": "Історія покупки",
+            "preferences": "Налаштування",
+            "monthly": "Щомісячно"
+        }
+    },
+    "db": {
+        "listings": {
+            "names": {
+                "transaction_id": "ID транзакції",
+                "appid": "Ідентифікатор програми",
+                "contextid": "Контекстний ідентифікатор",
+                "assetid": "ID активу",
+                "classid": "Ідентифікатор класу",
+                "instanceid": "Ідентифікатор екземпляра",
+                "price": "Ціна",
+                "is_credit": "Кредит",
+                "date_listed": "Увімкнено",
+                "date_acted": "Акт",
+                "name_color": "Колір",
+                "background_color": "Колір фону",
+                "name": "Ім'я",
+                "market_name": "Ім'я",
+                "market_hash_name": "Ім'я",
+                "index": "Індекс"
+            },
+            "column_names": {
+                "transaction_id": "ID транзакції",
+                "appid": "Ідентифікатор програми",
+                "contextid": "Контекстний ідентифікатор",
+                "assetid": "ID активу",
+                "classid": "Ідентифікатор класу",
+                "instanceid": "Ідентифікатор екземпляра",
+                "price": "Ціна",
+                "is_credit": "​",
+                "date_listed": "Увімкнено",
+                "date_acted": "Акт",
+                "name_color": "Колір",
+                "background_color": "Колір фону",
+                "name": "Ім'я",
+                "market_name": "Ім'я",
+                "market_hash_name": "Ім'я",
+                "index": "Індекс"
+            }
+        },
+        "accounttransactions": {
+            "names": {
+                "transaction_id": "ID транзакції",
+                "transaction_type": "Тип",
+                "price": "Усього",
+                "is_credit": "Кредит",
+                "count": "Рахувати",
+                "date": "Дата"
+            },
+            "column_names": {
+                "transaction_id": "ID транзакції",
+                "transaction_type": "Тип",
+                "price": "Усього",
+                "is_credit": "​",
+                "count": "Рахувати",
+                "date": "Дата"
+            },
+            "identifiers": {
+                "transaction_type": {
+                    "Market Transaction": 1,
+                    "In-Game Purchase": 2,
+                    "Purchase": 3,
+                    "Gift Purchase": 4,
+                    "Refund": 5
+                }
+            }
+        },
+        "gameitems": {
+            "names": {
+                "app": "App",
+                "name": "Ім'я",
+                "price": "Ціна",
+                "count": "Рахувати"
+            }
+        }
+    }
+}

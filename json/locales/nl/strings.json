@@ -1,0 +1,164 @@
+{
+    "months": {
+        "abbreviations": [
+            "jan",
+            "feb",
+            "mrt",
+            "apr",
+            "mei",
+            "jun",
+            "jul",
+            "aug",
+            "sep",
+            "okt",
+            "nov",
+            "dec"
+        ]
+    },
+    "ui": {
+        "tables": {
+            "empty": "Niets weer te geven.",
+            "next": "volgende",
+            "previous": "voorgaand",
+            "download": "Download"
+        },
+        "names": {
+            "appname": "App",
+            "date": "Datum",
+            "month": "Maand",
+            "type": "Type",
+            "sale": "Totaal verkoop",
+            "sale_count": "Sale Count",
+            "purchase": "Aankoop Totaal",
+            "purchase_count": "Aankoop aantal",
+            "name_color": "Kleur",
+            "background_color": "Achtergrond kleur",
+            "name": "Naam",
+            "market_name": "Naam",
+            "market_hash_name": "Naam",
+            "year": "Jaar",
+            "appid": "App",
+            "is_credit": "Verkoop type",
+            "index": "Inhoudsopgave",
+            "after_date": "Na datum",
+            "before_date": "Voor datum",
+            "before": "Voor",
+            "after": "Na",
+            "start": "Begin",
+            "end": "Einde"
+        },
+        "values": {
+            "is_credit": {
+                "0": "Aankoop",
+                "1": "Verkoop"
+            },
+            "name_color": {
+                "476291": "Blauw",
+                "38F3AB": "Turkoois",
+                "4D7455": "Groen",
+                "7D6D00": "Geel",
+                "8650AC": "Purper",
+                "AA0000": "Rood",
+                "CF6A32": "Oranje",
+                "D2D2D2": "Grijs",
+                "FAFAFA": "Wit",
+                "32CD32": "Smaragd",
+                "ADE55C": "Lente groen",
+                "8847FF": "paars",
+                "4682B4": "Staal blauw"
+            }
+        },
+        "titles": {
+            "update": "Bijwerken",
+            "load": "Laden",
+            "annual": "jaar-",
+            "app": "App",
+            "last_n_days": "Laatste% s dagen",
+            "showing_last_n_days": "De laatste% s dagen worden weergegeven",
+            "steam_market": "Stoom markt",
+            "start_loading": "Begin nu met laden",
+            "view_all": "Bekijk alles",
+            "view_recent": "Bekijk recent",
+            "view_totals": "Bekijk totalen",
+            "update_listings": "Aanbiedingen updaten",
+            "purchase_history": "Aankoop geschiedenis",
+            "preferences": "voorkeuren",
+            "monthly": "Maandelijks"
+        }
+    },
+    "db": {
+        "listings": {
+            "names": {
+                "transaction_id": "Transactie ID",
+                "appid": "App-ID",
+                "contextid": "Context ID",
+                "assetid": "Activum-ID",
+                "classid": "Klasse ID",
+                "instanceid": "Exemplaar-ID",
+                "price": "Prijs",
+                "is_credit": "Credit",
+                "date_listed": "Genoteerd op",
+                "date_acted": "Gehandeld",
+                "name_color": "Kleur",
+                "background_color": "Achtergrond kleur",
+                "name": "Naam",
+                "market_name": "Naam",
+                "market_hash_name": "Naam",
+                "index": "Inhoudsopgave"
+            },
+            "column_names": {
+                "transaction_id": "Transactie ID",
+                "appid": "App-ID",
+                "contextid": "Context ID",
+                "assetid": "Activum-ID",
+                "classid": "Klasse ID",
+                "instanceid": "Exemplaar-ID",
+                "price": "Prijs",
+                "is_credit": "​",
+                "date_listed": "Genoteerd op",
+                "date_acted": "Gehandeld",
+                "name_color": "Kleur",
+                "background_color": "Achtergrond kleur",
+                "name": "Naam",
+                "market_name": "Naam",
+                "market_hash_name": "Naam",
+                "index": "Inhoudsopgave"
+            }
+        },
+        "accounttransactions": {
+            "names": {
+                "transaction_id": "Transactie ID",
+                "transaction_type": "Type",
+                "price": "Totaal",
+                "is_credit": "Credit",
+                "count": "tellen",
+                "date": "Datum"
+            },
+            "column_names": {
+                "transaction_id": "Transactie ID",
+                "transaction_type": "Type",
+                "price": "Totaal",
+                "is_credit": "​",
+                "count": "tellen",
+                "date": "Datum"
+            },
+            "identifiers": {
+                "transaction_type": {
+                    "Market Transaction": 1,
+                    "In-Game Purchase": 2,
+                    "Purchase": 3,
+                    "Gift Purchase": 4,
+                    "Refund": 5
+                }
+            }
+        },
+        "gameitems": {
+            "names": {
+                "app": "App",
+                "name": "Naam",
+                "price": "Prijs",
+                "count": "tellen"
+            }
+        }
+    }
+}

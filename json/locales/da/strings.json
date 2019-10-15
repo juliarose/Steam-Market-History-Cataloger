@@ -1,0 +1,164 @@
+{
+    "months": {
+        "abbreviations": [
+            "jan",
+            "feb",
+            "mar",
+            "apr",
+            "maj",
+            "juni|jun",
+            "juli|jul",
+            "aug",
+            "sep",
+            "okt",
+            "nov",
+            "dec"
+        ]
+    },
+    "ui": {
+        "tables": {
+            "empty": "Intet at vise.",
+            "next": "Næste",
+            "previous": "Tidligere",
+            "download": "Hent"
+        },
+        "values": {
+            "is_credit": {
+                "0": "Køb",
+                "1": "Salg"
+            },
+            "name_color": {
+                "476291": "Blå",
+                "38F3AB": "turkis",
+                "4D7455": "Grøn",
+                "7D6D00": "Gul",
+                "8650AC": "Lilla",
+                "AA0000": "Rød",
+                "CF6A32": "orange",
+                "D2D2D2": "Grå",
+                "FAFAFA": "hvid",
+                "32CD32": "smaragd",
+                "ADE55C": "Jarní zelená",
+                "8847FF": "Violet",
+                "4682B4": "Stålblå"
+            }
+        },
+        "names": {
+            "appname": "App",
+            "date": "Dato",
+            "month": "Måned",
+            "type": "Type",
+            "sale": "Salg I alt",
+            "sale_count": "Salgstal",
+            "purchase": "Køb i alt",
+            "purchase_count": "Købstal",
+            "name_color": "Farve",
+            "background_color": "Baggrundsfarve",
+            "name": "Navn",
+            "market_name": "Navn",
+            "market_hash_name": "Navn",
+            "year": "År",
+            "appid": "App",
+            "is_credit": "Salgstype",
+            "index": "Indeks",
+            "after_date": "Efter dato",
+            "before_date": "Før dato",
+            "before": "Før",
+            "after": "Efter",
+            "start": "Start",
+            "end": "Ende"
+        },
+        "titles": {
+            "update": "Opdatering",
+            "load": "belastning",
+            "annual": "Årligt",
+            "app": "App",
+            "last_n_days": "Sidste% s dage",
+            "showing_last_n_days": "Viser sidste% s dage",
+            "steam_market": "Damp marked",
+            "start_loading": "Start med at indlæse nu",
+            "view_all": "Se alt",
+            "view_recent": "Se seneste",
+            "view_totals": "Se totaler",
+            "update_listings": "Opdater liste",
+            "purchase_history": "Købshistorie",
+            "preferences": "Indstillinger",
+            "monthly": "Månedlige"
+        }
+    },
+    "db": {
+        "listings": {
+            "names": {
+                "transaction_id": "Transaktions ID",
+                "appid": "App ID",
+                "contextid": "Kontekst-id",
+                "assetid": "Aktiv ID",
+                "classid": "Klasse ID",
+                "instanceid": "Instans ID",
+                "price": "Pris",
+                "is_credit": "Kredit",
+                "date_listed": "Opført på",
+                "date_acted": "Aktiveret",
+                "name_color": "Farve",
+                "background_color": "Baggrundsfarve",
+                "name": "Navn",
+                "market_name": "Navn",
+                "market_hash_name": "Navn",
+                "index": "Indeks"
+            },
+            "column_names": {
+                "transaction_id": "Transaktions ID",
+                "appid": "App ID",
+                "contextid": "Kontekst-id",
+                "assetid": "Aktiv ID",
+                "classid": "Klasse ID",
+                "instanceid": "Instans ID",
+                "price": "Pris",
+                "is_credit": "​",
+                "date_listed": "Opført på",
+                "date_acted": "Aktiveret",
+                "name_color": "Farve",
+                "background_color": "Baggrundsfarve",
+                "name": "Navn",
+                "market_name": "Navn",
+                "market_hash_name": "Navn",
+                "index": "Indeks"
+            }
+        },
+        "accounttransactions": {
+            "names": {
+                "transaction_id": "Transaktions ID",
+                "transaction_type": "Type",
+                "price": "i alt",
+                "is_credit": "Kredit",
+                "count": "Tælle",
+                "date": "Dato"
+            },
+            "column_names": {
+                "transaction_id": "Transaktions ID",
+                "transaction_type": "Type",
+                "price": "i alt",
+                "is_credit": "​",
+                "count": "Tælle",
+                "date": "Dato"
+            },
+            "identifiers": {
+                "transaction_type": {
+                    "Market Transaction": 1,
+                    "In-Game Purchase": 2,
+                    "Purchase": 3,
+                    "Gift Purchase": 4,
+                    "Refund": 5
+                }
+            }
+        },
+        "gameitems": {
+            "names": {
+                "app": "App",
+                "name": "Navn",
+                "price": "Pris",
+                "count": "Tælle"
+            }
+        }
+    }
+}

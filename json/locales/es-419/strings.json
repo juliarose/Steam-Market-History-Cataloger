@@ -1,0 +1,164 @@
+{
+    "months": {
+        "abbreviations": [
+            "enero|ene",
+            "feb",
+            "marzo|mar",
+            "abr",
+            "mayo|may",
+            "jun",
+            "jul",
+            "agosto|ago",
+            "sept|sep",
+            "oct",
+            "nov",
+            "dic"
+        ]
+    },
+    "ui": {
+        "tables": {
+            "empty": "Nada que mostrar.",
+            "next": "Siguiente",
+            "previous": "Anterior",
+            "download": "Descargar"
+        },
+        "names": {
+            "appname": "Aplicación",
+            "date": "Fecha",
+            "month": "Mes",
+            "type": "Tipo",
+            "sale": "Venta total",
+            "sale_count": "Recuento de ventas",
+            "purchase": "Total de compra",
+            "purchase_count": "Recuento de compras",
+            "name_color": "Color",
+            "background_color": "Color de fondo",
+            "name": "Nombre",
+            "market_name": "Nombre",
+            "market_hash_name": "Nombre",
+            "year": "Año",
+            "appid": "Aplicación",
+            "is_credit": "Tipo de venta",
+            "index": "Índice",
+            "after_date": "Después de la fecha",
+            "before_date": "Antes de la fecha",
+            "before": "antes de",
+            "after": "Después",
+            "start": "comienzo",
+            "end": "Fin"
+        },
+        "values": {
+            "is_credit": {
+                "0": "Compra",
+                "1": "Venta"
+            },
+            "name_color": {
+                "476291": "Azul",
+                "38F3AB": "Turquesa",
+                "4D7455": "Verde",
+                "7D6D00": "Amarillo",
+                "8650AC": "Púrpura",
+                "AA0000": "rojo",
+                "CF6A32": "naranja",
+                "D2D2D2": "Gris",
+                "FAFAFA": "Blanco",
+                "32CD32": "Esmeralda",
+                "ADE55C": "Primavera verde",
+                "8847FF": "Violeta",
+                "4682B4": "Azul acero"
+            }
+        },
+        "titles": {
+            "update": "Actualizar",
+            "load": "Carga",
+            "annual": "Anual",
+            "app": "Aplicación",
+            "last_n_days": "Ultimos% s dias",
+            "showing_last_n_days": "Mostrando los últimos% s días",
+            "steam_market": "Mercado de vapor",
+            "start_loading": "Empezar a cargar ahora",
+            "view_all": "Ver todo",
+            "view_recent": "Ver reciente",
+            "view_totals": "Ver totales",
+            "update_listings": "Actualizar listados",
+            "purchase_history": "Historial de compras",
+            "preferences": "Preferencias",
+            "monthly": "Mensual"
+        }
+    },
+    "db": {
+        "listings": {
+            "names": {
+                "transaction_id": "ID de transacción",
+                "appid": "ID de aplicación",
+                "contextid": "ID de contexto",
+                "assetid": "ID de activo",
+                "classid": "Identificador de clase",
+                "instanceid": "ID de instancia",
+                "price": "Precio",
+                "is_credit": "Crédito",
+                "date_listed": "Listado en",
+                "date_acted": "Actuando en",
+                "name_color": "Color",
+                "background_color": "Color de fondo",
+                "name": "Nombre",
+                "market_name": "Nombre",
+                "market_hash_name": "Nombre",
+                "index": "Índice"
+            },
+            "column_names": {
+                "transaction_id": "ID de transacción",
+                "appid": "ID de aplicación",
+                "contextid": "ID de contexto",
+                "assetid": "ID de activo",
+                "classid": "Identificador de clase",
+                "instanceid": "ID de instancia",
+                "price": "Precio",
+                "is_credit": "​",
+                "date_listed": "Listado en",
+                "date_acted": "Actuando en",
+                "name_color": "Color",
+                "background_color": "Color de fondo",
+                "name": "Nombre",
+                "market_name": "Nombre",
+                "market_hash_name": "Nombre",
+                "index": "Índice"
+            }
+        },
+        "accounttransactions": {
+            "names": {
+                "transaction_id": "ID de transacción",
+                "transaction_type": "Tipo",
+                "price": "Total",
+                "is_credit": "Crédito",
+                "count": "Contar",
+                "date": "Fecha"
+            },
+            "column_names": {
+                "transaction_id": "ID de transacción",
+                "transaction_type": "Tipo",
+                "price": "Total",
+                "is_credit": "​",
+                "count": "Contar",
+                "date": "Fecha"
+            },
+            "identifiers": {
+                "transaction_type": {
+                    "Market Transaction": 1,
+                    "In-Game Purchase": 2,
+                    "Purchase": 3,
+                    "Gift Purchase": 4,
+                    "Refund": 5
+                }
+            }
+        },
+        "gameitems": {
+            "names": {
+                "app": "Aplicación",
+                "name": "Nombre",
+                "price": "Precio",
+                "count": "Contar"
+            }
+        }
+    }
+}

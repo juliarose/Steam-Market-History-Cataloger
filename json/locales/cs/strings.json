@@ -1,0 +1,164 @@
+{
+    "months": {
+        "abbreviations": [
+            "led",
+            "úno",
+            "bře",
+            "dub",
+            "kvě",
+            "čvn",
+            "čvc",
+            "srp",
+            "zář",
+            "říj",
+            "lis",
+            "pro"
+        ]
+    },
+    "ui": {
+        "tables": {
+            "empty": "Nic k zobrazení.",
+            "next": "další",
+            "previous": "Předchozí",
+            "download": "Stažení"
+        },
+        "values": {
+            "is_credit": {
+                "0": "Nákup",
+                "1": "Prodej"
+            },
+            "name_color": {
+                "476291": "Modrý",
+                "38F3AB": "Tyrkysový",
+                "4D7455": "Zelená",
+                "7D6D00": "Žlutá",
+                "8650AC": "Nachový",
+                "AA0000": "Červené",
+                "CF6A32": "oranžový",
+                "D2D2D2": "Šedá",
+                "FAFAFA": "Bílý",
+                "32CD32": "Smaragd",
+                "ADE55C": "Jarní zelená",
+                "8847FF": "fialový",
+                "4682B4": "Ocelová Modrá"
+            }
+        },
+        "names": {
+            "appname": "Aplikace",
+            "date": "datum",
+            "month": "Měsíc",
+            "type": "Typ",
+            "sale": "Prodej celkem",
+            "sale_count": "Prodej Počet",
+            "purchase": "Nákup celkem",
+            "purchase_count": "Počet nákupů",
+            "name_color": "Barva",
+            "background_color": "Barva pozadí",
+            "name": "název",
+            "market_name": "název",
+            "market_hash_name": "název",
+            "year": "Rok",
+            "appid": "Aplikace",
+            "is_credit": "Typ prodeje",
+            "index": "Index",
+            "after_date": "Po datu",
+            "before_date": "Před datem",
+            "before": "Před",
+            "after": "Po",
+            "start": "Start",
+            "end": "Konec"
+        },
+        "titles": {
+            "update": "Aktualizace",
+            "load": "Zatížení",
+            "annual": "Roční",
+            "app": "Aplikace",
+            "last_n_days": "Poslední% s dnů",
+            "showing_last_n_days": "Zobrazují se poslední% s dny",
+            "steam_market": "Parní trh",
+            "start_loading": "Začněte načítat nyní",
+            "view_all": "Zobrazit vše",
+            "view_recent": "Zobrazit poslední",
+            "view_totals": "Zobrazit součty",
+            "update_listings": "Aktualizovat záznamy",
+            "purchase_history": "Historie nákupů",
+            "preferences": "Předvolby",
+            "monthly": "Měsíční"
+        }
+    },
+    "db": {
+        "listings": {
+            "names": {
+                "transaction_id": "ID transakce",
+                "appid": "ID aplikace",
+                "contextid": "ID kontextu",
+                "assetid": "ID aktiva",
+                "classid": "Číslo třídy",
+                "instanceid": "ID instance",
+                "price": "Cena",
+                "is_credit": "Kredit",
+                "date_listed": "Zapnuto",
+                "date_acted": "Zapnutý",
+                "name_color": "Barva",
+                "background_color": "Barva pozadí",
+                "name": "název",
+                "market_name": "název",
+                "market_hash_name": "název",
+                "index": "Index"
+            },
+            "column_names": {
+                "transaction_id": "ID transakce",
+                "appid": "ID aplikace",
+                "contextid": "ID kontextu",
+                "assetid": "ID aktiva",
+                "classid": "Číslo třídy",
+                "instanceid": "ID instance",
+                "price": "Cena",
+                "is_credit": "​",
+                "date_listed": "Zapnuto",
+                "date_acted": "Zapnutý",
+                "name_color": "Barva",
+                "background_color": "Barva pozadí",
+                "name": "název",
+                "market_name": "název",
+                "market_hash_name": "název",
+                "index": "Index"
+            }
+        },
+        "accounttransactions": {
+            "names": {
+                "transaction_id": "ID transakce",
+                "transaction_type": "Typ",
+                "price": "Celkový",
+                "is_credit": "Kredit",
+                "count": "Spočítat",
+                "date": "datum"
+            },
+            "column_names": {
+                "transaction_id": "ID transakce",
+                "transaction_type": "Typ",
+                "price": "Celkový",
+                "is_credit": "​",
+                "count": "Spočítat",
+                "date": "datum"
+            },
+            "identifiers": {
+                "transaction_type": {
+                    "Market Transaction": 1,
+                    "In-Game Purchase": 2,
+                    "Purchase": 3,
+                    "Gift Purchase": 4,
+                    "Refund": 5
+                }
+            }
+        },
+        "gameitems": {
+            "names": {
+                "app": "Aplikace",
+                "name": "název",
+                "price": "Cena",
+                "count": "Spočítat"
+            }
+        }
+    }
+}

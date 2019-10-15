@@ -1,0 +1,164 @@
+{
+    "months": {
+        "abbreviations": [
+            "ม.ค.",
+            "ก.พ.",
+            "มี.ค.",
+            "เม.ย.",
+            "พ.ค.",
+            "มิ.ย.",
+            "ก.ค.",
+            "ส.ค.",
+            "ก.ย.",
+            "ต.ค.",
+            "พ.ย.",
+            "ธ.ค."
+        ]
+    },
+    "ui": {
+        "tables": {
+            "empty": "ไม่มีอะไรให้แสดง",
+            "next": "ต่อไป",
+            "previous": "ก่อน",
+            "download": "ดาวน์โหลด"
+        },
+        "names": {
+            "appname": "App",
+            "date": "วันที่",
+            "month": "เดือน",
+            "type": "ชนิด",
+            "sale": "ยอดขายรวม",
+            "sale_count": "จำนวนการขาย",
+            "purchase": "ยอดรวมการซื้อ",
+            "purchase_count": "จำนวนการสั่งซื้อ",
+            "name_color": "สี",
+            "background_color": "สีพื้นหลัง",
+            "name": "ชื่อ",
+            "market_name": "ชื่อ",
+            "market_hash_name": "ชื่อ",
+            "year": "ปี",
+            "appid": "App",
+            "is_credit": "ประเภทขาย",
+            "index": "ดัชนี",
+            "after_date": "หลังจากวันที่",
+            "before_date": "ก่อนวันที่",
+            "before": "ก่อน",
+            "after": "หลังจาก",
+            "start": "เริ่มต้น",
+            "end": "ปลาย"
+        },
+        "values": {
+            "is_credit": {
+                "0": "ซื้อ",
+                "1": "การขาย"
+            },
+            "name_color": {
+                "476291": "สีน้ำเงิน",
+                "38F3AB": "มีสีเขียวขุ่น",
+                "4D7455": "สีเขียว",
+                "7D6D00": "สีเหลือง",
+                "8650AC": "สีม่วง",
+                "AA0000": "สีแดง",
+                "CF6A32": "ส้ม",
+                "D2D2D2": "สีเทา",
+                "FAFAFA": "ขาว",
+                "32CD32": "มรกต",
+                "ADE55C": "สปริงกรีน",
+                "8847FF": "ม่วง",
+                "4682B4": "เหล็กสีน้ำเงิน"
+            }
+        },
+        "titles": {
+            "update": "ปรับปรุง",
+            "load": "ภาระ",
+            "annual": "ประจำปี",
+            "app": "App",
+            "last_n_days": "% s วันล่าสุด",
+            "showing_last_n_days": "แสดง% s วันล่าสุด",
+            "steam_market": "ตลาดไอน้ำ",
+            "start_loading": "เริ่มการโหลดตอนนี้",
+            "view_all": "ดูทั้งหมด",
+            "view_recent": "ดูล่าสุด",
+            "view_totals": "ดูผลรวม",
+            "update_listings": "ปรับปรุงรายชื่อ",
+            "purchase_history": "ประวัติการซื้อ",
+            "preferences": "การตั้งค่า",
+            "monthly": "รายเดือน"
+        }
+    },
+    "db": {
+        "listings": {
+            "names": {
+                "transaction_id": "รหัสธุรกรรม",
+                "appid": "รหัสแอป",
+                "contextid": "ID บริบท",
+                "assetid": "รหัสเนื้อหา",
+                "classid": "ID คลาส",
+                "instanceid": "ID อินสแตนซ์",
+                "price": "ราคา",
+                "is_credit": "เครดิต",
+                "date_listed": "จดทะเบียนใน",
+                "date_acted": "ทำหน้าที่ใน",
+                "name_color": "สี",
+                "background_color": "สีพื้นหลัง",
+                "name": "ชื่อ",
+                "market_name": "ชื่อ",
+                "market_hash_name": "ชื่อ",
+                "index": "ดัชนี"
+            },
+            "column_names": {
+                "transaction_id": "รหัสธุรกรรม",
+                "appid": "รหัสแอป",
+                "contextid": "ID บริบท",
+                "assetid": "รหัสเนื้อหา",
+                "classid": "ID คลาส",
+                "instanceid": "ID อินสแตนซ์",
+                "price": "ราคา",
+                "is_credit": "​",
+                "date_listed": "จดทะเบียนใน",
+                "date_acted": "ทำหน้าที่ใน",
+                "name_color": "สี",
+                "background_color": "สีพื้นหลัง",
+                "name": "ชื่อ",
+                "market_name": "ชื่อ",
+                "market_hash_name": "ชื่อ",
+                "index": "ดัชนี"
+            }
+        },
+        "accounttransactions": {
+            "names": {
+                "transaction_id": "รหัสธุรกรรม",
+                "transaction_type": "ชนิด",
+                "price": "ทั้งหมด",
+                "is_credit": "เครดิต",
+                "count": "นับ",
+                "date": "วันที่"
+            },
+            "column_names": {
+                "transaction_id": "รหัสธุรกรรม",
+                "transaction_type": "ชนิด",
+                "price": "ทั้งหมด",
+                "is_credit": "​",
+                "count": "นับ",
+                "date": "วันที่"
+            },
+            "identifiers": {
+                "transaction_type": {
+                    "Market Transaction": 1,
+                    "In-Game Purchase": 2,
+                    "Purchase": 3,
+                    "Gift Purchase": 4,
+                    "Refund": 5
+                }
+            }
+        },
+        "gameitems": {
+            "names": {
+                "app": "App",
+                "name": "ชื่อ",
+                "price": "ราคา",
+                "count": "นับ"
+            }
+        }
+    }
+}

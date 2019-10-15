@@ -1,0 +1,86 @@
+
+
+.ct-chart .button {
+    background-color: #F0F1F2;
+    border-color: #697B91;
+    color: #566578;
+    float: right;
+    margin-right: 0;
+    margin-bottom: 1.2em;
+}
+
+.ct-label {
+    color: #36404D !important;
+}
+
+.ct-grid {
+    stroke: #697B91 !important;
+}
+
+.ct-series-a .ct-line {
+    stroke: #20A98A;
+    stroke-width: 2px;
+}
+
+.ct-series-a .ct-point {
+    stroke: #36C9A7;
+    stroke-width: 6px;
+}
+
+.ct-series-a .sales .ct-line, .ct-series-a .sales .ct-point  {
+    stroke: #D16E59;
+}
+
+.ct-legend {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+}
+
+.ct-legend li {
+    position: relative;
+    padding-left: 2em;
+    list-style-type: none;
+    display: inline-block;
+    margin-right: 2em;
+}
+
+.ct-legend:last-child {
+    margin-right: 0;
+}
+
+.ct-legend li.sales:before {
+    background-color: #D16E59;
+    border-color: #D16E59;
+}
+
+.ct-legend li.purchases:before {
+    background-color: #20A98A;
+    border-color: #20A98A;
+}
+
+.ct-legend li:before {
+    width: 1em;
+    height: 1em;
+    margin-top: 0.2em;
+    position: absolute;
+    left: 0;
+    content: '';
+    background-color: #36404D;
+    border: 2px solid #36404D;
+    border-radius: 2px;
+}
+
+.ct-legend li.inactive:before {
+    background: transparent;
+}
+
+.ct-zoom-rect {
+  fill: rgba(54, 64, 77, 0.12);
+  stroke: #36404D;
+}
+
+
+.ct-label.ct-horizontal, .ct-label.ct-vertical {
+  white-space: nowrap;
+}

@@ -1,0 +1,164 @@
+{
+    "months": {
+        "abbreviations": [
+            "янв",
+            "фев",
+            "мар",
+            "апр",
+            "мая",
+            "июн",
+            "июл",
+            "авг",
+            "сен",
+            "окт",
+            "ноя",
+            "дек"
+        ]
+    },
+    "ui": {
+        "tables": {
+            "empty": "Нечего продемонстрировать.",
+            "next": "следующий",
+            "previous": "предыдущий",
+            "download": "Скачать"
+        },
+        "names": {
+            "appname": "Приложение",
+            "date": "Дата",
+            "month": "Месяц",
+            "type": "Тип",
+            "sale": "Продажа Всего",
+            "sale_count": "Продажа графа",
+            "purchase": "Итого покупки",
+            "purchase_count": "Счетчик покупок",
+            "name_color": "цвет",
+            "background_color": "Фоновый цвет",
+            "name": "название",
+            "market_name": "название",
+            "market_hash_name": "название",
+            "year": "Год",
+            "appid": "Приложение",
+            "is_credit": "Тип продажи",
+            "index": "Индекс",
+            "after_date": "После даты",
+            "before_date": "До даты",
+            "before": "До",
+            "after": "После",
+            "start": "Начните",
+            "end": "Конец"
+        },
+        "values": {
+            "is_credit": {
+                "0": "покупка",
+                "1": "распродажа"
+            },
+            "name_color": {
+                "476291": "синий",
+                "38F3AB": "Бирюзовый",
+                "4D7455": "зеленый",
+                "7D6D00": "желтый",
+                "8650AC": "Пурпурный",
+                "AA0000": "красный",
+                "CF6A32": "оранжевый",
+                "D2D2D2": "Серый",
+                "FAFAFA": "белый",
+                "32CD32": "Изумруд",
+                "ADE55C": "Весенний зеленый",
+                "8847FF": "Виолетта",
+                "4682B4": "Стальной синий"
+            }
+        },
+        "titles": {
+            "update": "Обновить",
+            "load": "нагрузка",
+            "annual": "годовой",
+            "app": "Приложение",
+            "last_n_days": "Последние% s дней",
+            "showing_last_n_days": "Отображение последних% s дней",
+            "steam_market": "Steam market",
+            "start_loading": "Начните загрузку сейчас",
+            "view_all": "Посмотреть все",
+            "view_recent": "Посмотреть последние",
+            "view_totals": "Посмотреть итоги",
+            "update_listings": "Обновить списки",
+            "purchase_history": "История покупки",
+            "preferences": "предпочтения",
+            "monthly": "ежемесячно"
+        }
+    },
+    "db": {
+        "listings": {
+            "names": {
+                "transaction_id": "номер транзакции",
+                "appid": "Идентификатор приложения",
+                "contextid": "ID контекста",
+                "assetid": "ID актива",
+                "classid": "ID класса",
+                "instanceid": "ID экземпляра",
+                "price": "Цена",
+                "is_credit": "кредит",
+                "date_listed": "РАЗМЕЩЕНО",
+                "date_acted": "ДАТА СДЕЛКИ",
+                "name_color": "цвет",
+                "background_color": "Фоновый цвет",
+                "name": "название",
+                "market_name": "название",
+                "market_hash_name": "название",
+                "index": "Индекс"
+            },
+            "column_names": {
+                "transaction_id": "номер транзакции",
+                "appid": "Идентификатор приложения",
+                "contextid": "ID контекста",
+                "assetid": "ID актива",
+                "classid": "ID класса",
+                "instanceid": "ID экземпляра",
+                "price": "Цена",
+                "is_credit": "​",
+                "date_listed": "РАЗМЕЩЕНО",
+                "date_acted": "ДАТА СДЕЛКИ",
+                "name_color": "цвет",
+                "background_color": "Фоновый цвет",
+                "name": "название",
+                "market_name": "название",
+                "market_hash_name": "название",
+                "index": "Индекс"
+            }
+        },
+        "accounttransactions": {
+            "names": {
+                "transaction_id": "номер транзакции",
+                "transaction_type": "Тип",
+                "price": "Всего",
+                "is_credit": "кредит",
+                "count": "подсчитывать",
+                "date": "Дата"
+            },
+            "column_names": {
+                "transaction_id": "номер транзакции",
+                "transaction_type": "Тип",
+                "price": "Всего",
+                "is_credit": "​",
+                "count": "подсчитывать",
+                "date": "Дата"
+            },
+            "identifiers": {
+                "transaction_type": {
+                    "Market Transaction": 1,
+                    "In-Game Purchase": 2,
+                    "Purchase": 3,
+                    "Gift Purchase": 4,
+                    "Refund": 5
+                }
+            }
+        },
+        "gameitems": {
+            "names": {
+                "app": "Приложение",
+                "name": "название",
+                "price": "Цена",
+                "count": "подсчитывать"
+            }
+        }
+    }
+}

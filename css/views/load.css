@@ -1,0 +1,46 @@
+
+.heading {
+    padding-top: 1.6em;
+}
+
+.counts {
+    width: 100%;
+    float: right;
+    text-align: right;
+    margin-bottom: 1em;
+}
+
+.history-controls {
+    width: 100%;
+    float: right;
+    text-align: right;
+}
+
+.counts .item {
+    display: block;
+    width: 14em;
+    padding-bottom: 0.6em;
+    border-bottom: 1px solid #36404D;
+    line-height: 1.7em;
+    margin: 0;
+    float: right;
+}
+
+.counts .item:last-child {
+    margin-bottom: 0;
+}
+
+.counts .label {
+    text-transform: uppercase;
+}
+
+.counts .value {
+    font-family: "Open Sans Condensed", sans-serif;
+    font-size: 3.2em;
+    font-weight: bold;
+    line-height: 0.9em;
+}
+
+#load_controls {
+    height: 70px;
+}

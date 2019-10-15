@@ -1,0 +1,164 @@
+{
+    "months": {
+        "abbreviations": [
+            "ian",
+            "febr|feb",
+            "mart|mar",
+            "apr",
+            "mai",
+            "iun",
+            "iul",
+            "aug",
+            "sept|sep",
+            "oct",
+            "nov",
+            "dec"
+        ]
+    },
+    "ui": {
+        "tables": {
+            "empty": "Nimic de afisat.",
+            "next": "Următor →",
+            "previous": "Anterior",
+            "download": "Descarca"
+        },
+        "names": {
+            "appname": "App",
+            "date": "Data",
+            "month": "Lună",
+            "type": "Tip",
+            "sale": "Vanzare Total",
+            "sale_count": "Vanzare Conteaza",
+            "purchase": "Achizitie Total",
+            "purchase_count": "Cumpărare Count",
+            "name_color": "Culoare",
+            "background_color": "Culoare de fundal",
+            "name": "Nume",
+            "market_name": "Nume",
+            "market_hash_name": "Nume",
+            "year": "An",
+            "appid": "App",
+            "is_credit": "Tip de vânzare",
+            "index": "Index",
+            "after_date": "După data",
+            "before_date": "Înainte de data",
+            "before": "Inainte de",
+            "after": "După",
+            "start": "start",
+            "end": "Sfârșit"
+        },
+        "values": {
+            "is_credit": {
+                "0": "Cumpărare",
+                "1": "Vânzare"
+            },
+            "name_color": {
+                "476291": "Albastru",
+                "38F3AB": "Turcoaz",
+                "4D7455": "Verde",
+                "7D6D00": "Galben",
+                "8650AC": "Violet",
+                "AA0000": "roșu",
+                "CF6A32": "portocale",
+                "D2D2D2": "Gri",
+                "FAFAFA": "alb",
+                "32CD32": "Smarald",
+                "ADE55C": "Primăvara verde",
+                "8847FF": "violet",
+                "4682B4": "Oțel albastru"
+            }
+        },
+        "titles": {
+            "update": "Actualizați",
+            "load": "Sarcină",
+            "annual": "Anual",
+            "app": "App",
+            "last_n_days": "Ultimele zile% s",
+            "showing_last_n_days": "Se afișează ultimele% s zile",
+            "steam_market": "Piata aburului",
+            "start_loading": "Începeți încărcarea acum",
+            "view_all": "A vedea tot",
+            "view_recent": "Afișați recente",
+            "view_totals": "Vizualizați totalurile",
+            "update_listings": "Actualizați înregistrările",
+            "purchase_history": "Istoricul cumparaturilor",
+            "preferences": "Preferințe",
+            "monthly": "Lunar"
+        }
+    },
+    "db": {
+        "listings": {
+            "names": {
+                "transaction_id": "ID-ul de tranzacție",
+                "appid": "ID-ul aplicației",
+                "contextid": "ID-ul contextual",
+                "assetid": "ID-ul activului",
+                "classid": "ID-ul clasei",
+                "instanceid": "ID-ul instanței",
+                "price": "Preț",
+                "is_credit": "Credit",
+                "date_listed": "Listat pe",
+                "date_acted": "Acționat pe",
+                "name_color": "Culoare",
+                "background_color": "Culoare de fundal",
+                "name": "Nume",
+                "market_name": "Nume",
+                "market_hash_name": "Nume",
+                "index": "Index"
+            },
+            "column_names": {
+                "transaction_id": "ID-ul de tranzacție",
+                "appid": "ID-ul aplicației",
+                "contextid": "ID-ul contextual",
+                "assetid": "ID-ul activului",
+                "classid": "ID-ul clasei",
+                "instanceid": "ID-ul instanței",
+                "price": "Preț",
+                "is_credit": "​",
+                "date_listed": "Listat pe",
+                "date_acted": "Acționat pe",
+                "name_color": "Culoare",
+                "background_color": "Culoare de fundal",
+                "name": "Nume",
+                "market_name": "Nume",
+                "market_hash_name": "Nume",
+                "index": "Index"
+            }
+        },
+        "accounttransactions": {
+            "names": {
+                "transaction_id": "ID-ul de tranzacție",
+                "transaction_type": "Tip",
+                "price": "Total",
+                "is_credit": "Credit",
+                "count": "Numara",
+                "date": "Data"
+            },
+            "column_names": {
+                "transaction_id": "ID-ul de tranzacție",
+                "transaction_type": "Tip",
+                "price": "Total",
+                "is_credit": "​",
+                "count": "Numara",
+                "date": "Data"
+            },
+            "identifiers": {
+                "transaction_type": {
+                    "Market Transaction": 1,
+                    "In-Game Purchase": 2,
+                    "Purchase": 3,
+                    "Gift Purchase": 4,
+                    "Refund": 5
+                }
+            }
+        },
+        "gameitems": {
+            "names": {
+                "app": "App",
+                "name": "Nume",
+                "price": "Preț",
+                "count": "Numara"
+            }
+        }
+    }
+}

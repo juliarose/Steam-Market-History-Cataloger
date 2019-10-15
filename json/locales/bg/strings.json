@@ -1,0 +1,164 @@
+{
+    "months": {
+        "abbreviations": [
+            "ян",
+            "февр",
+            "март",
+            "апр",
+            "май",
+            "юни",
+            "юли",
+            "авг",
+            "септ",
+            "окт",
+            "ноем",
+            "дек"
+        ]
+    },
+    "ui": {
+        "tables": {
+            "empty": "Нищо за показване.",
+            "next": "Следващия",
+            "previous": "предишен",
+            "download": "Изтегли"
+        },
+        "values": {
+            "is_credit": {
+                "0": "покупка",
+                "1": "продажба"
+            },
+            "name_color": {
+                "476291": "Син",
+                "38F3AB": "тюркоаз",
+                "4D7455": "зелен",
+                "7D6D00": "жълт",
+                "8650AC": "Лилаво",
+                "AA0000": "червен",
+                "CF6A32": "оранжев",
+                "D2D2D2": "сив",
+                "FAFAFA": "бял",
+                "32CD32": "смарагд",
+                "ADE55C": "Пролетно зелено",
+                "8847FF": "виолетов",
+                "4682B4": "Стоманено синьо"
+            }
+        },
+        "names": {
+            "appname": "App",
+            "date": "Дата",
+            "month": "месец",
+            "type": "Тип",
+            "sale": "Общо за продажба",
+            "sale_count": "Брой продажби",
+            "purchase": "Общо за покупката",
+            "purchase_count": "Брой на покупките",
+            "name_color": "цвят",
+            "background_color": "Цвят на фона",
+            "name": "име",
+            "market_name": "име",
+            "market_hash_name": "име",
+            "year": "година",
+            "appid": "App",
+            "is_credit": "Тип продажба",
+            "index": "индекс",
+            "after_date": "След датата",
+            "before_date": "Преди датата",
+            "before": "Преди",
+            "after": "След",
+            "start": "начало",
+            "end": "Край"
+        },
+        "titles": {
+            "update": "Актуализация",
+            "load": "натоварване",
+            "annual": "годишен",
+            "app": "App",
+            "last_n_days": "Последните% s дни",
+            "showing_last_n_days": "Показани са последните% s дни",
+            "steam_market": "Парен пазар",
+            "start_loading": "Започнете да зареждате сега",
+            "view_all": "Виж всички",
+            "view_recent": "Преглед на последните",
+            "view_totals": "Вижте общи суми",
+            "update_listings": "Актуализиране на списъците",
+            "purchase_history": "История на покупките",
+            "preferences": "Предпочитания",
+            "monthly": "Месечно"
+        }
+    },
+    "db": {
+        "listings": {
+            "names": {
+                "transaction_id": "номер на транзакцията",
+                "appid": "Идентификационен номер на приложението",
+                "contextid": "Контекст ID",
+                "assetid": "Идент. № на актива",
+                "classid": "Класов идентификатор",
+                "instanceid": "Идентификатор на екземпляра",
+                "price": "Цена",
+                "is_credit": "кредит",
+                "date_listed": "Изброени на",
+                "date_acted": "Активен",
+                "name_color": "цвят",
+                "background_color": "Цвят на фона",
+                "name": "име",
+                "market_name": "име",
+                "market_hash_name": "име",
+                "index": "индекс"
+            },
+            "column_names": {
+                "transaction_id": "номер на транзакцията",
+                "appid": "Идентификационен номер на приложението",
+                "contextid": "Контекст ID",
+                "assetid": "Идент. № на актива",
+                "classid": "Класов идентификатор",
+                "instanceid": "Идентификатор на екземпляра",
+                "price": "Цена",
+                "is_credit": "​",
+                "date_listed": "Изброени на",
+                "date_acted": "Активен",
+                "name_color": "цвят",
+                "background_color": "Цвят на фона",
+                "name": "име",
+                "market_name": "име",
+                "market_hash_name": "име",
+                "index": "индекс"
+            }
+        },
+        "accounttransactions": {
+            "names": {
+                "transaction_id": "номер на транзакцията",
+                "transaction_type": "Тип",
+                "price": "Обща сума",
+                "is_credit": "кредит",
+                "count": "Броя",
+                "date": "Дата"
+            },
+            "column_names": {
+                "transaction_id": "номер на транзакцията",
+                "transaction_type": "Тип",
+                "price": "Обща сума",
+                "is_credit": "​",
+                "count": "Броя",
+                "date": "Дата"
+            },
+            "identifiers": {
+                "transaction_type": {
+                    "Market Transaction": 1,
+                    "In-Game Purchase": 2,
+                    "Purchase": 3,
+                    "Gift Purchase": 4,
+                    "Refund": 5
+                }
+            }
+        },
+        "gameitems": {
+            "names": {
+                "app": "App",
+                "name": "име",
+                "price": "Цена",
+                "count": "Броя"
+            }
+        }
+    }
+}

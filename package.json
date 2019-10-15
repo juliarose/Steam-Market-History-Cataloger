@@ -1,0 +1,39 @@
+{
+  "name": "SteamMarketHistoryCataloger",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Indexes your Steam Community Market transactions into a local storage database. Data can be viewed within the extension and is exportable to JSON and CSV.",
+  "babel": {
+    "presets": [
+      "@babel/env"
+    ]
+  },
+  "scripts": {
+    "test": "jest --verbose --config=tests/jestconfig.js",
+    "watch": "jest --verbose --watch --config=tests/jestconfig.js .js",
+    "docs": "documentation readme index.js --section=API"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.6.2",
+    "@babel/preset-env": "^7.6.2",
+    "babel-jest": "^24.9.0",
+    "chrome-mock": "0.0.9",
+    "dexie": "^2.0.4",
+    "documentation": "^12.1.1",
+    "eslint": "^6.3.0",
+    "eslint-plugin-jsdoc": "^15.8.4",
+    "fake-indexeddb": "^2.1.1",
+    "fetch-mock": "^7.4.0",
+    "isomorphic-fetch": "^2.2.1",
+    "jest": "^24.9.0",
+    "jest-fetch-mock": "^2.1.2",
+    "jest-localstorage-mock": "^2.4.0",
+    "jest-webextension-mock": "^3.5.0",
+    "jsdom": "^15.1.1",
+    "jsdom-global": "^3.0.2",
+    "sinon-chrome": "^3.0.1",
+    "whatwg-fetch": "^3.0.0"
+  },
+  "author": "Julia Rose",
+  "license": "MIT"
+}
