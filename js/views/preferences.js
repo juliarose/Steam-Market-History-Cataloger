@@ -1,10 +1,10 @@
 'use strict';
 
-import {App} from '../app/app.js';
-import {formatLocaleNumber} from '../app/money.js';
-import {Layout} from '../app/layout/layout.js';
-import {createListingManager} from '../app/manager/listingsmanager.js';
-import {isNumber} from '../app/helpers/utils.js';
+import { buildApp } from '../app/app.js';
+import { formatLocaleNumber } from '../app/money.js';
+import { Layout } from '../app/layout/layout.js';
+import { createListingManager } from '../app/manager/listingsmanager.js';
+import { isNumber } from '../app/helpers/utils.js';
 
 const page = {
     inputs: document.querySelectorAll('input, select'),
@@ -19,12 +19,15 @@ const page = {
     listingsDescription: document.getElementById('listings-description')
 };
 
-function onReady() {
-    App.ready()
-        .then(onApp)
-        .catch((e) => {
-            console.log(e);
+async function onReady() {
+    try {
+        await buildApp();
+    } catch (error) {
+        page.loggedInButtons.forEach((el) => {
+            el.remove();
         });
+        page.profile.innerHTML = `<p class="app-error">${escapeHTML(error)}</p>`;
+    }
 }
 
 function onApp(app) {
@@ -92,7 +95,7 @@ function onApp(app) {
     
     // updates the value for a field
     function updateField(target) {
-        const {type, id} = target;
+        const { type, id } = target;
         let value = target.value;
         
         if (type === 'checkbox') {
@@ -135,41 +138,39 @@ function onApp(app) {
     }
     
     // updates the displayed count on page
-    function updateCount() {
-        return listingManager.getSettings(true)
-            .then((settings) => {
-                const count = settings.recorded_count || 0;
-                const language = settings.language;
-                
-                if (language) {
-                    let formatted = formatLocaleNumber(count, app.account.wallet.currency);
-                    let describeText;
-                    
-                    // pick description text based on number of listings
-                    if (count >= 100000) {
-                        describeText = 'That\'s a lot of listings. It would be a shame if anything were to happen to them. ';
-                    } else if (count >= 10000) {
-                        describeText = 'That\'s a good number of listings. ';
-                    } else if (count >= 1000) {
-                        describeText = 'That\'s a few listings. ';
-                    } else if (count === 0) {
-                        describeText = 'No listings? No problem. ';
-                    } else {
-                        describeText = 'That\'s not too many listings. ';
-                    }
-                    
-                    page.listingsLanguage.textContent = language;
-                    page.listingCount.textContent = formatted + ' recorded listings';
-                    page.listingDescribe.textContent = describeText;
-                } else {
-                    page.listingsDescription.textContent = 'You don\'t have any listings loaded.';
-                }
-                
-                return;
-            });
+    async function updateCount() {
+        const settings = await listingManager.getSettings(true);
+        const count = settings.recorded_count || 0;
+        const language = settings.language;
+        
+        if (language) {
+            let formatted = formatLocaleNumber(count, app.account.wallet.currency);
+            let describeText;
+            
+            // pick description text based on number of listings
+            if (count >= 100000) {
+                describeText = 'That\'s a lot of listings. It would be a shame if anything were to happen to them. ';
+            } else if (count >= 10000) {
+                describeText = 'That\'s a good number of listings. ';
+            } else if (count >= 1000) {
+                describeText = 'That\'s a few listings. ';
+            } else if (count === 0) {
+                describeText = 'No listings? No problem. ';
+            } else {
+                describeText = 'That\'s not too many listings. ';
+            }
+            
+            page.listingsLanguage.textContent = language;
+            page.listingCount.textContent = formatted + ' recorded listings';
+            page.listingDescribe.textContent = describeText;
+        } else {
+            page.listingsDescription.textContent = 'You don\'t have any listings loaded.';
+        }
+        
+        return;
     }
     
-    const {preferences} = app;
+    const { preferences } = app;
     const listingManager = createListingManager(app);
 
     autofill();

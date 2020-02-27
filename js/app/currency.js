@@ -1,7 +1,5 @@
 'use strict';
 
-chrome;
-
 /*
  * This file contains details of how every currency should be parsed and formatted
  *
@@ -383,7 +381,7 @@ const Currency = Object.freeze({
 });
 
 /**
- * Gets currency.
+ * Gets a currency.
  * @param {(Number|String)} id - ID of currency.
  * @returns {(Currency|undefined)} Currency details.
  */
@@ -391,4 +389,4 @@ function getCurrency(id) {
     return Currency[id];
 }
 
-export {Currency, getCurrency};
+export { Currency, getCurrency };

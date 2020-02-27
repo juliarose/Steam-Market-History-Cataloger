@@ -1,6 +1,6 @@
 'use strict';
 
-import {createClass} from './helpers/createClass.js';
+import { createClass } from './helpers/createClass.js';
 
 const types = {
     app: String,
@@ -53,4 +53,4 @@ GameItem.prototype.toJSON = function() {
     };
 };
 
-export {GameItem};
+export { GameItem };

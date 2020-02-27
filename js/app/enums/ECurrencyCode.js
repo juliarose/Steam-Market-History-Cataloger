@@ -82,4 +82,4 @@ const ECurrencyCode = Object.freeze({
     'UYU': 41
 });
 
-export {ECurrencyCode};
+export { ECurrencyCode };

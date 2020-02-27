@@ -1,7 +1,7 @@
 'use strict';
 
-import {Steam} from '../../../steam/steam.js';
-import {escapeHTML} from '../../../helpers/utils.js';
+import { Steam } from '../../../steam/steam.js';
+import { escapeHTML } from '../../../helpers/utils.js';
 
 // id for current hover
 // since requests are done through AJAX,
@@ -108,4 +108,4 @@ function addToHoverState() {
     hoverID += 1;
 }
 
-export {getHover, getHoverAsset, addToHoverState};
+export { getHover, getHoverAsset, addToHoverState };

@@ -1,7 +1,7 @@
 'use strict';
 
-import {Steam} from '../../../steam/steam.js';
-import {buildLink} from './buildLink.js';
+import { Steam } from '../../../steam/steam.js';
+import { buildLink } from './buildLink.js';
 
 const buildThirdPartyLinks = {
     // fetch an asset from steam to display links
@@ -63,4 +63,4 @@ const buildThirdPartyLinks = {
     }
 };
 
-export {buildThirdPartyLinks};
+export { buildThirdPartyLinks };

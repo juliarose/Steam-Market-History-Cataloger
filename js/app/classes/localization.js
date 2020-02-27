@@ -1,9 +1,9 @@
 'use strict';
 
-import {fetchJSON} from '../helpers/fetchjson.js'; 
-import {ELangCode} from '../enums/ELangCode.js'; 
-import {isNumber} from '../helpers/utils.js';
-import {getExtensionURL} from '../browser.js';
+import { fetchJSON } from '../helpers/fetchjson.js'; 
+import { ELangCode } from '../enums/ELangCode.js'; 
+import { isNumber, valuesAsKeys } from '../helpers/utils.js';
+import { getExtensionURL } from '../browser.js';
 
 /**
  * Loads/stores language data.
@@ -16,7 +16,7 @@ function Localization() {
 }
 
 /**
- * Get language strings.
+ * Gets language strings.
  * @memberOf Localization
  * @param {String} language - Name of language from Steam.
  * @param {locales.get-callback} callback - Called when finished loading.
@@ -42,7 +42,7 @@ Localization.prototype.get = function(language) {
 };
 
 /**
- * Set strings.
+ * Sets strings.
  * @memberOf Localization
  * @param {Object} strings - JSON object containing strings.
  * @returns {undefined}
@@ -57,6 +57,23 @@ Localization.prototype.set = function(strings) {
         this.months.abbreviations_patterns[i] = pattern;
         this.months.abbreviations[i] = abbreviations.split('|')[0];
     });
+    
+    for (let table in this.db) {
+        if (!this.db[table].identifiers) {
+            continue;
+        }
+        
+        for (let identifierName in this.db[table].identifiers) {
+            const identifiers = this.db[table].identifiers[identifierName];
+            
+            // this will transform the identifiers so that we can obtain an item's key using its value
+            // e.g.
+            // { "Purchase": 1 }
+            // becomes
+            // { "Purchase": 1, 1: "Purchase" }
+            this.db[table].identifiers[identifierName] = valuesAsKeys(identifiers);
+        }
+    }
 };
 
 /**
@@ -88,7 +105,7 @@ Localization.prototype.toDateString = function(date) {
 };
 
 /**
- * Parse a date string.
+ * Parses a date string.
  * @memberOf Localization
  * @throws {Error} When date failed to parsed.
  * @param {String} string - String of date.
@@ -174,4 +191,4 @@ Localization.prototype.parseDateString = function(string) {
     }
 };
 
-export {Localization};
+export { Localization };

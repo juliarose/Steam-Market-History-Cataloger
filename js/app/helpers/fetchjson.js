@@ -5,15 +5,14 @@
  * @param {String} uri - Location of JSON file.
  * @returns {Promise.<Object>} Resolve when done.
  */
-function fetchJSON(uri) {
-    return fetch(uri)
-        .then((response) => {
-            if (response.ok) {
-                return response.json();
-            } else {
-                return Promise.reject(`Failed to load ${uri}: ${response.statusText}`);
-            }
-        });
+async function fetchJSON(uri) {
+    const response = await fetch(uri);
+    
+    if (!response.ok) {
+        return Promise.reject(`Failed to load ${uri}: ${response.statusText}`);
+    }
+    
+    return response.json();
 }
 
-export {fetchJSON};
+export { fetchJSON };

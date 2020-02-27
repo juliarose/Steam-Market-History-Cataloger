@@ -1,11 +1,11 @@
 'use strict';
 
-import {createClass} from './helpers/createClass.js';
-import {applist} from '../data/applist.js';
-import {Color} from '../helpers/color.js';
-import {escapeHTML, printDate} from '../helpers/utils.js';
-import {tooltip, removeTooltip} from '../layout/tooltip.js';
-import {getHover, getHoverAsset, addToHoverState} from '../layout/listings/hovers/hovers.js';
+import { createClass } from './helpers/createClass.js';
+import { applist } from '../data/applist.js';
+import { Color } from '../helpers/color.js';
+import { escapeHTML, printDate } from '../helpers/utils.js';
+import { tooltip, removeTooltip } from '../layout/tooltip.js';
+import { getHover, getHoverAsset, addToHoverState } from '../layout/listings/hovers/hovers.js';
 
 const types = {
     transaction_id: String,
@@ -273,4 +273,4 @@ Listing.prototype.toJSON = function() {
     };
 };
 
-export {Listing};
+export { Listing };

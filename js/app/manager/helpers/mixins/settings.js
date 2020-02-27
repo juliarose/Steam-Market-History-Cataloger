@@ -1,6 +1,6 @@
 'use strict';
 
-import {storage} from '../../../browser.js';
+import { storage } from '../../../browser.js';
 
 /**
  * This module acts as a mixin element for obtaining storage settings.
@@ -100,4 +100,4 @@ const Settings = {
     }
 };
 
-export {Settings};
+export { Settings };

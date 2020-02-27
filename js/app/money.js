@@ -62,6 +62,8 @@ function formatLocaleNumber(value, currency) {
  * @returns {Number} Divided number.
  */
 function toDecimal(value, precision) {
+    // 10 the power of how many places we want
+    // e.g. 100 for 2 places (550 / 100 = 5.50)
     const power = Math.pow(10, precision);
     
     return value / power;
@@ -154,7 +156,7 @@ function toFixedInteger(value, precision) {
         // trim decimal places to precision
         return value.substr(0, precision);
     } else {
-        //  add some zeros
+        //  add some zeros to the front
         while (value.length < precision) {
             value = '0' + value;
         }

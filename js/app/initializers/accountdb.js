@@ -42,4 +42,4 @@ function configureDB() {
     });
 }
 
-export {configureDB};
+export { configureDB };

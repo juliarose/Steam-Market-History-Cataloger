@@ -1,9 +1,9 @@
 'use strict';
 
-import {escapeHTML, escapeRegExp, printDate} from '../helpers/utils.js';
-import {download} from '../helpers/download.js';
-import {formatMoney} from '../money.js';
-import {buildFile} from '../buildFile.js';
+import { escapeHTML, escapeRegExp, printDate } from '../helpers/utils.js';
+import { download } from '../helpers/download.js';
+import { formatMoney } from '../money.js';
+import { buildFile } from '../buildFile.js';
 
 /**
  * Builds a table for records.
@@ -157,7 +157,7 @@ function buildTable(records, Class, options) {
             this.page = 1;
         }
     };
-    let getHTML = {
+    const getHTML = {
         // no records to display
         empty: function() {
             return `<div class="${tableClass} empty-table">${locales.empty}</div>`;
@@ -601,4 +601,4 @@ function getColumnClasses(display, columns) {
     }, {});
 }
 
-export {buildTable};
+export { buildTable };

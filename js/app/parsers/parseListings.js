@@ -1,8 +1,8 @@
 'use strict';
 
-import {getDocument} from '../helpers/utils.js';
-import {parseMoney} from '../money.js';
-import {Listing} from '../classes/listing.js';
+import { getDocument } from '../helpers/utils.js';
+import { parseMoney } from '../money.js';
+import { Listing } from '../classes/listing.js';
 
 /**
  * Results of parsing.
@@ -27,7 +27,7 @@ function parseListings(response, store, currency, localization) {
     const messageEl = doc.querySelector('.market_listing_table_message');
     const messageLinkEl = messageEl && messageEl.querySelector('a');
     const listingsList = doc.getElementsByClassName('market_listing_row');
-    const {start, total_count} = response;
+    const { start, total_count } = response;
     const hasError = Boolean(
         messageEl ||
         total_count === null ||
@@ -120,7 +120,7 @@ function parseListings(response, store, currency, localization) {
      * @param {Object} details.listingEl - Listing row element.
      * @returns {Object} Listing data for row.
      */
-    function listingToJSON({index, listingEl}) {
+    function listingToJSON({ index, listingEl }) {
         // get our elements
         const gainOrLossEl = listingEl.querySelector('.market_listing_gainorloss');
         const priceEl = listingEl.querySelector('.market_listing_price');
@@ -328,7 +328,7 @@ function parseListings(response, store, currency, localization) {
     }
     
     // returns the asset for an item from response.assets
-    function getAsset({appid, contextid, assetid}) {
+    function getAsset({ appid, contextid, assetid }) {
         return response.assets[appid][contextid][assetid];
     }
     
@@ -399,4 +399,4 @@ function makeDate(year, month, day) {
     return new Date(Date.UTC(year, month, day, 12));
 }
 
-export {parseListings};
+export { parseListings };

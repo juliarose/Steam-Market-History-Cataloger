@@ -1,10 +1,10 @@
 'use strict';
 
-import {App} from '../app/app.js';
-import {Layout} from '../app/layout/layout.js';
-import {Listing} from '../app/classes/listing.js';
-import {createListingManager} from '../app/manager/listingsmanager.js';
-import {sendMessage} from '../app/browser.js';
+import { buildApp } from '../app/app.js';
+import { Layout } from '../app/layout/layout.js';
+import { Listing } from '../app/classes/listing.js';
+import { createListingManager } from '../app/manager/listingsmanager.js';
+import { sendMessage } from '../app/browser.js';
 
 const page = {
     results: document.getElementById('results'),
@@ -19,46 +19,36 @@ const page = {
     }
 };
 
-function onReady() {
-    App.ready()
-        .then(onApp)
-        .catch(Layout.error);
+async function onReady() {
+    try {
+        onApp(await buildApp());
+    } catch (error) {
+        Layout.error(error);
+    }
 }
 
 function onApp(app) {
-    function render() {
-        const updateListingsPromise = updateCount();
+    async function render() {
+        await updateCount();
         // database table
         const table = app.ListingDB.listings;
         // create table with x newest listings
-        const loadListingsPromise = table.orderBy('index').limit(10).reverse().toArray()
-            .then((records) => {
-                renderTable(records);
-            });
+        const mostRecentListings = await table.orderBy('index').limit(10).reverse().toArray();
         
-        return Promise.all([
-            updateListingsPromise,
-            loadListingsPromise
-        ]);
+        renderTable(mostRecentListings);
+        
+        return;
     }
     
-    /**
-     * Updates count of listings.
-     * @returns {Promise} Resolve when done.
-     */
-    function updateCount() {
+    // Updates count of listings.
+    async function updateCount() {
         // get total number of listings in db
-        return app.ListingDB.listings.count()
-            .then((count) => {
-                page.counts.listingCount.textContent = count;
-            });
+        const count = await app.ListingDB.listings.count();
+        
+        page.counts.listingCount.textContent = count;
     }
     
-    /**
-     * Renders table of listings.
-     * @param {Array} records - Array of listings.
-     * @returns {undefined}
-     */
+    // Renders table of listings.
     function renderTable(records) {
         const options = Object.assign({}, Layout.getLayoutOptions(app), {
             keep_page: true,
@@ -85,20 +75,17 @@ function onApp(app) {
     
     // Starting loading listings
     function load() {
-        function done(error) {
-            page.progress.style.visibility = 'hidden';
-            
-            if (error) {
-                Layout.alert(error, page.results);
-            } else {
+        function loadListings(now) {
+            function done(error) {
+                isLoading = false;
+                page.progress.style.visibility = 'hidden';
+                
                 Layout.alert(error || 'All done!', page.results);
             }
-        }
-        
-        function loadListings() {
+            
             // we've received a response and now want to get more
-            function getMore({records, progress}) {
-                const {step, total} = progress;
+            function getMore({ records, progress }) {
+                const { step, total } = progress;
                 const percent = Math.round((step / total) * 10000) / 100;
                 
                 showProgress(percent);
@@ -108,17 +95,19 @@ function onApp(app) {
                 loadListings();
             }
             
-            listingManager.load()
-                .then(getMore)
-                .catch(done);
+            listingManager.load(0, now).then(getMore).catch(done);
         }
         
-        listingManager.setup()
-            .then(loadListings);
+        listingManager.setup().then(() => {
+            isLoading = true;
+            loadListings(true);
+        });
     }
+    
     
     // Send a message to resume loading to the background script
     function sendResumeLoadingMessage() {
+        alert('Loading will resume in background');
         sendMessage({
             name: 'resumeLoading'
         });
@@ -126,10 +115,11 @@ function onApp(app) {
     
     function addListeners() {
         window.onunload = () => {
-            if (listingManager.isLoading) {
-                // if the page is closed while loading is in progress,
+            // if the page is closed while loading is in progress
+            if (isLoading) {
                 // continue loading in background
-                sendResumeLoadingMessage();
+                // not in use currently to keep things simple
+                // sendResumeLoadingMessage();
             }
         };
         
@@ -141,6 +131,7 @@ function onApp(app) {
     
     // array that will hold all of our collected records from loading
     let total = [];
+    let isLoading;
     const listingManager = createListingManager(app);
     
     addListeners();

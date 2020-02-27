@@ -1,6 +1,6 @@
 'use strict';
 
-import {Steam} from './steam.js';
+import { Steam } from './steam.js';
 
 /**
  * Verifies that we are logged in.
@@ -29,4 +29,4 @@ function verifyLogin() {
         });
 }
 
-export {verifyLogin};
+export { verifyLogin };

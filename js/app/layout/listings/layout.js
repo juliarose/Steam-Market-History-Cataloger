@@ -1,8 +1,8 @@
 'use strict';
 
-import {buildChart} from './buildChart.js';
-import {buildFilters} from './buildFilters.js';
-import {buildSummaries} from './buildSummaries.js';
+import { buildChart } from './buildChart.js';
+import { buildFilters } from './buildFilters.js';
+import { buildSummaries } from './buildSummaries.js';
 
 /**
  * Listing layout elements.
@@ -15,4 +15,4 @@ const ListingLayout = {
     buildSummaries
 };
 
-export {ListingLayout};
+export { ListingLayout };

@@ -1,7 +1,7 @@
 'use strict';
 
-import {createClass} from './helpers/createClass.js';
-import {ETransactionType} from '../enums/ETransactionType.js';
+import { createClass } from './helpers/createClass.js';
+import { ETransactionType } from '../enums/ETransactionType.js';
 
 const types = {
     transaction_id: String,
@@ -140,4 +140,4 @@ AccountTransaction.prototype.toJSON = function() {
     };
 };
 
-export {AccountTransaction};
+export { AccountTransaction };

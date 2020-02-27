@@ -16,4 +16,4 @@ const ETransactionType = Object.freeze({
     5: 'Refund'
 });
 
-export {ETransactionType};
+export { ETransactionType };

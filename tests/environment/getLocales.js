@@ -1,4 +1,4 @@
-import {Localization} from '../../js/app/classes/localization.js';
+import { Localization } from '../../js/app/classes/localization.js';
 
 function getLocales(language = 'english') {
     const locales = new Localization();

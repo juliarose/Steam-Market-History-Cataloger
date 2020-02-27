@@ -1,15 +1,14 @@
 'use strict';
 
-import {App} from '../app/app.js';
-import {setBadgeText} from '../app/browser.js';
-import {createListingPoller} from '../app/manager/listingspoller.js';
-import {browserLocalStorage, onMessage} from '../app/browser.js';
+import { App } from '../app/app.js';
+import { setBadgeText } from '../app/browser.js';
+import { createListingPoller } from '../app/manager/listingspoller.js';
+import { browserLocalStorage, onMessage } from '../app/browser.js';
 
 const listingPoller = createListingPoller(App);
 
 function addListeners() {
     onMessage.addListener((request, sender, sendResponse) => {
-        console.log(request);
         switch (request.name) {
             case 'startLoading':
                 // force load
@@ -27,6 +26,13 @@ function addListeners() {
         sendResponse();
     });
     
+    chrome.runtime.onInstalled.addListener((object) => {
+        // this will load the initial data it needs
+        chrome.tabs.create({ url: 'https://steamcommunity.com/market?installation=1' }, (tab) => {
+            
+        });
+    });
+    
     listingPoller.on('count', (count) => {
         updateCount(count);
     });
@@ -41,11 +47,13 @@ function updateCount(count) {
         count = '999+';
     } else if (count === 0) {
         count = '';
+    } else {
+        // must be string
+        count = count.toString();
     }
     
     setBadgeText({
-        // must be string
-        text: count.toString()
+        text: count
     });
 }
 

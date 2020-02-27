@@ -1,6 +1,6 @@
-import {parseListings} from '../js/app/parsers/parseListings.js';
-import {getCurrency} from '../js/app/currency.js';
-import {Listing} from '../js/app/classes/listing.js';
+import { parseListings } from '../js/app/parsers/parseListings.js';
+import { getCurrency } from '../js/app/currency.js';
+import { Listing } from '../js/app/classes/listing.js';
 
 const createResponse = require('./helpers/createTestResponse');
 const path = require('path');
@@ -111,7 +111,7 @@ it('Transitions year', () => {
     const {
         dateStore
     } = parseListings(jsons[0], current, currency, locales);
-    const next = Object.assign({}, current, dateStore);
+    const next = Object.assign({}, current, { date: dateStore });
     const {
         records
     } = parseListings(jsons[1], next, currency, locales);

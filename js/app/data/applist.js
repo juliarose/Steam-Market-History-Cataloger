@@ -1,7 +1,7 @@
 'use strict';
 
-import {fetchJSON} from '../helpers/fetchjson.js'; 
-import {getExtensionURL} from '../browser.js';
+import { fetchJSON } from '../helpers/fetchjson.js'; 
+import { getExtensionURL } from '../browser.js';
 
 /**
  * Loads/stores app data.
@@ -15,15 +15,13 @@ const applist = {
      * @returns {Promise.<Object>} Resolve with applist when done, reject on error.
      * @memberOf applist
      */
-    get: function() {
-        let uri = getExtensionURL('/json/applist.json');
+    get: async function() {
+        const uri = getExtensionURL('/json/applist.json');
+        const json = await fetchJSON(uri);
         
-        return fetchJSON(uri)
-            .then((json) => {
-                this.set(json);
-                
-                return json;
-            });
+        this.set(json);
+        
+        return json;
     },
     /**
      * Set app list.
@@ -36,4 +34,4 @@ const applist = {
     }
 };
 
-export {applist};
+export { applist };

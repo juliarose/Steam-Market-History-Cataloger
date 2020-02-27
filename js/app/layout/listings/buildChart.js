@@ -1,7 +1,7 @@
 'use strict';
 
-import {partition, groupBy, arrAverage} from '../../helpers/utils.js';
-import {formatMoney} from '../../money.js';
+import { partition, groupBy, arrAverage } from '../../helpers/utils.js';
+import { formatMoney } from '../../money.js';
 
 /**
  * Builds chart for listings.
@@ -126,4 +126,4 @@ function cluster(records, sum) {
     });
 }
 
-export {buildChart};
+export { buildChart };

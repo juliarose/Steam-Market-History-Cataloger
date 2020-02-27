@@ -1,10 +1,10 @@
 'use strict';
 
-import {App} from '../app/app.js';
-import {formatLocaleNumber} from '../app/money.js';
-import {createListingManager} from '../app/manager/listingsmanager.js';
-import {escapeHTML, truncate} from '../app/helpers/utils.js';
-import {tabs, browserLocalStorage, sendMessage} from '../app/browser.js';
+import { buildApp } from '../app/app.js';
+import { formatLocaleNumber } from '../app/money.js';
+import { createListingManager } from '../app/manager/listingsmanager.js';
+import { escapeHTML, truncate } from '../app/helpers/utils.js';
+import { tabs, browserLocalStorage, sendMessage } from '../app/browser.js';
 
 const page = {
     contents: document.getElementById('contents'),
@@ -12,7 +12,7 @@ const page = {
     loggedInButtons: document.querySelectorAll('.logged-in'),
     buttons: {
         steamMarket: document.getElementById('steam-market-btn'),
-        startLoading: document.getElementById('start-loading-btn'),
+        // startLoading: document.getElementById('start-loading-btn'),
         loadListings: document.getElementById('load-listings-page-btn'),
         loadPurchases: document.getElementById('load-purchases-page-btn'),
         view: document.getElementById('view-page-btn'),
@@ -22,15 +22,15 @@ const page = {
     }
 };
 
-function onReady() {
-    App.ready()
-        .then(onApp)
-        .catch((error) => {
-            page.loggedInButtons.forEach((el) => {
-                el.remove();
-            });
-            page.profile.innerHTML = `<p class="app-error">${escapeHTML(error)}</p>`;
+async function onReady() {
+    try {
+        onApp(await buildApp());
+    } catch (error) {
+        page.loggedInButtons.forEach((el) => {
+            el.remove();
         });
+        page.profile.innerHTML = `<p class="app-error">${escapeHTML(error)}</p>`;
+    }
 }
 
 function onApp(app) {
@@ -77,10 +77,12 @@ function onApp(app) {
             });
         });
         
+        /*
         page.buttons.startLoading.addEventListener('click', () => {
             page.buttons.startLoading.remove();
             sendStartLoadingMessage();
         });
+        */
     }
     
     // adds details related to account (name, profile picture, listing count)
@@ -89,7 +91,7 @@ function onApp(app) {
             return;
         }
         
-        const {account} = app;
+        const { account } = app;
         const profileUrl = `https://steamcommunity.com/profiles/${account.steamid}`;
         const html = `
             <div class="avatar">
@@ -104,11 +106,12 @@ function onApp(app) {
                 <div class="count">${formatLocaleNumber(count || 0, account.wallet.currency)} listings</div>
             </div>
         `;
-        let profileLinkEl;
         
         page.profile.classList.remove('hidden');
         page.profile.innerHTML = html;
-        profileLinkEl = page.profile.querySelector('a');
+        
+        const profileLinkEl = page.profile.querySelector('a');
+        
         profileLinkEl.addEventListener('click', () => {
             tabs.create({
                 'url': profileUrl
@@ -142,7 +145,7 @@ function onApp(app) {
     // updates state based on whether loading is in progress
     function updateLoadingState(isLoading) {
         if (!isLoading && app.account.steamid) {
-            page.buttons.startLoading.classList.remove('hidden');
+            // page.buttons.startLoading.classList.remove('hidden');
         }
     }
     
@@ -150,7 +153,8 @@ function onApp(app) {
     function addLocales() {
         const buttonLocaleKeys = {
             steamMarket: 'steam_market',
-            startLoading: 'start_loading',
+            // removed for the time being
+            // startLoading: 'start_loading',
             loadListings: 'update_listings',
             loadPurchases: 'purchase_history',
             view: 'view_all',

@@ -1,7 +1,7 @@
 'use strict';
 
-import {EventEmitter} from '../../../lib/eventemitter.js';
-import {Settings} from './mixins/settings.js';
+import { EventEmitter } from '../../../lib/eventemitter.js';
+import { Settings } from './mixins/settings.js';
 
 /**
  * Creates a Manager.
@@ -24,4 +24,4 @@ function createManager(structure = {}) {
     );
 }
 
-export {createManager};
+export { createManager };

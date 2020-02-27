@@ -32,4 +32,4 @@ const ELangCode = Object.freeze({
     'latam': 'es-419'
 });
 
-export {ELangCode};
+export { ELangCode };

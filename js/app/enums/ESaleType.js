@@ -10,4 +10,4 @@ const ESaleType = Object.freeze({
     2: 'Purchase'
 });
 
-export {ESaleType};
+export { ESaleType };

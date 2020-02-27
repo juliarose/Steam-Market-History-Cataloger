@@ -1,7 +1,7 @@
 'use strict';
 
-import {get} from './get.js';
-import {post} from './post.js';
+import { get } from './get.js';
+import { post } from './post.js';
 
 /**
  * XHR requests for Steam.
@@ -14,4 +14,4 @@ const requests = {
     post
 };
 
-export {requests};
+export { requests };

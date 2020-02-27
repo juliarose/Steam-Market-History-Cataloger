@@ -1,10 +1,10 @@
 'use strict';
 
-import {ListingLayout} from './listings/layout.js';
-import {buildTable} from './buildTable.js';
-import {tooltip} from './tooltip.js';
-import {sendMessage} from '../browser.js';
-import {getLayoutOptions} from './getLayoutOptions.js';
+import { ListingLayout } from './listings/layout.js';
+import { buildTable } from './buildTable.js';
+import { tooltip } from './tooltip.js';
+import { sendMessage } from '../browser.js';
+import { getLayoutOptions } from './getLayoutOptions.js';
 // importing this file enables dropdowns on page
 import '../helpers/dropdown.js'; 
 
@@ -75,7 +75,7 @@ const Layout = {
      * @returns {undefined}
      */
     alert: function(message, beforeEl, elClass) {
-        if (!beforeEl) {
+        if (beforeEl == null) {
             // default to first child in main element
             beforeEl = document.querySelector('main').firstChild;
         }
@@ -96,7 +96,7 @@ const Layout = {
         
         // set the text of the element
         function setText(el, message) {
-            el.getElementsByTagName('p')[0].textContent = message;
+            el.querySelector('p').textContent = message;
         }
         
         // set the class of the element
@@ -109,7 +109,7 @@ const Layout = {
             }
         }
         
-        let alertEl = document.getElementsByClassName('alert')[0];
+        let alertEl = document.querySelector('.alert');
         
         if (alertEl) {
             // an alert element already exists
@@ -128,7 +128,7 @@ const Layout = {
             
             // append the container for the alert before 'beforeEl'
             beforeEl.parentNode.insertBefore(containerEl, beforeEl);
-            setText(alertEl), message;
+            setText(alertEl, message);
             setClass(alertEl);
             animate(alertEl);
         }
@@ -139,14 +139,17 @@ const Layout = {
      * @returns {undefined}
      */
     addPageLoader: function() {
-        if (!document.getElementById('page-loader')) {
-            const loaderEl = createSpinner('page-loader', 'page-loader absolute-center', 'lds-default');
-            const mainEl = document.querySelector('main');
-            
-            if (mainEl) {
-                document.body.appendChild(loaderEl);
-                mainEl.classList.add('unloaded');
-            }
+        // loader already exists
+        if (document.getElementById('page-loader')) {
+            return;
+        }
+        
+        const loaderEl = createSpinner('page-loader', 'page-loader absolute-center', 'lds-default');
+        const mainEl = document.querySelector('main');
+        
+        if (mainEl) {
+            document.body.appendChild(loaderEl);
+            mainEl.classList.add('unloaded');
         }
     },
     /**
@@ -200,4 +203,4 @@ function createSpinner(id, className, spinnerClassName) {
     return loaderEl;
 }
 
-export {Layout};
+export { Layout };

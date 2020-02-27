@@ -1,4 +1,4 @@
-import {getCurrency} from '../js/app/currency.js';
+import { getCurrency } from '../js/app/currency.js';
 import {
     parseMoney,
     formatMoney,
@@ -39,6 +39,14 @@ it('Formats money value in Euros', () => {
     const formatted = formatMoney(value, currency);
     
     expect(formatted).toBe('1 000,00€');
+});
+
+it('Parses money value in Euros', () => {
+    const currency = getCurrency(CurrencyCode.EUR);
+    const value = '99,--€';
+    const parsed = parseMoney(value, currency);
+    
+    expect(parsed).toBe(9900);
 });
 
 it('Formats money value with currency symbol after number', () => {

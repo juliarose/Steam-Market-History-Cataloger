@@ -1,9 +1,9 @@
 'use strict';
 
-import {App} from '../app/app.js';
-import {Layout} from '../app/layout/layout.js';
-import {AccountTransaction} from '../app/classes/accounttransaction.js';
-import {createPurchaseHistoryManager} from '../app/manager/purchasehistorymanager.js';
+import { buildApp } from '../app/app.js';
+import { Layout } from '../app/layout/layout.js';
+import { AccountTransaction } from '../app/classes/accounttransaction.js';
+import { createPurchaseHistoryManager } from '../app/manager/purchasehistorymanager.js';
 
 const page = {
     results: document.getElementById('results'),
@@ -15,16 +15,19 @@ const page = {
     }
 };
 
-function onReady() {
-    App.ready()
-        .then(onApp)
-        .catch(Layout.error);
+async function onReady() {
+    try {
+        onApp(await buildApp());
+    } catch (error) {
+        Layout.error(error);
+    }
 }
 
 function onApp(app) {
     function addListeners() {
         page.buttons.getHistory.addEventListener('click', (e) => {
             e.target.parentNode.remove();
+            // start loading
             load();
         });
     }
@@ -50,7 +53,7 @@ function onApp(app) {
         
         function loadTransactions(cursor, delay = 0) {
             // we've received a response and now want to get more
-            function getMore({records, cursor}) {
+            function getMore({ records, cursor }) {
                 onRecords(records);
                 
                 // if the response contained the cursor for the next page
@@ -80,10 +83,12 @@ function onApp(app) {
     let total = [];
     const purchaseHistoryManager = createPurchaseHistoryManager(app);
     
-    purchaseHistoryManager.setup().then(() => {
-        addListeners();
-        Layout.ready();
-    }).catch(Layout.error);
+    purchaseHistoryManager.setup()
+        .then(() => {
+            addListeners();
+            Layout.ready();
+        })
+        .catch(Layout.error);
 }
 
 onReady();

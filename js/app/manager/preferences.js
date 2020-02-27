@@ -1,6 +1,6 @@
 'use strict';
 
-import {createManager} from './helpers/createManager.js';
+import { createManager } from './helpers/createManager.js';
 
 /**
  * Creates a PreferencesManager.
@@ -22,10 +22,10 @@ function createPreferencesManager() {
         settings: {
             market_per_page: 100,
             market_poll_interval_seconds: 5,
-            background_poll_boolean: false,
+            background_poll_boolean: true,
             background_poll_interval_minutes: 60,
             show_new_listing_count: true,
-            pagination_count: 100
+            pagination_count: 20
         },
         /**
          * Configures the module.
@@ -38,4 +38,4 @@ function createPreferencesManager() {
     });
 }
 
-export {createPreferencesManager};
+export { createPreferencesManager };

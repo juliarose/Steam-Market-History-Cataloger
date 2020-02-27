@@ -1,12 +1,12 @@
 'use strict';
 
-import {range, arrToKeys, groupBy, transformObj} from '../../helpers/utils.js';
-import {buildTable} from '../../layout/buildTable.js';
-import {applist} from '../../data/applist.js';
-import {AnnualTotal} from '../../classes/totals/annualtotal.js';
-import {MonthlyTotal} from '../../classes/totals/monthlytotal.js';
-import {DailyTotal} from '../../classes/totals/dailytotal.js';
-import {AppTotal} from '../../classes/totals/apptotal.js';
+import { range, arrToKeys, groupBy, transformObj } from '../../helpers/utils.js';
+import { buildTable } from '../../layout/buildTable.js';
+import { applist } from '../../data/applist.js';
+import { AnnualTotal } from '../../classes/totals/annualtotal.js';
+import { MonthlyTotal } from '../../classes/totals/monthlytotal.js';
+import { DailyTotal } from '../../classes/totals/dailytotal.js';
+import { AppTotal } from '../../classes/totals/apptotal.js';
 
 /**
  * Builds summary tables for listings.
@@ -307,4 +307,4 @@ function buildSummaries(records, Class, options = {}) {
     return fragment;
 }
 
-export {buildSummaries};
+export { buildSummaries };

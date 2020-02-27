@@ -1,7 +1,7 @@
 'use strict';
 
-import {createClass} from '../../helpers/createClass.js';
-import {applist} from '../../../data/applist.js';
+import { createClass } from '../../helpers/createClass.js';
+import { applist } from '../../../data/applist.js';
 
 /**
  * Creates a new class for data related to totals.
@@ -108,4 +108,4 @@ function createTotalClass(identifier, tableColumns) {
     return Class;
 }
 
-export {createTotalClass};
+export { createTotalClass };

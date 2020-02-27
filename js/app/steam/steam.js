@@ -1,6 +1,6 @@
 'use strict';
 
-import {requests} from './requests/requests.js';
+import { requests } from './requests/requests.js';
 
 let assetCache = {};
 
@@ -131,4 +131,4 @@ const Steam = {
     }
 };
 
-export {Steam};
+export { Steam };

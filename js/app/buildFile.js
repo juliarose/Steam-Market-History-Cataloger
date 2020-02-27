@@ -1,10 +1,10 @@
 'use strict';
 
-import {printCSVDate, escapeCSV, omitEmpty, isNumber} from './helpers/utils.js';
-import {formatMoney} from './money.js';
+import { printCSVDate, escapeCSV, omitEmpty, isNumber } from './helpers/utils.js';
+import { formatMoney } from './money.js';
 
 /**
- * Build file for records.
+ * Builds a file for the given records.
  * @param {Array} records - Records to build with.
  * @param {Object} Class - Class of records.
  * @param {Object} options - Options to format with.
@@ -102,4 +102,4 @@ function buildFile(records, Class, options, format) {
     }
 }
 
-export {buildFile};
+export { buildFile };

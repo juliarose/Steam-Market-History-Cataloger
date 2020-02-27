@@ -1,6 +1,6 @@
 'use strict';
 
-import {applist} from '../data/applist.js';
+import { applist } from '../data/applist.js';
 
 /**
  * Loads data for app.
@@ -15,4 +15,4 @@ function loadData() {
     ]);
 }
 
-export {loadData};
+export { loadData };

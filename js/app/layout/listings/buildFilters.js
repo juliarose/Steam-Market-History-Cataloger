@@ -1,7 +1,7 @@
 'use strict';
 
-import {applist} from '../../data/applist.js';
-import {uniq} from '../../helpers/utils.js';
+import { applist } from '../../data/applist.js';
+import { uniq } from '../../helpers/utils.js';
 
 /**
  * Builds filters for listings.
@@ -400,4 +400,4 @@ function buildFilters(records, Class, options = {}) {
     return drawIndex(index);
 }
 
-export {buildFilters};
+export { buildFilters };

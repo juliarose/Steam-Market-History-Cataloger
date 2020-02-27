@@ -6,8 +6,10 @@ module.exports = {
     testEnvironment: 'node',
     setupFiles: [
         // mock localStorage
+        '<rootDir>/node_modules/regenerator-runtime/runtime',
         'jest-localstorage-mock',
-        '<rootDir>/tests/globals.js'
+        '<rootDir>/tests/globals.js',
+        '<rootDir>/tests/jestconfig.js'
     ],
     moduleFileExtensions: [
         'js'

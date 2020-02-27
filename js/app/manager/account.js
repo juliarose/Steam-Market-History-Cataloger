@@ -1,8 +1,8 @@
 'use strict';
 
-import {createManager} from './helpers/createManager.js';
-import {getCurrency} from '../currency.js';
-import {Localization} from '../classes/localization.js';
+import { createManager } from './helpers/createManager.js';
+import { getCurrency } from '../currency.js';
+import { Localization } from '../classes/localization.js';
 
 /**
  * Creates an AccountManager.
@@ -70,28 +70,27 @@ function createAccountManager() {
              * @memberOf AccountManager.info
              * @returns {Promise.<Object>} Resolve when done, reject when data is missing.
              */
-            setup: function() {
-                return this.getAndMergeSettings()
-                    .then(() => {
-                        if (!this.settings.wallet_currency) {
-                            return Promise.reject('No wallet detected');
-                        } else if (!this.settings.language) {
-                            return Promise.reject('No language detected');
-                        } else {
-                            this.assignWalletValues();
-                            
-                            if (!account.wallet.currency) {
-                                const currencyID = this.settings.wallet_currency;
-                                
-                                // currency was not found on sotrage
-                                return Promise.reject(`No currency detected with ID "${currencyID}"`);
-                            } else {
-                                account.language = this.settings.language;
-                                
-                                return account.locales.get(account.language);
-                            }
-                        }
-                    });
+            setup: async function() {
+                await this.getAndMergeSettings();
+                
+                if (!this.settings.wallet_currency) {
+                    return Promise.reject('No wallet detected. You may need to open a page on Steam.');
+                } else if (!this.settings.language) {
+                    return Promise.reject('No language detected');
+                }
+                
+                this.assignWalletValues();
+                
+                if (!account.wallet.currency) {
+                    const currencyID = this.settings.wallet_currency;
+                    
+                    // currency was not found on sotrage
+                    return Promise.reject(`No currency detected with ID "${currencyID}"`);
+                }
+                
+                account.language = this.settings.language;
+                
+                return account.locales.get(account.language);
             }
         }),
         /**
@@ -99,35 +98,31 @@ function createAccountManager() {
          * @memberOf AccountManager
          * @returns {Promise.<Object>} Resolve with basic account data when done, reject when data is missing.
          */
-        setup: function() {
+        setup: async function() {
             // get english as the default language
-            return this.locales.get('english')
-                .then(() => {
-                    return this.getAndMergeSettings();
-                })
-                .then(() => {
-                    this.steamid = this.settings.steamcommunity;
-                    this.username = this.settings.username;
-                    this.avatar = this.settings.avatar;
-                    
-                    if (!this.steamid) {
-                        return Promise.reject('Not logged into Steam');
-                    } else {
-                        return this.info.setup();
-                    }
-                })
-                .then(() => {
-                    return {
-                        locales: this.locales,
-                        steamid: this.steamid,
-                        language: this.info.settings.language,
-                        currency: this.wallet.currency
-                    };
-                });
+            await this.locales.get('english')
+            await this.getAndMergeSettings();
+            
+            this.steamid = this.settings.steamcommunity;
+            this.username = this.settings.username;
+            this.avatar = this.settings.avatar;
+            
+            if (!this.steamid) {
+                return Promise.reject('Not logged into Steam');
+            }
+            
+            await this.info.setup();
+            
+            return {
+                locales: this.locales,
+                steamid: this.steamid,
+                language: this.info.settings.language,
+                currency: this.wallet.currency
+            };
         }
     });
     
     return account;
 }
 
-export {createAccountManager};
+export { createAccountManager };

@@ -1,9 +1,9 @@
 'use strict';
 
-import {omitEmpty, getDocument} from '../helpers/utils.js';
-import {parseMoney} from '../money.js';
-import {AccountTransaction} from '../classes/accounttransaction.js';
-import {ETransactionType} from '../enums/ETransactionType.js';
+import { omitEmpty, getDocument } from '../helpers/utils.js';
+import { parseMoney } from '../money.js';
+import { AccountTransaction } from '../classes/accounttransaction.js';
+import { ETransactionType } from '../enums/ETransactionType.js';
 
 /**
  * Parses a response object from Steam.
@@ -78,8 +78,8 @@ function parseTransactions(response, currency) {
         );
         const count = (
             (match && match[1]) ?
-            parseInt(match[1]) :
-            1
+                parseInt(match[1]) :
+                1
         );
         const type = (
             identifiers[rawType] ||
@@ -106,7 +106,7 @@ function parseTransactions(response, currency) {
             totalEl.children[0] ||
             totalEl
         );
-        const {count, type} = getCountAndType(countEl);
+        const { count, type } = getCountAndType(countEl);
         const date = new Date(dateEl.textContent.trim());
         const priceText = totalPriceEl.textContent.trim();
         // has payment element or type is refund
@@ -130,4 +130,4 @@ function parseTransactions(response, currency) {
     return transactions;
 }
 
-export {parseTransactions};
+export { parseTransactions };

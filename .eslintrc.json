@@ -40,6 +40,10 @@
         }
       }
     ],
+    "object-curly-spacing": [
+      "error",
+      "always"
+    ],
     "no-multiple-empty-lines": [
       "error",
       {

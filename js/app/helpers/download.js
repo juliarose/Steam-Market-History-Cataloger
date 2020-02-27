@@ -18,4 +18,4 @@ function download(name, data) {
     link.click();
 }
 
-export {download};
+export { download };

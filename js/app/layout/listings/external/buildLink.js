@@ -27,4 +27,4 @@ function buildLink(data) {
     return linkEl;
 }
 
-export {buildLink};
+export { buildLink };

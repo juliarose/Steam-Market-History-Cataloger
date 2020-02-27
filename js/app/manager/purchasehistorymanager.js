@@ -1,9 +1,9 @@
 'use strict';
 
-import {Steam} from '../steam/steam.js';
-import {delayPromise} from '../helpers/utils.js';
-import {createManager} from './helpers/createManager.js';
-import {parseTransactions} from '../parsers/parseTransactions.js';
+import { Steam } from '../steam/steam.js';
+import { delayPromise } from '../helpers/utils.js';
+import { createManager } from './helpers/createManager.js';
+import { parseTransactions } from '../parsers/parseTransactions.js';
 
 /**
  * Creates a PurchaseHistoryManager.
@@ -11,7 +11,7 @@ import {parseTransactions} from '../parsers/parseTransactions.js';
  * @param {Object} deps.account - Account to loading listings from. Should contain wallet currency.
  * @returns {PurchaseHistoryManager} A new PurchaseHistoryManager.
  */
-function createPurchaseHistoryManager({account}) {
+function createPurchaseHistoryManager({ account }) {
     /**
      * Module for loading & parsing purchase history from Steam.
      * 
@@ -36,11 +36,8 @@ function createPurchaseHistoryManager({account}) {
          * @memberOf PurchaseHistoryManager
          * @returns {Promise} Resolve when done.
          */
-        setup: function() {
-            return Steam.getSteamPoweredSession()
-                .then((session) => {
-                    this.session = session;
-                });
+        setup: async function() {
+            this.session = await Steam.getSteamPoweredSession();
         },
         /**
          * Loads Steam transaction history.
@@ -49,58 +46,35 @@ function createPurchaseHistoryManager({account}) {
          * @param {Number} [delay=0] - Delay in Seconds to load.
          * @returns {Promise.<PurchaseHistoryManagerLoadResponse>} Resolves with response when done.
          */
-        load: function(cursor, delay = 0) {
+        load: async function(cursor, delay = 0) {
             const manager = this;
             // session for store.steampowered must be present
             const currency = account.wallet.currency;
             const sessionid = manager.session.sessionid;
             
+            if (!sessionid) {
+                return Promise.reject('No login');
+            }
+            
+            await delayPromise(delay * 1000);
+            
+            const response = await manager.get({
+                sessionid,
+                cursor
+            });
+            // parse the transaction
+            const records = parseTransactions(response, currency);
+            
             /**
-             * Loads data.
-             * @param {Object} [cursor] - Cursor from previous request.
-             * @returns {Promise.<PurchaseHistoryManagerLoadResponse>} Resolves with response when done.
+             * Load result.
+             * @typedef {Object} PurchaseHistoryManagerLoadResponse
+             * @property {AccountTransaction[]} records - Array of transactions.
+             * @property {Object} [cursor] - Cursor for next load.
              */
-            function load() {
-                /**
-                 * Parses the response.
-                 * @param {Object} response - Response from Steam.
-                 * @returns {PurchaseHistoryManagerLoadResponse} Response object.
-                 */
-                const onSuccess = (response) => {
-                    const records = parseTransactions(response, currency);
-                    const {cursor} = response;
-                    
-                    /**
-                     * Load result.
-                     * @typedef {Object} PurchaseHistoryManagerLoadResponse
-                     * @property {AccountTransaction[]} records - Array of transactions.
-                     * @property {Object} [cursor] - Cursor for next load.
-                     */
-                    return {
-                        records,
-                        cursor
-                    };
-                };
-                const data = {
-                    sessionid,
-                    cursor
-                };
-                
-                return manager.get(data)
-                    .then(onSuccess);
-            }
-            
-            function checkState() {
-                if (!sessionid) {
-                    return Promise.reject('No login');
-                }
-                
-                return Promise.resolve();
-            }
-            
-            return checkState()
-                .then(delayPromise(delay * 1000))
-                .then(load);
+            return {
+                records,
+                cursor: response.cursor
+            };
         },
         /**
          * Loads data from Steam.
@@ -108,17 +82,16 @@ function createPurchaseHistoryManager({account}) {
          * @param {Objec} data - Request parameters.
          * @returns {Promise.<Object>} Response JSON from Steam on resolve, error with details on reject.
          */
-        get: function(data) {
-            return Steam.requests.post.purchasehistory(data)
-                .then((response) => {
-                    if (response.ok) {
-                        return response.json();
-                    } else {
-                        return Promise.reject(response.statusText);
-                    }
-                });
+        get: async function(data) {
+            const response = await Steam.requests.post.purchasehistory(data);
+            
+            if (!response.ok) {
+                return Promise.reject(response.statusText);
+            }
+            
+            return response.json();
         }
     });
 }
 
-export {createPurchaseHistoryManager};
+export { createPurchaseHistoryManager };

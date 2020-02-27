@@ -164,4 +164,4 @@ function toDecimal(hex) {
     return parseInt(hex, 16);
 }
 
-export {Color};
+export { Color };

@@ -1,7 +1,7 @@
 'use strict';
 
-import {queryString, omitEmpty} from '../../helpers/utils.js';
-import {getXHR} from './helpers/getXHR.js';
+import { queryString, omitEmpty } from '../../helpers/utils.js';
+import { getXHR } from './helpers/getXHR.js';
 
 /**
  * POST XHR requests for Steam.
@@ -50,4 +50,4 @@ const post = {
     }
 };
 
-export {post};
+export { post };

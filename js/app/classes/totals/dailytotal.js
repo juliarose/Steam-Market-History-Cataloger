@@ -1,6 +1,6 @@
 'use strict';
 
-import {createTotalClass} from './helpers/createTotalClass.js';
+import { createTotalClass } from './helpers/createTotalClass.js';
 
 const identifier = 'dailytotals';
 const tableColumns = [
@@ -12,4 +12,4 @@ const tableColumns = [
 ];
 const DailyTotal = createTotalClass(identifier, tableColumns);
 
-export {DailyTotal};
+export { DailyTotal };

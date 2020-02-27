@@ -1,10 +1,10 @@
 'use strict';
 
-import {randomString, pickKeys, delayPromise} from '../helpers/utils.js';
-import {Steam} from '../steam/steam.js';
-import {Localization} from '../classes/localization.js';
-import {createManager} from './helpers/createManager.js';
-import {parseListings} from '../parsers/parseListings.js';
+import { randomString, pickKeys, delayPromise } from '../helpers/utils.js';
+import { Steam } from '../steam/steam.js';
+import { Localization } from '../classes/localization.js';
+import { createManager } from './helpers/createManager.js';
+import { parseListings } from '../parsers/parseListings.js';
 
 /**
  * Creates a ListingManager.
@@ -14,7 +14,7 @@ import {parseListings} from '../parsers/parseListings.js';
  * @param {Object} deps.ListingDB - The database storing listing data for the account.
  * @returns {ListingManager} A new PurchaseHistoryManager.
  */
-function createListingManager({account, preferences, AccountDB, ListingDB}) {
+function createListingManager({ account, preferences, AccountDB, ListingDB }) {
     /**
      * Module for loading & parsing listings from Steam.
      * 
@@ -27,6 +27,7 @@ function createListingManager({account, preferences, AccountDB, ListingDB}) {
      * @property {Number} pagesize - The page size used when collecting listings. This is redefined at setup.
      * @property {Number} page - Current page loaded. Incremented after a successful page load.
      * @property {String} session - Current load session hash. Used to detect loads from multiple locations.
+     * @property {String} requests - An array of requests made used for tracking repetitive requests. Cleared on reset.
      */
     return createManager({
         table_name: 'listings',
@@ -36,6 +37,7 @@ function createListingManager({account, preferences, AccountDB, ListingDB}) {
         page: 0,
         session: null,
         locales: new Localization(),
+        requests: [],
         /**
          * Settings for loading listings.
          * @namespace ListingManager.settings
@@ -104,53 +106,56 @@ function createListingManager({account, preferences, AccountDB, ListingDB}) {
          * @memberOf ListingManager
          * @returns {Promise} Resolve when done, reject on error.
          */
-        getLocales: function() {
-            return this.locales.get(this.language);
+        getLocales: async function() {
+            await this.locales.get(this.language);
+            
+            return;
         },
         /**
          * Resets settings.
          * @memberOf ListingManager
          * @returns {Promise} Resolve when done.
          */
-        reset: function() {
-            return ListingDB.listings.orderBy('index').last()
-                .then((last) => {
-                    // reset dates
-                    this.store.date = {
-                        year: new Date().getFullYear(),
-                        month: new Date().getMonth()
-                    };
-                    
-                    // reset index
-                    this.settings.current_index = 0;
-                    
-                    if (last) {
-                        this.settings.last_index = last.index;
-                    }
-                    
-                    this.settings.last_fetched_index = null;
-                    
-                    return this.saveSettings();
-                });
+        reset: async function() {
+            const last = await ListingDB.listings.orderBy('index').last();
+            
+            // reset dates
+            this.store.date = {
+                year: new Date().getFullYear(),
+                month: new Date().getMonth()
+            };
+            
+            // reset index
+            this.settings.current_index = 0;
+            
+            if (last) {
+                this.settings.last_index = last.index;
+            }
+            
+            this.settings.last_fetched_index = null;
+            this.requests = [];
+            
+            await this.saveSettings();
+            
+            return;
         },
         /**
          * Loads preferences and adds them to the manager.
          * @memberOf ListingManager
          * @returns {Promise} Resolve when done.
          */
-        addPreferences: function() {
-            return preferences.getSettings(true)
-                .then((settings) => {
-                    if (settings.market_per_page) {
-                        this.pagesize = parseInt(settings.market_per_page);
-                    }
-                    
-                    if (settings.market_poll_interval) {
-                        this.poll_interval = parseInt(settings.market_poll_interval_seconds);
-                    }
-                    
-                    return settings;
-                });
+        addPreferences: async function() {
+            const settings = await preferences.getSettings(true);
+            
+            if (settings.market_per_page) {
+                this.pagesize = parseInt(settings.market_per_page);
+            }
+            
+            if (settings.market_poll_interval) {
+                this.poll_interval = parseInt(settings.market_poll_interval_seconds);
+            }
+            
+            return settings;
         },
         /**
          * Gets the settings.
@@ -158,24 +163,23 @@ function createListingManager({account, preferences, AccountDB, ListingDB}) {
          * @param {Boolean} noWrapper - Get settings object without wrapper.
          * @returns {Promise.<Object>} Resolve with settings when done.
          */
-        getSettings: function() {
+        getSettings: async function() {
             // get settings
-            return AccountDB.listings.get(account.steamid)
-                .then((record) => {
-                    if (record) {
-                        // merge
-                        this.settings = Object.assign(this.settings, record);
-                    }
-                    
-                    return this.settings;
-                });
+            const record = await AccountDB.listings.get(account.steamid);
+            
+            if (record) {
+                // merge
+                this.settings = Object.assign(this.settings, record);
+            }
+            
+            return this.settings;
         },
         /**
          * Saves the settings.
          * @memberOf Settings
          * @returns {Promise} Resolve when done.
          */
-        saveSettings: function() {
+        saveSettings: async function() {
             // the full data set
             const fullData = Object.assign({
                 steamid: account.steamid
@@ -196,47 +200,46 @@ function createListingManager({account, preferences, AccountDB, ListingDB}) {
          * @memberOf ListingManager
          * @returns {Promise} Resolve when done, reject on fail.
          */
-        setup: function() {
-            return this.getSettings()
-                .then(() => {
-                    if (!this.settings.language) {
-                        this.settings.language = account.language;
-                    }
-                    
-                    // then set start to current index from loaded settings
-                    this.start_index = this.settings.current_index || 0;
-                    this.page = 0;
-                    this.language = this.settings.language;
-                    // assign a random string for our load session
-                    // this is used when detecting loads from multiple locations
-                    this.settings.session = randomString(10);
-                    this.session = this.settings.session;
-                    
-                    if (!this.language) {
-                        // language configuration is a MUST
-                        // this will lock down the language from the first load
-                        // and will  not change regardless of what language the user selects on Steam
-                        return Promise.reject('No language detected when configuring ListingManager');
-                    }
-                    
-                    return this.getLocales();
-                })
-                .then(() => {
-                    return this.getIndexListings();
-                })
-                .then(() => {
-                    return this.addPreferences();
-                })
-                .then(() => {
-                    return this.saveSettings();
-                });
+        setup: async function() {
+            await this.getSettings();
+            
+            if (!this.settings.language) {
+                this.settings.language = account.language;
+            }
+            
+            if (!this.settings.current_index) {
+                this.settings.current_index = 0;
+            }
+            
+            // then set start to current index from loaded settings
+            this.start_index = this.settings.current_index;
+            this.page = 0;
+            this.language = this.settings.language;
+            // assign a random string for our load session
+            // this is used when detecting loads from multiple locations
+            this.settings.session = randomString(10);
+            this.session = this.settings.session;
+            
+            if (!this.language) {
+                // language configuration is a MUST
+                // this will lock down the language from the first load
+                // and will  not change regardless of what language the user selects on Steam
+                return Promise.reject('No language detected when configuring ListingManager');
+            }
+            
+            await this.getLocales();
+            await this.getIndexListings();
+            await this.addPreferences();
+            await this.saveSettings();
+            
+            return;
         },
         /*
          * Gets indexes from stored listings
          * @memberOf ListingManager
          * @returns {Promise} Resolve when done
          */
-        getIndexListings: function() {
+        getIndexListings: async function() {
             // get first listing
             const firstListingPromise = ListingDB.listings.orderBy('index').first();
             // get last listing
@@ -244,7 +247,10 @@ function createListingManager({account, preferences, AccountDB, ListingDB}) {
             // get the listing at last_fetched_index, if available
             const lastFetchedPromise = new Promise((resolve) => {
                 if (this.settings.last_fetched_index != null) {
-                    ListingDB.listings.where('index').equals(this.settings.last_fetched_index).first(resolve);
+                    ListingDB.listings
+                        .where('index')
+                        .equals(this.settings.last_fetched_index)
+                        .first(resolve);
                 } else {
                     resolve();
                 }
@@ -252,7 +258,10 @@ function createListingManager({account, preferences, AccountDB, ListingDB}) {
             // get the listing at last_index, if available
             const lastIndexPromise = new Promise((resolve) => {
                 if (this.settings.last_index != null) {
-                    ListingDB.listings.where('index').equals(this.settings.last_index).first(resolve);
+                    ListingDB.listings
+                        .where('index')
+                        .equals(this.settings.last_index)
+                        .first(resolve);
                 } else {
                     resolve();
                 }
@@ -298,7 +307,7 @@ function createListingManager({account, preferences, AccountDB, ListingDB}) {
          * @param {Number} [delay=0] - Delay in Seconds to load.
          * @returns {Promise.<ListingManagerLoadResponse>} Resolves with response when done.
          */
-        load: function(delay = 0) {
+        load: async function(delay = 0, now = false) {
             const manager = this;
             
             const retry = (error, seconds) => {
@@ -307,11 +316,7 @@ function createListingManager({account, preferences, AccountDB, ListingDB}) {
                 }
                 
                 // load more data
-                return manager.load(
-                    seconds ||
-                    delay ||
-                    manager.poll_interval
-                );
+                return manager.load(seconds);
             };
             const load = () => {
                 const getListings = () => {
@@ -341,93 +346,200 @@ function createListingManager({account, preferences, AccountDB, ListingDB}) {
                     return manager.onRecords(records, next);
                 };
                 
-                return getListings()
-                    .catch(retry)
-                    .then(parse);
+                return getListings().catch(retry).then(parse);
             };
             
             // check the current load state to see whether we can load or not
-            return this.checkLoadState()
-                // delay it to space out requests
-                .then(delayPromise(delay * 1000))
-                // then we can load
-                .then(load);
+            await this.checkLoadState();
+            // delay it to space out requests
+            await delayPromise(now ? 0 : (delay || this.poll_interval) * 1000);
+            // then we can load
+            return load();
         },
         /**
          * Checks load state.
          * @memberOf ListingManager
          * @returns {Promise} Resolve when done, reject on error.
          */
-        checkLoadState: function() {
+        checkLoadState: async function() {
             const manager = this;
             // Verifies saved settings with current settings.
-            const verifySettings = () => {
-                // get the current session
-                const session = manager.session;
-                
-                return manager.getSettings()
-                    .then((settings) => {
-                        // sessions do not match
-                        const sessionChanged = Boolean(
-                            // compare it with the most recently saved session
-                            settings.session !== session
-                        );
-                        
-                        if (sessionChanged) {
-                            // ListingManager.load was called elsewhere
-                            return Promise.reject('Load was called elsewhere');
-                        }
-                    });
-            };
-            // Verifies that the language settigns are configured.
-            const verifyLanguage = () => {
-                return new Promise((resolve, reject) => {
-                    if (!manager.language) {
-                        reject('No language');
-                    } else {
-                        resolve();
-                    }
-                });
-            };
-            // Verifies that more listings can be loaded.
-            const verifyCanLoadMoreListings = () => {
-                return new Promise((resolve, reject) => {
-                    // starting point
-                    const start = manager.nextLoadIndex();
-                    // reached beginning of previous checked loop of listings collection
-                    const isBeginning = Boolean(
-                        manager.page > 0 &&
-                        manager.settings.total_count &&
-                        manager.settings.last_index &&
-                        manager.calculateListingIndex(start) <= manager.settings.last_index
-                    );
-                    // reached end of count
-                    const isEnd = Boolean(
-                        manager.settings.total_count !== 0 &&
-                        start >= manager.settings.total_count
-                    );
-                    
-                    if (isBeginning) {
-                        // reset settings
-                        manager.reset()
-                            .then(() => {
-                                reject('Listings successfully updated!');
-                            });
-                    } else if (isEnd) {
-                        // reset settings
-                        manager.reset()
-                            .then(() => {
-                                reject('Listings fully laoded!');
-                            });
-                    } else {
-                        resolve();
-                    }
-                });
-            };
+            // get the current session
+            const session = manager.session;
+            const settings = await manager.getSettings();
+            // sessions do not match
+            const sessionChanged = Boolean(
+                // compare it with the most recently saved session
+                settings.session !== session
+            );
             
-            return verifySettings()
-                .then(verifyLanguage)
-                .then(verifyCanLoadMoreListings);
+            if (sessionChanged) {
+                // ListingManager.load was called elsewhere
+                return Promise.reject('Load was called elsewhere');
+            }
+            
+            // Verifies that the language settings are configured.
+            if (!manager.language) {
+                return Promise.reject('No language');
+            }
+            
+            // Verifies that more listings can be loaded.
+            // starting point
+            const start = manager.nextLoadIndex();
+            // reached beginning of previous checked loop of listings collection
+            const isBeginning = Boolean(
+                manager.page > 0 &&
+                manager.settings.total_count &&
+                manager.settings.last_index &&
+                manager.calculateListingIndex(start) <= manager.settings.last_index
+            );
+            // reached end of count
+            const isEnd = Boolean(
+                manager.settings.total_count !== 0 &&
+                start >= manager.settings.total_count
+            );
+            
+            if (isBeginning) {
+                // reset settings
+                return manager.reset()
+                    .then(() => {
+                        return Promise.reject('Listings successfully updated!');
+                    });
+            } else if (isEnd) {
+                // reset settings
+                return manager.reset()
+                    .then(() => {
+                        return Promise.reject('Listings fully loaded!');
+                    });
+            }
+            
+            return;
+        },
+        /**
+         * Adds records and updates settings on a successful response.
+         * @memberOf ListingManager
+         * @param {Listing[]} records - Array of records.
+         * @param {Number} next - Next index to load.
+         * @returns {Promise.<ListingManagerLoadResponse>} Resolves with response when done.
+         */
+        onRecords: async function(records, next) {
+            await this.addRecords(records);
+            // update the settings from the newly collected records
+            // and update the current index
+            await this.updateSettingsFromPage(records, next);
+            
+            /**
+             * Load result.
+             * @typedef {Object} ListingManagerLoadResponse
+             * @property {Listing[]} records - Array of listings.
+             * @property {Object} progress - Load progress.
+             * @property {Number} progress.step = Current step.
+             * @property {Number} progress.total - Total steps.
+             */
+            return {
+                records,
+                progress: {
+                    step: this.page,
+                    total: this.totalPages()
+                }
+            };
+        },
+        /**
+         * Adds records.
+         * @memberOf ListingManager
+         * @param {Listing[]} records - Array of records.
+         * @returns {Promise} Resolve when done.
+         */
+        addRecords: async function(records) {
+            return new Promise((resolve) => {
+                const canAdd = Boolean(
+                    records &&
+                    records.length > 0
+                );
+                
+                if (canAdd) {
+                    ListingDB.listings.bulkAdd(records)
+                        .catch(Dexie.BulkError, () => {
+                            // do nothing
+                        })
+                        .finally(resolve);
+                } else {
+                    resolve();
+                }
+            });
+        },
+        /**
+         * Updates settings after getting a page of new records.
+         * @memberOf ListingManager
+         * @param {Listing[]} records - Array of records.
+         * @param {Number} currentIndex - The current index to fetch at.
+         * @returns {Promise.<ListingManagerLoadResponse>} Resolve when done.
+         */
+        updateSettingsFromPage: async function(records, currentIndex) {
+            this.settings.current_index = currentIndex;
+            // add a page
+            this.page += 1;
+            
+            // has records
+            if (records && records.length > 0) {
+                this.store.last_fetched = records[records.length - 1];
+                this.settings.last_fetched_index = this.store.last_fetched.index;
+            }
+            
+            const count = await ListingDB.listings.count();
+            
+            this.settings.date = new Date();
+            this.settings.recorded_count = count;
+            
+            await this.saveSettings();
+            
+            return;
+        },
+        /**
+         * Fetch market transaction history result page.
+         * @memberOf ListingManager
+         * @param {Number} start - Index of listings to load from.
+         * @param {Number} count - Number of listings to load per page.
+         * @param {String} language - Language to load.
+         * @returns {Promise.<Object>} Response JSON from Steam on resolve, error with details on reject.
+         */
+        get: async function(start, count, language) {
+            if (isNaN(start)) {
+                throw Error('Start should be a number');
+            }
+            
+            this.requests.push([count, start, language].join(':'));
+            
+            // used for detecting requests that are repetitive
+            // this may be due to a bug or a change in steam's responses
+            // this can act as a safe-guard so the extension does not spam requests
+            const lastRequests = this.requests.slice(-10);
+            const repetitiveRequests = Boolean(
+                lastRequests.length === 10 &&
+                lastRequests.every((request) => request === lastRequests[0])
+            );
+            
+            if (repetitiveRequests){
+                return Promise.reject('Too many errors');
+            }
+            
+            const response = await Steam.requests.get.listings({
+                count,
+                start,
+                l: language
+            });
+            
+            if (!response.ok) {
+                return Promise.reject(response.statusText);
+            }
+            
+            const body = await response.json();
+            
+            if (!body.success) {
+                return Promise.reject(body.error || body.message || 'Response failed');
+            }
+            
+            return body;
         },
         /**
          * Parses response based on current state.
@@ -514,126 +626,6 @@ function createListingManager({account, preferences, AccountDB, ListingDB}) {
             return onParse(error, fatal, records, difference);
         },
         /**
-         * Adds records and updates settings on a successful response.
-         * @memberOf ListingManager
-         * @param {Listing[]} records - Array of records.
-         * @param {Number} next - Next index to load.
-         * @returns {Promise.<ListingManagerLoadResponse>} Resolves with response when done.
-         */
-        onRecords: function(records, next) {
-            const manager = this;
-            const updateSettings = () => {
-                // update the settings from the newly collected records
-                // and update the current index
-                return manager.updateSettingsFromPage(records, next);
-            };
-            const getResult = () => {
-                /**
-                 * Load result.
-                 * @typedef {Object} ListingManagerLoadResponse
-                 * @property {Listing[]} records - Array of listings.
-                 * @property {Object} progress - Load progress.
-                 * @property {Number} progress.step = Current step.
-                 * @property {Number} progress.total - Total steps.
-                 */
-                return {
-                    records,
-                    progress: {
-                        step: manager.page,
-                        total: manager.totalPages()
-                    }
-                };
-            };
-            
-            return manager.addRecords(records)
-                .then(updateSettings)
-                .then(getResult);
-        },
-        /**
-         * Adds records.
-         * @memberOf ListingManager
-         * @param {Listing[]} records - Array of records.
-         * @returns {Promise} Resolve when done.
-         */
-        addRecords: function(records) {
-            return new Promise((resolve) => {
-                const canAdd = Boolean(
-                    records &&
-                    records.length > 0
-                );
-                
-                if (canAdd) {
-                    ListingDB.listings.bulkAdd(records)
-                        .catch(Dexie.BulkError, () => {
-                            // do nothing
-                        })
-                        .finally(resolve);
-                } else {
-                    resolve();
-                }
-            });
-        },
-        /**
-         * Updates settings after getting a page of new records.
-         * @memberOf ListingManager
-         * @param {Listing[]} records - Array of records.
-         * @param {Number} currentIndex - The current index to fetch at.
-         * @returns {Promise.<ListingManagerLoadResponse>} Resolve when done.
-         */
-        updateSettingsFromPage: function(records, currentIndex) {
-            const manager = this;
-            const hasRecords = Boolean(
-                records &&
-                records.length > 0
-            );
-            
-            manager.settings.current_index = currentIndex;
-            // add a page
-            manager.page += 1;
-            
-            if (hasRecords) {
-                manager.store.last_fetched = records[records.length - 1];
-                manager.settings.last_fetched_index = manager.store.last_fetched.index;
-            }
-            
-            return ListingDB.listings.count()
-                .then((count) => {
-                    manager.settings.date = new Date();
-                    manager.settings.recorded_count = count;
-                    
-                    return manager.saveSettings();
-                });
-        },
-        /**
-         * Fetch market transaction history result page.
-         * @memberOf ListingManager
-         * @param {Number} start - Index of listings to load from.
-         * @param {Number} count - Number of listings to load per page.
-         * @param {String} language - Language to load.
-         * @returns {Promise.<Object>} Response JSON from Steam on resolve, error with details on reject.
-         */
-        get: function(start, count, language) {
-            return Steam.requests.get.listings({
-                count,
-                start,
-                l: language
-            })
-                .then((response) => {
-                    if (response.ok) {
-                        return response.json();
-                    } else {
-                        return Promise.reject(response.statusText);
-                    }
-                })
-                .then((body) => {
-                    if (body.success) {
-                        return body;
-                    } else {
-                        return Promise.reject(body.error || body.message || 'Response failed');
-                    }
-                });
-        },
-        /**
          * Gets the next starting index to load from.
          * @memberOf ListingManager
          * @param {Number} index - Index to calculate for.
@@ -686,4 +678,4 @@ function createListingManager({account, preferences, AccountDB, ListingDB}) {
     });
 }
 
-export {createListingManager};
+export { createListingManager };

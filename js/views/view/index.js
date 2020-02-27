@@ -1,9 +1,9 @@
 'use strict';
 
-import {App} from '../../app/app.js';
-import {Layout} from '../../app/layout/layout.js';
-import {Listing} from '../../app/classes/listing.js';
-import {getUrlParam, isNumber, basicPlural} from '../../app/helpers/utils.js';
+import { buildApp } from '../../app/app.js';
+import { Layout } from '../../app/layout/layout.js';
+import { Listing } from '../../app/classes/listing.js';
+import { getUrlParam, isNumber, basicPlural } from '../../app/helpers/utils.js';
 
 const page = {
     query: document.getElementById('query'),
@@ -14,17 +14,17 @@ const query = {
 };
 let queryDays;
 
-function onReady() {
-    App.ready()
-        .then(onApp)
-        .catch(Layout.error);
+async function onReady() {
+    try {
+        onApp(await buildApp());
+    } catch (error) {
+        Layout.error(error);
+    }
 }
 
 function onApp(app) {
     // builds the table to show the listings loaded
     function buildTable(records) {
-        
-        console.log(JSON.stringify({items: records.slice(0).splice(0, 10).map(listing => Object.assign({}, listing)) }, null, 4));
         let title;
         
         if (queryDays !== undefined) {
@@ -45,7 +45,7 @@ function onApp(app) {
     
     // builds the index for filters
     function buildIndex(records) {
-        let indexEl = Layout.listings.buildFilters(records, Listing, {
+        const indexEl = Layout.listings.buildFilters(records, Listing, {
             onChange: onRecords,
             locales: app.account.locales.ui,
         });

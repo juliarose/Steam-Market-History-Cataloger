@@ -69,4 +69,4 @@ function removeTooltip() {
     }
 }
 
-export {tooltip, removeTooltip};
+export { tooltip, removeTooltip };

@@ -41,7 +41,7 @@
  * @param {String} [options.primary_key] - For classes used by the database, the primary key for the set.
  * @returns {Model} Class constructor object.
  */
-function createClass({identifier, types, primary_key}) {
+function createClass({ identifier, types, primary_key }) {
     const Class = Dexie.defineClass(types);
 
     Class.identifier = 'listings';
@@ -55,4 +55,4 @@ function createClass({identifier, types, primary_key}) {
     return Class;
 }
 
-export {createClass};
+export { createClass };

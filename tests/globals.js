@@ -21,7 +21,7 @@ const fetch = function(url) {
                 data,
                 ok: true,
                 json() {
-                  return Promise.resolve(JSON.parse(data));
+                    return Promise.resolve(JSON.parse(data));
                 },
             };
         };

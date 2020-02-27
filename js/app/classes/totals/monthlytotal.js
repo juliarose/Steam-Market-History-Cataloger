@@ -1,6 +1,6 @@
 'use strict';
 
-import {createTotalClass} from './helpers/createTotalClass.js';
+import { createTotalClass } from './helpers/createTotalClass.js';
 
 const identifier = 'monthlytotals';
 const tableColumns = [
@@ -13,4 +13,4 @@ const tableColumns = [
 ];
 const MonthlyTotal = createTotalClass(identifier, tableColumns);
 
-export {MonthlyTotal};
+export { MonthlyTotal };

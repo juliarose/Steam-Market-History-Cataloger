@@ -1,4 +1,4 @@
-import {createListingManager} from '../js/app/manager/listingsmanager.js';
+import { createListingManager } from '../js/app/manager/listingsmanager.js';
 const getApp = require('./environment/getApp');
 const steamid = '10000000000000000';
 

@@ -1,13 +1,13 @@
 'use strict';
 
-import {App} from '../../app/app.js';
-import {Layout} from '../../app/layout/layout.js';
-import {Listing} from '../../app/classes/listing.js';
-import {applist} from '../../app/data/applist.js';
-import {getUrlParam} from '../../app/helpers/utils.js';
-import {buildThirdPartyLinks} from '../../app/layout/listings/external/buildThirdPartyLinks.js';
-import {buildLink} from '../../app/layout/listings/external/buildLink.js';
-import {Steam} from '../../app/steam/steam.js';
+import { buildApp } from '../../app/app.js';
+import { Layout } from '../../app/layout/layout.js';
+import { Listing } from '../../app/classes/listing.js';
+import { applist } from '../../app/data/applist.js';
+import { getUrlParam } from '../../app/helpers/utils.js';
+import { buildThirdPartyLinks } from '../../app/layout/listings/external/buildThirdPartyLinks.js';
+import { buildLink } from '../../app/layout/listings/external/buildLink.js';
+import { Steam } from '../../app/steam/steam.js';
 
 const page = {
     chart: document.getElementById('chart-transactions'),
@@ -23,10 +23,12 @@ let item = {
     market_hash_name: getUrlParam('market_hash_name')
 };
 
-function onReady() {
-    App.ready()
-        .then(onApp)
-        .catch(Layout.error);
+async function onReady() {
+    try {
+        onApp(await buildApp());
+    } catch (error) {
+        Layout.error(error);
+    }
 }
 
 function onApp(app) {
@@ -39,16 +41,14 @@ function onApp(app) {
     }
     
     // gets the item data from the URL parameters
-    function getItem() {
+    async function getItem() {
         // database table
         const table = app.ListingDB.listings;
+        const itemRecords = await table.where('market_hash_name').equals(item.market_hash_name).sortBy('index');
+        // filter to appid
+        const appItemRecords = itemRecords.filter((record) => record.appid == item.appid);
         
-        return table.where('market_hash_name').equals(item.market_hash_name).sortBy('index')
-            .then((records) => {
-                // filter to appid
-                records = records.filter((record) => record.appid == item.appid);
-                onRecords(records);
-            });
+        onRecords(appItemRecords);
     }
     
     function removePlaceHolders() {
@@ -88,23 +88,25 @@ function onApp(app) {
     
     // gets the lowest price from Steam and displays it on page
     // currently not using but may add later
-    function getLowestPrice() {
+    async function getLowestPrice() {
         function addLowestPrice(details) {
-            page.startingAt.textContent = 'Starting at ' + details.lowest_price;
+            page.startingAt.textContent = `Starting at ${details.lowest_price}`;
         }
         
-        Steam.requests.get.lowestPrice({
-            country: app.account.info.settings.country,
-            currency: app.account.wallet.currency.wallet_code,
-            appid: item.appid,
-            market_hash_name: item.market_hash_name
-        }).then((response) => {
+        try {
+            const response = Steam.requests.get.lowestPrice({
+                country: app.account.info.settings.country,
+                currency: app.account.wallet.currency.wallet_code,
+                appid: item.appid,
+                market_hash_name: item.market_hash_name
+            });
+            
             if (response.ok) {
-                response.json().then(addLowestPrice);
+                addLowestPrice(await response.json());
             }
-        }).catch(() => {
+        } catch {
             page.startingAt.textContent = 'No listings';
-        });
+        }
     }
 
     // sets the title of the page

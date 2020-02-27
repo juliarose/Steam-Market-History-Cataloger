@@ -9,7 +9,7 @@ const storage = browser.storage.sync || browser.storage.local;
 const onMessage = browser.runtime.onMessage;
 
 /**
- * Set browser icon.
+ * Sets browser icon.
  * @param {Object} details - Details.
  * @param {Function} [callback=function(){}] - Callback function.
  * @returns {undefined}
@@ -19,7 +19,7 @@ function setIcon(details, callback = function() {}) {
 }
 
 /**
- * Set browser badge text.
+ * Sets browser badge text.
  * @param {Object} details - Details.
  * @param {Function} [callback=function(){}] - Callback function.
  * @returns {undefined}
@@ -29,7 +29,7 @@ function setBadgeText(details, callback = function() {}) {
 }
 
 /**
- * Get browser badge text.
+ * Gets browser badge text.
  * @param {Object} details - Details.
  * @param {Function} [callback=function(){}] - Callback function.
  * @returns {undefined}
@@ -39,7 +39,7 @@ function getBadgeText(details, callback = function() {}) {
 }
 
 /**
- * Send a runtime message.
+ * Sends a runtime message.
  * @param {Object} details - Details.
  * @param {Function} [callback=function(){}] - Callback function.
  * @returns {undefined}
@@ -49,7 +49,7 @@ function sendMessage(details, callback = function() {}) {
 }
 
 /**
- * Get a URL of an extension resource.
+ * Gets a URL of an extension resource.
  * @param {String} url - URL of resource relative to extension's root.
  * @returns {String} Absolute extension URL.
  */

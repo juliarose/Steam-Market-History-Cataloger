@@ -1,13 +1,13 @@
 'use strict';
 
-import {valuesAsKeys} from '../helpers/utils.js';
-import {Listing} from '../classes/listing.js';
-import {AccountTransaction} from '../classes/accounttransaction.js';
-import {GameItem} from '../classes/gameitem.js';
-import {AnnualTotal} from '../classes/totals/annualtotal.js';
-import {MonthlyTotal} from '../classes/totals/monthlytotal.js';
-import {DailyTotal} from '../classes/totals/dailytotal.js';
-import {AppTotal} from '../classes/totals/apptotal.js';
+import { valuesAsKeys } from '../helpers/utils.js';
+import { Listing } from '../classes/listing.js';
+import { AccountTransaction } from '../classes/accounttransaction.js';
+import { GameItem } from '../classes/gameitem.js';
+import { AnnualTotal } from '../classes/totals/annualtotal.js';
+import { MonthlyTotal } from '../classes/totals/monthlytotal.js';
+import { DailyTotal } from '../classes/totals/dailytotal.js';
+import { AppTotal } from '../classes/totals/apptotal.js';
 
 /**
  * Configures display properties for class data in app when localization strings are available.
@@ -54,4 +54,4 @@ function configureDisplay(locales) {
         .forEach(configure);
 }
 
-export {configureDisplay};
+export { configureDisplay };

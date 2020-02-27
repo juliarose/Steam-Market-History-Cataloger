@@ -1,8 +1,21 @@
 'use strict';
 
-import {MyBetterCAjaxPagingControls} from '/js/content/modules/MyBetterCAjaxPagingControls.js';
+import { MyBetterCAjaxPagingControls } from '/js/content/modules/MyBetterCAjaxPagingControls.js';
 
 (function() {
+    /**
+     * Get a URL parameter.
+     * @param {String} name - Name of parameter.
+     * @returns {(String|null)} The value of parameter, if found.
+     */
+    function getUrlParam(name) {
+        return new URL(location.href).searchParams.get(name);
+    }
+    
+    if (getUrlParam('installation')) {
+        alert('Installation successful!');
+    }
+    
     // change pagesize to 100
     window.LoadMarketHistory = function() {
         if (g_bBusyLoadingMarketHistory) {
@@ -74,14 +87,6 @@ import {MyBetterCAjaxPagingControls} from '/js/content/modules/MyBetterCAjaxPagi
             }
         });
     };
-    /**
-     * Get a URL parameter.
-     * @param {String} name - Name of parameter.
-     * @returns {(String|null)} The value of parameter, if found.
-     */
-    function getUrlParam(name) {
-        return new URL(location.href).searchParams.get(name);
-    }
     
     function openHistory() {
         const buttonEl = document.getElementById('tabMyMarketHistory');

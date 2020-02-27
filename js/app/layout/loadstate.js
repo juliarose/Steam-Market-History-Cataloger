@@ -1,6 +1,6 @@
 'use strict';
 
-import {setIcon} from '../browser.js';
+import { setIcon } from '../browser.js';
 
 /**
  * Updates extension icon based on loading state.
@@ -10,8 +10,8 @@ import {setIcon} from '../browser.js';
 function setLoadState(isLoading) {
     const iconPath = (
         isLoading ?
-        '/images/icon_loading.png' :
-        '/images/icon.png'
+            '/images/icon_loading.png' :
+            '/images/icon.png'
     );
     
     setIcon({
@@ -19,4 +19,4 @@ function setLoadState(isLoading) {
     });
 }
 
-export {setLoadState};
+export { setLoadState };

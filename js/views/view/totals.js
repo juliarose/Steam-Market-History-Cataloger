@@ -1,17 +1,19 @@
 'use strict';
 
-import {App} from '../../app/app.js';
-import {Layout} from '../../app/layout/layout.js';
-import {Listing} from '../../app/classes/listing.js';
+import { buildApp } from '../../app/app.js';
+import { Layout } from '../../app/layout/layout.js';
+import { Listing } from '../../app/classes/listing.js';
 
 const page = {
     results: document.getElementById('results')
 };
 
-function onReady() {
-    App.ready()
-        .then(onApp)
-        .catch(Layout.error);
+async function onReady() {
+    try {
+        onApp(await buildApp());
+    } catch (error) {
+        Layout.error(error);
+    }
 }
 
 function onApp(app) {

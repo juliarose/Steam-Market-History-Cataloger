@@ -1,10 +1,11 @@
 'use strict';
 
-import {verifyLogin} from '../steam/verifyLogin.js';
-import {createListingManager} from '../manager/listingsmanager.js';
-import {EventEmitter} from '../../lib/eventemitter.js';
-import {setLoadState} from '../layout/loadstate.js';
-import {createPreferencesManager} from '../manager/preferences.js';
+import { buildApp } from '../app/app.js';
+import { verifyLogin } from '../steam/verifyLogin.js';
+import { createListingManager } from '../manager/listingsmanager.js';
+import { EventEmitter } from '../../lib/eventemitter.js';
+import { setLoadState } from '../layout/loadstate.js';
+import { createPreferencesManager } from '../manager/preferences.js';
 
 /**
  * Creates a listing poller.
@@ -17,35 +18,30 @@ function createListingPoller(App) {
         setLoadState(loading);    
     }
     
-    function getPollInterval() {
-        return preferences.getSettings(true)
-            .then((settings) => {
-                const minutes = settings.background_poll_interval_minutes || 60;
-    
-                return minutes;
-            });
+    async function getPollInterval() {
+        const settings = await preferences.getSettings(true);
+        
+        return settings.background_poll_interval_minutes;
     }
     
-    function shouldLoad(force) {
-        return preferences.getSettings(true)
-            .then((settings) => {
-                // should we load?
-                const canLoad = Boolean(
-                    force ||
-                    settings.background_poll_boolean
-                );
-                    
-                return Boolean(
-                    canLoad &&
-                    // not already loading
-                    !isLoading
-                );
-            });
+    async function shouldLoad(force) {
+        const settings = await preferences.getSettings(true);
+        // should we load?
+        const canLoad = Boolean(
+            force ||
+            settings.background_poll_boolean
+        );
+            
+        return Boolean(
+            canLoad &&
+            // not already loading
+            !isLoading
+        );
     }
     
     function load(listingManager) {
         // we're done
-        function done() {
+        async function done() {
             if (isLoading) {
                 updateLoadState(false);
                 listingCount += currentCount;
@@ -59,77 +55,70 @@ function createListingPoller(App) {
                 clearListingCount();
             }
             
-            getPollInterval()
-                .then((minutes) => {
-                    getMoreAfter(minutes);
-                });
+            getMoreAfter(await getPollInterval());
         }
         
         function loadListings() {
             // we've received a response and now want to get more
-            function getMore({records}) {
+            function getMore({ records }) {
                 currentCount += records.length;
                 
                 // call the load function again
                 loadListings();
             }
             
-            listingManager.load()
-                .then(getMore)
-                .catch(done);
+            listingManager.load().then(getMore).catch(done);
         }
         
         updateLoadState(true);
-        listingManager.setup()
-            .then(loadListings)
-            .catch(done);
+        listingManager.setup().then(loadListings).catch(done);
     }
     
-    function startLoading() {
-        return verifyLogin()
-            // will return app to create listing manager
-            .then(App.ready)
-            // creates the listing manager
-            .then(createListingManager)
-            // then passes the manager to the load function to load listings
-            .then(load);
+    async function startLoading() {
+        await verifyLogin();
+        // will return app to create listing manager
+        const app = await buildApp();
+        // creates the listing manager
+        const listingManager = createListingManager(app);
+        // then passes the manager to the load function to load listings
+        load(listingManager);
     }
     
     function getMoreAfter(minutes) {
         timer = setTimeout(checkStateThenLoad, minutes * 60 * 1000);
     }
     
-    function resumeLoading(force) {
-        shouldLoad(force)
-            .then((canLoad) => {
-                if (canLoad) {
-                    checkStateThenLoad();
-                }
-            });
+    async function resumeLoading(force) {
+        const canLoad = await shouldLoad(force);
+        
+        if (canLoad) {
+            checkStateThenLoad();
+        }
     }
     
     /**
      * Checks the current state of the application then loads if everything is OK.
      * @memberOf ListingPoller
-     * @returns {undefined}
+     * @returns {Promise}
      */
-    function checkStateThenLoad() {
+    async function checkStateThenLoad() {
         // clear timer if we are currently waiting
         clearTimeout(timer);
-        shouldLoad()
-            .then((should) => {
-                if (should) {
-                    startLoading().then(() => {
-                        currentCount = 0;
-                    }).catch(() => {
-                        // re-check in 5 minutes
-                        getMoreAfter(5);
-                    });
-                } else {
+        const should = await shouldLoad();
+        
+        if (should) {
+            startLoading()
+                .then(() => {
+                    currentCount = 0;
+                })
+                .catch(() => {
                     // re-check in 5 minutes
                     getMoreAfter(5);
-                }
-            });
+                });
+        } else {
+            // re-check in 5 minutes
+            getMoreAfter(5);
+        }
     }
     
     /**
@@ -185,4 +174,4 @@ function createListingPoller(App) {
     return poller;
 }
 
-export {createListingPoller};
+export { createListingPoller };

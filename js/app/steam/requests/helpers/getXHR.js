@@ -12,4 +12,4 @@ function getXHR(url, settings = {}) {
     return fetch(url, settings);
 }
 
-export {getXHR};
+export { getXHR };
