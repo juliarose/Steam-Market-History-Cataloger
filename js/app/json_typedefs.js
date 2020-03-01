@@ -24,7 +24,7 @@
  */
 
 /**
- * A listing from Steam's market history at https://steamcommunity.com/market/.
+ * A listing from your Steam market history at https://steamcommunity.com/market/.
  * @typedef {Object} Listing
  * @property {String} transaction_id - Transaction ID.
  * @property {String} appid - Appid for item.
@@ -45,7 +45,7 @@
  */
 
 /**
- * A row from Steam's account purchase history at https://store.steampowered.com/account/history/.
+ * A row from your Steam account purchase history at https://store.steampowered.com/account/history/.
  * @typedef {Object} AccountTransaction
  * @property {Number} transaction_type - A value fom ETransactionType.
  * @property {Date} date - Date of transaction.

@@ -128,3 +128,7 @@ You may contribute to this project by opening an [issue](issues) to file a bug r
 Offered under the [GNU General Public License v2.0](LICENSE). It is offered as-is and without liability or warranty. You are free to modify and redistribute this project as long as the source is disclosed and it is published under the same license.
 
 Steam Market History Cataloger is not affiliated with Steam or Valve.
+
+### Privacy Policy
+
+This project requires permissions to steamcommunity.com and steampowered.com to load data about your Steam account, as well as data storage to your disk. Stored data is entirely local and not shared anywhere outside of the extension.
