@@ -84,10 +84,12 @@ function buildFile(records, Class, options, format) {
             return [getHeading()].concat(records.map(getRow)).join('\n');
         },
         json: function () {
+            const header = Class.identifier || 'items';
+            
             return JSON.stringify(omitEmpty({
                 // only include currency if currency values are included in data
                 currency: currencyFields.length > 0 ? currency : null,
-                items: records.map((record) => {
+                [header]: records.map((record) => {
                     return record.toJSON ? record.toJSON() : record;
                 })
             }));

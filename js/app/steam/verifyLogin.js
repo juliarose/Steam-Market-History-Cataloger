@@ -16,13 +16,13 @@ function verifyLogin() {
             }
         })
         .then((text) => {
-            let isLoggedIn = /g_bLoggedIn = true;/.test(text);
+            const isLoggedIn = /g_bLoggedIn = true;/.test(text);
             
             if (isLoggedIn) {
                 return;
             } else {
-                return this.deleteSettings().
-                    then(() => {
+                return this.deleteSettings()
+                    .then(() => {
                         return Promise.reject('Not logged in');
                     });
             }

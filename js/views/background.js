@@ -1,11 +1,10 @@
 'use strict';
 
-import { App } from '../app/app.js';
 import { setBadgeText } from '../app/browser.js';
 import { createListingPoller } from '../app/manager/listingspoller.js';
 import { browserLocalStorage, onMessage } from '../app/browser.js';
 
-const listingPoller = createListingPoller(App);
+const listingPoller = createListingPoller();
 
 function addListeners() {
     onMessage.addListener((request, sender, sendResponse) => {

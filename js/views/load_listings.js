@@ -95,6 +95,11 @@ function onApp(app) {
                 loadListings();
             }
             
+            Layout.alert(
+                'Loading started! Loading will resume in background if you close this page at any point.',
+                page.results,
+                'active'
+            );
             listingManager.load(0, now).then(getMore).catch(done);
         }
         
@@ -104,24 +109,16 @@ function onApp(app) {
         });
     }
     
-    
-    // Send a message to resume loading to the background script
-    function sendResumeLoadingMessage() {
-        alert('Loading will resume in background');
-        sendMessage({
-            name: 'resumeLoading'
-        });
-    }
-    
     function addListeners() {
-        window.onunload = () => {
+        window.addEventListener('beforeunload', (event) => {
             // if the page is closed while loading is in progress
             if (isLoading) {
                 // continue loading in background
-                // not in use currently to keep things simple
-                // sendResumeLoadingMessage();
+                sendMessage({
+                    name: 'resumeLoading'
+                });
             }
-        };
+        });
         
         page.buttons.getHistory.addEventListener('click', (e) => {
             e.target.parentNode.remove();

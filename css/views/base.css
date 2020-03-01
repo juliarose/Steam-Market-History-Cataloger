@@ -439,8 +439,23 @@ button.active,
     border: 1px solid #D3D6DB;
 }
 
+.alert.active {
+    border-color: #E8D7AE;
+    /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#e3d39a+0,d9caa3+100 */
+    background: #e3d39a; /* Old browsers */
+    background: -moz-linear-gradient(left,  #e3d39a 0%, #d9caa3 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(left,  #e3d39a 0%,#d9caa3 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to right,  #e3d39a 0%,#d9caa3 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e3d39a', endColorstr='#d9caa3',GradientType=1 ); /* IE6-9 */
+}
+
 .alert p {
     padding: 1.4em 1.8em;
+}
+
+.alert a {
+    color: #426FA6;
+    font-weight: bold;
 }
 
 /**************************************************/

@@ -71,6 +71,12 @@ function onApp(app) {
                 .catch(done);
         }
         
+        Layout.alert(
+            'Loading started! Your <a href="https://store.steampowered.com/account/history" target="_blank">purchase history</a> is not stored to the extension but ' +
+            'can be loaded and viewed here. This page will load until no more results can be loaded.',
+            page.results,
+            'active'
+        );
         loadTransactions();
     }
     

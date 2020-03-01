@@ -94,9 +94,9 @@ const Layout = {
             }); 
         }
         
-        // set the text of the element
+        // set the contents of the element
         function setText(el, message) {
-            el.querySelector('p').textContent = message;
+            el.querySelector('p').innerHTML = message;
         }
         
         // set the class of the element
@@ -111,12 +111,7 @@ const Layout = {
         
         let alertEl = document.querySelector('.alert');
         
-        if (alertEl) {
-            // an alert element already exists
-            // so update it
-            setText(alertEl, message);
-            setClass(alertEl);
-        } else {
+        if (!alertEl) {
             // create our elements
             const containerEl = document.createElement('div');
             const textEl = document.createElement('p');
@@ -128,10 +123,11 @@ const Layout = {
             
             // append the container for the alert before 'beforeEl'
             beforeEl.parentNode.insertBefore(containerEl, beforeEl);
-            setText(alertEl, message);
-            setClass(alertEl);
-            animate(alertEl);
         }
+        
+        setText(alertEl, message);
+        setClass(alertEl);
+        animate(alertEl);
     },
     /**
      * Adds spinner to page to communicate page is loading.

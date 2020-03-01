@@ -108,7 +108,7 @@ function createAccountManager() {
             this.avatar = this.settings.avatar;
             
             if (!this.steamid) {
-                return Promise.reject('Not logged into Steam');
+                return Promise.reject('No steamcommunity.com login detected. Either login or view a page on steamcommunity.com to detect login.');
             }
             
             await this.info.setup();

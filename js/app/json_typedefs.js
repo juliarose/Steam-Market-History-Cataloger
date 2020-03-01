@@ -2,12 +2,19 @@
 // Used for user documentation purposes
 
 /**
+ * The output data when exporting listings to JSON.
+ * @typedef {Object} ListingsJSON
+ * @property {Currency} currency - The currency of for your Steam wallet.
+ * @property {Listing[]} listings - An array of listings.
+ */
+
+/**
  * A currency used for prices.
  * @typedef {Object} Currency
  * @property {Number} wallet_code - The ID of the currency from Steam.
  * @property {String} code - ISO 4217 currency code e.g. "USD".
  * @property {String} symbol - Currency symbol e.g. "$".
- * @property {Number} precision - Decimal place precision.
+ * @property {Number} precision - Decimal place precision e.g. 2 decimal places for USD.
  * @property {String} thousand - Thousand place character.
  * @property {String} decimal - Decimal place character.
  * @property {Boolean} [spacer] - Whether the amount should be displayed with a space between the number and symbol.
@@ -48,7 +55,7 @@
  */
 
 /**
- * An item from an in-game purchase belonging to an account transaction.
+ * An item from an in-game purchase belonging to an account transaction (currently unused).
  * @typedef {Object} GameItem
  * @property {String} app - App name.
  * @property {Number} count - Number of this particular item.

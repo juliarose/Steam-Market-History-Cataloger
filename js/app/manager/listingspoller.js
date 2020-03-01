@@ -1,6 +1,6 @@
 'use strict';
 
-import { buildApp } from '../app/app.js';
+import { buildApp } from '../app.js';
 import { verifyLogin } from '../steam/verifyLogin.js';
 import { createListingManager } from '../manager/listingsmanager.js';
 import { EventEmitter } from '../../lib/eventemitter.js';
@@ -12,7 +12,7 @@ import { createPreferencesManager } from '../manager/preferences.js';
  * @param {Object} App - The app for configuring the poller.
  * @returns {ListingPoller} New listing poller.
  */
-function createListingPoller(App) {
+function createListingPoller() {
     function updateLoadState(loading) {
         isLoading = loading;
         setLoadState(loading);    

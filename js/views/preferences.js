@@ -21,7 +21,7 @@ const page = {
 
 async function onReady() {
     try {
-        await buildApp();
+        await buildApp().then(onApp);
     } catch (error) {
         page.loggedInButtons.forEach((el) => {
             el.remove();
@@ -144,7 +144,7 @@ function onApp(app) {
         const language = settings.language;
         
         if (language) {
-            let formatted = formatLocaleNumber(count, app.account.wallet.currency);
+            const formatted = formatLocaleNumber(count, app.account.wallet.currency);
             let describeText;
             
             // pick description text based on number of listings
@@ -161,7 +161,7 @@ function onApp(app) {
             }
             
             page.listingsLanguage.textContent = language;
-            page.listingCount.textContent = formatted + ' recorded listings';
+            page.listingCount.textContent = `${formatted} recorded listings`;
             page.listingDescribe.textContent = describeText;
         } else {
             page.listingsDescription.textContent = 'You don\'t have any listings loaded.';
