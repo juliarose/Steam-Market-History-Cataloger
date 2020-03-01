@@ -64,7 +64,7 @@ Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Globa
 
 ### Listing
 
-A listing from Steam's market history at <https://steamcommunity.com/market/>.
+A listing from your Steam market history at <https://steamcommunity.com/market/>.
 
 Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)
 
@@ -89,7 +89,7 @@ Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Globa
 
 ### AccountTransaction
 
-A row from Steam's account purchase history at <https://store.steampowered.com/account/history/>.
+A row from your Steam account purchase history at <https://store.steampowered.com/account/history/>.
 
 Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)
 
@@ -114,7 +114,7 @@ Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Globa
 -   `name` **[Date](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Date)** Name of item.
 -   `price` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Price of item(s).
 
-## Known issues
+## Known Issues
 
 -   Since history results do not usually include the year of the date, the extension must make a best guess for the year. If you have gaps larger than a year in your history results you may experience issues. This issue may or may not be resolved in the future.
 -   Any refunded transactions will persist if they were not refunded at the time of loading. There is no way to remove them from your results at this point unless you clear your entire listing data.
@@ -125,10 +125,10 @@ You may contribute to this project by opening an [issue](issues) to file a bug r
 
 ## Legal
 
-Offered under the [GNU General Public License v2.0](LICENSE). It is offered as-is and without liability or warranty. You are free to modify and redistribute this project as long as the source is disclosed and it is published under the same license.
+Offered under the [GNU General Public License v2.0](LICENSE). It is offered as-is and without liability or warranty. You are free to modify and redistribute this extension as long as the source is disclosed and it is published under the same license.
 
 Steam Market History Cataloger is not affiliated with Steam or Valve.
 
-### Privacy Policy
+## Privacy Policy
 
-This project requires permissions to steamcommunity.com and steampowered.com to load data about your Steam account, as well as data storage to your disk. Stored data is entirely local and not shared anywhere outside of the extension.
+This extension requires permissions to <https://steamcommunity.com> and <https://steampowered.com> to load data about your Steam account, as well as data storage to your disk. Stored data is entirely local and not shared anywhere outside of the extension.
