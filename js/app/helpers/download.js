@@ -2,8 +2,8 @@
 
 /**
  * Downloads a file.
- * @param {String} name - Name of file to be saved.
- * @param {String} data - Data to be saved.
+ * @param {string} name - Name of file to be saved.
+ * @param {string} data - Data to be saved.
  * @returns {undefined}
  */
 function download(name, data) {

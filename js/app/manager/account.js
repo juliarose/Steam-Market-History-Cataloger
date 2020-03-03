@@ -1,6 +1,6 @@
 'use strict';
 
-import { createManager } from './helpers/createManager.js';
+import { createLocalStorageManager } from './helpers/createLocalStorageManager.js';
 import { getCurrency } from '../currency.js';
 import { Localization } from '../classes/localization.js';
 
@@ -13,12 +13,12 @@ function createAccountManager() {
      * Current logged in user settings manager.
      * @class AccountManager
      * @type {Manager}
-     * @property {String} settings_name - Key for storing data.
-     * @property {Localization} locales - Localization strings in the language for the account.
+     * @property {string} settings_name - Key for storing data.
+     * @property {(Localization|null)} locales - Localization strings in the language for the account. Defined during setup.
      */
-    const account = createManager({
+    const account = createLocalStorageManager({
         settings_name: 'logged_in_user',
-        locales: new Localization(),
+        locales: null,
         /**
          * Details relating to wallet will be stored here when data is loaded.
          * @namespace account.wallet
@@ -30,12 +30,12 @@ function createAccountManager() {
          * @memberOf AccountManager
          * @type {Manager}
          */
-        info: createManager({
+        info: createLocalStorageManager({
             settings_name: 'accountinfo',
             /**
              * Overrides function from Manager.
              * @memberOf AccountManager.info
-             * @returns {(String|null)} Key name for settings with steamid linked to currently logged-in account.
+             * @returns {(string|null)} Key name for settings with steamid linked to currently logged-in account.
              */
             settingsName: function() {
                 const steamid = account.steamid;
@@ -68,14 +68,16 @@ function createAccountManager() {
             /**
              * Configures the module.
              * @memberOf AccountManager.info
-             * @returns {Promise.<Object>} Resolve when done, reject when data is missing.
+             * @returns {Promise} Resolve when done, reject when data is missing.
              */
             setup: async function() {
                 await this.getAndMergeSettings();
                 
                 if (!this.settings.wallet_currency) {
-                    return Promise.reject('No wallet detected. You may need to open a page on Steam.');
-                } else if (!this.settings.language) {
+                    return Promise.reject('No wallet detected.');
+                }
+                
+                if (!this.settings.language) {
                     return Promise.reject('No language detected');
                 }
                 
@@ -89,18 +91,18 @@ function createAccountManager() {
                 }
                 
                 account.language = this.settings.language;
-                
-                return account.locales.get(account.language);
+                account.locales = await Localization.get(account.language);
             }
         }),
         /**
          * Configures the module.
          * @memberOf AccountManager
-         * @returns {Promise.<Object>} Resolve with basic account data when done, reject when data is missing.
+         * @returns {Promise} Resolve when done.
          */
         setup: async function() {
             // get english as the default language
-            await this.locales.get('english')
+            this.locales = await Localization.get('english');
+            
             await this.getAndMergeSettings();
             
             this.steamid = this.settings.steamcommunity;
@@ -108,17 +110,10 @@ function createAccountManager() {
             this.avatar = this.settings.avatar;
             
             if (!this.steamid) {
-                return Promise.reject('No steamcommunity.com login detected. Either login or view a page on steamcommunity.com to detect login.');
+                return Promise.reject('No steamcommunity.com login detected. Either login or view a page on steamcommunity.com to configure login.');
             }
             
             await this.info.setup();
-            
-            return {
-                locales: this.locales,
-                steamid: this.steamid,
-                language: this.info.settings.language,
-                currency: this.wallet.currency
-            };
         }
     });
     

@@ -19,8 +19,8 @@ function pickKeys(object, keys) {
 
 /**
  * Get a cookie's value.
- * @param {String} name - Name of cookie.
- * @returns {(String|null)} Value of cookie.
+ * @param {string} name - Name of cookie.
+ * @returns {(string|null)} Value of cookie.
  */
 function getCookie(name) {
     // unpack pairs
@@ -82,7 +82,7 @@ const Settings = (function() {
     /**
      * Store settings.
      * @memberOf Settings
-     * @param {String} key - Settings key.
+     * @param {string} key - Settings key.
      * @param {Object} data - Data to save.
      */ 
     function store(key, data) {
@@ -97,8 +97,8 @@ const Settings = (function() {
     /**
      * Get settings.
      * @memberOf Settings
-     * @param {String} key - Settings key.
-     * @param {Boolean} [noWrapper] - Whether data should not be wrapped by key.
+     * @param {string} key - Settings key.
+     * @param {boolean} [noWrapper] - Whether data should not be wrapped by key.
      */ 
     function get(key, noWrapper) {
         return new Promise((resolve) => {
@@ -115,7 +115,7 @@ const Settings = (function() {
     /**
      * Add to settings.
      * @memberOf Settings
-     * @param {String} key - Settings key.
+     * @param {string} key - Settings key.
      * @param {Object} data - Data to add.
      */ 
     function addTo(key, data) {

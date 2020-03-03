@@ -4,6 +4,7 @@
     "browser": true
   },
   "parserOptions": {
+    "ecmaVersion": 2017,
     "sourceType": "module",
     "allowImportExportEverywhere": true
   },
@@ -28,15 +29,15 @@
           "return": "returns"
         },
         "preferType": {
-          "object": "Object",
-          "boolean": "Boolean",
-          "string": "String",
-          "symbol": "Symbol",
-          "number": "Number",
-          "bigint": "BigInt",
-          "function": "Function",
+          "Boolean": "boolean",
+          "String": "string",
+          "Number": "number",
           "Null": "null",
-          "Undefined": "undefined"
+          "Undefined": "undefined",
+          "object": "Object",
+          "symbol": "Symbol",
+          "bigint": "BigInt",
+          "function": "Function"
         }
       }
     ],

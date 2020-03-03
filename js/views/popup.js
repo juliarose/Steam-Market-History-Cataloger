@@ -167,11 +167,11 @@ function onApp(app) {
         const buttons = page.buttons;
         
         for (let k in buttons) {
-            const p = buttons[k].querySelector('span');
+            const spanEl = buttons[k].querySelector('span');
             const value = localeValues[buttonLocaleKeys[k]];
             
-            if (p && value) {
-                p.textContent = value;
+            if (spanEl && value) {
+                spanEl.textContent = value;
             }
         }
     }

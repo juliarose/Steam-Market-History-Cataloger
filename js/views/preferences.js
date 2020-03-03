@@ -4,7 +4,7 @@ import { buildApp } from '../app/app.js';
 import { formatLocaleNumber } from '../app/money.js';
 import { Layout } from '../app/layout/layout.js';
 import { createListingManager } from '../app/manager/listingsmanager.js';
-import { isNumber } from '../app/helpers/utils.js';
+import { isNumber, escapeHTML } from '../app/helpers/utils.js';
 
 const page = {
     inputs: document.querySelectorAll('input, select'),

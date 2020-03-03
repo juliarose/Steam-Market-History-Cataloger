@@ -99,7 +99,7 @@ function createListingPoller() {
     /**
      * Checks the current state of the application then loads if everything is OK.
      * @memberOf ListingPoller
-     * @returns {Promise}
+     * @returns {Promise} Resolve when done.
      */
     async function checkStateThenLoad() {
         // clear timer if we are currently waiting
@@ -135,7 +135,7 @@ function createListingPoller() {
      *
      * This should only be called once.
      * @memberOf ListingPoller
-     * @param {Number} [minutes=5] - Number of minutes to wait for first load.
+     * @param {number} [minutes=5] - Number of minutes to wait for first load.
      * @returns {undefined}
      */
     function start(minutes = 5) {

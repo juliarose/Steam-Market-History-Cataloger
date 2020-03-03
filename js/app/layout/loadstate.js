@@ -4,7 +4,7 @@ import { setIcon } from '../browser.js';
 
 /**
  * Updates extension icon based on loading state.
- * @param {Boolean} isLoading - Load state to set.
+ * @param {boolean} isLoading - Load state to set.
  * @returns {undefined}
  */
 function setLoadState(isLoading) {

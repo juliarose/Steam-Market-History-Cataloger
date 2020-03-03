@@ -4,17 +4,14 @@ const steamid = '10000000000000000';
 
 let listingManager;
 
-beforeAll(() => {
-    return getApp(steamid)
-        .then(createListingManager)
-        .then((manager) => {
-            listingManager = manager;
-            
-            return listingManager.setup();
-        })
-        .catch((error) => {
-            console.log(error);
-        });
+beforeAll(async () => {
+    const app = await getApp(steamid);
+    
+    listingManager = createListingManager(app);
+    
+    await listingManager.setup();
+    
+    return;
 });
 
 it('Listing manager is setup properly', () => {

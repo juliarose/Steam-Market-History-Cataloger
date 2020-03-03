@@ -10,19 +10,20 @@ import { buildFile } from '../buildFile.js';
  * @param {Array} records - Records to display.
  * @param {Object} Class - Class of items in 'records'.
  * @param {Object} options - Options for formatting table.
- * @param {Object} [options.locales] - Locale strings.
- * @param {Stirng} [options.title] - Title to display above table.
- * @param {Boolean} [options.keep_page] - Keep page from previously rendered table.
- * @param {Boolean} [options.no_download] - Do not display download button when set to true.
- * @param {Array} [options.columns] - Array of names of columns to render.
- * @param {Number} [options.page] - Current page for pagination.
- * @param {Number} [options.count] - Number of results to show per page.
+ * @param {Localization} options.locales - Locale strings.
  * @param {Currency} options.currency - Currency to format money values in.
+ * @param {string} [options.title] - Title to display above table.
+ * @param {boolean} [options.keep_page] - Keep page from previously rendered table.
+ * @param {boolean} [options.no_download] - Do not display download button when set to true.
+ * @param {Array} [options.columns] - Array of names of columns to render.
+ * @param {number} [options.page] - Current page for pagination.
+ * @param {number} [options.count] - Number of results to show per page.
  * @returns {HTMLElement} DOM element of table.
  * @namespace Layout.buildTable
  */
 function buildTable(records, Class, options) {
-    const classDisplay = Class.display;
+    const { locales } = options;
+    const classDisplay = Class.makeDisplay(locales);
     const display = classDisplay.table || {};
     // sorting keys for each column
     const sorts = display.sorts || {};
@@ -37,9 +38,9 @@ function buildTable(records, Class, options) {
     // container element for table
     const tableEl = document.createElement('div');
     // strings used in table
-    const locales = (
-        options.locales &&
-        options.locales.tables
+    const tableLocales = (
+        options.locales.ui &&
+        options.locales.ui.tables
     ) || {
         empty: 'Nothing to display.',
         download: 'Download',
@@ -74,22 +75,22 @@ function buildTable(records, Class, options) {
         },
         /**
          * Gets starting index based on page number and count.
-         * @returns {Number} Index to slice at.
+         * @returns {number} Index to slice at.
          */
         getIndex: function() {
             return (this.page - 1) * this.count;
         },
         /**
          * Get text used for current page.
-         * @returns {String} Text for index, e.g. "5 / 24".
+         * @returns {string} Text for index, e.g. "5 / 24".
          */
         getIndexText: function() {
             return `${this.page} / ${this.getTotalPages()}`;
         },
         /**
          * Changes page.
-         * @param {Number} difference - Number of pages to add to current page.
-         * @returns {Boolean} Whether the resulting difference has changed the page or not.
+         * @param {number} difference - Number of pages to add to current page.
+         * @returns {boolean} Whether the resulting difference has changed the page or not.
          */
         changePage: function(difference) {
             const page = this.page;
@@ -99,8 +100,8 @@ function buildTable(records, Class, options) {
         },
         /**
          * Go to page.
-         * @param {Number} desired - Desired page.
-         * @returns {Boolean} Whether the page was changed or not.
+         * @param {number} desired - Desired page.
+         * @returns {boolean} Whether the page was changed or not.
          */
         goTo: function(desired) {
             const page = this.page;
@@ -120,7 +121,7 @@ function buildTable(records, Class, options) {
             /**
              * Adds or removes "disabled" class to every element in 'list'.
              * @param {Array} list - List of nodes.
-             * @param {String} [method='remove'] - "add" or "remove".
+             * @param {string} [method='remove'] - "add" or "remove".
              * @returns {undefined}
              */
             function modify(list, method = 'add') {
@@ -160,13 +161,13 @@ function buildTable(records, Class, options) {
     const getHTML = {
         // no records to display
         empty: function() {
-            return `<div class="${tableClass} empty-table">${locales.empty}</div>`;
+            return `<div class="${tableClass} empty-table">${tableLocales.empty}</div>`;
         },
         controls: function(location, canAddDownloadControls) {
             const downloadControls = () => {
                 return (
                     '<div class="item dropdown">' +
-                        `<div class="button">${locales.download}</div>` +
+                        `<div class="button">${tableLocales.download}</div>` +
                         '<div class="dropdown-content hidden">' +
                           '<a data-value="csv" href="#">CSV</a>' +
                           '<a data-value="json" href="#">JSON</a>' +
@@ -181,8 +182,8 @@ function buildTable(records, Class, options) {
                         // `<div class="index"><input type="number" value="${page}" min="1" ` +
                         // `max="${getTotalPages()}"/><div class="range">${getIndexText()}</div></div>` +
                         `<div class="index" data-page="${pagination.page}">${pagination.getIndexText()}</div>` +
-                        `<div class="button control previous disabled">${locales.previous}</div>` +
-                        `<div class="button control next">${locales.next}</div>` +
+                        `<div class="button control previous disabled">${tableLocales.previous}</div>` +
+                        `<div class="button control next">${tableLocales.next}</div>` +
                     '</div>'
                 );
             };
@@ -519,10 +520,10 @@ function buildTable(records, Class, options) {
  * Sorts an array by key based on data type.
  *
  * The sorting methods are based on the type of data we are sorting.
- * @param {String} key - Sort key.
+ * @param {string} key - Sort key.
  * @param {Object} type - Class object of data type e.g. Number, Date...
  * @param {Array} arr - Array to sort.
- * @param {Boolean} reverse - Sort in reverse?
+ * @param {boolean} reverse - Sort in reverse?
  * @returns {Array} Sorted array.
  */
 function sortByType(key, type, arr, reverse) {

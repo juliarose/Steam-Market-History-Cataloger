@@ -11,7 +11,7 @@ function collectAndStoreInfo() {
         Settings.addTo('logged_in_user', data);
     }
     
-    const {steamid, info} = collectInfo({
+    const { steamid, info } = collectInfo({
         steamid: function(content) {
             function getAccountid(content) {
                 return (content.match(/g_AccountID\s*=\s*(\d+);$/m) || [])[1];
@@ -19,8 +19,8 @@ function collectAndStoreInfo() {
             
             /**
              * Converts a 32-bit account id to steamid64.
-             * @param {String} accountid - Accountid to convert.
-             * @returns {String} Steamid64 in string format.
+             * @param {string} accountid - Accountid to convert.
+             * @returns {string} Steamid64 in string format.
              */
             function to64(accountid) {
                 return (BigInt(accountid) + BigInt(76561197960265728)).toString();

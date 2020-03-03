@@ -10,8 +10,8 @@ const Steam = {
         function parseText(text) {
             /**
              * Converts a 32-bit account id to steamid64.
-             * @param {String} accountid - Accountid to convert.
-             * @returns {String} Steamid64 in string format.
+             * @param {string} accountid - Accountid to convert.
+             * @returns {string} Steamid64 in string format.
              */
             function to64(accountid) {
                 return (BigInt(accountid) + BigInt(76561197960265728)).toString();
@@ -54,10 +54,10 @@ const Steam = {
     },
     /**
      * Gets class info.
-     * @param {String} appid - Appid of item.
-     * @param {String} classid - Classid of item.
-     * @param {String} instanceid - Instanceid of item.
-     * @param {String} [language='english'] - Language.
+     * @param {string} appid - Appid of item.
+     * @param {string} classid - Classid of item.
+     * @param {string} instanceid - Instanceid of item.
+     * @param {string} [language='english'] - Language.
      * @returns {Promise.<Object>} Resolve with asset when done, reject on error.
      */
     getClassinfo: function(appid, classid, instanceid, language = 'english') {

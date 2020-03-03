@@ -69,9 +69,9 @@ const Layout = {
     /**
      * Adds an alert to the page (or changes message if one already exists).
      * @memberOf Layout
-     * @param {String} message - Message to display.
+     * @param {string} message - Message to display.
      * @param {HTMLElement} beforeEl - Insert before this DOM element.
-     * @param {String} [elClass] - Alert class.
+     * @param {string} [elClass] - Alert class.
      * @returns {undefined}
      */
     alert: function(message, beforeEl, elClass) {
@@ -168,7 +168,7 @@ const Layout = {
     /**
      * Empties the layout and displays an error message.
      * @memberOf Layout
-     * @param {String} [error] - Message to display.
+     * @param {string} [error] - Message to display.
      * @param {HTMLElement} [beforeEl] - Insert before this DOM element.
      * @returns {undefined}
      */

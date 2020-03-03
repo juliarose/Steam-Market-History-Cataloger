@@ -9,47 +9,17 @@ import { getExtensionURL } from '../browser.js';
  * Loads/stores language data.
  * 
  * @namespace Localization
+ * @param {Object} options - Language attributes.
+ * @param {string} [options.code] - Language code from Steam e.g. "en" for English.
+ * @param {string} [options.language] - Name of language e.g. "english" for English.
+ * @param {Object} json - JSON object containing string values.
  * @class
  */
-function Localization() {
+function Localization({ code, language }, json) {
+    Object.assign(this, json);
     
-}
-
-/**
- * Gets language strings.
- * @memberOf Localization
- * @param {String} language - Name of language from Steam.
- * @param {locales.get-callback} callback - Called when finished loading.
- * @returns {Promise.<Object>} Resolve with locales when done, reject on error.
- */
-Localization.prototype.get = function(language) {
-    const code = ELangCode[language];
-    const uri = getExtensionURL(`/json/locales/${code}/strings.json`);
-    
-    this.language = language;
     this.code = code;
-    
-    if (!code) {
-        return Promise.reject('No locales available for ' + language);
-    } else {
-        return fetchJSON(uri)
-            .then((json) => {
-                this.set(json);
-                
-                return json;
-            });
-    }
-};
-
-/**
- * Sets strings.
- * @memberOf Localization
- * @param {Object} strings - JSON object containing strings.
- * @returns {undefined}
- */
-Localization.prototype.set = function(strings) {
-    Object.assign(this, strings);
-    
+    this.language = language;
     this.months.abbreviations_patterns = [];
     this.months.abbreviations.forEach((abbreviations, i) => {
         const pattern = new RegExp(abbreviations, 'i');
@@ -58,6 +28,7 @@ Localization.prototype.set = function(strings) {
         this.months.abbreviations[i] = abbreviations.split('|')[0];
     });
     
+    // this will configure the identifiers in each table
     for (let table in this.db) {
         if (!this.db[table].identifiers) {
             continue;
@@ -74,16 +45,35 @@ Localization.prototype.set = function(strings) {
             this.db[table].identifiers[identifierName] = valuesAsKeys(identifiers);
         }
     }
+}
+
+/**
+ * Gets a localization of a given language.
+ * @memberOf Localization
+ * @param {string} language - Name of language from Steam.
+ * @returns {Promise.<Localization>} Resolve with locales when done.
+ */
+Localization.get = async function(language) {
+    const code = ELangCode[language];
+    const uri = getExtensionURL(`/json/locales/${code}/strings.json`);
+    
+    if (!code) {
+        return Promise.reject(`No locales available for ${language}`);
+    }
+    
+    // get the json for the localizations
+    // and return a localization object
+    return new Localization({ code, language }, await fetchJSON(uri));
 };
 
+// currently not in use but may be used later
 /**
  * Converts a date back into a date string.
  * @memberOf Localization
  * @param {Date} date - String of date.
- * @returns {String} Date string.
+ * @returns {string} Date string.
  */
 Localization.prototype.toDateString = function(date) {
-    // currently not in use but may be used later
     const month = date.getMonth();
     const day = date.getDate();
     const monthAbbreviation = this.months.abbreviations[month];
@@ -100,15 +90,15 @@ Localization.prototype.toDateString = function(date) {
                 monthAbbreviation,
                 day
             ].join(' ');
-        } break;
+        }
     }
 };
 
 /**
  * Parses a date string.
  * @memberOf Localization
- * @throws {Error} When date failed to parsed.
- * @param {String} string - String of date.
+ * @throws {Error} When date failed to parse.
+ * @param {string} string - String of date.
  * @returns {Object} Object containing month and day from string.
  */
 Localization.prototype.parseDateString = function(string) {
@@ -123,7 +113,10 @@ Localization.prototype.parseDateString = function(string) {
     switch (code) {
         // finnish, format is '31.4.' (day, month)
         case 'fi': {
-            const split = string.replace(/\.$/).split('.').map(toNumber);
+            const split = string
+                .replace(/\.$/)
+                .split('.')
+                .map(toNumber);
             
             [day, month] = split;
             
@@ -137,10 +130,16 @@ Localization.prototype.parseDateString = function(string) {
         // traditional chinese, format is '1 月 27 日' (month, day)
         // also the same as japanese, but includes spaces
         case 'zh-TW': {
-            const match = string.replace(/\s/g, '').match(/(\d+)月(\d+)日/);
+            const match = string
+                .replace(/\s/g, '')
+                .match(/(\d+)月(\d+)日/);
             
             if (match) {
-                [month, day] = match.slice(1).map(toNumber);
+                [month, day] = match
+                    // this will start the match at the first matched group
+                    .slice(1)
+                    // then map each group to a number
+                    .map(toNumber);
                 
                 // since the month is zero-based
                 month -= 1;
@@ -152,7 +151,11 @@ Localization.prototype.parseDateString = function(string) {
             const match = string.match(/(\d+)년 (\d+)월 (\d+)일/);
             
             if (match) {
-                [year, month, day] = match.slice(1).map(toNumber);
+                [year, month, day] = match
+                    // this will start the match at the first matched group
+                    .slice(1)
+                    // then map each group to a number
+                    .map(toNumber);
                 
                 // since the month is zero-based
                 month -= 1;
@@ -177,18 +180,18 @@ Localization.prototype.parseDateString = function(string) {
         isNumber(day)
     );
     
-    if (isValid) {
-        // we successfully parsed a month and day from the given string
-        // year is optional
-        return {
-            year,
-            month,
-            day
-        };
-    } else {
+    if (!isValid) {
         // date failed to parse
         throw new Error('Invalid date: ' + string);
     }
+    
+    // we successfully parsed a month and day from the given string
+    // year is optional
+    return {
+        year,
+        month,
+        day
+    };
 };
 
 export { Localization };

@@ -1,12 +1,7 @@
 import { Localization } from '../../js/app/classes/localization.js';
 
-function getLocales(language = 'english') {
-    const locales = new Localization();
-    
-    return locales.get(language)
-        .then(() => {
-            return locales;
-        });
+async function getLocales(language = 'english') {
+    return await Localization.get(language);
 }
 
 module.exports = getLocales;

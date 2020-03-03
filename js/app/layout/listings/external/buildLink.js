@@ -3,9 +3,9 @@
 /**
  * Builds an external link.
  * @param {Object} data - Data for link.
- * @param {String} data.url - URL for link.
- * @param {String} data.title - Text for link.
- * @param {Boolean} [data.placeholder] - Whether this is a placeholder link or not.
+ * @param {string} data.url - URL for link.
+ * @param {string} data.title - Text for link.
+ * @param {boolean} [data.placeholder] - Whether this is a placeholder link or not.
  * @returns {HTMLElement} Element object.
  */
 function buildLink(data) {

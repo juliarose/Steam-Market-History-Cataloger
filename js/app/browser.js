@@ -50,8 +50,8 @@ function sendMessage(details, callback = function() {}) {
 
 /**
  * Gets a URL of an extension resource.
- * @param {String} url - URL of resource relative to extension's root.
- * @returns {String} Absolute extension URL.
+ * @param {string} url - URL of resource relative to extension's root.
+ * @returns {string} Absolute extension URL.
  */
 function getExtensionURL(url) {
     return browser.extension.getURL(url);

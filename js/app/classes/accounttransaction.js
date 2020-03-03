@@ -15,13 +15,13 @@ const types = {
 
 /**
  * Account transaction.
- * @property {String} [transaction_id] - Transaction ID, if available.
- * @property {Number} transaction_type - Transaction type given fom ETransactionType.
+ * @property {string} [transaction_id] - Transaction ID, if available.
+ * @property {number} transaction_type - Transaction type given fom ETransactionType.
  * @property {Date} date - Date of transaction.
- * @property {Number} count - Number of this type of transaction.
- * @property {Number} price - Total price.
- * @property {String} price_raw - Raw stirng of price.
- * @property {Boolean} is_credit - Whether the transaction resulted in credit or not.
+ * @property {number} count - Number of this type of transaction.
+ * @property {number} price - Total price.
+ * @property {string} price_raw - Raw stirng of price.
+ * @property {boolean} is_credit - Whether the transaction resulted in credit or not.
  * @namespace AccountTransaction
  * @class
  */

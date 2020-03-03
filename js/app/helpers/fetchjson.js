@@ -2,7 +2,7 @@
 
 /**
  * Fetches and parses a JSON file.
- * @param {String} uri - Location of JSON file.
+ * @param {string} uri - Location of JSON file.
  * @returns {Promise.<Object>} Resolve when done.
  */
 async function fetchJSON(uri) {

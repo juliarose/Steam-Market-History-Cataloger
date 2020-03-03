@@ -1,6 +1,6 @@
 'use strict';
 
-import {ListingFiltering} from '/js/content/modules/ListingFiltering.js';
+import { ListingFiltering } from '/js/content/modules/ListingFiltering.js';
 
 /*
 This is an improved version of "CAjaxPagingControls" from Steam's source.
@@ -420,4 +420,4 @@ MyBetterCAjaxPagingControls.prototype.GoToPage = function(iPage, bForce) {
     return true;
 };
 
-export {MyBetterCAjaxPagingControls};
+export { MyBetterCAjaxPagingControls };

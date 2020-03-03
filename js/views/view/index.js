@@ -45,10 +45,10 @@ function onApp(app) {
     
     // builds the index for filters
     function buildIndex(records) {
-        const indexEl = Layout.listings.buildFilters(records, Listing, {
-            onChange: onRecords,
-            locales: app.account.locales.ui,
+        const options = Object.assign({}, Layout.getLayoutOptions(app), {
+            onChange: onRecords
         });
+        const indexEl = Layout.listings.buildFilters(records, Listing, options);
         
         page.query.appendChild(indexEl);
     }

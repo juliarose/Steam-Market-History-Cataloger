@@ -126,8 +126,8 @@ const get = {
      * @memberOf Steam.requests.get
      * @param {Object} options - Parameters of request.
      * @param {Object} options.data - Request data.
-     * @param {Number} options.data.count - Number of listings to fetch.
-     * @param {Number} options.data.start - Start index (e.g. 100 to start after the first 100 listings).
+     * @param {number} options.data.count - Number of listings to fetch.
+     * @param {number} options.data.start - Start index (e.g. 100 to start after the first 100 listings).
      * @returns {Promise} Fetch promise.
      *
      * @example
@@ -181,9 +181,9 @@ const get = {
      * Gets the lowestion price.
      * @memberOf Steam.requests.get
      * @param {Object} options - Options.
-     * @param {(Number|String)} options.currency - ID of currency.
-     * @param {(Number|String)} options.appid - Appid of item.
-     * @param {String} options.market_hash_name -  Market hash name of item.
+     * @param {(number|string)} options.currency - ID of currency.
+     * @param {(number|string)} options.appid - Appid of item.
+     * @param {string} options.market_hash_name -  Market hash name of item.
      * @returns {Promise} Fetch promise.
      */
     lowestPrice: function(options) {
@@ -217,10 +217,10 @@ const get = {
     /**
      * Gets hover class info.
      * @memberOf Steam.requests.get
-     * @param {String} appid - Appid of item.
-     * @param {String} classid - Classid of item.
-     * @param {String} instanceid - Instanceid of item.
-     * @param {String} [language='english'] - Language.
+     * @param {string} appid - Appid of item.
+     * @param {string} classid - Classid of item.
+     * @param {string} instanceid - Instanceid of item.
+     * @param {string} [language='english'] - Language.
      * @returns {Promise} Fetch promise.
      */
     classinfo: function(appid, classid, instanceid, language = 'english') {

@@ -2,9 +2,9 @@
 
 /**
  * Parses price from currency string.
- * @param {String} value - Currency string, e.g. "$1.34".
+ * @param {string} value - Currency string, e.g. "$1.34".
  * @param {Currency} currency - Details of currency.
- * @returns {Number} Integer value of parsed amount.
+ * @returns {number} Integer value of parsed amount.
  */
 function parseMoney(value, currency) {
     // get number with full decimal places
@@ -15,9 +15,9 @@ function parseMoney(value, currency) {
 
 /**
  * Formats money value.
- * @param {Number} value - Value.
+ * @param {number} value - Value.
  * @param {Currency} currency - Details of currency.
- * @returns {String} Formatted value.
+ * @returns {string} Formatted value.
  */
 function formatMoney(value, currency) {
     const formatted = formatMoneyInteger(value, currency);
@@ -35,9 +35,9 @@ function formatMoney(value, currency) {
 
 /**
  * Formats a number based on currency locale.
- * @param {Number} value - Value.
+ * @param {number} value - Value.
  * @param {Currency} currency - Details of currency.
- * @returns {String} Formatted value.
+ * @returns {string} Formatted value.
  */
 function formatLocaleNumber(value, currency) {
     const formatted = thousands(Math.floor(value), currency.thousand);
@@ -57,9 +57,9 @@ function formatLocaleNumber(value, currency) {
 
 /**
  * Formats value to decimals based on currency precision.
- * @param {Number} value - Value.
- * @param {Number} precision - Number of decimal places.
- * @returns {Number} Divided number.
+ * @param {number} value - Value.
+ * @param {number} precision - Number of decimal places.
+ * @returns {number} Divided number.
  */
 function toDecimal(value, precision) {
     // 10 the power of how many places we want
@@ -71,9 +71,9 @@ function toDecimal(value, precision) {
 
 /**
  * Formats thousands places with seperators.
- * @param {Number} value - Value.
- * @param {String} thousand - Thousand seperator.
- * @returns {String} Formatted value.
+ * @param {number} value - Value.
+ * @param {string} thousand - Thousand seperator.
+ * @returns {string} Formatted value.
  */
 function thousands(value, thousand) {
     return value.toString().replace(/[0-9](?=(?:[0-9]{3})+(?![0-9]))/gi, (match) => {
@@ -83,9 +83,9 @@ function thousands(value, thousand) {
 
 /**
  * Formats a value based on currency.
- * @param {Number} value - Integer value of money (for USD this would be the number of cents).
+ * @param {number} value - Integer value of money (for USD this would be the number of cents).
  * @param {Currency} currency - Details of currency.
- * @returns {String} Formatted number.
+ * @returns {string} Formatted number.
  */
 function formatMoneyInteger(value, currency) {
     const precision = currency.precision;
@@ -118,9 +118,9 @@ function formatMoneyInteger(value, currency) {
 
 /**
  * Returns integer value from money string.
- * @param {String} value - Money string.
+ * @param {string} value - Money string.
  * @param {Currency} currency - Details of currency.
- * @returns {String} String representing integer value of money in its smallest division e.g. Cents in USD.
+ * @returns {string} String representing integer value of money in its smallest division e.g. Cents in USD.
  *
  * @example
  * extractNumber('$34.33', USD); // '3433'
@@ -142,9 +142,9 @@ function extractNumber(value, currency) {
 
 /**
  * Fixes an integer to a certain length.
- * @param {(String|Number)} value - Value.
- * @param {Number} precision - Length of number.
- * @returns {String} Fixed string.
+ * @param {(string|number)} value - Value.
+ * @param {number} precision - Length of number.
+ * @returns {string} Fixed string.
  */
 function toFixedInteger(value, precision) {
     value = value.toString();
@@ -167,9 +167,9 @@ function toFixedInteger(value, precision) {
 
 /**
  * Fixes a number to a certain precision.
- * @param {(String|Number)} value - Value.
- * @param {Number} precision - Number of decimal places.
- * @returns {String} Fixed string.
+ * @param {(string|number)} value - Value.
+ * @param {number} precision - Number of decimal places.
+ * @returns {string} Fixed string.
  */
 function toFixedNoRounding(value, precision) {
     const split = value.toString().split('.');

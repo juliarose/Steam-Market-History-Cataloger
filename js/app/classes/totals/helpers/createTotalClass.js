@@ -5,7 +5,7 @@ import { applist } from '../../../data/applist.js';
 
 /**
  * Creates a new class for data related to totals.
- * @param {String} identifier - Identifier of class.
+ * @param {string} identifier - Identifier of class.
  * @param {Array} tableColumns - Columns to display.
  * @returns {Object} Class object.
  */

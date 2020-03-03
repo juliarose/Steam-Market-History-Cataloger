@@ -1,6 +1,6 @@
 'use strict';
 
-import { createManager } from './helpers/createManager.js';
+import { createLocalStorageManager } from './helpers/createLocalStorageManager.js';
 
 /**
  * Creates a PreferencesManager.
@@ -11,9 +11,9 @@ function createPreferencesManager() {
      * Extension preferences manager.
      * @class PreferencesManager
      * @type {Manager}
-     * @property {String} settings_name - Key for storing data.
+     * @property {string} settings_name - Key for storing data.
      */
-    return createManager({
+    return createLocalStorageManager({
         settings_name: 'preferences',
         /**
          * @namespace preferences.settings

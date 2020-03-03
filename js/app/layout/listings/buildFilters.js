@@ -7,13 +7,13 @@ import { uniq } from '../../helpers/utils.js';
  * Builds filters for listings.
  * @param {Array} records - Records to draw filters from.
  * @param {Object} Class - Listing class object.
- * @param {Object} [options={}] - Options.
- * @param {Object} [options.locales] - Locale strings.
+ * @param {Object} options - Options.
+ * @param {Localization} options.locales - Locale strings.
  * @param {Function} [options.onChange] - Function to call on filter change.
  * @returns {HTMLElement} DOM element.
  * @namespace Layout.listings.buildFilters
  */
-function buildFilters(records, Class, options = {}) {
+function buildFilters(records, Class, options) {
     /**
      * Builds index of options.
      * @returns {Object} Index of records.
@@ -63,7 +63,6 @@ function buildFilters(records, Class, options = {}) {
     function drawIndex(index) {
         const fragment = document.createDocumentFragment();
         const dateContainer = document.createElement('div');
-        const display = Class.display;
         const events = {
             dropdownChange: function(e) {
                 const linkEl = e.target;
@@ -154,7 +153,7 @@ function buildFilters(records, Class, options = {}) {
             },
             dropdown: function(name, list) {
                 function getOptionText(value) {
-                    let values = (locales.values || {})[name] || {};
+                    let values = (uiLocales.values || {})[name] || {};
                     let print = values[value] ? values[value] : value;
                     
                     switch (name) {
@@ -228,7 +227,11 @@ function buildFilters(records, Class, options = {}) {
         
         // get name of key
         function getName(name) {
-            return locales.names[name] || display.names[name] || name;
+            return (
+                uiLocales.names[name] ||
+                classDisplay.names[name] ||
+                name
+            );
         }
         
         function addIndex(k, v) {
@@ -263,7 +266,7 @@ function buildFilters(records, Class, options = {}) {
     
     /**
      * Updates filter queries.
-     * @param {String} [only] - Only filter using this key.
+     * @param {string} [only] - Only filter using this key.
      * @returns {undefined}
      */
     function updateQuery(only) {
@@ -285,7 +288,7 @@ function buildFilters(records, Class, options = {}) {
         
         /**
          * Filters records by key and value pair.
-         * @param {String} k - Key.
+         * @param {string} k - Key.
          * @param {*} v - Value.
          * @returns {Array} Filtered array.
          */
@@ -379,13 +382,15 @@ function buildFilters(records, Class, options = {}) {
         addQuery(key, val);
     }
     
-    const locales = options.locales || {
+    const { locales } = options;
+    const classDisplay = Class.makeDisplay(locales);
+    const uiLocales = Object.assign({}, {
         names: {
             year: 'Year',
             market_name: 'Name',
             is_credit: 'Sale Type'
         }
-    };
+    }, locales.ui);
     // the function called on filter change
     const onChange = options.onChange || function() {};
     // the total records

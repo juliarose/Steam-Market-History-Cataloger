@@ -24,10 +24,10 @@ function buildSummaries(records, Class, options = {}) {
             let index = {};
             
             for (let i = 0; i < records.length; i++) {
-                let record = records[i];
-                let date = record.date_acted;
-                let year = date.getFullYear();
-                let month = date.getMonth();
+                const record = records[i];
+                const date = record.date_acted;
+                const year = date.getFullYear();
+                const month = date.getMonth();
                 
                 if (!index[year]) {
                     index[year] = {};
@@ -177,9 +177,11 @@ function buildSummaries(records, Class, options = {}) {
     }());
     const drawTable = (function() {
         function draw(records, Class, title) {
-            return buildTable(records, Class, Object.assign(options, {
+            const tableOptions = Object.assign({}, options, {
                 title
-            }));
+            });
+            
+            return buildTable(records, Class, tableOptions);
         }
         
         function createRecord(total, mix) {
@@ -190,15 +192,15 @@ function buildSummaries(records, Class, options = {}) {
             let records = [];
             
             for (let year in index) {
-                let total = index[year];
-                let record = createRecord(total, {
+                const total = index[year];
+                const record = createRecord(total, {
                     year: parseInt(year)
                 });
                 
                 records.push(record);
             }
             
-            return draw(records.reverse(), AnnualTotal, locales.titles.annual);
+            return draw(records.reverse(), AnnualTotal, uiLocales.titles.annual);
         }
         
         function monthly(index) {
@@ -206,8 +208,8 @@ function buildSummaries(records, Class, options = {}) {
             
             for (let year in index) {
                 for (let month in index[year]) {
-                    let total = index[year][month];
-                    let record = createRecord(total, {
+                    const total = index[year][month];
+                    const record = createRecord(total, {
                         year: parseInt(year),
                         month: parseInt(month)
                     });
@@ -216,15 +218,15 @@ function buildSummaries(records, Class, options = {}) {
                 }
             }
             
-            return draw(records.reverse(), MonthlyTotal, locales.titles.monthly);
+            return draw(records.reverse(), MonthlyTotal, uiLocales.titles.monthly);
         }
         
         function app(index) {
             let records = [];
             
             for (let appid in index) {
-                let total = index[appid];
-                let record = createRecord(total, {
+                const total = index[appid];
+                const record = createRecord(total, {
                     appname: applist[appid] || appid.toString(),
                     appid: parseInt(appid)
                 });
@@ -232,14 +234,14 @@ function buildSummaries(records, Class, options = {}) {
                 records.push(record);
             }
             
-            return draw(records.reverse(), AppTotal, locales.titles.app);
+            return draw(records.reverse(), AppTotal, uiLocales.titles.app);
         }
         
         function daily(index) {
             let records = [];
             
             function getDate(day) {
-                let date = new Date();
+                const date = new Date();
                 
                 date.setDate(date.getDate() - parseInt(day));
                 
@@ -247,16 +249,16 @@ function buildSummaries(records, Class, options = {}) {
             }
             
             for (let day in index) {
-                let date = getDate(day);
-                let total = index[day];
-                let record = createRecord(total, {
+                const date = getDate(day);
+                const total = index[day];
+                const record = createRecord(total, {
                     date: date
                 });
                 
                 records.push(record);
             }
             
-            return draw(records, DailyTotal, locales.titles.last_n_days.replace('%s', 30));
+            return draw(records, DailyTotal, uiLocales.titles.last_n_days.replace('%s', 30));
         }
         
         return {
@@ -267,7 +269,8 @@ function buildSummaries(records, Class, options = {}) {
         };
     }());
     
-    const locales = options.locales;
+    const { locales } = options;
+    const uiLocales = locales.ui;
     const fragment = document.createDocumentFragment();
     const indices = {
         date: buildIndex.date(),

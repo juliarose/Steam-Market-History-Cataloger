@@ -9,18 +9,20 @@ import { formatMoney } from './money.js';
  * @param {Object} Class - Class of records.
  * @param {Object} options - Options to format with.
  * @param {Currency} options.currency - Currency to format money values in.
- * @param {String} format - Format to save in.
- * @returns {String} File contents, will be blank if a valid format is not supplied.
+ * @param {Localization} options.locales - Locale strings.
+ * @param {string} format - Format to save in.
+ * @returns {string} File contents, will be blank if a valid format is not supplied.
  */
 function buildFile(records, Class, options, format) {
-    const classDisplay = Class.display || {};
+    const { locales } = options;
+    const classDisplay = Class.makeDisplay(locales);
     const tableDisplay = classDisplay.table || {};
     const formatDisplay = classDisplay[format] || {};
     // the display option to pick from
     // prioritize the specific display for this format from the class
     // then the display provided for tables
     // then the generic display properties
-    const display = classDisplay[format] || classDisplay.table || Class.display || {};
+    const display = classDisplay[format] || classDisplay.table || classDisplay || {};
     // the currency fields for the class
     const currencyFields = classDisplay.currency_fields || [];
     // the currency to format in

@@ -1,7 +1,7 @@
 'use strict';
 
-import {getCurrency} from '/js/app/currency.js';
-import {parseMoney} from '/js/app/money.js';
+import { getCurrency } from '/js/app/currency.js';
+import { parseMoney } from '/js/app/money.js';
 
 function ListingFiltering(currency_id) {
     this.store = {
@@ -150,8 +150,8 @@ function getListingData(listingEl, currency) {
 
 /**
  * Convert "rgba(0, 0, 0)" string to hex.
- * @param {Number} str - Rgba string.
- * @returns {(String|null)} Hexadecimal number.
+ * @param {number} str - Rgba string.
+ * @returns {(string|null)} Hexadecimal number.
  */
 function rgb2hex(str) {
     // rgba(0, 0, 0)
@@ -160,8 +160,8 @@ function rgb2hex(str) {
     if (match) {
         /**
          * Convert a decimal number to a hexadecimal number in a 2-digit format.
-         * @param {Number} decimal - Decimal number.
-         * @returns {String} Hexadecimal number.
+         * @param {number} decimal - Decimal number.
+         * @returns {string} Hexadecimal number.
          */
         const toHex = (decimal) => {
             return ('0' + decimal.toString(16).toUpperCase()).slice(-2);
@@ -175,4 +175,4 @@ function rgb2hex(str) {
     }
 }
 
-export {ListingFiltering};
+export { ListingFiltering };

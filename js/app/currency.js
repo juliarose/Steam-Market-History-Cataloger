@@ -11,16 +11,16 @@
 /**
  * Currency.
  * @typedef {Object} Currency
- * @property {Number} wallet_code - The ID of the currency from Steam.
- * @property {String} code - ISO 4217 currency code e.g. "USD".
- * @property {String} symbol - Currency symbol e.g. "$".
- * @property {Number} precision - Decimal place precision.
- * @property {String} thousand - Thousand place character.
- * @property {String} decimal - Decimal place character.
- * @property {Boolean} [spacer] - Whether the amount should be displayed with a space between the number and symbol.
- * @property {Boolean} [after] - Whether the symbol should be displayed after the number.
- * @property {Boolean} [trim_trailing] - Whether trailing zeroes should be trimmed on whole values.
- * @property {Number} [format_precision] - Decimal place precision used in formatting.
+ * @property {number} wallet_code - The ID of the currency from Steam.
+ * @property {string} code - ISO 4217 currency code e.g. "USD".
+ * @property {string} symbol - Currency symbol e.g. "$".
+ * @property {number} precision - Decimal place precision.
+ * @property {string} thousand - Thousand place character.
+ * @property {string} decimal - Decimal place character.
+ * @property {boolean} [spacer] - Whether the amount should be displayed with a space between the number and symbol.
+ * @property {boolean} [after] - Whether the symbol should be displayed after the number.
+ * @property {boolean} [trim_trailing] - Whether trailing zeroes should be trimmed on whole values.
+ * @property {number} [format_precision] - Decimal place precision used in formatting.
  */
 const Currency = Object.freeze({
     1: {
@@ -382,7 +382,7 @@ const Currency = Object.freeze({
 
 /**
  * Gets a currency.
- * @param {(Number|String)} id - ID of currency.
+ * @param {(number|string)} id - ID of currency.
  * @returns {(Currency|undefined)} Currency details.
  */
 function getCurrency(id) {

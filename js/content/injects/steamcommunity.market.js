@@ -5,8 +5,8 @@ import { MyBetterCAjaxPagingControls } from '/js/content/modules/MyBetterCAjaxPa
 (function() {
     /**
      * Get a URL parameter.
-     * @param {String} name - Name of parameter.
-     * @returns {(String|null)} The value of parameter, if found.
+     * @param {string} name - Name of parameter.
+     * @returns {(string|null)} The value of parameter, if found.
      */
     function getUrlParam(name) {
         return new URL(location.href).searchParams.get(name);

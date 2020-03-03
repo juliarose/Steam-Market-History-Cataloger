@@ -6,16 +6,11 @@ const path = require('path');
 const fs = require('fs');
 
 function loadLocales() {
-    const getLocales = (code) => {
+    const getLocales = async (code) => {
         const languages = valuesAsKeys(ELangCode);
         const language = languages[code];
-        const locales = new Localization();
         
-        return locales.get(language)
-            .then(() => {
-                // return the locales object
-                return locales;
-            });
+        return await Localization.get(language);
     };
     const parentPath = path.join(__dirname, '..');
     const jsonPath = path.join(parentPath, 'json', 'locales');
@@ -31,41 +26,33 @@ function findLanguage(language) {
     });
 }
 
-let english = new Localization();
+let english;
 let languages = [];
 
-beforeAll(() => {
-    return loadLocales()
-        .then((result) => {
-            languages = result;
-            english = findLanguage('english');
-            
-            return;
-        });
+beforeAll(async () => {
+    languages = await loadLocales();
+    english = findLanguage('english');
+    
+    return;
 });
 
-it('Gets a localization', () => {
+it('Gets a localization', async () => {
     expect.assertions(1);
     
-    const locales = new Localization();
     const language = 'english';
+    const locales = await Localization.get(language);
     
-    return locales.get(language)
-        .then((json) => {
-            expect(json).toBeDefined();
-        });
+    return expect(locales.db).toBeDefined();
 });
 
-it('Fails to get a localization that does not exist', () => {
+it('Fails to get a localization that does not exist', async () => {
     expect.assertions(1);
     
-    const locales = new Localization();
-    const language = 'meows';
-    
-    return locales.get(language)
-        .catch((error) => {
-            expect(error).toBeDefined();
-        });
+    try {
+        await Localization.get('meows');
+    } catch (error) {
+        expect(error).toBeDefined();
+    }
 });
 
 it('Converts date to string properly', () => {

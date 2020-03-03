@@ -10,10 +10,10 @@ let hoverID = 0;
 
 /**
  * Gets a hover asset depending on hover ID.
- * @param {String} appid - Appid for asset.
- * @param {String} classid - Classid for asset.
- * @param {String} instanceid - Instanceid for asset.
- * @param {String} [language='english'] - Language.
+ * @param {string} appid - Appid for asset.
+ * @param {string} classid - Classid for asset.
+ * @param {string} instanceid - Instanceid for asset.
+ * @param {string} [language='english'] - Language.
  * @returns {Promise.<Object>} Resolve with asset when done, reject on failure.
  */
 function getHoverAsset(appid, classid, instanceid, language = 'english') {
@@ -34,7 +34,7 @@ function getHoverAsset(appid, classid, instanceid, language = 'english') {
 /**
  * Gets HTML for hover describing asset.
  * @param {Object} asset - Asset to display.
- * @returns {String} HTML string describing asset.
+ * @returns {string} HTML string describing asset.
  */
 function getHover(asset) {
     const isEmpty = (description) => {

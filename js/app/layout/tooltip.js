@@ -20,7 +20,7 @@ function fadeIn(element, duration) {
 /**
  * Builds a tooltip.
  * @param {HTMLElement} element - Element to position next to.
- * @param {String} contents - HTML contents.
+ * @param {string} contents - HTML contents.
  * @param {Object} [options={}] - Options.
  * @param {Object} [options.borderColor] - Hexadecimal color for border.
  * @returns {Object} DOM element of table.

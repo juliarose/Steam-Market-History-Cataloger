@@ -3,7 +3,7 @@
 import { randomString, pickKeys, delayPromise } from '../helpers/utils.js';
 import { Steam } from '../steam/steam.js';
 import { Localization } from '../classes/localization.js';
-import { createManager } from './helpers/createManager.js';
+import { createLocalStorageManager } from './helpers/createLocalStorageManager.js';
 import { parseListings } from '../parsers/parseListings.js';
 
 /**
@@ -21,30 +21,31 @@ function createListingManager({ account, preferences, AccountDB, ListingDB }) {
      * Must be logged in to use.
      * @class ListingManager
      * @type {Manager}
-     * @property {String} table_name - Name of related table.
-     * @property {Number} start_index - The number we start collecting listings at.
+     * @property {string} table_name - Name of related table.
+     * @property {number} start_index - The number we start collecting listings at.
      *     This is redefined at "ListingManager.setup".
-     * @property {Number} pagesize - The page size used when collecting listings. This is redefined at setup.
-     * @property {Number} page - Current page loaded. Incremented after a successful page load.
-     * @property {String} session - Current load session hash. Used to detect loads from multiple locations.
-     * @property {String} requests - An array of requests made used for tracking repetitive requests. Cleared on reset.
+     * @property {number} pagesize - The page size used when collecting listings. This is redefined at setup.
+     * @property {number} page - Current page loaded. Incremented after a successful page load.
+     * @property {(Localization|null)} locales - Localization strings specific to the collection of listings. Defined in setup.
+     * @property {string} session - Current load session hash. Used to detect loads from multiple locations.
+     * @property {string} requests - An array of requests made used for tracking repetitive requests. Cleared on reset.
      */
-    return createManager({
+    return createLocalStorageManager({
         table_name: 'listings',
         start_index: 0,
         pagesize: 100,
         poll_interval: 5,
         page: 0,
         session: null,
-        locales: new Localization(),
+        locales: null,
         requests: [],
         /**
          * Settings for loading listings.
          * @namespace ListingManager.settings
          * @memberOf ListingManager
-         * @property {Number} current_index - The current index to fetch listings at. 
+         * @property {number} current_index - The current index to fetch listings at. 
          *     For example, 0 would start at the most recent listings.
-         * @property {Number} total_count - Total number of history results. This is not 
+         * @property {number} total_count - Total number of history results. This is not 
          *     the same as total number of listings. It accounts for any listing action 
          *     (e.g. listing an item, removing an item from market).
          * @property {(Number|null)} last_index - The index of the most recent listing after
@@ -59,7 +60,7 @@ function createListingManager({ account, preferences, AccountDB, ListingDB }) {
          *     at "ListingManager.setup".
          * @property {(String|null)} language - Language of listings. This is redefined at
          *     "ListingManager.setup" and will always remain the same after it is first defined 
-         * @property {Boolean} is_loading - Whether loading is taking place or not.
+         * @property {boolean} is_loading - Whether loading is taking place or not.
          *     This is redefined at "ListingManager.setup"
          * @property {Date} date - Date of last page load
          */
@@ -107,9 +108,7 @@ function createListingManager({ account, preferences, AccountDB, ListingDB }) {
          * @returns {Promise} Resolve when done, reject on error.
          */
         getLocales: async function() {
-            await this.locales.get(this.language);
-            
-            return;
+            this.locales = await Localization.get(this.language);
         },
         /**
          * Resets settings.
@@ -160,7 +159,7 @@ function createListingManager({ account, preferences, AccountDB, ListingDB }) {
         /**
          * Gets the settings.
          * @memberOf ListingManager
-         * @param {Boolean} noWrapper - Get settings object without wrapper.
+         * @param {boolean} noWrapper - Get settings object without wrapper.
          * @returns {Promise.<Object>} Resolve with settings when done.
          */
         getSettings: async function() {
@@ -304,10 +303,11 @@ function createListingManager({ account, preferences, AccountDB, ListingDB }) {
          * Loads market history.
          * @memberOf ListingManager
          * @namespace ListingManager.load
-         * @param {Number} [delay=0] - Delay in Seconds to load.
+         * @param {number} [delay=0] - Delay in Seconds to load.
+         * @param {boolean} [loadInstantly=false] - Whether to load instantly or not.
          * @returns {Promise.<ListingManagerLoadResponse>} Resolves with response when done.
          */
-        load: async function(delay = 0, now = false) {
+        load: async function(delay = 0, loadInstantly = false) {
             const manager = this;
             
             const retry = (error, seconds) => {
@@ -351,8 +351,10 @@ function createListingManager({ account, preferences, AccountDB, ListingDB }) {
             
             // check the current load state to see whether we can load or not
             await this.checkLoadState();
+            
             // delay it to space out requests
-            await delayPromise(now ? 0 : (delay || this.poll_interval) * 1000);
+            await delayPromise(loadInstantly ? 0 : (delay || this.poll_interval) * 1000);
+            
             // then we can load
             return load();
         },
@@ -419,7 +421,7 @@ function createListingManager({ account, preferences, AccountDB, ListingDB }) {
          * Adds records and updates settings on a successful response.
          * @memberOf ListingManager
          * @param {Listing[]} records - Array of records.
-         * @param {Number} next - Next index to load.
+         * @param {number} next - Next index to load.
          * @returns {Promise.<ListingManagerLoadResponse>} Resolves with response when done.
          */
         onRecords: async function(records, next) {
@@ -433,8 +435,8 @@ function createListingManager({ account, preferences, AccountDB, ListingDB }) {
              * @typedef {Object} ListingManagerLoadResponse
              * @property {Listing[]} records - Array of listings.
              * @property {Object} progress - Load progress.
-             * @property {Number} progress.step = Current step.
-             * @property {Number} progress.total - Total steps.
+             * @property {number} progress.step = Current step.
+             * @property {number} progress.total - Total steps.
              */
             return {
                 records,
@@ -472,7 +474,7 @@ function createListingManager({ account, preferences, AccountDB, ListingDB }) {
          * Updates settings after getting a page of new records.
          * @memberOf ListingManager
          * @param {Listing[]} records - Array of records.
-         * @param {Number} currentIndex - The current index to fetch at.
+         * @param {number} currentIndex - The current index to fetch at.
          * @returns {Promise.<ListingManagerLoadResponse>} Resolve when done.
          */
         updateSettingsFromPage: async function(records, currentIndex) {
@@ -498,9 +500,9 @@ function createListingManager({ account, preferences, AccountDB, ListingDB }) {
         /**
          * Fetch market transaction history result page.
          * @memberOf ListingManager
-         * @param {Number} start - Index of listings to load from.
-         * @param {Number} count - Number of listings to load per page.
-         * @param {String} language - Language to load.
+         * @param {number} start - Index of listings to load from.
+         * @param {number} count - Number of listings to load per page.
+         * @param {string} language - Language to load.
          * @returns {Promise.<Object>} Response JSON from Steam on resolve, error with details on reject.
          */
         get: async function(start, count, language) {
@@ -628,8 +630,8 @@ function createListingManager({ account, preferences, AccountDB, ListingDB }) {
         /**
          * Gets the next starting index to load from.
          * @memberOf ListingManager
-         * @param {Number} index - Index to calculate for.
-         * @returns {Number} Starting index to use.
+         * @param {number} index - Index to calculate for.
+         * @returns {number} Starting index to use.
          */
         nextLoadIndex: function(index = 0) {
             const currentIndex = this.settings.current_index;
@@ -641,8 +643,8 @@ function createListingManager({ account, preferences, AccountDB, ListingDB }) {
          *
          * E.g. The most recent listing would have an index of "1".
          * @memberOf ListingManager
-         * @param {Number} index - Index to calculate for.
-         * @returns {Number} Index.
+         * @param {number} index - Index to calculate for.
+         * @returns {number} Index.
          */
         calculateListingIndex: function(index = 0) {
             const totalCount = this.settings.total_count;
@@ -654,7 +656,7 @@ function createListingManager({ account, preferences, AccountDB, ListingDB }) {
         /**
          * Gets total number of page loads needed based on current state.
          * @memberOf ListingManager
-         * @returns {Number} Total number of pages to collect based on current state.
+         * @returns {number} Total number of pages to collect based on current state.
          */
         totalPages: function() {
             // get the index we started loading at

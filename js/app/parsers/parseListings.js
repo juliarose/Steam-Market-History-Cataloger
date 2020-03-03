@@ -116,7 +116,7 @@ function parseListings(response, store, currency, localization) {
     /**
      * Parses a listing row.
      * @param {Object} details - Listing row element.
-     * @param {Number} details.index - Index of listing.
+     * @param {number} details.index - Index of listing.
      * @param {Object} details.listingEl - Listing row element.
      * @returns {Object} Listing data for row.
      */
@@ -192,7 +192,7 @@ function parseListings(response, store, currency, localization) {
     
     /**
      * Gets parameters from hover.
-     * @param {String} id - ID of listing.
+     * @param {string} id - ID of listing.
      * @returns {Array} RegExp results.
      */
     function getHover(id) {
@@ -389,9 +389,9 @@ function parseListings(response, store, currency, localization) {
 
 /**
  * Makes a date.
- * @param {Number} year - Year of date.
- * @param {Number} month - Month of date.
- * @param {Number} day - Day of date.
+ * @param {number} year - Year of date.
+ * @param {number} month - Month of date.
+ * @param {number} day - Day of date.
  * @returns {Date} Date.
  */
 function makeDate(year, month, day) {

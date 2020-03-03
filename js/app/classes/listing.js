@@ -33,27 +33,27 @@ const types = {
 
 /**
  * Listing.
- * @property {String} transaction_id - Transaction ID.
- * @property {Number} index - Index of listing in history.
- * @property {Boolean} is_credit - Whether the transaction resulted in credit or not.
- * @property {String} appid - Appid for item.
- * @property {String} contextid - Contextid for item.
- * @property {String} classid - Classid for item.
- * @property {String} instanceid - Instanceid for item.
- * @property {String} assetid - Assetid for item (unused).
- * @property {String} name - Name of item.
- * @property {String} market_name - Market name of item.
- * @property {String} market_hash_name - Market hash name for item.
- * @property {String} name_color - 6-digit hexademical color for name.
- * @property {String} background_color - 6-digit hexademical color for background.
- * @property {String} icon_url - Icon path on Steam's CDN.
+ * @property {string} transaction_id - Transaction ID.
+ * @property {number} index - Index of listing in history.
+ * @property {boolean} is_credit - Whether the transaction resulted in credit or not.
+ * @property {string} appid - Appid for item.
+ * @property {string} contextid - Contextid for item.
+ * @property {string} classid - Classid for item.
+ * @property {string} instanceid - Instanceid for item.
+ * @property {string} assetid - Assetid for item (unused).
+ * @property {string} name - Name of item.
+ * @property {string} market_name - Market name of item.
+ * @property {string} market_hash_name - Market hash name for item.
+ * @property {string} name_color - 6-digit hexademical color for name.
+ * @property {string} background_color - 6-digit hexademical color for background.
+ * @property {string} icon_url - Icon path on Steam's CDN.
  * @property {Date} date_acted - Date acted.
  * @property {Date} date_listed - Date listed.
- * @property {String} date_acted_raw - Raw string of date acted.
- * @property {String} date_listed_raw - Raw string of date list.
- * @property {Number} price - Integer value of price.
- * @property {String} price_raw - Raw string of price.
- * @property {String} seller - Seller profile URL (vanity URLs are not converted).
+ * @property {string} date_acted_raw - Raw string of date acted.
+ * @property {string} date_listed_raw - Raw string of date list.
+ * @property {number} price - Integer value of price.
+ * @property {string} price_raw - Raw string of price.
+ * @property {string} seller - Seller profile URL (vanity URLs are not converted).
  * @namespace Listing
  * @class
  */
@@ -67,7 +67,7 @@ const Listing = createClass({
  * Configures display properties.
  * @memberOf Listing
  * @param {Localization} locales - Localization strings.
- * @returns {undefined}
+ * @returns {DisplayOptions} Display options.
  */
 Listing.makeDisplay = function(locales) {
     return {
@@ -224,7 +224,7 @@ Listing.makeDisplay = function(locales) {
                         instanceid
                     } = record;
                     // get the language from the provided locales
-                    const language = locales.language;
+                    const { language } = locales;
                     
                     getHoverAsset(appid, classid, instanceid, language).then((asset) => {
                         tooltip(e.target, getHover(asset), {

@@ -4,7 +4,7 @@
 
 /**
  * Delays a promise.
- * @param {Number} [time=1000] - Time in ms to delay.
+ * @param {number} [time=1000] - Time in ms to delay.
  * @param {*} [value] - Value to pass to resolve.
  * @returns {Promise} Promise that resolves after the given delay.
  */
@@ -19,8 +19,8 @@ async function delayPromise(time, value) {
 /**
  * Prints a date as a string.
  * @param {Date} date - Date to print.
- * @param {String} [separator='/'] - Separator used between dates.
- * @returns {String} String of date.
+ * @param {string} [separator='/'] - Separator used between dates.
+ * @returns {string} String of date.
  */
 function printDate(date, separator = '/') {
     return [
@@ -33,7 +33,7 @@ function printDate(date, separator = '/') {
 /**
  * Prints a date for a CSV file.
  * @param {Date} date - Date to print.
- * @returns {String} String of date to be inserted into a CSV cell.
+ * @returns {string} String of date to be inserted into a CSV cell.
  */
 function printCSVDate(date) {
     return [
@@ -108,7 +108,7 @@ function partition(arr, method) {
 /**
  * Groups an array by value from key.
  * @param {Array} arr - Array.
- * @param {(String|Function)} key - Key to take value from.
+ * @param {(string|Function)} key - Key to take value from.
  * @returns {Object} Object of groups.
  */
 function groupBy(arr, key) {
@@ -127,7 +127,7 @@ function groupBy(arr, key) {
 /**
  * Averages an array of values.
  * @param {Array} values - Array of values.
- * @returns {Number} Average of all values in array.
+ * @returns {number} Average of all values in array.
  */
 function arrAverage(values) {
     if (values.length === 0) return 0;
@@ -138,7 +138,7 @@ function arrAverage(values) {
 /**
  * Flattens an array.
  * @param {Array} arr - Array to flatten.
- * @param {Boolean} [deep] - Recursive flatten?
+ * @param {boolean} [deep] - Recursive flatten?
  * @returns {Array} Flattened array.
  */
 function flatten(arr, deep) {
@@ -167,7 +167,7 @@ function compact(arr) {
 /**
  * Flattens and compacts array.
  * @param {Array} arr - Array to flatten and compact.
- * @param {Boolean} [deep] - Whether the array should be flattened recursively.
+ * @param {boolean} [deep] - Whether the array should be flattened recursively.
  * @returns {Array} Flattened and compacted array.
  */
 function flattenCompact(arr, deep) {
@@ -176,8 +176,8 @@ function flattenCompact(arr, deep) {
 
 /**
  * Create range of numbers from low to high.
- * @param {Number} low - Low number.
- * @param {Number} high - High number.
+ * @param {number} low - Low number.
+ * @param {number} high - High number.
  * @returns {Array} Array of numbers in range.
  */
 function range(low, high) {
@@ -186,8 +186,8 @@ function range(low, high) {
 
 /**
  * Create a random string.
- * @param {Number} [length=10] - Length of string.
- * @returns {String} Random string.
+ * @param {number} [length=10] - Length of string.
+ * @returns {string} Random string.
  */
 function randomString(length) {
     let characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'.split('');
@@ -220,14 +220,14 @@ function pickKeys(object, keys) {
 /**
  * Converts query object to string.
  * @param {Object} query - Object.
- * @returns {String} Query string.
+ * @returns {string} Query string.
  */
 function queryString(query) {
     /**
      * Get query parameter for value.
-     * @param {String} name - Name of value.
+     * @param {string} name - Name of value.
      * @param {*} value - Value.
-     * @returns {(String|Array)} Query parameter.
+     * @returns {(string|Array)} Query parameter.
      */
     function getQuery(name, value) {
         if (Array.isArray(value)) {
@@ -291,7 +291,7 @@ function createTree(obj, tree, ender) {
  * @param {Object} [transforms={}] - Object containing transformation functions.
  * @param {Function} [transform.keys] - Function for transforming keys from 'obj'.
  * @param {Function} [transform.values] - Function for transforming values from 'obj'.
- * @param {Number} [level=0] - Level of recursion, passed as the 2nd argument to a transform function.
+ * @param {number} [level=0] - Level of recursion, passed as the 2nd argument to a transform function.
  * @returns {Object} Transformed object.
  *
  * @example
@@ -376,7 +376,7 @@ function arrToKeys(keys, value) {
 /**
  * Checks if a value is a number or not.
  * @param {*} value - Value to test.
- * @returns {Boolean} Whether the value is a number or not.
+ * @returns {boolean} Whether the value is a number or not.
  */
 function isNumber(value) {
     return !isNaN(parseFloat(value)) && isFinite(value) && !isNaN(value - 0);
@@ -384,10 +384,10 @@ function isNumber(value) {
 
 /**
  * Truncates a string with option to add trail at end.
- * @param {String} string - String.
- * @param {Number} length - Length to trim to.
- * @param {String} [trail='...'] - Trailing characters.
- * @returns {String} Truncated string.
+ * @param {string} string - String.
+ * @param {number} length - Length to trim to.
+ * @param {string} [trail='...'] - Trailing characters.
+ * @returns {string} Truncated string.
  */
 function truncate(string, length, trail = '...') {
     if (string.length > length) {
@@ -399,10 +399,10 @@ function truncate(string, length, trail = '...') {
 
 /**
  * Chooses a form based on number.
- * @param {String} singular - Singular form.
- * @param {String} plural - Plural form.
- * @param {Number} value - Test value.
- * @returns {String} Form based on value.
+ * @param {string} singular - Singular form.
+ * @param {string} plural - Plural form.
+ * @param {number} value - Test value.
+ * @returns {string} Form based on value.
  */
 function basicPlural(singular, plural, value) {
     if (value !== 1) {
@@ -433,8 +433,8 @@ function valuesAsKeys(obj) {
 
 /**
  * Escapes a cell value in CSV.
- * @param {String} str - String.
- * @returns {String} Escaped string.
+ * @param {string} str - String.
+ * @returns {string} Escaped string.
  */
 function escapeCSV(str) {
     // quotes are replaced with double quotes to escape them
@@ -444,8 +444,8 @@ function escapeCSV(str) {
 
 /**
  * Escape a string in RegExp.
- * @param {String} str - String.
- * @returns {String} Escaped string.
+ * @param {string} str - String.
+ * @returns {string} Escaped string.
  */
 function escapeRegExp(str) {
     return str.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
@@ -453,8 +453,8 @@ function escapeRegExp(str) {
 
 /**
  * Escapes text to use as strings in HTML format.
- * @param {String} text - Text to escape.
- * @returns {String} Escaped text.
+ * @param {string} text - Text to escape.
+ * @returns {string} Escaped text.
  */
 function escapeHTML(text) {
     let pattern = /[\"&<>]/g;
@@ -477,8 +477,8 @@ function escapeHTML(text) {
 
 /**
  * Gets a URL parameter.
- * @param {String} name - Name of parameter.
- * @returns {(String|null)} The value of parameter, if found.
+ * @param {string} name - Name of parameter.
+ * @returns {(string|null)} The value of parameter, if found.
  */
 function getUrlParam(name) {
     return new URL(location.href).searchParams.get(name);
@@ -486,7 +486,7 @@ function getUrlParam(name) {
 
 /**
  * Converts HTML to nodes.
- * @param {String} html - Valid HTML string.
+ * @param {string} html - Valid HTML string.
  * @returns {Object} HTML document object.
  */
 function getDocument(html) {

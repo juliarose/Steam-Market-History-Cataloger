@@ -2,7 +2,7 @@
 
 import { Steam } from '../steam/steam.js';
 import { delayPromise } from '../helpers/utils.js';
-import { createManager } from './helpers/createManager.js';
+import { createLocalStorageManager } from './helpers/createLocalStorageManager.js';
 import { parseTransactions } from '../parsers/parseTransactions.js';
 
 /**
@@ -18,9 +18,9 @@ function createPurchaseHistoryManager({ account }) {
      * Must be logged in to use.
      * @class PurchaseHistoryManager
      * @type {Manager}
-     * @property {String} settings_name - Key for storing data.
+     * @property {string} settings_name - Key for storing data.
      */
-    return createManager({
+    return createLocalStorageManager({
         settings_name: 'purchasehistory',
         /**
          * Current Steam session data.
@@ -43,13 +43,12 @@ function createPurchaseHistoryManager({ account }) {
          * Loads Steam transaction history.
          * @memberOf PurchaseHistoryManager
          * @param {Object} cursor - Position from last fetched result (provided by response from Steam).
-         * @param {Number} [delay=0] - Delay in Seconds to load.
+         * @param {number} [delay=0] - Delay in Seconds to load.
          * @returns {Promise.<PurchaseHistoryManagerLoadResponse>} Resolves with response when done.
          */
         load: async function(cursor, delay = 0) {
             const manager = this;
             // session for store.steampowered must be present
-            const currency = account.wallet.currency;
             const sessionid = manager.session.sessionid;
             
             if (!sessionid) {
@@ -63,7 +62,7 @@ function createPurchaseHistoryManager({ account }) {
                 cursor
             });
             // parse the transaction
-            const records = parseTransactions(response, currency);
+            const records = parseTransactions(response, account.wallet.currency, account.locales);
             
             /**
              * Load result.

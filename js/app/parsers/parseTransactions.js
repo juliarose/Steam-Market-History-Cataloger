@@ -9,9 +9,10 @@ import { ETransactionType } from '../enums/ETransactionType.js';
  * Parses a response object from Steam.
  * @param {Object} response - Response object from Steam.
  * @param {Currency} currency - Currency object for parsing price strings.
+ * @param {Localization} locales - Locale strings.
  * @returns {AccountTransaction[]} Array of parsed records.
  */
-function parseTransactions(response, currency) {
+function parseTransactions(response, currency, locales) {
     /**
      * Gets list of items that were purchased in transaction.
      * @param {Object} itemsEl - Container element of items.
@@ -45,7 +46,7 @@ function parseTransactions(response, currency) {
     /**
      * Gets transaction ID.
      * @param {Object} transactionEl - Transaction element.
-     * @returns {(String|null)} ID of transaction if available.
+     * @returns {(string|null)} ID of transaction if available.
      */
     function getTransactionID(transactionEl) {
         const onClickAttribute = transactionEl.getAttribute('onclick') || '';
@@ -65,7 +66,7 @@ function parseTransactions(response, currency) {
      * @returns {Object} Object containing the type and count.
      */
     function getCountAndType(countEl) {
-        const identifiers = AccountTransaction.display.identifiers.transaction_type;
+        const identifiers = classDisplay.identifiers.transaction_type;
         const match = countEl.textContent.trim().match(/^(\d+)? ?(.*)/);
         // type of transaction, e.g. "Purchases", in singularized form
         const rawType = (
@@ -93,6 +94,7 @@ function parseTransactions(response, currency) {
         };
     }
     
+    const classDisplay = AccountTransaction.makeDisplay(locales);
     const doc = getDocument(`<table>${response.html}</table>`);
     const transactionsList = doc.getElementsByClassName('wallet_table_row');
     const transactions = Array.from(transactionsList).map((transactionEl) => {

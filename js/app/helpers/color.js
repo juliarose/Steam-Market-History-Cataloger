@@ -7,9 +7,9 @@ const Color = {
     /**
      * Lighten a color.
      * @memberOf Color
-     * @param {String} color - 6-digit hexadecimal number of color.
-     * @param {Number} [ratio=0.5] - Strength of effect.
-     * @returns {String} 6-digit hexadecimal number of result.
+     * @param {string} color - 6-digit hexadecimal number of color.
+     * @param {number} [ratio=0.5] - Strength of effect.
+     * @returns {string} 6-digit hexadecimal number of result.
      */
     lighten: function(color, ratio = 0.5) {
         let results = [];
@@ -31,9 +31,9 @@ const Color = {
     /**
      * Darken a color.
      * @memberOf Color
-     * @param {String} color - 6-digit hexadecimal number of color.
-     * @param {Number} [ratio=0.5] - Strength of effect.
-     * @returns {String} 6-digit hexadecimal number of result.
+     * @param {string} color - 6-digit hexadecimal number of color.
+     * @param {number} [ratio=0.5] - Strength of effect.
+     * @returns {string} 6-digit hexadecimal number of result.
      */
     darken: function(color, ratio) {
         let results = [];
@@ -50,10 +50,10 @@ const Color = {
     /**
      * Blend two colors.
      * @memberOf Color
-     * @param {String} color1 - 6-digit hexadecimal number of first color.
-     * @param {String} color2 - 6-digit hexadecimal number of second color.
-     * @param {Number} [ratio=0.5] - Strength of effect.
-     * @returns {String} 6-digit hexadecimal number of result.
+     * @param {string} color1 - 6-digit hexadecimal number of first color.
+     * @param {string} color2 - 6-digit hexadecimal number of second color.
+     * @param {number} [ratio=0.5] - Strength of effect.
+     * @returns {string} 6-digit hexadecimal number of result.
      */
     blend: function(color1, color2, ratio = 0.5) {
         let results = [];
@@ -72,9 +72,9 @@ const Color = {
     /**
      * Convert color to rgba string for use in CSS.
      * @memberOf Color
-     * @param {String} color - 6-digit hexadecimal number of color.
-     * @param {Number} [alpha=1] - Opacity of color.
-     * @returns {String} Rgba string of color.
+     * @param {string} color - 6-digit hexadecimal number of color.
+     * @param {number} [alpha=1] - Opacity of color.
+     * @returns {string} Rgba string of color.
      */
     rgba: function(color, alpha = 1) {
         let results = [];
@@ -93,7 +93,7 @@ const Color = {
     /**
      * Get the luminance of a color.
      * @memberOf Color
-     * @param {String} color - 6-digit hexadecimal number of first color.
+     * @param {string} color - 6-digit hexadecimal number of first color.
      * @returns {Nunber} Luminance of color.
      */
     luminance: function(color) {
@@ -128,9 +128,9 @@ const Color = {
 
 /**
  * Get individual color channel from color.
- * @param {String} color - 6-digit hexadecimal number of color.
- * @param {Number} position - Position of color (0-2).
- * @returns {String} Value of channel.
+ * @param {string} color - 6-digit hexadecimal number of color.
+ * @param {number} position - Position of color (0-2).
+ * @returns {string} Value of channel.
  *
  * @example
  * getChannel('00FF00', 1); // 'FF'
@@ -141,8 +141,8 @@ function getChannel(color, position) {
 
 /**
  * Convert a decimal number to a hexadecimal number in a 2-digit format.
- * @param {Number} decimal - Decimal number.
- * @returns {String} Hexadecimal number.
+ * @param {number} decimal - Decimal number.
+ * @returns {string} Hexadecimal number.
  */
 function toHex(decimal) {
     let n = decimal.toString(16).toUpperCase();
@@ -157,8 +157,8 @@ function toHex(decimal) {
 
 /**
  * Convert a hexadecimal number to a decimal number.
- * @param {String} hex - Hexadecimal number.
- * @returns {Number} Decimal number.
+ * @param {string} hex - Hexadecimal number.
+ * @returns {number} Decimal number.
  */
 function toDecimal(hex) {
     return parseInt(hex, 16);

@@ -26,9 +26,9 @@ const post = {
      * Gets page of purchase history.
      * @memberOf Steam.requests.post
      * @param {Object} options - Form data.
-     * @param {String} options.sessionid - Session ID.
+     * @param {string} options.sessionid - Session ID.
      * @param {Object} [options.cursor] - Cursor object from Steam.
-     * @param {String} [options.l] - Language.
+     * @param {string} [options.l] - Language.
      * @returns {Promise} Fetch promise.
      */
     purchasehistory: function(options) {

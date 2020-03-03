@@ -10,13 +10,16 @@ import { storage } from '../../../browser.js';
  */
 const Settings = {
     /**
+     * The settings object is the set of data managed by this module.
+     * When applying this mixin a settings object should replace this empty object.
+     * We use Chrome's local storage to populate data here as well as save data to Chrome's local storage from this object.
      * @namespace Settings.settings
      * @memberOf Settings
      */
     settings: {},
     /**
      * Gets the settings name.
-     * @returns {String} Name for settings.
+     * @returns {string} Name for settings.
      * @memberOf Settings
      */
     settingsName: function() {
@@ -25,7 +28,7 @@ const Settings = {
     /**
      * Gets the settings.
      * @memberOf Settings
-     * @param {Boolean} noWrapper - Get settings object without wrapper.
+     * @param {boolean} noWrapper - Get settings object without wrapper.
      * @returns {Promise.<Object>} Resolve with settings when done.
      */
     getSettings: function(noWrapper) {
@@ -80,7 +83,7 @@ const Settings = {
     /**
      * Get and merge with current settings.
      * @memberOf Settings
-     * @param {Boolean} noWrapper - Get settings object without wrapper.
+     * @param {boolean} noWrapper - Get settings object without wrapper.
      * @returns {Promise.<Object>} Resolve with settings when done.
      */
     getAndMergeSettings: function(noWrapper) {

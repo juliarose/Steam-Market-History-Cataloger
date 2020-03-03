@@ -104,7 +104,7 @@ function onApp(app) {
             if (response.ok) {
                 addLowestPrice(await response.json());
             }
-        } catch {
+        } catch (error) {
             page.startingAt.textContent = 'No listings';
         }
     }

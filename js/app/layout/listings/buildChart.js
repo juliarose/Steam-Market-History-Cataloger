@@ -9,7 +9,7 @@ import { formatMoney } from '../../money.js';
  * @param {HTMLElement} element - DOM element to render inside.
  * @param {Object} options - Options.
  * @param {Currency} options.currency - Currency to use for displaying prices.
- * @param {Object} [options.locales] - Locale strings.
+ * @param {Localization} options.locales - Locale strings.
  * @returns {undefined}
  * @namespace Layout.listings.buildChart
  */
@@ -30,12 +30,10 @@ function buildChart(records, element, options) {
     }
     
     let resetFn;
-    const {
-        currency,
-        locales
-    } = options;
+    const { currency, locales } = options;
+    const uiLocales = locales.ui;
     const keyNames = [1, 0];
-    const keys = keyNames.map((name) => locales.values.is_credit[name]);
+    const keys = keyNames.map((name) => uiLocales.values.is_credit[name]);
     const classNames = ['sales', 'purchases'];
     const split = partition(records, (record) => {
         return record.is_credit;
@@ -108,7 +106,7 @@ function cluster(records, sum) {
     });
     const times = Object.keys(groups);
     const total = function(values) {
-        return values.reduce((a,b) => a + b);
+        return values.reduce((a, b) => a + b);
     };
     const fn = sum ? total : arrAverage;
     

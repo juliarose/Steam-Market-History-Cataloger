@@ -1,47 +1,32 @@
-import { configureDB as configureAccountDB } from '../../js/app/initializers/accountdb.js';
+import { createListingDatabase } from '../../js/app/initializers/db.js';
+import { createAccountDatabase } from '../../js/app/initializers/accountdb.js';
 import { createPreferencesManager } from '../../js/app/manager/preferences.js';
 import { configureDB } from '../../js/app/initializers/db.js';
 import { getCurrency } from '../../js/app/currency.js';
 
 const getLocales = require('./getLocales');
 
-function getApp(steamid, language = 'english', currencyCode = 1) {
+async function getApp(steamid, language = 'english', currencyCode = 1) {
     const currency = getCurrency(currencyCode);
+    const locales = await getLocales(language);
     const account = {
         steamid,
         language,
+        locales,
         wallet: {
             currency
         }
     };
     const preferences = createPreferencesManager();
-    let locales;
-    let AccountDB;
-    let ListingDB;
+    const AccountDB = createAccountDatabase();
+    const ListingDB = createListingDatabase(account.steamid);
     
-    return getLocales()
-        .then((result) => {
-            locales = result;
-            account.locales = locales;
-            
-            return account;
-        })
-        .then(configureAccountDB)
-        .then((db) => {
-            AccountDB = db;
-            
-            return configureDB(account);
-        })
-        .then((db) => {
-            ListingDB = db;
-            
-            return {
-                account,
-                preferences,
-                AccountDB,
-                ListingDB
-            };
-        });
+    return {
+        account,
+        preferences,
+        AccountDB,
+        ListingDB
+    };
 }
 
 module.exports = getApp;

@@ -11,10 +11,10 @@ const types = {
 
 /**
  * Game item.
- * @property {String} app - App name.
- * @property {Number} count - Number of this particular item.
+ * @property {string} app - App name.
+ * @property {number} count - Number of this particular item.
  * @property {Date} name - Name of item.
- * @property {Boolean} price - Price of item(s).
+ * @property {boolean} price - Price of item(s).
  * @namespace GameItem
  * @class
  */
