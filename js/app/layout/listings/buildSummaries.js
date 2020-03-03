@@ -47,24 +47,23 @@ function buildSummaries(records, Class, options = {}) {
             const DAYS_RANGE = 30;
             const ONE_DAY = 24 * 60 * 60 * 1000;
             const THIRTY_DAYS = ONE_DAY * DAYS_RANGE;
-            
-            let now = new Date();
+            const now = new Date();
             // use mid-day in utc time
-            let today = new Date(Date.UTC(
+            const today = new Date(Date.UTC(
                 now.getUTCFullYear(),
                 now.getUTCMonth(),
                 now.getUTCDate(),
                 12
             ));
-            let filtered = records.filter((record) => {
+            const filtered = records.filter((record) => {
                 return (today - record.date_acted) < THIRTY_DAYS;
             });
-            let byDay = groupBy(filtered, (record) => {
+            const byDay = groupBy(filtered, (record) => {
                 // group by difference in days
                 return Math.floor((today - record.date_acted) / ONE_DAY);
             });
             // get a day for each day within the range
-            let daysRange = arrToKeys(range(0, DAYS_RANGE), []);
+            const daysRange = arrToKeys(range(0, DAYS_RANGE), []);
             
             // daysRange will fill in missing days from date range
             return Object.assign(daysRange, byDay);
@@ -85,12 +84,12 @@ function buildSummaries(records, Class, options = {}) {
     const getTotal = (function() {
         // starting value for reducing totals
         function getStart() {
-            let prices = {
+            const prices = {
                 sale: 0,
                 purchase: 0
             };
             // will transform the above object but suffix the keys with "_count"
-            let counts = transformObj(prices, {
+            const counts = transformObj(prices, {
                 keys: countKey
             });
             
@@ -107,8 +106,8 @@ function buildSummaries(records, Class, options = {}) {
         }
         
         function reduceRecord(result, record) {
-            let saleType = saleTypeKey(record.is_credit);
-            let saleTypeCount = countKey(saleType);
+            const saleType = saleTypeKey(record.is_credit);
+            const saleTypeCount = countKey(saleType);
             
             // add 1 to the count of the sale type
             result[saleTypeCount] += 1;
