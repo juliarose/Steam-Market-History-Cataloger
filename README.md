@@ -51,16 +51,16 @@ Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Globa
 
 #### Properties
 
--   `wallet_code` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** The ID of the currency from Steam.
--   `code` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** ISO 4217 currency code e.g. "USD".
--   `symbol` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Currency symbol e.g. "$".
--   `precision` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Decimal place precision e.g. 2 decimal places for USD.
--   `thousand` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Thousand place character.
--   `decimal` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Decimal place character.
--   `spacer` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** Whether the amount should be displayed with a space between the number and symbol.
--   `after` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** Whether the symbol should be displayed after the number.
--   `trim_trailing` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** Whether trailing zeroes should be trimmed on whole values.
--   `format_precision` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Decimal place precision used in formatting.
+-   `wallet_code` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** The ID of the currency from Steam.
+-   `code` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** ISO 4217 currency code e.g. "USD".
+-   `symbol` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Currency symbol e.g. "$".
+-   `precision` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Decimal place precision e.g. 2 decimal places for USD.
+-   `thousand` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Thousand place character.
+-   `decimal` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Decimal place character.
+-   `spacer` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** Whether the amount should be displayed with a space between the number and symbol.
+-   `after` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** Whether the symbol should be displayed after the number.
+-   `trim_trailing` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** Whether trailing zeroes should be trimmed on whole values.
+-   `format_precision` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Decimal place precision used in formatting.
 
 ### Listing
 
@@ -70,20 +70,20 @@ Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Globa
 
 #### Properties
 
--   `transaction_id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Transaction ID.
--   `appid` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Appid for item.
--   `contextid` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Contextid for item.
--   `classid` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Classid for item.
--   `instanceid` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Instanceid for item.
--   `index` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Index of listing in history.
--   `price` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Integer value of price formatted to the precision defined by its currency e,g. 100 for $1.00.
--   `is_credit` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Whether the transaction resulted in credit or not.
--   `name` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Name of item.
--   `market_name` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Market name of item.
--   `market_hash_name` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Market hash name for item.
--   `icon` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Icon path on Steam's CDN.
--   `name_color` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** 6-digit hexademical color for name.
--   `background_color` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** 6-digit hexademical color for background.
+-   `transaction_id` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Transaction ID.
+-   `appid` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** App ID.
+-   `contextid` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Context ID.
+-   `classid` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Class ID.
+-   `instanceid` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Instance ID.
+-   `index` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Index of listing in history.
+-   `price` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Integer value of price formatted to the precision defined by its currency e,g. 100 for $1.00.
+-   `is_credit` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Whether the transaction resulted in credit or not.
+-   `name` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Name.
+-   `market_name` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Market name.
+-   `market_hash_name` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Market hash name.
+-   `icon` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Icon path on Steam's CDN.
+-   `name_color` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** 6-digit hexademical color for name.
+-   `background_color` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** 6-digit hexademical color for background.
 -   `date_acted` **[Date](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Date)** Date acted.
 -   `date_listed` **[Date](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Date)** Date listed.
 
@@ -95,11 +95,11 @@ Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Globa
 
 #### Properties
 
--   `transaction_type` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** A value fom ETransactionType.
+-   `transaction_type` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** A value fom ETransactionType.
 -   `date` **[Date](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Date)** Date of transaction.
--   `count` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Number of this type of transaction.
--   `price` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Integer value of price formatted to the precision defined by its currency e,g. 100 for $1.00.
--   `is_credit` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Whether the transaction resulted in credit or not.
+-   `count` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Number of this type of transaction.
+-   `price` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Integer value of price formatted to the precision defined by its currency e,g. 100 for $1.00.
+-   `is_credit` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Whether the transaction resulted in credit or not.
 
 ### GameItem
 
@@ -109,10 +109,10 @@ Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Globa
 
 #### Properties
 
--   `app` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** App name.
--   `count` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Number of this particular item.
--   `name` **[Date](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Date)** Name of item.
--   `price` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Price of item(s).
+-   `app` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** App name.
+-   `count` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Number of this particular item.
+-   `name` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Name.
+-   `price` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Price of item(s).
 
 ## Known Issues
 
