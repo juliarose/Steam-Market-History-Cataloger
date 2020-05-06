@@ -112,7 +112,7 @@ Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Globa
 -   `app` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** App name.
 -   `count` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Number of this particular item.
 -   `name` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Name.
--   `price` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Price of item(s).
+-   `price` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Price of item(s).
 
 ## Known Issues
 
@@ -132,3 +132,13 @@ Steam Market History Cataloger is not affiliated with Steam or Valve.
 ## Privacy Policy
 
 This extension requires permissions to <https://steamcommunity.com> and <https://steampowered.com> to load data about your Steam account, as well as data storage to your disk. Stored data is entirely local and not shared anywhere outside of the extension.
+
+## Donations
+
+This project is offered for free. If you've found this project useful you can show your support by donating Steam items or Ethereum.
+
+**Donate Steam items:**  
+<https://steamcommunity.com/tradeoffer/new/?partner=119913840&token=ybdKNJEA>
+
+**Donate Ethereum:**  
+0xaC13438bD74b266e7da51805dfD650cB37c1709A

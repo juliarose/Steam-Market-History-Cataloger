@@ -44,13 +44,7 @@ function createListingPoller() {
         async function done() {
             if (isLoading) {
                 updateLoadState(false);
-                listingCount += currentCount;
-                preferences.getSettings(true)
-                    .then((settings) => {
-                        if (settings.show_new_listing_count) {
-                            poller.emit('count', listingCount);
-                        }
-                    });
+                sendCountMessage();
             } else {
                 clearListingCount();
             }
@@ -62,7 +56,10 @@ function createListingPoller() {
             // we've received a response and now want to get more
             function getMore({ records }) {
                 currentCount += records.length;
+                listingCount += records.length;
                 
+                // send message
+                sendCountMessage();
                 // call the load function again
                 loadListings();
             }
@@ -82,6 +79,16 @@ function createListingPoller() {
         const listingManager = createListingManager(app);
         // then passes the manager to the load function to load listings
         load(listingManager);
+    }
+    
+    // sends count message if enabled in preferences
+    function sendCountMessage() {
+        preferences.getSettings(true)
+            .then((settings) => {
+                if (settings.show_new_listing_count) {
+                    poller.emit('count', listingCount);
+                }
+            });
     }
     
     function getMoreAfter(minutes) {

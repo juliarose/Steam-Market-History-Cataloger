@@ -27,24 +27,53 @@ function parseListings(response, store, currency, localization) {
     const messageEl = doc.querySelector('.market_listing_table_message');
     const messageLinkEl = messageEl && messageEl.querySelector('a');
     const listingsList = doc.getElementsByClassName('market_listing_row');
-    const { start, total_count } = response;
+    const { start, total_count, assets } = response;
+    let hasBrokenAssets = false;
+    
+    // very rarely the assets object will have data where the name details are missing
+    // if this is the case, we want to ignore the response
+    if (typeof assets === 'object') {
+        // this is a bit of a loop but it is probably the quickest way of going through the data
+        for (let appid in assets) {
+            for (let contextid in assets[appid]) {
+                for (let assetid in assets[appid][contextid]) {
+                    const asset = assets[appid][contextid][assetid];
+                    
+                    // asset is missing market_hash_name
+                    if (asset.market_hash_name == null || asset.market_hash_name === '') {
+                        // we have broken assets
+                        hasBrokenAssets = true;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    
     const hasError = Boolean(
         messageEl ||
         total_count === null ||
-        total_count === 0
+        total_count === 0 ||
+        hasBrokenAssets ||
+        // does not have assets
+        response.assets == null
     );
     // all values used from "store", create clone so we do not modify original object
     let modifiedDate = Object.assign({}, store.date);
     
     if (hasError) {
         const messageText = messageEl && messageEl.textContent.trim();
-        const error = messageText || 'No listings';
         const fatal = Boolean(
             messageLinkEl ||
             // no listings
             // an unsuccesful response will have this value as "null"
             total_count === 0
         );
+        let error = messageText || 'No listings';
+        
+        if (!messageText && hasBrokenAssets) {
+            error = 'Missing data';
+        }
         
         // we have an error
         return {

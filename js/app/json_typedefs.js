@@ -60,5 +60,5 @@
  * @property {string} app - App name.
  * @property {number} count - Number of this particular item.
  * @property {string} name - Name.
- * @property {boolean} price - Price of item(s).
+ * @property {number} price - Price of item(s).
  */

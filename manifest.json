@@ -2,8 +2,8 @@
   "manifest_version": 2,
   "name": "Steam Market History Cataloger",
   "description": "Indexes your Steam Market transactions to be viewable within the extension and exportable to JSON and CSV.",
-  "version": "1.0.3",
-  "version_name": "1.0.3",
+  "version": "1.0.4",
+  "version_name": "1.0.4",
   "icons": {
     "16": "images/icon16.png",
     "48": "images/icon48.png",

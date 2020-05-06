@@ -30,7 +30,8 @@ const getResponseJSON = (location) => {
 };
 const jsons = [
     '/data/market.myhistory/response.1.json',
-    '/data/market.myhistory/response.2.json'
+    '/data/market.myhistory/response.2.json',
+    '/data/market.myhistory/broken.response.1.json'
 ].map(getResponseJSON);
 // USD
 const currency = getCurrency(1);
@@ -43,13 +44,10 @@ const current = {
 const account = {};
 let locales;
 
-beforeAll(() => {
-    return getLocales()
-        .then((result) => {
-            locales = result;
-            
-            return;
-        });
+beforeAll(async () => {
+    locales = await getLocales();
+    
+    return;
 });
 
 it('Localizations are prepared', () => {
@@ -142,4 +140,13 @@ it('Parses a test response', () => {
     const record = records[0];
     
     expect(record).toEqual(listing);
+});
+
+it('Fails to parse broken response', () => {
+    const response = jsons[2];
+    const {
+        error
+    } = parseListings(response, current, currency, locales);
+    
+    expect(error).toBeDefined();
 });
