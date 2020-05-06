@@ -58,8 +58,6 @@ function createListingPoller() {
                 currentCount += records.length;
                 listingCount += records.length;
                 
-                // send message
-                sendCountMessage();
                 // call the load function again
                 loadListings();
             }
@@ -82,13 +80,12 @@ function createListingPoller() {
     }
     
     // sends count message if enabled in preferences
-    function sendCountMessage() {
-        preferences.getSettings(true)
-            .then((settings) => {
-                if (settings.show_new_listing_count) {
-                    poller.emit('count', listingCount);
-                }
-            });
+    async function sendCountMessage() {
+        const settings = await preferences.getSettings(true);
+        
+        if (settings.show_new_listing_count) {
+            poller.emit('count', listingCount);
+        }
     }
     
     function getMoreAfter(minutes) {

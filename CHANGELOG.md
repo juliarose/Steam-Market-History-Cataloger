@@ -4,8 +4,5 @@
 ### Added
 - This changelog file.
 
-### Changed
-- New listing count on icon will update as more listings are loaded rather than after all listings have been loaded.
-
 ### Fixed
 - Parsing data from listing responses that would include empty attributes (empty string '') for name, market_name, and market_hash_name. These responses are ignored and the page is re-fetched.
