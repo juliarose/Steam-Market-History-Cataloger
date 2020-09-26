@@ -2,9 +2,9 @@
 
 import { createAccountManager } from './manager/account.js';
 import { createPreferencesManager } from './manager/preferences.js';
-import { loadData } from './initializers/data.js';
-import { createListingDatabase } from './initializers/db.js';
-import { createAccountDatabase } from './initializers/accountdb.js';
+import { createListingDatabase } from './db/listing.js';
+import { createAccountDatabase } from './db/account.js';
+import { applist } from './data/applist.js';
 
 /**
  * Builds the app object.
@@ -24,7 +24,8 @@ export async function buildApp() {
     }
     
     // load json data
-    await loadData();
+    await applist.get();
+    
     // create the account db
     const AccountDB = createAccountDatabase();
     // create the listing db

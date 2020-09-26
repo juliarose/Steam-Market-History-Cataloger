@@ -8,7 +8,7 @@
  * @param {*} [value] - Value to pass to resolve.
  * @returns {Promise} Promise that resolves after the given delay.
  */
-async function delayPromise(time, value) {
+export async function delayPromise(time, value) {
     return new Promise((resolve) => {
         setTimeout(() => {
             resolve(value);
