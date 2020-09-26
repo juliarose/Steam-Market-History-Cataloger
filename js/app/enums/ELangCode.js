@@ -1,6 +1,6 @@
 'use strict';
 
-const ELangCode = Object.freeze({
+export const ELangCode = Object.freeze({
     'bulgarian': 'bg',
     'czech': 'cs',
     'danish': 'da',
@@ -31,5 +31,3 @@ const ELangCode = Object.freeze({
     // Spanish (Latin America and the Caribbean)
     'latam': 'es-419'
 });
-
-export { ELangCode };

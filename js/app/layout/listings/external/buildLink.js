@@ -8,9 +8,9 @@
  * @param {boolean} [data.placeholder] - Whether this is a placeholder link or not.
  * @returns {HTMLElement} Element object.
  */
-function buildLink(data) {
-    let buttonEl = document.createElement('div');
-    let linkEl = document.createElement('a');
+export function buildLink(data) {
+    const buttonEl = document.createElement('div');
+    const linkEl = document.createElement('a');
     
     linkEl.setAttribute('href', data.url);
     linkEl.setAttribute('target', '_blank');
@@ -26,5 +26,3 @@ function buildLink(data) {
     
     return linkEl;
 }
-
-export { buildLink };

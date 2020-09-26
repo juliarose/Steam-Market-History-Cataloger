@@ -6,7 +6,7 @@
  * @param {string} data - Data to be saved.
  * @returns {undefined}
  */
-function download(name, data) {
+export function download(name, data) {
     const link = document.createElement('a');
     const blob = new Blob([data], {
         type: 'octet/stream'
@@ -17,5 +17,3 @@ function download(name, data) {
     link.setAttribute('download', name);
     link.click();
 }
-
-export { download };

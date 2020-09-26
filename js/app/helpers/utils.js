@@ -22,7 +22,7 @@ async function delayPromise(time, value) {
  * @param {string} [separator='/'] - Separator used between dates.
  * @returns {string} String of date.
  */
-function printDate(date, separator = '/') {
+export function printDate(date, separator = '/') {
     return [
         date.getFullYear(),
         date.getMonth() + 1,
@@ -35,7 +35,7 @@ function printDate(date, separator = '/') {
  * @param {Date} date - Date to print.
  * @returns {string} String of date to be inserted into a CSV cell.
  */
-function printCSVDate(date) {
+export function printCSVDate(date) {
     return [
         date.getMonth() + 1,
         date.getDate(),
@@ -48,7 +48,7 @@ function printCSVDate(date) {
  * @param {Object} obj - Object to omit values from.
  * @returns {Object} Object with null, undefined, or empty string values omitted.
  */
-function omitEmpty(obj) {
+export function omitEmpty(obj) {
     let result = {};
     
     for (let k in obj) {
@@ -65,7 +65,7 @@ function omitEmpty(obj) {
  * @param {Array} arr - Array of basic items (strings, numbers).
  * @returns {Array} Array with unique values.
  */
-function uniq(arr) {
+export function uniq(arr) {
     return [...new Set(arr)];
 }
 
@@ -75,7 +75,7 @@ function uniq(arr) {
  * @param {Array} arr2 - Second array.
  * @returns {Array} Array with values removed.
  */
-function difference(arr1, arr2) {
+export function difference(arr1, arr2) {
     return arr1.filter((a) => {
         return arr2.indexOf(a) === -1;
     });
@@ -87,7 +87,7 @@ function difference(arr1, arr2) {
  * @param {Function} method - Function to satisfy.
  * @returns {Array} Partitioned array.
  */
-function partition(arr, method) {
+export function partition(arr, method) {
     // create an array with two empty arrays to be filled
     let result = [
         // for truthy values
@@ -111,7 +111,7 @@ function partition(arr, method) {
  * @param {(string|Function)} key - Key to take value from.
  * @returns {Object} Object of groups.
  */
-function groupBy(arr, key) {
+export function groupBy(arr, key) {
     // if 'key' is a function, set method to 'key'
     let method = typeof key === 'function' ? key : null;
     
@@ -129,7 +129,7 @@ function groupBy(arr, key) {
  * @param {Array} values - Array of values.
  * @returns {number} Average of all values in array.
  */
-function arrAverage(values) {
+export function arrAverage(values) {
     if (values.length === 0) return 0;
     
     return values.reduce((a,b) => a + b) / values.length;
@@ -141,7 +141,7 @@ function arrAverage(values) {
  * @param {boolean} [deep] - Recursive flatten?
  * @returns {Array} Flattened array.
  */
-function flatten(arr, deep) {
+export function flatten(arr, deep) {
     return arr.reduce((result, value) => {
         if (Array.isArray(value)) {
             if (deep) {
@@ -160,7 +160,7 @@ function flatten(arr, deep) {
  * @param {Array} arr - Array to compact.
  * @returns {Array} Compacted array.
  */
-function compact(arr) {
+export function compact(arr) {
     return arr.filter(value => value);
 }
 
@@ -170,7 +170,7 @@ function compact(arr) {
  * @param {boolean} [deep] - Whether the array should be flattened recursively.
  * @returns {Array} Flattened and compacted array.
  */
-function flattenCompact(arr, deep) {
+export function flattenCompact(arr, deep) {
     return compact(flatten(arr, deep));
 }
 
@@ -180,7 +180,7 @@ function flattenCompact(arr, deep) {
  * @param {number} high - High number.
  * @returns {Array} Array of numbers in range.
  */
-function range(low, high) {
+export function range(low, high) {
     return Array(high - low).fill(low).map((a, i) => a + i);
 }
 
@@ -189,7 +189,7 @@ function range(low, high) {
  * @param {number} [length=10] - Length of string.
  * @returns {string} Random string.
  */
-function randomString(length) {
+export function randomString(length) {
     let characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'.split('');
     let count = characters.length;
     let str = '';
@@ -207,7 +207,7 @@ function randomString(length) {
  * @param {Array} keys - Array of keys to pick.
  * @returns {Object} Object with picked keys.
  */
-function pickKeys(object, keys) {
+export function pickKeys(object, keys) {
     let result = {};
     
     for (let i = 0; i < keys.length; i++) {
@@ -222,7 +222,7 @@ function pickKeys(object, keys) {
  * @param {Object} query - Object.
  * @returns {string} Query string.
  */
-function queryString(query) {
+export function queryString(query) {
     /**
      * Get query parameter for value.
      * @param {string} name - Name of value.
@@ -262,7 +262,7 @@ function queryString(query) {
  * @example
  * createTree({}, ['fruit', 'color'], 'red'); // { fruit: { color: 'red' } }
  */
-function createTree(obj, tree, ender) {
+export function createTree(obj, tree, ender) {
     let current = obj;
     
     for (let i = 0; i < tree.length; i++) {
@@ -310,7 +310,7 @@ function createTree(obj, tree, ender) {
  *     }
  * }); // { fruit_apple: 'GREEN', fruit_orange: 'ORANGE', fruit_cherry: { color: 'RED' } }
  */
-function transformObj(obj, transforms = {}, level = 0) {
+export function transformObj(obj, transforms = {}, level = 0) {
     if (typeof obj !== 'object' || obj === null) {
         // nothing we can do
         return obj;
@@ -350,7 +350,7 @@ function transformObj(obj, transforms = {}, level = 0) {
  * @param {Object} obj - Object.
  * @returns {Object} Cloned object.
  */
-function deepClone(obj) {
+export function deepClone(obj) {
     return transformObj(obj);
 }
 
@@ -363,7 +363,7 @@ function deepClone(obj) {
  * @example
  * arrToKeys(['a', 'b'], 0); // { a: 0, b: 0 }
  */
-function arrToKeys(keys, value) {
+export function arrToKeys(keys, value) {
     let result = {};
     
     for (let i = 0; i < keys.length; i++) {
@@ -378,7 +378,7 @@ function arrToKeys(keys, value) {
  * @param {*} value - Value to test.
  * @returns {boolean} Whether the value is a number or not.
  */
-function isNumber(value) {
+export function isNumber(value) {
     return !isNaN(parseFloat(value)) && isFinite(value) && !isNaN(value - 0);
 }
 
@@ -389,7 +389,7 @@ function isNumber(value) {
  * @param {string} [trail='...'] - Trailing characters.
  * @returns {string} Truncated string.
  */
-function truncate(string, length, trail = '...') {
+export function truncate(string, length, trail = '...') {
     if (string.length > length) {
         return string.substr(0, length).trim() + trail;
     } else {
@@ -404,7 +404,7 @@ function truncate(string, length, trail = '...') {
  * @param {number} value - Test value.
  * @returns {string} Form based on value.
  */
-function basicPlural(singular, plural, value) {
+export function basicPlural(singular, plural, value) {
     if (value !== 1) {
         return plural;
     } else {
@@ -420,7 +420,7 @@ function basicPlural(singular, plural, value) {
  * @example
  * valuesAsKeys({ a: 'apple' }); // { a: 'apple', 'apple': 'a' }
  */
-function valuesAsKeys(obj) {
+export function valuesAsKeys(obj) {
     // create clone so we do not modify original object
     let result = Object.assign({}, obj);
     
@@ -436,7 +436,7 @@ function valuesAsKeys(obj) {
  * @param {string} str - String.
  * @returns {string} Escaped string.
  */
-function escapeCSV(str) {
+export function escapeCSV(str) {
     // quotes are replaced with double quotes to escape them
     // https://www.freeformatter.com/csv-escape.html
     return `"${str.toString().replace(/"/g, '""')}"`;
@@ -447,7 +447,7 @@ function escapeCSV(str) {
  * @param {string} str - String.
  * @returns {string} Escaped string.
  */
-function escapeRegExp(str) {
+export function escapeRegExp(str) {
     return str.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
 }
 
@@ -456,7 +456,7 @@ function escapeRegExp(str) {
  * @param {string} text - Text to escape.
  * @returns {string} Escaped text.
  */
-function escapeHTML(text) {
+export function escapeHTML(text) {
     let pattern = /[\"&<>]/g;
     
     // Testing string before replace is slightly faster
@@ -480,7 +480,7 @@ function escapeHTML(text) {
  * @param {string} name - Name of parameter.
  * @returns {(string|null)} The value of parameter, if found.
  */
-function getUrlParam(name) {
+export function getUrlParam(name) {
     return new URL(location.href).searchParams.get(name);
 }
 
@@ -489,39 +489,7 @@ function getUrlParam(name) {
  * @param {string} html - Valid HTML string.
  * @returns {Object} HTML document object.
  */
-function getDocument(html) {
+export function getDocument(html) {
     // return the body
     return new DOMParser().parseFromString(html, 'text/html').querySelector('body');
 }
-
-export {
-    delayPromise,
-    printDate,
-    printCSVDate,
-    omitEmpty,
-    uniq,
-    difference,
-    partition,
-    groupBy,
-    arrAverage,
-    flatten,
-    compact,
-    flattenCompact,
-    range,
-    randomString,
-    pickKeys,
-    queryString,
-    deepClone,
-    createTree,
-    transformObj,
-    arrToKeys,
-    isNumber,
-    truncate,
-    basicPlural,
-    valuesAsKeys,
-    escapeCSV,
-    escapeRegExp,
-    escapeHTML,
-    getUrlParam,
-    getDocument
-};

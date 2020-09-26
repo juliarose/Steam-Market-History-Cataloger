@@ -13,7 +13,7 @@ import { uniq } from '../../helpers/utils.js';
  * @returns {HTMLElement} DOM element.
  * @namespace Layout.listings.buildFilters
  */
-function buildFilters(records, Class, options) {
+export function buildFilters(records, Class, options) {
     /**
      * Builds index of options.
      * @returns {Object} Index of records.
@@ -404,5 +404,3 @@ function buildFilters(records, Class, options) {
         
     return drawIndex(index);
 }
-
-export { buildFilters };

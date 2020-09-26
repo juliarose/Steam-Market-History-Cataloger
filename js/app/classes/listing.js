@@ -57,7 +57,7 @@ const types = {
  * @namespace Listing
  * @class
  */
-const Listing = createClass({
+export const Listing = createClass({
     types,
     identifier: 'listings',
     primary_key: 'transaction_id'
@@ -272,5 +272,3 @@ Listing.prototype.toJSON = function() {
         date_listed: this.date_listed
     };
 };
-
-export { Listing };

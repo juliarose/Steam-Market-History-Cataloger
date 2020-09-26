@@ -18,7 +18,7 @@ import { AppTotal } from '../../classes/totals/apptotal.js';
  * @returns {HTMLElement} Document fragment.
  * @namespace Layout.listings.buildSummaries
  */
-function buildSummaries(records, Class, options = {}) {
+export function buildSummaries(records, Class, options = {}) {
     const buildIndex = (function() {
         function date() {
             let index = {};
@@ -308,5 +308,3 @@ function buildSummaries(records, Class, options = {}) {
     
     return fragment;
 }
-
-export { buildSummaries };

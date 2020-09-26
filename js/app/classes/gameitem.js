@@ -18,7 +18,7 @@ const types = {
  * @namespace GameItem
  * @class
  */
-const GameItem = createClass({
+export const GameItem = createClass({
     types,
     identifier: 'gameitems'
 });
@@ -52,5 +52,3 @@ GameItem.prototype.toJSON = function() {
         price: this.price
     };
 };
-
-export { GameItem };

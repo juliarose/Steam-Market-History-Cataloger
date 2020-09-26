@@ -3,7 +3,7 @@
 import { Steam } from '../../../steam/steam.js';
 import { buildLink } from './buildLink.js';
 
-const buildThirdPartyLinks = {
+export const buildThirdPartyLinks = {
     // fetch an asset from steam to display links
     withAsset: async function(record) {
         const asset = await Steam.getClassinfo(record.appid, record.classid, record.instanceid);
@@ -60,5 +60,3 @@ const buildThirdPartyLinks = {
         }
     }
 };
-
-export { buildThirdPartyLinks };

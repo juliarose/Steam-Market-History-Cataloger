@@ -5,7 +5,7 @@
  * @param {string} uri - Location of JSON file.
  * @returns {Promise.<Object>} Resolve when done.
  */
-async function fetchJSON(uri) {
+export async function fetchJSON(uri) {
     const response = await fetch(uri);
     
     if (!response.ok) {
@@ -14,5 +14,3 @@ async function fetchJSON(uri) {
     
     return response.json();
 }
-
-export { fetchJSON };

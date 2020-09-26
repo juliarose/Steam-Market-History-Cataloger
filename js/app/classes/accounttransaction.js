@@ -25,7 +25,7 @@ const types = {
  * @namespace AccountTransaction
  * @class
  */
-const AccountTransaction = createClass({
+export const AccountTransaction = createClass({
     types,
     identifier: 'accounttransactions',
     primary_key: 'transaction_id'
@@ -139,5 +139,3 @@ AccountTransaction.prototype.toJSON = function() {
         count: this.count
     };
 };
-
-export { AccountTransaction };

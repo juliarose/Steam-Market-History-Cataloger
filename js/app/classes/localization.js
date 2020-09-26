@@ -15,7 +15,7 @@ import { getExtensionURL } from '../browser.js';
  * @param {Object} json - JSON object containing string values.
  * @class
  */
-function Localization({ code, language }, json) {
+export function Localization({ code, language }, json) {
     Object.assign(this, json);
     
     this.code = code;
@@ -193,5 +193,3 @@ Localization.prototype.parseDateString = function(string) {
         day
     };
 };
-
-export { Localization };

@@ -8,7 +8,7 @@ import { getExtensionURL } from '../browser.js';
  * 
  * @namespace applist
  */
-const applist = {
+export const applist = {
     /**
      * Get app list from stored JSON file.
      * @param {applist.get-callback} callback - Called when finished loading.
@@ -33,5 +33,3 @@ const applist = {
         Object.assign(this, apps);
     }
 };
-
-export { applist };

@@ -9,10 +9,8 @@ import { buildSummaries } from './buildSummaries.js';
  * 
  * @namespace Layout.listings
  */
-const ListingLayout = {
+export const ListingLayout = {
     buildChart,
     buildFilters,
     buildSummaries
 };
-
-export { ListingLayout };

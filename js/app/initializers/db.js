@@ -8,7 +8,7 @@ import { Listing } from '../classes/listing.js';
  * @param {string} steamid - SteamID64 this database would belong to.
  * @returns {Object} Configured Dexie instance.
  */
-function createListingDatabase(steamid) {
+export function createListingDatabase(steamid) {
     // uses steamid for db name
     const db = new Dexie(`listings${steamid}`);
     
@@ -82,5 +82,3 @@ function createListingDatabase(steamid) {
     
     return db;
 }
-
-export { createListingDatabase };

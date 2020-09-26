@@ -1,9 +1,47 @@
 'use strict';
 
 /**
+ * Get individual color channel from color.
+ * @param {string} color - 6-digit hexadecimal number of color.
+ * @param {number} position - Position of color (0-2).
+ * @returns {string} Value of channel.
+ *
+ * @example
+ * getChannel('00FF00', 1); // 'FF'
+ */
+function getChannel(color, position) {
+    return color.substr(position * 2, 2);
+}
+
+/**
+ * Convert a decimal number to a hexadecimal number in a 2-digit format.
+ * @param {number} decimal - Decimal number.
+ * @returns {string} Hexadecimal number.
+ */
+function toHex(decimal) {
+    let n = decimal.toString(16).toUpperCase();
+    
+    if (n.length === 1) {
+        // must be 2 characters
+        return '0' + n;
+    } else {
+        return n;
+    }
+}
+
+/**
+ * Convert a hexadecimal number to a decimal number.
+ * @param {string} hex - Hexadecimal number.
+ * @returns {number} Decimal number.
+ */
+function toDecimal(hex) {
+    return parseInt(hex, 16);
+}
+
+/**
  * @namespace Color
  */
-const Color = {
+export const Color = {
     /**
      * Lighten a color.
      * @memberOf Color
@@ -125,43 +163,3 @@ const Color = {
         return result;
     }
 };
-
-/**
- * Get individual color channel from color.
- * @param {string} color - 6-digit hexadecimal number of color.
- * @param {number} position - Position of color (0-2).
- * @returns {string} Value of channel.
- *
- * @example
- * getChannel('00FF00', 1); // 'FF'
- */
-function getChannel(color, position) {
-    return color.substr(position * 2, 2);
-}
-
-/**
- * Convert a decimal number to a hexadecimal number in a 2-digit format.
- * @param {number} decimal - Decimal number.
- * @returns {string} Hexadecimal number.
- */
-function toHex(decimal) {
-    let n = decimal.toString(16).toUpperCase();
-    
-    if (n.length === 1) {
-        // must be 2 characters
-        return '0' + n;
-    } else {
-        return n;
-    }
-}
-
-/**
- * Convert a hexadecimal number to a decimal number.
- * @param {string} hex - Hexadecimal number.
- * @returns {number} Decimal number.
- */
-function toDecimal(hex) {
-    return parseInt(hex, 16);
-}
-
-export { Color };

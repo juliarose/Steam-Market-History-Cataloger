@@ -3,7 +3,7 @@
 /**
  * @enum ETransactionType
  */
-const ETransactionType = Object.freeze({
+export const ETransactionType = Object.freeze({
     'MarketTransaction': 1,
     'InGamePurchase': 2,
     'Purchase': 3,
@@ -15,5 +15,3 @@ const ETransactionType = Object.freeze({
     4: 'GiftPurchase',
     5: 'Refund'
 });
-
-export { ETransactionType };

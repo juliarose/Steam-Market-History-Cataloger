@@ -4,6 +4,36 @@ import { partition, groupBy, arrAverage } from '../../helpers/utils.js';
 import { formatMoney } from '../../money.js';
 
 /**
+ * Clusters records by date.
+ * @param {Array} records - Objects to cluster.
+ * @param {Function} [sum] - Sum function.
+ * @returns {Array} Clustered records.
+ */
+function cluster(records, sum) {
+    const groups = groupBy(records, (item) => {
+        return Math.round(item.date_acted / 1000);
+    });
+    const times = Object.keys(groups);
+    const total = function(values) {
+        return values.reduce((a, b) => a + b);
+    };
+    const fn = sum ? total : arrAverage;
+    
+    return times.map((time) => {
+        const dayRecords = groups[time];
+        // create new record from first record in group
+        const record = Object.assign({}, dayRecords[0]); 
+        const values = dayRecords.map(a => a.price);
+        
+        // get number of records on that day
+        record.count = dayRecords.length;
+        record.price = fn(values);
+        
+        return record;
+    });
+}
+
+/**
  * Builds chart for listings.
  * @param {Array} records - Records to chart.
  * @param {HTMLElement} element - DOM element to render inside.
@@ -13,7 +43,7 @@ import { formatMoney } from '../../money.js';
  * @returns {undefined}
  * @namespace Layout.listings.buildChart
  */
-function buildChart(records, element, options) {
+export function buildChart(records, element, options) {
     function getPlot(record) {
         return {
             x: record.date_acted,
@@ -93,35 +123,3 @@ function buildChart(records, element, options) {
     
     chartContainer.addEventListener('dblclick', resetZoom);
 }
-
-/**
- * Clusters records by date.
- * @param {Array} records - Objects to cluster.
- * @param {Function} [sum] - Sum function.
- * @returns {Array} Clustered records.
- */
-function cluster(records, sum) {
-    const groups = groupBy(records, (item) => {
-        return Math.round(item.date_acted / 1000);
-    });
-    const times = Object.keys(groups);
-    const total = function(values) {
-        return values.reduce((a, b) => a + b);
-    };
-    const fn = sum ? total : arrAverage;
-    
-    return times.map((time) => {
-        const dayRecords = groups[time];
-        // create new record from first record in group
-        const record = Object.assign({}, dayRecords[0]); 
-        const values = dayRecords.map(a => a.price);
-        
-        // get number of records on that day
-        record.count = dayRecords.length;
-        record.price = fn(values);
-        
-        return record;
-    });
-}
-
-export { buildChart };

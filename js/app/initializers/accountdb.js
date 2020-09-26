@@ -5,7 +5,7 @@
  * @param {Object} account - Account this database would belong to.
  * @returns {Object} Configured Dexie instance.
  */
-function createAccountDatabase() {
+export function createAccountDatabase() {
     const db = new Dexie('listings.accounts');
     
     db.version(1).stores({
@@ -40,5 +40,3 @@ function createAccountDatabase() {
     
     return db;
 }
-
-export { createAccountDatabase };
