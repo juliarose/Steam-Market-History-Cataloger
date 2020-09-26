@@ -8,7 +8,7 @@ import { Settings } from './mixins/settings.js';
  * @param {Object} [structure={}] - LocalStorageManager structure.
  * @returns {LocalStorageManager} A new Manager.
  */
-function createLocalStorageManager(structure = {}) {
+export function createLocalStorageManager(structure = {}) {
     /**
      * Manages a set of data that needs to be stored persistently.
      *
@@ -25,5 +25,3 @@ function createLocalStorageManager(structure = {}) {
         structure
     );
 }
-
-export { createLocalStorageManager };

@@ -25,7 +25,7 @@ function fadeIn(element, duration) {
  * @param {Object} [options.borderColor] - Hexadecimal color for border.
  * @returns {Object} DOM element of table.
  */
-function tooltip(element, contents, options = {}) {
+export function tooltip(element, contents, options = {}) {
     const found = document.getElementById('tooltip');
     const toolTipEl = found || document.createElement('div');
     const bounds = offset(element);
@@ -61,12 +61,10 @@ function tooltip(element, contents, options = {}) {
  * Removes tooltip.
  * @returns {undefined}
  */
-function removeTooltip() {
+export function removeTooltip() {
     const found = document.getElementById('tooltip');
     
     if (found != null) {
         found.remove();
     }
 }
-
-export { tooltip, removeTooltip };

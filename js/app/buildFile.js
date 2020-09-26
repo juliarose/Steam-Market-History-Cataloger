@@ -13,7 +13,7 @@ import { formatMoney } from './money.js';
  * @param {string} format - Format to save in.
  * @returns {string} File contents, will be blank if a valid format is not supplied.
  */
-function buildFile(records, Class, options, format) {
+export function buildFile(records, Class, options, format) {
     const { locales } = options;
     const classDisplay = Class.makeDisplay(locales);
     const tableDisplay = classDisplay.table || {};
@@ -99,11 +99,9 @@ function buildFile(records, Class, options, format) {
     };
     const build = get[format];
     
-    if (build !== undefined) {
-        return build();
-    } else {
+    if (build === undefined) {
         return '';
     }
+    
+    return build();
 }
-
-export { buildFile };

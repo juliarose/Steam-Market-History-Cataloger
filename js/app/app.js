@@ -10,7 +10,7 @@ import { createAccountDatabase } from './initializers/accountdb.js';
  * Builds the app object.
  * @returns {Promise<App>} Resolves with app.
  */
-async function buildApp() {
+export async function buildApp() {
     // "preferences" and "account" load settings from chrome's local storage
     // and manage the state of this data for use within the app
     const preferences = createPreferencesManager();
@@ -46,5 +46,3 @@ async function buildApp() {
         ListingDB
     };
 }
-
-export { buildApp };

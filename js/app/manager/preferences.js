@@ -6,7 +6,7 @@ import { createLocalStorageManager } from './helpers/createLocalStorageManager.j
  * Creates a PreferencesManager.
  * @returns {PreferencesManager} A new PreferencesManager.
  */
-function createPreferencesManager() {
+export function createPreferencesManager() {
     /**
      * Extension preferences manager.
      * @class PreferencesManager
@@ -37,5 +37,3 @@ function createPreferencesManager() {
         }
     });
 }
-
-export { createPreferencesManager };

@@ -9,7 +9,7 @@ import { getXHR } from './helpers/getXHR.js';
  * @namespace Steam.requests.get
  * @memberOf Steam.requests
  */
-const get = {
+export const get = {
     /* Example response:
     {
         "success": true,
@@ -133,10 +133,10 @@ const get = {
      * @example
      * Steam.requests.get.listings({ count: 10, start: 50, timezone: 1 });
      */
-    listings: function(options) {
-        let query = queryString(options);
-        let uri = 'https://steamcommunity.com/market/myhistory?' + query;
-        let params = {
+    listings: async function(options) {
+        const query = queryString(options);
+        const uri = 'https://steamcommunity.com/market/myhistory?' + query;
+        const params = {
             method: 'GET',
             credentials: 'include',
             mode: 'cors',
@@ -150,9 +150,9 @@ const get = {
      * @memberOf Steam.requests.get
      * @returns {Promise} Fetch promise.
      */
-    home: function() {
-        let uri = 'https://store.steampowered.com/';
-        let params = {
+    home: async function() {
+        const uri = 'https://store.steampowered.com/';
+        const params = {
             method: 'GET',
             credentials: 'include',
             mode: 'cors',
@@ -166,9 +166,9 @@ const get = {
      * @memberOf Steam.requests.get
      * @returns {Promise} Fetch promise.
      */
-    accountHistory: function() {
-        let uri = 'https://store.steampowered.com/account/history/';
-        let params = {
+    accountHistory: async function() {
+        const uri = 'https://store.steampowered.com/account/history/';
+        const params = {
             method: 'GET',
             credentials: 'include',
             mode: 'cors',
@@ -186,10 +186,10 @@ const get = {
      * @param {string} options.market_hash_name -  Market hash name of item.
      * @returns {Promise} Fetch promise.
      */
-    lowestPrice: function(options) {
-        let qs = queryString(options);
-        let uri = `https://steamcommunity.com/market/priceoverview/?${qs}`;
-        let params = {
+    lowestPrice: async function(options) {
+        const qs = queryString(options);
+        const uri = `https://steamcommunity.com/market/priceoverview/?${qs}`;
+        const params = {
             method: 'GET',
             credentials: 'include',
             mode: 'cors',
@@ -203,9 +203,9 @@ const get = {
      * @memberOf Steam.requests.get
      * @returns {Promise} Fetch promise.
      */
-    marketHome: function() {
-        let uri = 'https://steamcommunity.com/market';
-        let params = {
+    marketHome: async function() {
+        const uri = 'https://steamcommunity.com/market';
+        const params = {
             method: 'GET',
             credentials: 'include',
             mode: 'cors',
@@ -223,18 +223,18 @@ const get = {
      * @param {string} [language='english'] - Language.
      * @returns {Promise} Fetch promise.
      */
-    classinfo: function(appid, classid, instanceid, language = 'english') {
-        let classinfo = [
+    classinfo: async function(appid, classid, instanceid, language = 'english') {
+        const classinfo = [
             appid,
             classid,
             instanceid
         ].join('/');
-        let qs = queryString({
+        const qs = queryString({
             content_only: 1,
             l: language
         });
-        let uri  = `https://steamcommunity.com/economy/itemclasshover/${classinfo}?${qs}`;
-        let params = {
+        const uri  = `https://steamcommunity.com/economy/itemclasshover/${classinfo}?${qs}`;
+        const params = {
             method: 'GET',
             credentials: 'include',
             mode: 'cors',
@@ -244,5 +244,3 @@ const get = {
         return getXHR(uri, params);
     }
 };
-
-export { get };

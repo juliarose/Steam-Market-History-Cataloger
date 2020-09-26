@@ -12,7 +12,7 @@ import { createPreferencesManager } from '../manager/preferences.js';
  * @param {Object} App - The app for configuring the poller.
  * @returns {ListingPoller} New listing poller.
  */
-function createListingPoller() {
+export function createListingPoller() {
     function updateLoadState(loading) {
         isLoading = loading;
         setLoadState(loading);    
@@ -177,5 +177,3 @@ function createListingPoller() {
     
     return poller;
 }
-
-export { createListingPoller };

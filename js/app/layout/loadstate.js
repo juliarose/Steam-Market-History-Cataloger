@@ -7,7 +7,7 @@ import { setIcon } from '../browser.js';
  * @param {boolean} isLoading - Load state to set.
  * @returns {undefined}
  */
-function setLoadState(isLoading) {
+export function setLoadState(isLoading) {
     const iconPath = (
         isLoading ?
             '/images/icon_loading.png' :
@@ -18,5 +18,3 @@ function setLoadState(isLoading) {
         path: iconPath
     });
 }
-
-export { setLoadState };

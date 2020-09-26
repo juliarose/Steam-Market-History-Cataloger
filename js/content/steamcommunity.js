@@ -37,7 +37,7 @@ function collectAndStoreInfo() {
         return element ? element.getAttribute('src') : null;
     }
     
-    let { steamid, info } = collectInfo({
+    const { steamid, info } = collectInfo({
         steamid: function(content) {
             const steamid = (content.match(/g_steamID\s*=\s*"(\d{17})";$/m) || [])[1];
             

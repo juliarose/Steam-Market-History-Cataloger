@@ -9,11 +9,42 @@ import { getLayoutOptions } from './getLayoutOptions.js';
 import '../helpers/dropdown.js'; 
 
 /**
+ * Sends a message to clear the listing count.
+ * @returns {undefined}
+ */
+function clearListingCount() {
+    sendMessage({
+        name: 'clearListingCount'
+    });
+}
+
+/**
+ * Creates a spinner element.
+ * @param {string} id - ID for element.
+ * @param {string} className - Class name for element.
+ * @param {string} spinnerClassName - Class name for spinner element.
+ * @returns {HTMLElement} An element containing a spinner.
+ */
+function createSpinner(id, className, spinnerClassName) {
+    const loaderEl = document.createElement('div');
+    
+    loaderEl.setAttribute('id', id);
+    loaderEl.setAttribute('class', className);
+    loaderEl.innerHTML = `
+        <div class="${spinnerClassName}">
+            <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+        </div>
+    `;
+    
+    return loaderEl;
+}
+
+/**
  * Layout helper functions.
  *
  * @namespace Layout
  */
-const Layout = {
+export const Layout = {
     buildTable,
     tooltip,
     getLayoutOptions,
@@ -178,25 +209,3 @@ const Layout = {
         Layout.alert(typeof error === 'string' ? error : 'Error', beforeEl, 'error');
     }
 };
-
-function clearListingCount() {
-    sendMessage({
-        name: 'clearListingCount'
-    });
-}
-
-function createSpinner(id, className, spinnerClassName) {
-    const loaderEl = document.createElement('div');
-    
-    loaderEl.setAttribute('id', id);
-    loaderEl.setAttribute('class', className);
-    loaderEl.innerHTML = `
-        <div class="${spinnerClassName}">
-            <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
-        </div>
-    `;
-    
-    return loaderEl;
-}
-
-export { Layout };

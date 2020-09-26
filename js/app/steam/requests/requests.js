@@ -9,9 +9,7 @@ import { post } from './post.js';
  * @namespace Steam.requests
  * @memberOf Steam
  */
-const requests = {
+export const requests = {
     get,
     post
 };
-
-export { requests };

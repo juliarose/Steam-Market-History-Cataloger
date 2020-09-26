@@ -3,10 +3,10 @@
 // browser utilities
 
 const browser = chrome;
-const tabs = browser.tabs;
-const browserLocalStorage = localStorage;
-const storage = browser.storage.sync || browser.storage.local;
-const onMessage = browser.runtime.onMessage;
+export const browserLocalStorage = localStorage;
+export const tabs = browser.tabs;
+export const storage = browser.storage.sync || browser.storage.local;
+export const onMessage = browser.runtime.onMessage;
 
 /**
  * Sets browser icon.
@@ -14,7 +14,7 @@ const onMessage = browser.runtime.onMessage;
  * @param {Function} [callback=function(){}] - Callback function.
  * @returns {undefined}
  */
-function setIcon(details, callback = function() {}) {
+export function setIcon(details, callback = function() {}) {
     browser.browserAction.setIcon(details, callback);
 }
 
@@ -24,7 +24,7 @@ function setIcon(details, callback = function() {}) {
  * @param {Function} [callback=function(){}] - Callback function.
  * @returns {undefined}
  */
-function setBadgeText(details, callback = function() {}) {
+export function setBadgeText(details, callback = function() {}) {
     browser.browserAction.setBadgeText(details, callback);
 }
 
@@ -34,7 +34,7 @@ function setBadgeText(details, callback = function() {}) {
  * @param {Function} [callback=function(){}] - Callback function.
  * @returns {undefined}
  */
-function getBadgeText(details, callback = function() {}) {
+export function getBadgeText(details, callback = function() {}) {
     browser.browserAction.getBadgeText({}, callback);
 }
 
@@ -44,7 +44,7 @@ function getBadgeText(details, callback = function() {}) {
  * @param {Function} [callback=function(){}] - Callback function.
  * @returns {undefined}
  */
-function sendMessage(details, callback = function() {}) {
+export function sendMessage(details, callback = function() {}) {
     browser.runtime.sendMessage(details, callback);
 }
 
@@ -53,18 +53,6 @@ function sendMessage(details, callback = function() {}) {
  * @param {string} url - URL of resource relative to extension's root.
  * @returns {string} Absolute extension URL.
  */
-function getExtensionURL(url) {
+export function getExtensionURL(url) {
     return browser.extension.getURL(url);
 }
-
-export {
-    tabs,
-    browserLocalStorage,
-    storage,
-    onMessage,
-    sendMessage,
-    setIcon,
-    setBadgeText,
-    getBadgeText,
-    getExtensionURL
-};

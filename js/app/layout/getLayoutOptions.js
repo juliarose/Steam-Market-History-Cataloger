@@ -5,7 +5,7 @@
  * @param {Object} options - Options.
  * @returns {LayoutOptions} Object containing options to use in formatting.
  */
-function getLayoutOptions({ account, preferences }) {
+export function getLayoutOptions({ account, preferences }) {
     /**
      * Object containing options to use in formatting.
      * @typedef {Object} LayoutOptions
@@ -19,5 +19,3 @@ function getLayoutOptions({ account, preferences }) {
         currency: account.wallet.currency
     };
 }
-
-export { getLayoutOptions };

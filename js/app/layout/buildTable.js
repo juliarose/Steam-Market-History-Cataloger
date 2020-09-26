@@ -6,6 +6,26 @@ import { formatMoney } from '../money.js';
 import { buildFile } from '../buildFile.js';
 
 /**
+ * Gets list of classes for each column in 'columns'.
+ * @param {Object} display - Object to draw class values from.
+ * @param {Array} columns - Array of column names.
+ * @returns {Object} Object containing classes for each column.
+ */
+function getColumnClasses(display, columns) {
+    if (!display.column_class) {
+        return {};
+    }
+    
+    return columns.reduce((result, column) => {
+        if (display.column_class[column]) {
+            result[column] = display.column_class[column].join(' ');
+        }
+        
+        return result;
+    }, {});
+}
+
+/**
  * Builds a table for records.
  * @param {Array} records - Records to display.
  * @param {Object} Class - Class of items in 'records'.
@@ -21,7 +41,7 @@ import { buildFile } from '../buildFile.js';
  * @returns {HTMLElement} DOM element of table.
  * @namespace Layout.buildTable
  */
-function buildTable(records, Class, options) {
+export function buildTable(records, Class, options) {
     const { locales } = options;
     const classDisplay = Class.makeDisplay(locales);
     const display = classDisplay.table || {};
@@ -581,25 +601,3 @@ function sortByType(key, type, arr, reverse) {
     // sorted array
     return arr.sort(compare);
 }
-
-/**
- * Gets list of classes for each column in 'columns'.
- * @param {Object} display - Object to draw class values from.
- * @param {Array} columns - Array of column names.
- * @returns {Object} Object containing classes for each column.
- */
-function getColumnClasses(display, columns) {
-    if (!display.column_class) {
-        return {};
-    }
-    
-    return columns.reduce((result, column) => {
-        if (display.column_class[column]) {
-            result[column] = display.column_class[column].join(' ');
-        }
-        
-        return result;
-    }, {});
-}
-
-export { buildTable };

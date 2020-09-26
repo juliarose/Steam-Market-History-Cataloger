@@ -8,7 +8,7 @@ import { storage } from '../../../browser.js';
  * @interface Settings
  * @namespace Settings
  */
-const Settings = {
+export const Settings = {
     /**
      * The settings object is the set of data managed by this module.
      * When applying this mixin a settings object should replace this empty object.
@@ -102,5 +102,3 @@ const Settings = {
         });
     }
 };
-
-export { Settings };

@@ -22,7 +22,7 @@
  * @property {boolean} [trim_trailing] - Whether trailing zeroes should be trimmed on whole values.
  * @property {number} [format_precision] - Decimal place precision used in formatting.
  */
-const Currency = Object.freeze({
+export const Currency = Object.freeze({
     1: {
         wallet_code: 1,
         code: 'USD',
@@ -385,8 +385,6 @@ const Currency = Object.freeze({
  * @param {(number|string)} id - ID of currency.
  * @returns {(Currency|undefined)} Currency details.
  */
-function getCurrency(id) {
+export function getCurrency(id) {
     return Currency[id];
 }
-
-export { Currency, getCurrency };

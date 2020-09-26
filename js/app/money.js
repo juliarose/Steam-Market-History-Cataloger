@@ -1,75 +1,6 @@
 'use strict';
 
 /**
- * Parses price from currency string.
- * @param {string} value - Currency string, e.g. "$1.34".
- * @param {Currency} currency - Details of currency.
- * @returns {number} Integer value of parsed amount.
- */
-function parseMoney(value, currency) {
-    // get number with full decimal places
-    // remove all non-numeric values from string
-    // then we can extract an integer from the string
-    return parseInt(extractNumber(value, currency));
-}
-
-/**
- * Formats money value.
- * @param {number} value - Value.
- * @param {Currency} currency - Details of currency.
- * @returns {string} Formatted value.
- */
-function formatMoney(value, currency) {
-    const formatted = formatMoneyInteger(value, currency);
-    const symbol = currency.symbol;
-    const spacer = currency.spacer ? ' ' : '';
-    let arr = [symbol, formatted];
-    
-    // reverse if symbol appears after the number
-    if (currency.after) {
-        arr.reverse();
-    }
-    
-    return arr.join(spacer);
-}
-
-/**
- * Formats a number based on currency locale.
- * @param {number} value - Value.
- * @param {Currency} currency - Details of currency.
- * @returns {string} Formatted value.
- */
-function formatLocaleNumber(value, currency) {
-    const formatted = thousands(Math.floor(value), currency.thousand);
-    // get all decimal place values
-    // convert to string and get group past decimal place
-    const remainder = value.toString().split('.')[1];
-    
-    if (remainder) {
-        return [
-            formatted,
-            remainder
-        ].join(currency.decimal || '.');
-    } else {
-        return formatted;
-    }
-}
-
-/**
- * Formats value to decimals based on currency precision.
- * @param {number} value - Value.
- * @param {number} precision - Number of decimal places.
- * @returns {number} Divided number.
- */
-function toDecimal(value, precision) {
-    // 10 the power of how many places we want
-    // e.g. 100 for 2 places (550 / 100 = 5.50)
-    const power = Math.pow(10, precision);
-    
-    return value / power;
-}
-
-/**
  * Formats thousands places with seperators.
  * @param {number} value - Value.
  * @param {string} thousand - Thousand seperator.
@@ -184,9 +115,71 @@ function toFixedNoRounding(value, precision) {
     }
 }
 
-export {
-    parseMoney,
-    formatMoney,
-    formatLocaleNumber,
-    toDecimal
-};
+/**
+ * Parses price from currency string.
+ * @param {string} value - Currency string, e.g. "$1.34".
+ * @param {Currency} currency - Details of currency.
+ * @returns {number} Integer value of parsed amount.
+ */
+export function parseMoney(value, currency) {
+    // get number with full decimal places
+    // remove all non-numeric values from string
+    // then we can extract an integer from the string
+    return parseInt(extractNumber(value, currency));
+}
+
+/**
+ * Formats money value.
+ * @param {number} value - Value.
+ * @param {Currency} currency - Details of currency.
+ * @returns {string} Formatted value.
+ */
+export function formatMoney(value, currency) {
+    const formatted = formatMoneyInteger(value, currency);
+    const symbol = currency.symbol;
+    const spacer = currency.spacer ? ' ' : '';
+    let arr = [symbol, formatted];
+    
+    // reverse if symbol appears after the number
+    if (currency.after) {
+        arr.reverse();
+    }
+    
+    return arr.join(spacer);
+}
+
+/**
+ * Formats a number based on currency locale.
+ * @param {number} value - Value.
+ * @param {Currency} currency - Details of currency.
+ * @returns {string} Formatted value.
+ */
+export function formatLocaleNumber(value, currency) {
+    const formatted = thousands(Math.floor(value), currency.thousand);
+    // get all decimal place values
+    // convert to string and get group past decimal place
+    const remainder = value.toString().split('.')[1];
+    
+    if (remainder) {
+        return [
+            formatted,
+            remainder
+        ].join(currency.decimal || '.');
+    } else {
+        return formatted;
+    }
+}
+
+/**
+ * Formats value to decimals based on currency precision.
+ * @param {number} value - Value.
+ * @param {number} precision - Number of decimal places.
+ * @returns {number} Divided number.
+ */
+export function toDecimal(value, precision) {
+    // 10 the power of how many places we want
+    // e.g. 100 for 2 places (550 / 100 = 5.50)
+    const power = Math.pow(10, precision);
+    
+    return value / power;
+}

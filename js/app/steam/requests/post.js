@@ -9,7 +9,7 @@ import { getXHR } from './helpers/getXHR.js';
  * @namespace Steam.requests.post
  * @memberOf Steam.requests
  */
-const post = {
+export const post = {
     /* Example response:
     {
         "html": "<Very large HTML string...>"
@@ -31,10 +31,10 @@ const post = {
      * @param {string} [options.l] - Language.
      * @returns {Promise} Fetch promise.
      */
-    purchasehistory: function(options) {
-        let query = queryString(omitEmpty(options));
-        let uri = 'https://store.steampowered.com/account/AjaxLoadMoreHistory';
-        let params = {
+    purchasehistory: async function(options) {
+        const query = queryString(omitEmpty(options));
+        const uri = 'https://store.steampowered.com/account/AjaxLoadMoreHistory';
+        const params = {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
@@ -49,5 +49,3 @@ const post = {
         return getXHR(uri, params);
     }
 };
-
-export { post };

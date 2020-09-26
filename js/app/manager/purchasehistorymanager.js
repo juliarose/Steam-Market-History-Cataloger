@@ -11,7 +11,7 @@ import { parseTransactions } from '../parsers/parseTransactions.js';
  * @param {Object} deps.account - Account to loading listings from. Should contain wallet currency.
  * @returns {PurchaseHistoryManager} A new PurchaseHistoryManager.
  */
-function createPurchaseHistoryManager({ account }) {
+export function createPurchaseHistoryManager({ account }) {
     /**
      * Module for loading & parsing purchase history from Steam.
      * 
@@ -92,5 +92,3 @@ function createPurchaseHistoryManager({ account }) {
         }
     });
 }
-
-export { createPurchaseHistoryManager };

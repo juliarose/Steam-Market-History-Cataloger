@@ -28,11 +28,11 @@ function collectAndStoreInfo() {
             
             const accountid = getAccountid(content);
             
-            if (accountid) {
-                return to64(accountid);
-            } else {
+            if (!accountid) {
                 return null;
             }
+            
+            return to64(accountid);
         },
         info: function(content) {
             function getWalletInfo(content) {

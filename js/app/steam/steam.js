@@ -2,11 +2,12 @@
 
 import { requests } from './requests/requests.js';
 
-let assetCache = {};
+// this stores assets that were fetched so that we do need to re-fetch them everytime
+const assetCache = {};
 
-const Steam = {
-    requests: requests,
-    getSteamPoweredSession: function() {
+export const Steam = {
+    requests,
+    getSteamPoweredSession: async function() {
         function parseText(text) {
             /**
              * Converts a 32-bit account id to steamid64.
@@ -30,27 +31,24 @@ const Steam = {
             };
         }
         
-        return Steam.requests.get.accountHistory()
-            .then((response) => {
-                if (response.ok) {
-                    return response.text();
-                } else {
-                    return Promise.reject(response.statusText || 'Bad response');
-                }
-            })
-            .then((text) => {
-                const data = parseText(text);
-                const hasData = Boolean(
-                    data.steamid &&
-                    data.sessionid
-                );
-                
-                if (hasData) {
-                    return data;
-                } else {
-                    return Promise.reject('No session');
-                }
-            });
+        const response = await Steam.requests.get.accountHistory();
+        
+        if (!response.ok) {
+            return Promise.reject(response.statusText);
+        }
+        
+        const responseText = await response.text();
+        const data = parseText(responseText);
+        const hasData = Boolean(
+            data.steamid &&
+            data.sessionid
+        );
+        
+        if (!hasData) {
+            return Promise.reject('No session');
+        }
+        
+        return data;
     },
     /**
      * Gets class info.
@@ -60,7 +58,7 @@ const Steam = {
      * @param {string} [language='english'] - Language.
      * @returns {Promise.<Object>} Resolve with asset when done, reject on error.
      */
-    getClassinfo: function(appid, classid, instanceid, language = 'english') {
+    getClassinfo: async function(appid, classid, instanceid, language = 'english') {
         function getCache() {
             // we're making pyramids here
             return (
@@ -108,27 +106,22 @@ const Steam = {
             return Promise.resolve(cache);
         }
             
-        return Steam.requests.get.classinfo(appid, classid, instanceid, language)
-            .then((response) => {
-                if (response.ok) {
-                    return response.text();
-                } else {
-                    return Promise.reject(response.statusText);
-                }
-            })
-            .then((text) => {
-                const asset = parseResponseText(text);
-                
-                if (asset) {
-                    // cache it
-                    cacheAsset(asset);
-                    
-                    return asset;
-                } else {
-                    return Promise.reject('Failed to parse asset from response');
-                }
-            });
+        const response = await Steam.requests.get.classinfo(appid, classid, instanceid, language);
+        
+        if (!response.ok) {
+            return Promise.reject(response.statusText);
+        }
+        
+        const responseText = await response.text();
+        const asset = parseResponseText(responseText);
+        
+        if (!asset) {
+            return Promise.reject('Failed to parse asset from response');
+        }
+        
+        // cache it
+        cacheAsset(asset);
+        
+        return asset;
     }
 };
-
-export { Steam };

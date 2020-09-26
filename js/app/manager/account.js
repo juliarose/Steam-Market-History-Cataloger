@@ -8,7 +8,7 @@ import { Localization } from '../classes/localization.js';
  * Creates an AccountManager.
  * @returns {AccountManager} A new AccountManager.
  */
-function createAccountManager() {
+export function createAccountManager() {
     /**
      * Current logged in user settings manager.
      * @class AccountManager
@@ -40,14 +40,14 @@ function createAccountManager() {
             settingsName: function() {
                 const steamid = account.steamid;
                 
-                if (steamid != null) {
-                    return [
-                        steamid,
-                        this.settings_name
-                    ].join('_');
-                } else {
+                if (steamid == null) {
                     return null;
                 }
+                
+                return [
+                    steamid,
+                    this.settings_name
+                ].join('_');
             },
             /**
              * Assign values relating to wallet from stored settings.
@@ -119,5 +119,3 @@ function createAccountManager() {
     
     return account;
 }
-
-export { createAccountManager };

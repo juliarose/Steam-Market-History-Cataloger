@@ -12,7 +12,7 @@ import { ETransactionType } from '../enums/ETransactionType.js';
  * @param {Localization} locales - Locale strings.
  * @returns {AccountTransaction[]} Array of parsed records.
  */
-function parseTransactions(response, currency, locales) {
+export function parseTransactions(response, currency, locales) {
     /**
      * Gets list of items that were purchased in transaction.
      * @param {Object} itemsEl - Container element of items.
@@ -131,5 +131,3 @@ function parseTransactions(response, currency, locales) {
     
     return transactions;
 }
-
-export { parseTransactions };

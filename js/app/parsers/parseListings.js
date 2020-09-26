@@ -5,6 +5,18 @@ import { parseMoney } from '../money.js';
 import { Listing } from '../classes/listing.js';
 
 /**
+ * Makes a date.
+ * @param {number} year - Year of date.
+ * @param {number} month - Month of date.
+ * @param {number} day - Day of date.
+ * @returns {Date} Date.
+ */
+function makeDate(year, month, day) {
+    // all dates are set at 12pm in UTC time on the date of occurrence
+    return new Date(Date.UTC(year, month, day, 12));
+}
+
+/**
  * Results of parsing.
  * @typedef {Object} ParseListingResult
  * @property {(error|null)} error - Error, if any.
@@ -22,7 +34,7 @@ import { Listing } from '../classes/listing.js';
  * @throws {Error} When dates were unable to be parsed or data is missing from some listings.
  * @returns {ParseListingResult} Results of parsing.
  */
-function parseListings(response, store, currency, localization) {
+export function parseListings(response, store, currency, localization) {
     const doc = getDocument(response.results_html);
     const messageEl = doc.querySelector('.market_listing_table_message');
     const messageLinkEl = messageEl && messageEl.querySelector('a');
@@ -415,17 +427,3 @@ function parseListings(response, store, currency, localization) {
         };
     }
 }
-
-/**
- * Makes a date.
- * @param {number} year - Year of date.
- * @param {number} month - Month of date.
- * @param {number} day - Day of date.
- * @returns {Date} Date.
- */
-function makeDate(year, month, day) {
-    // all dates are set at 12pm in UTC time on the date of occurrence
-    return new Date(Date.UTC(year, month, day, 12));
-}
-
-export { parseListings };

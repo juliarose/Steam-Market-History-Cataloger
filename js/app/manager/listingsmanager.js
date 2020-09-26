@@ -14,7 +14,7 @@ import { parseListings } from '../parsers/parseListings.js';
  * @param {Object} deps.ListingDB - The database storing listing data for the account.
  * @returns {ListingManager} A new PurchaseHistoryManager.
  */
-function createListingManager({ account, preferences, AccountDB, ListingDB }) {
+export function createListingManager({ account, preferences, AccountDB, ListingDB }) {
     /**
      * Module for loading & parsing listings from Steam.
      * 
@@ -266,38 +266,43 @@ function createListingManager({ account, preferences, AccountDB, ListingDB }) {
                 }
             });
             
-            Promise.all([
+            const [
+                first,
+                last,
+                last_fetched,
+                last_indexed
+            ] = await Promise.all([
                 firstListingPromise,
                 lastListingPromise,
                 lastFetchedPromise,
                 lastIndexPromise
-            ]).then(([first, last, last_fetched, last_indexed]) => {
-                if (first != null) {
-                    this.store.first = first;
-                }
-                
-                if (last != null) {
-                    this.store.last = last;
-                }
-                
-                if (last_fetched != null) {
-                    this.store.last_fetched = last_fetched;
-                }
-                
-                if (last_indexed != null) {
-                    this.store.last_indexed = last_indexed;
-                }
-                
-                if (first != null && last_indexed == null) {
-                    // take the date from the first indexed listing
-                    this.store.date.year = first.date_acted.getFullYear();
-                    this.store.date.month = first.date_acted.getMonth();
-                } else if (last_fetched) {
-                    // take the date from the last fetched listing
-                    this.store.date.year = last_fetched.date_acted.getFullYear();
-                    this.store.date.month = last_fetched.date_acted.getMonth();
-                }
-            });
+            ]);
+            
+            if (first != null) {
+                this.store.first = first;
+            }
+            
+            if (last != null) {
+                this.store.last = last;
+            }
+            
+            if (last_fetched != null) {
+                this.store.last_fetched = last_fetched;
+            }
+            
+            if (last_indexed != null) {
+                this.store.last_indexed = last_indexed;
+            }
+            
+            if (first != null && last_indexed == null) {
+                // take the date from the first indexed listing
+                this.store.date.year = first.date_acted.getFullYear();
+                this.store.date.month = first.date_acted.getMonth();
+            } else if (last_fetched) {
+                // take the date from the last fetched listing
+                this.store.date.year = last_fetched.date_acted.getFullYear();
+                this.store.date.month = last_fetched.date_acted.getMonth();
+            }
         },
         /**
          * Loads market history.
@@ -346,6 +351,7 @@ function createListingManager({ account, preferences, AccountDB, ListingDB }) {
                     return manager.onRecords(records, next);
                 };
                 
+                // retry if there is an error
                 return getListings().catch(retry).then(parse);
             };
             
@@ -679,5 +685,3 @@ function createListingManager({ account, preferences, AccountDB, ListingDB }) {
         }
     });
 }
-
-export { createListingManager };
