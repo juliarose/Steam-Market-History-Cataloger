@@ -1,6 +1,6 @@
 'use strict';
 
-import { createLocalStorageManager } from './helpers/createLocalStorageManager.js';
+import { createLocalStorageManager } from './storage/local.js';
 
 /**
  * Creates a PreferencesManager.

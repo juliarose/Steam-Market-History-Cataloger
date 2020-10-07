@@ -1,6 +1,6 @@
 'use strict';
 
-import { createLocalStorageManager } from './helpers/createLocalStorageManager.js';
+import { createLocalStorageManager } from './storage/local.js';
 import { getCurrency } from '../currency.js';
 import { Localization } from '../classes/localization.js';
 

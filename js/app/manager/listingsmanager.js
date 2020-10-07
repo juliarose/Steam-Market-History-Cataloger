@@ -4,8 +4,8 @@ import { randomString, pickKeys, sleep } from '../helpers/utils.js';
 import { Steam } from '../steam/steam.js';
 import { Localization } from '../classes/localization.js';
 import { parseListings } from '../parsers/parseListings.js';
-import { createDatabaseSettingsManager } from './helpers/mixins/dbSettings.js';
-import { EventEmitter } from '../lib/eventemitter.js';
+import { createDatabaseSettingsManager } from './storage/db.js';
+import { EventEmitter } from '../../lib/eventemitter.js';
 
 /**
  * Creates a ListingManager.
@@ -665,7 +665,7 @@ export function createListingManager({ account, preferences, AccountDB, ListingD
      */
     return Object.assign(
         {},
-        ...EventEmitter.prototype,
+        EventEmitter.prototype,
         {
             setup,
             reset,

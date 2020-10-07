@@ -2,10 +2,10 @@
 
 import { buildApp } from '../app.js';
 import { verifyLogin } from '../steam/verifyLogin.js';
-import { createListingManager } from '../manager/listingsmanager.js';
+import { createListingManager } from './listingsmanager.js';
 import { EventEmitter } from '../../lib/eventemitter.js';
 import { setLoadState } from '../layout/loadstate.js';
-import { createPreferencesManager } from '../manager/preferences.js';
+import { createPreferencesManager } from './preferences.js';
 
 /**
  * Creates a listing poller.
