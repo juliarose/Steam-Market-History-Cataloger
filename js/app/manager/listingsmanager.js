@@ -3,9 +3,9 @@
 import { randomString, pickKeys, sleep } from '../helpers/utils.js';
 import { Steam } from '../steam/steam.js';
 import { Localization } from '../classes/localization.js';
-import { createLocalStorageManager } from './helpers/createLocalStorageManager.js';
 import { parseListings } from '../parsers/parseListings.js';
 import { createDatabaseSettingsManager } from './helpers/mixins/dbSettings.js';
+import { EventEmitter } from '../lib/eventemitter.js';
 
 /**
  * Creates a ListingManager.
@@ -22,9 +22,7 @@ export function createListingManager({ account, preferences, AccountDB, ListingD
      * @returns {number} Starting index to use.
      */
     function getNextLoadIndex(index = 0) {
-        const currentIndex = settings.current_index;
-        
-        return currentIndex + index;
+        return settings.current_index + index;
     }
     
     /**
@@ -35,11 +33,10 @@ export function createListingManager({ account, preferences, AccountDB, ListingD
      * @returns {number} Index.
      */
     function calculateListingIndex(index = 0) {
-        const totalCount = settings.total_count;
         // reverse index
         // listings are fetched from newest to oldest
         // but are indexed from oldest to newest (1 being the oldest)
-        return totalCount - index;  
+        return settings.total_count - index;  
     }
     
     /**
@@ -89,28 +86,6 @@ export function createListingManager({ account, preferences, AccountDB, ListingD
         await saveSettings(settings);
         
         return;
-    }
-    
-    /**
-     * Saves settings.
-     * @param {object} settings - Settings to save.
-     * @returns {Promise} Resolve when done.
-     */
-    async function saveSettings(settings) {
-        return settingsManager.saveSettings(settings);
-    }
-    
-    /**
-     * Gets the current settings.
-     * @returns {Promise.<object>} Resolve with settings.
-     */
-    async function getSettings() {
-        // update the settings
-        settings = await settingsManager.getSettings();
-        
-        console.log(settings);
-        
-        return settings;
     }
     
     /**
@@ -166,34 +141,6 @@ export function createListingManager({ account, preferences, AccountDB, ListingD
             // reset settings
             return resetAndReject('Listings fully loaded!');
         }
-        
-        return;
-    }
-    
-    /**
-     * Resets settings.
-     * @returns {Promise} Resolve when done.
-     */
-    async function reset() {
-        const last = await ListingDB.listings.orderBy('index').last();
-        
-        // reset dates
-        store.date = {
-            year: new Date().getFullYear(),
-            month: new Date().getMonth()
-        };
-        
-        // reset index
-        settings.current_index = 0;
-        
-        if (last) {
-            settings.last_index = last.index;
-        }
-        
-        settings.last_fetched_index = null;
-        requests = [];
-        
-        await saveSettings(settings);
         
         return;
     }
@@ -381,7 +328,144 @@ export function createListingManager({ account, preferences, AccountDB, ListingD
     }
     
     /**
+     * Saves settings.
+     * @param {object} settings - Settings to save.
+     * @returns {Promise} Resolve when done.
+     */
+    async function saveSettings(settings) {
+        return settingsManager.saveSettings(settings);
+    }
+    
+    /**
+     * Gets the current settings.
+     * @memberOf ListingManager
+     * @namespace ListingManager.getSettings
+     * @returns {Promise.<object>} Resolve with settings.
+     */
+    async function getSettings() {
+        // update the settings
+        settings = await settingsManager.getSettings();
+        
+        return settings;
+    }
+    
+    /**
+     * Deletes the current settings.
+     * @memberOf ListingManager
+     * @namespace ListingManager.deleteSettings
+     * @returns {Promise} Resolve when done.
+     */
+    async function deleteSettings() {
+        return settingsManager.deleteSettings();
+    }
+    
+    /**
+     * Resets settings.
+     * @memberOf ListingManager
+     * @namespace ListingManager.reset
+     * @returns {Promise} Resolve when done.
+     */
+    async function reset() {
+        const last = await ListingDB.listings.orderBy('index').last();
+        
+        // reset dates
+        store.date = {
+            year: new Date().getFullYear(),
+            month: new Date().getMonth()
+        };
+        
+        // reset index
+        settings.current_index = 0;
+        
+        if (last) {
+            settings.last_index = last.index;
+        }
+        
+        settings.last_fetched_index = null;
+        requests = [];
+        
+        await saveSettings(settings);
+        
+        return;
+    }
+    
+    /**
+     * Loads market history.
+     * @memberOf ListingManager
+     * @namespace ListingManager.load
+     * @param {number} [delay=0] - Delay in Seconds to load.
+     * @param {boolean} [loadInstantly=false] - Whether to load instantly or not.
+     * @returns {Promise.<ListingManagerLoadResponse>} Resolves with response when done.
+     */
+    async function load(delay = 0, loadInstantly = false) {
+        if (loadInstantly) {
+            delay = 0;
+        } else {
+            delay = (delay || pollInterval) * 1000;
+        }
+        
+        async function retry(error, seconds) {
+            if (error) {
+                console.log('GET [error] listings:', error);
+            }
+            
+            // load more data
+            return load(seconds);
+        }
+        
+        async function startLoading() {
+            async function fetchListings() {
+                const start = getNextLoadIndex();
+                const count = pagesize;
+                const { language } = settings;
+                
+                return getListings(start, count, language);
+            }
+            
+            async function parseListings(response) {
+                const {
+                    records,
+                    next,
+                    error,
+                    shouldRetry
+                } = parse(response);
+                
+                if (shouldRetry) {
+                    // there was an error where we should retry
+                    return retry(error, 15);
+                } else if (error) {
+                    // fatal error
+                    return Promise.reject(error);
+                }
+                
+                // all good
+                return onRecords(records, next);
+            }
+            
+            try {
+                const response = await fetchListings();
+                
+                return parseListings(response);
+            } catch (error) {
+                // retry if there is an error
+                return retry(error);
+            }
+        }
+        
+        // check the current load state to see whether we can load or not
+        await checkLoadState();
+        
+        // delay it to space out requests
+        await sleep(delay);
+        
+        // then we can load
+        return startLoading();
+    }
+    
+    /**
      * Configures the module.
+     * @memberOf ListingManager
+     * @namespace ListingManager.setup
      * @returns {Promise} Resolve when done, reject on fail.
      */
     async function setup() {
@@ -578,88 +662,16 @@ export function createListingManager({ account, preferences, AccountDB, ListingD
      * 
      * Must be logged in to use.
      * @class ListingManager
-     * @type {Manager}
      */
-    return createLocalStorageManager({
-        setup,
-        reset,
-        getSettings,
-        deleteSettings: async function() {
-            return settingsManager.deleteSettings();
-        },
-        /**
-         * Loads market history.
-         * @memberOf ListingManager
-         * @namespace ListingManager.load
-         * @param {number} [delay=0] - Delay in Seconds to load.
-         * @param {boolean} [loadInstantly=false] - Whether to load instantly or not.
-         * @returns {Promise.<ListingManagerLoadResponse>} Resolves with response when done.
-         */
-        load: async function(delay = 0, loadInstantly = false) {
-            const manager = this;
-            
-            if (loadInstantly) {
-                delay = 0;
-            } else {
-                delay = (delay || pollInterval) * 1000;
-            }
-            
-            async function retry(error, seconds) {
-                if (error) {
-                    console.log('GET [error] listings:', error);
-                }
-                
-                // load more data
-                return manager.load(seconds);
-            }
-            
-            async function load() {
-                async function fetchListings() {
-                    const start = getNextLoadIndex();
-                    const count = pagesize;
-                    const { language } = settings;
-                    
-                    return getListings(start, count, language);
-                }
-                
-                async function parseListings(response) {
-                    const {
-                        records,
-                        next,
-                        error,
-                        shouldRetry
-                    } = parse(response);
-                    
-                    if (shouldRetry) {
-                        // there was an error where we should retry
-                        return retry(error, 15);
-                    } else if (error) {
-                        // fatal error
-                        return Promise.reject(error);
-                    }
-                    
-                    // all good
-                    return onRecords(records, next);
-                }
-                
-                try {
-                    const response = await fetchListings();
-                    
-                    return parseListings(response);
-                } catch (error) {
-                    // retry if there is an error
-                    return retry(error);
-                }
-            }
-            
-            // check the current load state to see whether we can load or not
-            await checkLoadState();
-            
-            // delay it to space out requests
-            await sleep(delay);
-            
-            // then we can load
-            return load();
+    return Object.assign(
+        {},
+        ...EventEmitter.prototype,
+        {
+            setup,
+            reset,
+            load,
+            getSettings,
+            deleteSettings
         }
-    });
+    );
 }
