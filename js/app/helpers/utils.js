@@ -17,6 +17,19 @@ export async function delayPromise(time, value) {
 }
 
 /**
+ * Pauses for an amount of time.
+ * @param {number} time - Time in ms to delay.
+ * @returns {Promise} Resolve when done.
+ */
+export async function sleep(time) {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve();
+        }, time);
+    });
+}
+
+/**
  * Prints a date as a string.
  * @param {Date} date - Date to print.
  * @param {string} [separator='/'] - Separator used between dates.

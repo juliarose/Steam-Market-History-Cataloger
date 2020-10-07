@@ -1,7 +1,7 @@
 'use strict';
 
 import { Steam } from '../steam/steam.js';
-import { delayPromise } from '../helpers/utils.js';
+import { sleep } from '../helpers/utils.js';
 import { createLocalStorageManager } from './helpers/createLocalStorageManager.js';
 import { parseTransactions } from '../parsers/parseTransactions.js';
 
@@ -55,7 +55,7 @@ export function createPurchaseHistoryManager({ account }) {
                 return Promise.reject('No login');
             }
             
-            await delayPromise(delay * 1000);
+            await sleep(delay * 1000);
             
             const response = await manager.get({
                 sessionid,

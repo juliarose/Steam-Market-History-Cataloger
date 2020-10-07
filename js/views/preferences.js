@@ -139,7 +139,7 @@ function onApp(app) {
     
     // updates the displayed count on page
     async function updateCount() {
-        const settings = await listingManager.getSettings(true);
+        const settings = await listingManager.getSettings();
         const count = settings.recorded_count || 0;
         const language = settings.language;
         

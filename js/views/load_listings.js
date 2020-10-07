@@ -100,6 +100,7 @@ function onApp(app) {
                 page.results,
                 'active'
             );
+            
             listingManager.load(0, now).then(getMore).catch(done);
         }
         
