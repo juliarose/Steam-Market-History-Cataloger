@@ -41,11 +41,12 @@ export function getBadgeText(details, callback = function() {}) {
 /**
  * Sends a runtime message.
  * @param {Object} details - Details.
- * @param {Function} [callback=function(){}] - Callback function.
- * @returns {undefined}
+ * @returns {Promise.<any>} Resolves with message.
  */
-export function sendMessage(details, callback = function() {}) {
-    browser.runtime.sendMessage(details, callback);
+export async function sendMessage(details) {
+    return new Promise((resolve) => {
+        browser.runtime.sendMessage(details, resolve);
+    });
 }
 
 /**

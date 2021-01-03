@@ -97,6 +97,27 @@
                             </p>
                         </label>
                     </div>
+                    <div class="field">
+                        <div class="input-box">
+                            <select id="search_results_count" name="search_results_count">
+                                <option value="100">100</option>
+                                <option value="500">500</option>
+                                <option value="1000">1000</option>
+                                <option value="5000">5000</option>
+                                <option value="10000">10000</option>
+                                <option value="20000">20000</option>
+                                <option value="100000">100000</option>
+                            </select>
+                        </div>
+                        <label for="search_results_count">
+                            <b>
+                                Search results limit
+                            </b>
+                            <p class="tip">
+                                The maximum number of listings to fetch <a href="/views/view/index.html" target="_blank">when searching for listings</a>. Higher numbers mean longer time to fetch search results.
+                            </p>
+                        </label>
+                    </div>
                 </fieldset>
                 <!-- Too much configuration may have serious consequences
                 <fieldset id="market-preferences" class="form-group">
@@ -164,7 +185,7 @@
                             it's slightly confusing and needs more testing.
                         -->
                         <div class="hidden field" id="delete-after-controls">
-                            <p class="">
+                            <p>
                                 <b>Delete listings after index</b><br/>
                             </p>
                             <p class="tip" id="delete-after-index-controls">

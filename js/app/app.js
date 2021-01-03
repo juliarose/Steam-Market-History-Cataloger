@@ -13,11 +13,13 @@ import { applist } from './data/applist.js';
 export async function buildApp() {
     // "preferences" and "account" load settings from chrome's local storage
     // and manage the state of this data for use within the app
-    const preferences = createPreferencesManager();
-    const account = createAccountManager();
-    
-    await preferences.setup();
-    await account.setup();
+    const [
+        preferences,
+        account
+    ] = await Promise.all([
+        createPreferencesManager(),
+        createAccountManager()
+    ]);
     
     if (!account.steamid) {
         return Promise.reject('No SteamID present.');

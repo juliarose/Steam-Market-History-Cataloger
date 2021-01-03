@@ -1,6 +1,6 @@
 'use strict';
 
-import { buildApp } from '../../app/app.js';
+import { readyState } from '../../app/readyState.js';
 import { Layout } from '../../app/layout/layout.js';
 import { Listing } from '../../app/classes/listing.js';
 import { applist } from '../../app/data/applist.js';
@@ -22,14 +22,6 @@ let item = {
     market_name: getUrlParam('market_name'),
     market_hash_name: getUrlParam('market_hash_name')
 };
-
-async function onReady() {
-    try {
-        onApp(await buildApp());
-    } catch (error) {
-        Layout.error(error);
-    }
-}
 
 function onApp(app) {
     function onRecords(records) {
@@ -145,4 +137,5 @@ function onApp(app) {
     render().then(Layout.ready);
 }
 
-onReady();
+// ready
+readyState(onApp, Layout.error);

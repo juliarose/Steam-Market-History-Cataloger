@@ -490,7 +490,7 @@ export function createListingManager({ account, preferences, AccountDB, ListingD
         if (!settings.language) {
             // language configuration is a MUST
             // this will lock down the language from the first load
-            // and will  not change regardless of what language the user selects on Steam
+            // and will not change regardless of what language the user selects on Steam
             return Promise.reject('No language detected when configuring ListingManager');
         }
         
@@ -564,7 +564,7 @@ export function createListingManager({ account, preferences, AccountDB, ListingD
         }
         
         // use preferneces
-        const preferenceSettings = await preferences.getSettings(true);
+        const preferenceSettings = await preferences.getSettings();
         
         if (preferenceSettings.market_per_page) {
             pagesize = parseInt(preferenceSettings.market_per_page);
@@ -615,18 +615,17 @@ export function createListingManager({ account, preferences, AccountDB, ListingD
      *     (e.g. listing an item, removing an item from market).
      * @property {(Number|null)} last_index - The index of the most recent listing after
      *     a successful loop after all listings have been initially collected. This is saved
-     *     after "ListingManager.reset" is called
+     *     after reset is called.
      * @property {(Number|null)} last_fetched_index - The index of the last obtained listing,
      *     for continuing where we left off. This is saved after
      *     "ListingManager.updateSettingsFromPage" is called.
      * @property {(Number|null)} recorded_count - The recorded number of listings.
      *     This is updated when "ListingManager.updateSettingsFromPage" is called.
-     * @property {(String|null)} session - Current session hash. This is redefined
-     *     at "ListingManager.setup".
-     * @property {(String|null)} language - Language of listings. This is redefined at
-     *     "ListingManager.setup" and will always remain the same after it is first defined 
+     * @property {(String|null)} session - Current session hash. This is redefined at setup.
+     * @property {(String|null)} language - Language of listings. This is redefined at setup
+     *     and will always remain the same after it is first defined 
      * @property {boolean} is_loading - Whether loading is taking place or not.
-     *     This is redefined at "ListingManager.setup"
+     *     This is redefined at setup.
      * @property {Date} date - Date of last page load
      */
     let settings = {

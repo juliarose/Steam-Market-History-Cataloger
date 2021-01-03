@@ -2,6 +2,206 @@
 
 import { applist } from '../../data/applist.js';
 import { uniq } from '../../helpers/utils.js';
+import { createSpinner } from '../layout.js';
+
+/**
+ * Creates an autocomplete field with the given values.
+ * @param {HTMLElement} inputEl - The input element for the complete.
+ * @param {string[]} values - Array of values to be used as search terms.
+ * @param {function} submitFn - The function to call when submitting the search.
+ * @returns {undefined}
+ */
+function addAutocompleteToField(inputEl, values, submitFn) {
+    // adapted from https://www.w3schools.com/howto/howto_js_autocomplete.asp
+    let currentFocus;
+    
+    // updates the active item
+    function updateActiveItem(itemsList) {
+        if (!itemsList) {
+            return false;
+        }
+        
+        // remove active on previous selected item
+        removeActive(itemsList);
+        
+        if (currentFocus >= itemsList.length) {
+            currentFocus = 0;
+        }
+        
+        if (currentFocus < 0) {
+            currentFocus = itemsList.length - 1;
+        }
+        
+        // add class "autocomplete-active" to active item
+        itemsList[currentFocus].classList.add('autocomplete-active');
+    }
+    
+    // removes active class for all items in list
+    function removeActive(itemsList) {
+        for (let i = 0; i < itemsList.length; i++) {
+            itemsList[i].classList.remove('autocomplete-active');
+        }
+    }
+    
+    // closes all autocomplete lists in the document,
+    // except the one passed as an argument
+    function closeAllLists(el) {
+        let itemsContainerList = document.getElementsByClassName('autocomplete-items');
+        
+        Array.from(itemsContainerList)
+            .filter((itemsContainerEl) => {
+                return Boolean(
+                    el !== itemsContainerEl &&
+                    el !== inputEl
+                );
+            })
+            .forEach((itemsContainerEl) => {
+                itemsContainerEl.parentNode.removeChild(itemsContainerEl);
+            });
+    }
+    
+    function updateDropdown(e) {
+        // take
+        const inputEl = e.currentTarget;
+        const { id } = inputEl;
+        const inputValue = inputEl.value;
+        // an uppercase version of the input value
+        // cached for (marginally) improved performance
+        const uppercaseInputValue = inputValue.toUpperCase();
+        
+        // close any already open lists of autocompleted values
+        closeAllLists();
+        
+        // input is blank - nothing to search against
+        if (!inputValue) {
+            return false;
+        }
+        
+        currentFocus = -1;
+        
+        // create an element that will contain the items
+        const itemsContainerEl = document.createElement('div');
+        
+        itemsContainerEl.setAttribute('id', `${id}autocomplete-list`);
+        itemsContainerEl.setAttribute('class', 'autocomplete-items');
+        
+        // loop through values
+        values
+            // filter values that match the search term
+            .filter((value) => {
+                return value.toUpperCase().includes(uppercaseInputValue);
+            })
+            // take first 10 results
+            .slice(0, 10)
+            // map each matching value to an element
+            .map((value) => {
+                const itemEl = document.createElement('div');
+                const matchingIndex = value.toUpperCase().indexOf(uppercaseInputValue);
+                const startStr = value.substr(0, matchingIndex);
+                const matchingStr = value.substr(matchingIndex, inputValue.length);
+                const endingStartIndex = matchingIndex + inputValue.length;
+                const endStr = value.substr(endingStartIndex, value.length - endingStartIndex);
+                
+                // make the matching letters bold
+                itemEl.innerHTML = `${startStr}<strong>${matchingStr}</strong>${endStr}`;
+                
+                // execute a function when the item is clicked
+                itemEl.addEventListener('click', (e) => {
+                    // change the input's value to the value for this element
+                    inputEl.value = value;
+                    
+                    // close the list of autocompleted values
+                    // (or any other open lists of autocompleted values
+                    closeAllLists();
+                    
+                    // call the function to submit
+                    submitFn(value);
+                });
+                
+                return itemEl;
+            })
+            .forEach((itemEl) => {
+                // add each element generated to the container element
+                itemsContainerEl.appendChild(itemEl);
+            });
+        
+        // the complete element is the parent of the input
+        const autocompleteEl = inputEl.parentNode;
+        
+        // appends the element to the autocomplete element
+        autocompleteEl.appendChild(itemsContainerEl);
+    }
+    
+    inputEl.addEventListener('change', (e) => {
+        const inputEl = e.currentTarget;
+        const inputValue = inputEl.value;
+        
+        if (!inputValue) {
+            // clear the value
+            submitFn('');
+        }
+    });
+    
+    inputEl.addEventListener('focus', updateDropdown);
+    
+    // execute a function when input value changes
+    inputEl.addEventListener('input', updateDropdown);
+    
+    // execute a function when key is pressed
+    inputEl.addEventListener('click', (e) => {
+        const inputEl = e.currentTarget;
+        const { id } = inputEl;
+        let itemsContainerEl = document.getElementById(`${id}autocomplete-list`);
+        
+        if (itemsContainerEl) {
+            updateDropdown(e);
+        }
+    });
+    
+    // execute a function when key is pressed
+    inputEl.addEventListener('keydown', (e) => {
+        const inputEl = e.currentTarget;
+        const { id } = inputEl;
+        let itemsContainerEl = document.getElementById(`${id}autocomplete-list`);
+        let itemsList;
+        
+        if (itemsContainerEl) {
+            itemsList = itemsContainerEl.getElementsByTagName('div');
+        }
+        
+        switch (e.keyCode) {
+            // up
+            case 40: {
+                currentFocus++;
+                
+                // update the active selected element
+                updateActiveItem(itemsList);
+            } break;
+            // down
+            case 38: {
+                currentFocus--;
+                
+                // update the active selected element
+                updateActiveItem(itemsList);
+            } break;
+            // enter
+            case 13: {
+                // prevent the form from being submitted
+                // e.preventDefault();
+                
+                if (currentFocus > -1 && itemsList) {
+                    // force click event on the active item
+                    itemsList[currentFocus].click();
+                }
+            } break;
+        }
+    });
+    
+    // execute a function when someone clicks in the document
+    document.addEventListener('click', (e) => {
+        closeAllLists(e.target);
+    });
+}
 
 /**
  * Builds filters for listings.
@@ -9,47 +209,39 @@ import { uniq } from '../../helpers/utils.js';
  * @param {Object} Class - Listing class object.
  * @param {Object} options - Options.
  * @param {Localization} options.locales - Locale strings.
+ * @param {number} options.locales - Query limit.
  * @param {Function} [options.onChange] - Function to call on filter change.
  * @returns {HTMLElement} DOM element.
  * @namespace Layout.listings.buildFilters
  */
-export function buildFilters(records, Class, options) {
+export async function buildFilters(table, records, Class, options) {
     /**
      * Builds index of options.
      * @returns {Object} Index of records.
      */
-    function buildIndex() {
-        let index = {};
+    async function buildIndex() {
+        const index =  {
+            market_name: [],
+            name_color: [],
+            appid: []
+        };
+        const [
+            first,
+            last
+        ] = await Promise.all([
+            table.orderBy('index').first(),
+            table.orderBy('index').last()
+        ]);
         
-        index.market_name = '';
+        index.is_credit = [0, 1];
         index.dates = {};
         
-        [
-            'appid',
-            'name_color',
-            'is_credit'
-        ].forEach((k) => {
-            index[k] = uniq(records.map(record => record[k]));
-        });
-        
-        index.name_color = index.name_color.filter((a) => a);
-        
-        if (records.length > 0) {
-            // records are sorted from newest to oldest
-            const first = records[records.length - 1];
-            const last = records[0];
-            
-            index.dates = {
-                start: first.date_acted,
-                end: last.date_acted
-            };
+        if (first) {
+            index.dates.start = first.date_acted;
         }
         
-        for (let k in index) {
-            // remove single or 0 value indices
-            if (Array.isArray(index[k]) && index[k].length <= 1) {
-                delete index[k];
-            }
+        if (last) {
+            index.dates.end = last.date_acted;
         }
         
         return index;
@@ -103,23 +295,12 @@ export function buildFilters(records, Class, options) {
                 
                 // this is important for the event to function properly
                 return e;
-            },
-            textFieldKeyUp: function(e) {
-                const inputEl = e.target;
-                
-                // on enter
-                if (e.which == 13) {
-                    // update the field
-                    inputEl.dispatchEvent(new Event('change'));
-                }
             }
         };
         const draw = {
             dateField: function(id, name, dates) {
-                if (!dates.start) return;
-                
-                function bindEvents() {
-                    inputEl.addEventListener('change', events.textFieldChange);
+                if (!dates.start) {
+                    return;
                 }
                 
                 function formatDate(date) {
@@ -148,7 +329,9 @@ export function buildFilters(records, Class, options) {
                 containerEl.append(labelEl);
                 containerEl.append(inputEl);
                 
-                bindEvents();
+                // bind the events
+                inputEl.addEventListener('change', events.textFieldChange);
+                
                 dateContainer.append(containerEl);
             },
             dropdown: function(name, list) {
@@ -166,7 +349,14 @@ export function buildFilters(records, Class, options) {
                     }
                 }
                 
-                function bindEvents() {
+                function addOptions(list) {
+                    const optionsHTML = ['<a class="none" href="#">(none)</a>'].concat(list.map((value) => {
+                        return `<a data-value="${value}" href="#">${getOptionText(value)}</a>`;
+                    })).join('');
+                    
+                    contentEl.innerHTML = optionsHTML;
+                
+                    // bind the events
                     Array.from(contentEl.getElementsByTagName('a')).forEach((optionEl) => {
                         optionEl.addEventListener('click', events.dropdownChange);
                     });
@@ -176,14 +366,16 @@ export function buildFilters(records, Class, options) {
                 const dropdownEl = document.createElement('div');
                 const buttonEl = document.createElement('div');
                 const contentEl = document.createElement('div');
-                const optionsHTML = ['<a class="none" href="#">(none)</a>'].concat(list.map((value) => {
-                    return `<a data-value="${value}" href="#">${getOptionText(value)}</a>`;
-                })).join('');
+                
+                if (isLazyLoadedField(name)) {
+                    table.orderBy(name).uniqueKeys().then(addOptions);
+                } else {
+                    addOptions(list);
+                }
                 
                 dropdownEl.appendChild(buttonEl);
                 dropdownEl.appendChild(contentEl);
                 buttonEl.textContent = fieldName;
-                contentEl.innerHTML = optionsHTML;
                 
                 buttonEl.classList.add('button');
                 contentEl.classList.add('dropdown-content', 'hidden');
@@ -191,28 +383,58 @@ export function buildFilters(records, Class, options) {
                 dropdownEl.setAttribute('data-name', name);
                 dropdownEl.setAttribute('data-default', fieldName);
                 
-                bindEvents();
                 fragment.append(dropdownEl);
             },
-            textField: function(name) {
-                function bindEvents() {
-                    textEl.addEventListener('keyup', events.textFieldKeyUp);
-                    textEl.addEventListener('input', events.textFieldInput);
-                    textEl.addEventListener('change', events.textFieldChange);
+            textField: function(name, values) {
+                function autocomplete(values) {
+                    addAutocompleteToField(textEl, values, (value) => {
+                        const inputEl = textEl;
+                        
+                        checkInputState(inputEl);
+                        
+                        if (value === '') {
+                            removeQuery(name);
+                        } else {
+                            queryChange(name, value);
+                        }
+                    });
                 }
                 
                 const wrapperEl = document.createElement('div');
                 const fieldName = getName(name);
                 const textEl = document.createElement('input');
                 
-                wrapperEl.classList.add('item');
+                wrapperEl.classList.add('item', 'autocomplete');
                 textEl.setAttribute('type', 'text');
                 textEl.setAttribute('placeholder', fieldName);
                 textEl.setAttribute('data-name', name);
                 textEl.setAttribute('data-default', fieldName);
+                textEl.setAttribute('id', `input-${name}`);
                 wrapperEl.append(textEl);
                 
-                bindEvents();
+                if (isLazyLoadedField(name)) {
+                    // adds a spinner
+                    //const spinnerEl = document.createElement('div');
+                    //const iconEl = document.createElement('i');
+                    //
+                    //spinnerEl.classList.add('input-spinner');
+                    //iconEl.classList.add('fas', 'fa-spinner', 'fa-spin');
+                    //
+                    //spinnerEl.appendChild(iconEl);
+                    //wrapperEl.appendChild(spinnerEl);
+                    
+                    textEl.setAttribute('disabled', '');
+                    table.orderBy(name).uniqueKeys().then((values) => {
+                        textEl.removeAttribute('disabled');
+                        autocomplete(values);
+                    });
+                } else {
+                    autocomplete(values);
+                }
+                
+                // bind the events
+                textEl.addEventListener('input', events.textFieldInput);
+                
                 fragment.append(wrapperEl);
             }
         };
@@ -241,7 +463,7 @@ export function buildFilters(records, Class, options) {
                     draw.dateField('end', 'before_date', v);
                     break;
                 case 'market_name':
-                    draw.textField(k);
+                    draw.textField(k, v);
                     break;
                 default:
                     draw.dropdown(k, v);
@@ -249,17 +471,20 @@ export function buildFilters(records, Class, options) {
             }
         }
         
-        if (records.length > 0) {
-            if (index.dates.start && index.dates.start.getTime() !== index.dates.end.getTime()) {
-                
-                dateContainer.classList.add('dates');
-                fragment.append(dateContainer);
-            }
-            
-            Object.keys(index).forEach((k) => {
-                addIndex(k, index[k]);
-            });
+        // indicates that a field must have its values lazy-loaded
+        function isLazyLoadedField(name) {
+            return valueFields.includes(name);
         }
+        
+        if (index.dates.start && index.dates.start.getTime() !== index.dates.end.getTime()) {
+            dateContainer.classList.add('dates');
+            
+            fragment.append(dateContainer);
+        }
+        
+        Object.keys(index).forEach((k) => {
+            addIndex(k, index[k]);
+        });
         
         return fragment;
     }
@@ -267,90 +492,148 @@ export function buildFilters(records, Class, options) {
     /**
      * Updates filter queries.
      * @param {string} [only] - Only filter using this key.
-     * @returns {undefined}
+     * @returns {Promise.<void>} Resolves when done.
      */
-    function updateQuery(only) {
-        function getIndex(key) {
-            // fastest order to sort records
-            let fastest = ['is_credit', 'name_color', 'appid', 'year'];
-            let index = fastest.indexOf(key);
+    async function updateQuery(only) {
+        // obtain a collection without a .where clause
+        function noQuery() {
+            const collection = table.limit(limit).sortBy('index');
             
-            return index !== -1 ? index : 1000;
+            onChange(filteredRecords, collection);
         }
         
-        function makeDate(str) {
-            const [year, month, day] = str.split('-').map((value) => {
-                return parseInt(value);
-            });
-            
-            return new Date(Date.UTC(year, month - 1, day, 12));
-        }
-        
-        /**
-         * Filters records by key and value pair.
-         * @param {string} k - Key.
-         * @param {*} v - Value.
-         * @returns {Array} Filtered array.
-         */
-        function filterFrom(k, v) {
-            let arr = [];
-            let fn;
-            
-            // get function for filtering index
-            switch (k) {
-                case 'after_date':
-                    v = makeDate(v).getTime();
-                    fn = function(record) {
-                        return record.date_acted.getTime() >= v;
-                    };
-                    break;
-                case 'before_date':
-                    v = makeDate(v).getTime();
-                    fn = function(record) {
-                        return record.date_acted.getTime() <= v;
-                    };
-                    break;
-                case 'year':
-                    v = parseInt(v);
-                    fn = function(record) {
-                        return record.date_acted.getUTCFullYear() == v;
-                    };
-                    break;
-                case 'market_name':
-                    v = v.toLowerCase();
-                    fn = function(record) {
-                        return record.market_name.toLowerCase().indexOf(v) !== -1;
-                    };
-                    break;
-                default:
-                    fn = function(record) {
-                        return record[k] == v;
-                    };
-                    break;
+        // obtain a collection using a query
+        async function doQuery() {
+            // gets details for compound query
+            function getCompoundQueryDetails(k) {
+                // comparison functions
+                const compareFns = {
+                    above: (a, b) => {
+                        return Boolean(
+                            a &&
+                            b &&
+                            a > b
+                        );
+                    },
+                    below: (a, b) => {
+                        return Boolean(
+                            a &&
+                            b &&
+                            a < b
+                        );
+                    },
+                    aboveOrEqual: (a, b) => {
+                        return Boolean(
+                            a &&
+                            b &&
+                            a >= b
+                        );
+                    },
+                    belowOrEqual: (a, b) => {
+                        return Boolean(
+                            a &&
+                            b &&
+                            a <= b
+                        );
+                    },
+                    equals: (a, b) => {
+                        return a === b;
+                    }
+                };
+                const compoundQuery = compoundQueries[k];
+                const value = query[k];
+                const { field, key, converter } = compoundQuery;
+                const convertedValue = (
+                    converter ?
+                        converter(value) :
+                        value
+                );
+                const compare = compareFns[key];
+                
+                return {
+                    field,
+                    key,
+                    compare,
+                    convertedValue
+                };
             }
             
-            for (let i = 0; i < filteredRecords.length; i++) {
-                if (fn(filteredRecords[i])) {
-                    arr.push(filteredRecords[i]);
-                }
+            // we clone the query
+            const baseQuery = {
+                ...query
+            };
+            
+            // then remove all special keys to form the base query
+            // of all keys that are exact values
+            // everything except dates where math must be done
+            Object.keys(compoundQueries)
+                .forEach((k) => {
+                    delete baseQuery[k];
+                });
+            
+            let collection;
+            
+            // begin the query
+            if (Object.keys(baseQuery).length > 0) {
+                collection = table.where(baseQuery);
             }
             
-            return arr;
+            // add compounds
+            let compoundQueryKeys = Object.keys(query)
+                // filter to only keys where a compound exists
+                .filter((k) => {
+                    return compoundQueries[k] !== undefined;
+                });
+            
+            // collection is not defined
+            if (compoundQueryKeys.length > 0 && collection === undefined) {
+                // take the first key and remove it from the array
+                const k = compoundQueryKeys.shift();
+                const {
+                    field,
+                    key,
+                    convertedValue
+                } = getCompoundQueryDetails(k);
+                
+                collection = table.where(field)[key](convertedValue);
+            }
+            
+            // create a comparison function for each compound query key
+            const comparisons = compoundQueryKeys
+                .map((k) => {
+                    const {
+                        field,
+                        compare,
+                        convertedValue
+                    } = getCompoundQueryDetails(k);
+                    
+                    return (record) => {
+                        return compare(record[field], convertedValue);
+                    };
+                });
+            
+            if (comparisons.length > 0) {
+                // and check that each comparison matches
+                collection = collection.and((record) => {
+                    return comparisons.every((compare) => {
+                        return compare(record);
+                    });
+                });
+            }
+            
+            // fetch the records
+            filteredRecords = await collection.limit(limit).sortBy('index');
+            filteredRecords = filteredRecords.reverse();
+            
+            onChange(filteredRecords, collection);
         }
         
-        // if 'only' is provided...
-        // we only need to filter based on that key alone
-        // otherwise we build a query from the current query
-        const keys = only ? [only] : Object.keys(query).sort((a, b) => {
-            return getIndex(a) - getIndex(b);
-        });
+        if (Object.keys(query).length === 0) {
+            // no query is necessary to complete this
+            return noQuery();
+        }
         
-        keys.forEach((k) => {
-            // this is faster than filtering by all properties for each record
-            filteredRecords = filterFrom(k, query[k]);
-        });
-        
-        onChange(filteredRecords);
+        return doQuery();
     }
     
     function addQuery(key, val) {
@@ -367,7 +650,12 @@ export function buildFilters(records, Class, options) {
             only = key;
         }
         
+        if (key === 'is_credit') {
+            val = parseInt(val);
+        }
+        
         query[key] = val;
+        
         updateQuery(only);
     }
     
@@ -382,7 +670,11 @@ export function buildFilters(records, Class, options) {
         addQuery(key, val);
     }
     
-    const { locales } = options;
+    function toDate(str) {
+        return new Date(str);
+    }
+    
+    const { limit, locales } = options;
     const classDisplay = Class.makeDisplay(locales);
     const uiLocales = Object.assign({}, {
         names: {
@@ -394,9 +686,28 @@ export function buildFilters(records, Class, options) {
     // the function called on filter change
     const onChange = options.onChange || function() {};
     // the total records
-    const totalRecords = records;
+    const totalRecords = records.slice(0);
     // filter indexes built from records
-    const index = buildIndex(records);
+    const index = await buildIndex(records);
+    // fields that must be loaded
+    const valueFields = [
+        'market_name',
+        'name_color',
+        'appid'
+    ];
+    // queries that are compounded
+    const compoundQueries = {
+        after_date: {
+            field: 'date_acted',
+            converter: toDate,
+            key: 'above',
+        },
+        before_date: {
+            field: 'date_acted',
+            converter: toDate,
+            key: 'below'
+        }
+    };
     // current filter query
     let query = {};
     // currently filtered records

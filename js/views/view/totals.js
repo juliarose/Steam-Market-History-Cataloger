@@ -1,6 +1,6 @@
 'use strict';
 
-import { buildApp } from '../../app/app.js';
+import { readyState } from '../../app/readyState.js';
 import { Layout } from '../../app/layout/layout.js';
 import { Listing } from '../../app/classes/listing.js';
 
@@ -8,15 +8,20 @@ const page = {
     results: document.getElementById('results')
 };
 
-async function onReady() {
-    try {
-        onApp(await buildApp());
-    } catch (error) {
-        Layout.error(error);
-    }
+    
+async function map(collection, mapperFn) {
+    const result = [];
+    
+    return collection
+        .each((row) => {
+            result.push(mapperFn(row));
+        })
+        .then(() => {
+            return result;
+        });
 }
 
-function onApp(app) {
+async function onApp(app) {
     function buildSummaries(records) {
         const options = Object.assign({}, Layout.getLayoutOptions(app), {
             count: 1e3
@@ -30,13 +35,24 @@ function onApp(app) {
         buildSummaries(records);
     }
     
-    app.ListingDB.listings.toArray()
-        .then((records) => {
-            // this is faster than sorting in dexie
-            records = records.sort((a, b) => b.index - a.index);
-            onRecords(records);
-            Layout.ready();
-        });
+    const collection = app.ListingDB.listings;
+    // we want to pick only certain keys to save memory
+    // this can be improved by iterating over each record to add to the totals displayed
+    // source - https://github.com/dfahlander/Dexie.js/issues/468#issuecomment-276961594
+    let records = await map(collection, (record) => {
+        return {
+            is_credit: record.is_credit,
+            index: record.index,
+            appid: record.appid,
+            date_acted: record.date_acted,
+            price: record.price
+        };
+    });
+    
+    records = records.sort((a, b) => b.index - a.index);
+    onRecords(records);
+    Layout.ready();
 }
 
-onReady();
+// ready
+readyState(onApp, Layout.error);

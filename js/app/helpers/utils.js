@@ -3,29 +3,13 @@
 // Utilities used throughout app
 
 /**
- * Delays a promise.
+ * Sleeps for a set amount of time.
  * @param {number} [time=1000] - Time in ms to delay.
- * @param {*} [value] - Value to pass to resolve.
  * @returns {Promise} Promise that resolves after the given delay.
  */
-export async function delayPromise(time, value) {
+export async function sleep(time = 1000) {
     return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve(value);
-        }, time);
-    });
-}
-
-/**
- * Pauses for an amount of time.
- * @param {number} time - Time in ms to delay.
- * @returns {Promise} Resolve when done.
- */
-export async function sleep(time) {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve();
-        }, time);
+        setTimeout(resolve, time);
     });
 }
 

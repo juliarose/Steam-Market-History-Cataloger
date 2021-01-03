@@ -6,9 +6,8 @@
 
 import { Layout } from '../app/layout/layout.js';
 
-function onReady() {
+// ready
+(function() {
     // add page loading indicator
     Layout.addPageLoader();
-}
-
-onReady();
+}());

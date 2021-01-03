@@ -1,6 +1,6 @@
 'use strict';
 
-import { buildApp } from '../app/app.js';
+import { readyState } from '../app/readyState.js';
 import { Layout } from '../app/layout/layout.js';
 import { Listing } from '../app/classes/listing.js';
 import { createListingManager } from '../app/manager/listingsmanager.js';
@@ -18,14 +18,6 @@ const page = {
         listingCount: document.getElementById('listing-count').querySelector('.value')
     }
 };
-
-async function onReady() {
-    try {
-        onApp(await buildApp());
-    } catch (error) {
-        Layout.error(error);
-    }
-}
 
 function onApp(app) {
     async function render() {
@@ -136,4 +128,5 @@ function onApp(app) {
     render().then(Layout.ready);
 }
 
-onReady();
+// ready
+readyState(onApp, Layout.error);

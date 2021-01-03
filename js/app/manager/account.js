@@ -6,9 +6,9 @@ import { Localization } from '../classes/localization.js';
 
 /**
  * Creates an AccountManager.
- * @returns {AccountManager} A new AccountManager.
+ * @returns {Promise.<AccountManager>} A new AccountManager.
  */
-export function createAccountManager() {
+export async function createAccountManager() {
     /**
      * Current logged in user settings manager.
      * @class AccountManager
@@ -64,58 +64,51 @@ export function createAccountManager() {
                 }
                 
                 account.wallet.currency = getCurrency(this.settings.wallet_currency);
-            },
-            /**
-             * Configures the module.
-             * @memberOf AccountManager.info
-             * @returns {Promise} Resolve when done, reject when data is missing.
-             */
-            setup: async function() {
-                await this.getAndMergeSettings();
-                
-                if (!this.settings.wallet_currency) {
-                    return Promise.reject('No wallet detected.');
-                }
-                
-                if (!this.settings.language) {
-                    return Promise.reject('No language detected');
-                }
-                
-                this.assignWalletValues();
-                
-                if (!account.wallet.currency) {
-                    const currencyID = this.settings.wallet_currency;
-                    
-                    // currency was not found on sotrage
-                    return Promise.reject(`No currency detected with ID "${currencyID}"`);
-                }
-                
-                account.language = this.settings.language;
-                account.locales = await Localization.get(account.language);
             }
-        }),
-        /**
-         * Configures the module.
-         * @memberOf AccountManager
-         * @returns {Promise} Resolve when done.
-         */
-        setup: async function() {
-            // get english as the default language
-            this.locales = await Localization.get('english');
-            
-            await this.getAndMergeSettings();
-            
-            this.steamid = this.settings.steamcommunity;
-            this.username = this.settings.username;
-            this.avatar = this.settings.avatar;
-            
-            if (!this.steamid) {
-                return Promise.reject('No steamcommunity.com login detected. Either login or view a page on steamcommunity.com to configure login.');
-            }
-            
-            await this.info.setup();
-        }
+        })
     });
+    
+    // Configures the module.
+    await (async function() {
+        // get english as the default language
+        account.locales = await Localization.get('english');
+        
+        await account.getAndMergeSettings();
+        
+        account.steamid = account.settings.steamcommunity;
+        account.username = account.settings.username;
+        account.avatar = account.settings.avatar;
+        
+        if (!account.steamid) {
+            return Promise.reject('No steamcommunity.com login detected. Either login or view a page on steamcommunity.com to configure login.');
+        }
+        
+        const { info } = account;
+        
+        await (async function() {
+            await info.getAndMergeSettings();
+            
+            if (!info.settings.wallet_currency) {
+                return Promise.reject('No wallet detected.');
+            }
+            
+            if (!info.settings.language) {
+                return Promise.reject('No language detected');
+            }
+            
+            info.assignWalletValues();
+            
+            if (!account.wallet.currency) {
+                const currencyID = info.settings.wallet_currency;
+                
+                // currency was not found on sotrage
+                return Promise.reject(`No currency detected with ID "${currencyID}"`);
+            }
+            
+            account.language = info.settings.language;
+            account.locales = await Localization.get(account.language);
+        }());
+    }());
     
     return account;
 }

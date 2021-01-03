@@ -1,6 +1,6 @@
 'use strict';
 
-import { buildApp } from '../app/app.js';
+import { readyState } from '../app/readyState.js';
 import { formatLocaleNumber } from '../app/money.js';
 import { Layout } from '../app/layout/layout.js';
 import { createListingManager } from '../app/manager/listingsmanager.js';
@@ -19,71 +19,7 @@ const page = {
     listingsDescription: document.getElementById('listings-description')
 };
 
-async function onReady() {
-    try {
-        await buildApp().then(onApp);
-    } catch (error) {
-        page.loggedInButtons.forEach((el) => {
-            el.remove();
-        });
-        page.profile.innerHTML = `<p class="app-error">${escapeHTML(error)}</p>`;
-    }
-}
-
-function onApp(app) {
-    function addListeners() {
-        page.inputs.forEach((inputEl) => {
-            inputEl.addEventListener('change', (e) => {
-                updateField(e.target);
-            });
-        });
-        
-        page.deleteData.addEventListener('click', () => {
-            const yes = confirm('Do you really want to do this?');
-            
-            if (yes) {
-                deleteData()
-                    .then(() => {
-                        window.location.reload();
-                    });
-            }
-        });
-        
-        page.deleteAfterIndexButton.addEventListener('click', () => {
-            const indexValue = page.deleteAfterIndex.value;
-            const indexIsNumber = isNumber(indexValue);
-            
-            if (indexIsNumber) {
-                const index = parseInt(indexValue);
-                const yes = confirm(`Delete listings appearing after index ${index}?`);
-                
-                if (yes) {
-                    deleteAfter(index);
-                    page.deleteAfterIndexButton.remove();
-                }
-            }
-        });
-    }
-    
-    // autofills from saved preferences
-    function autofill() {
-        for (let k in preferences.settings) {
-            const element = document.getElementById(k);
-            const value = preferences.settings[k];
-            
-            if (element) {
-                if (element.type === 'checkbox') {
-                    element.checked = value;
-                } else {
-                    element.value = value;
-                }
-            }
-        }
-        
-        // then update the state
-        updateState();
-    }
-    
+async function onApp(app) {
     // updates state of form based on current values
     function updateState() {
         if (page.bgPollBoolean.checked) {
@@ -124,21 +60,71 @@ function onApp(app) {
         ]);
     }
     
-    function deleteAfter(index) {
-        // select the listings above the index and delete them
-        app.ListingDB.listings.where('index').above(index).delete()
-            .then(() => {
-                // then reset the settings
-                return listingManager.reset();
-            });
-    }
+    const { preferences } = app;
+    const listingManager = createListingManager(app);
     
-    function getData() {
-        return updateCount();
-    }
+    // add listeners
+    (function() {
+        page.inputs.forEach((inputEl) => {
+            inputEl.addEventListener('change', (e) => {
+                updateField(e.target);
+            });
+        });
+        
+        page.deleteData.addEventListener('click', () => {
+            const yes = confirm('Do you really want to do this?');
+            
+            if (yes) {
+                deleteData()
+                    .then(() => {
+                        window.location.reload();
+                    });
+            }
+        });
+        
+        page.deleteAfterIndexButton.addEventListener('click', () => {
+            const indexValue = page.deleteAfterIndex.value;
+            const indexIsNumber = isNumber(indexValue);
+            
+            if (indexIsNumber) {
+                const index = parseInt(indexValue);
+                const yes = confirm(`Delete listings appearing after index ${index}?`);
+                
+                if (yes) {
+                    // select the listings above the index and delete them
+                    app.ListingDB.listings.where('index').above(index).delete()
+                        .then(() => {
+                            // then reset the settings
+                            return listingManager.reset();
+                        });
+                    
+                    page.deleteAfterIndexButton.remove();
+                }
+            }
+        });
+    }());
+
+    // autofills from saved preferences
+    (function autofill() {
+        for (let k in preferences.settings) {
+            const element = document.getElementById(k);
+            const value = preferences.settings[k];
+            
+            if (element) {
+                if (element.type === 'checkbox') {
+                    element.checked = value;
+                } else {
+                    element.value = value;
+                }
+            }
+        }
+        
+        // then update the state
+        updateState();
+    }());
     
     // updates the displayed count on page
-    async function updateCount() {
+    await (async function() {
         const settings = await listingManager.getSettings();
         const count = settings.recorded_count || 0;
         const language = settings.language;
@@ -168,14 +154,15 @@ function onApp(app) {
         }
         
         return;
-    }
+    }());
     
-    const { preferences } = app;
-    const listingManager = createListingManager(app);
-
-    autofill();
-    addListeners();
-    getData().then(Layout.ready);
+    Layout.ready();
 }
 
-onReady();
+// ready
+readyState(onApp, (error) => {
+    page.loggedInButtons.forEach((el) => {
+        el.remove();
+    });
+    page.profile.innerHTML = `<p class="app-error">${escapeHTML(error)}</p>`;
+});

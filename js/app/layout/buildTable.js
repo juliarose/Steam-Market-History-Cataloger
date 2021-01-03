@@ -1,9 +1,9 @@
 'use strict';
 
 import { escapeHTML, escapeRegExp, printDate } from '../helpers/utils.js';
-import { download } from '../helpers/download.js';
+import { download, downloadCollection } from '../helpers/download.js';
 import { formatMoney } from '../money.js';
-import { buildFile } from '../buildFile.js';
+import { buildFile, getStreamDownloadOptions } from '../buildFile.js';
 
 /**
  * Gets list of classes for each column in 'columns'.
@@ -184,29 +184,6 @@ export function buildTable(records, Class, options) {
             return `<div class="${tableClass} empty-table">${tableLocales.empty}</div>`;
         },
         controls: function(location, canAddDownloadControls) {
-            const downloadControls = () => {
-                return (
-                    '<div class="item dropdown">' +
-                        `<div class="button">${tableLocales.download}</div>` +
-                        '<div class="dropdown-content hidden">' +
-                          '<a data-value="csv" href="#">CSV</a>' +
-                          '<a data-value="json" href="#">JSON</a>' +
-                        '</div>' +
-                    '</div>'
-                );
-            };
-            const paginationControls = () => {
-                return (
-                    '<div class="item pagination">' +
-                        // page input - may add in later
-                        // `<div class="index"><input type="number" value="${page}" min="1" ` +
-                        // `max="${getTotalPages()}"/><div class="range">${getIndexText()}</div></div>` +
-                        `<div class="index" data-page="${pagination.page}">${pagination.getIndexText()}</div>` +
-                        `<div class="button control previous disabled">${tableLocales.previous}</div>` +
-                        `<div class="button control next">${tableLocales.next}</div>` +
-                    '</div>'
-                );
-            };
             const totalPages = pagination.getTotalPages();
             const canAddPaginationControls = totalPages > 1;
             let contents = '';
@@ -216,26 +193,38 @@ export function buildTable(records, Class, options) {
             }
             
             if (canAddPaginationControls) {
-                contents += paginationControls();
+                contents += (
+                    '<div class="item pagination">' +
+                        // page input - may add in later
+                        // `<div class="index"><input type="number" value="${page}" min="1" ` +
+                        // `max="${getTotalPages()}"/><div class="range">${getIndexText()}</div></div>` +
+                        `<div class="index" data-page="${pagination.page}">${pagination.getIndexText()}</div>` +
+                        `<div class="button control previous disabled">${tableLocales.previous}</div>` +
+                        `<div class="button control next">${tableLocales.next}</div>` +
+                    '</div>'
+                );
             }
             
             if (canAddDownloadControls) {
-                contents += downloadControls();
+                contents += (
+                    '<div class="item dropdown">' +
+                        `<div class="button">${tableLocales.download}</div>` +
+                        '<div class="dropdown-content hidden">' +
+                          '<a data-value="csv" href="#">CSV</a>' +
+                          '<a data-value="json" href="#">JSON</a>' +
+                        '</div>' +
+                    '</div>'
+                );
             }
             
-            if (records.length === 0 || contents.length === 0) {
-                // nothing to be done
-                return '';
-            } else {
-                return `<div class="table-controls controls ${location}">${contents}</div>`;
-            }
+            return `<div class="table-controls controls ${location}">${contents}</div>`;
         },
         title: function() {
-            if (options.title) {
-                return `<h4 class="table-title">${escapeHTML(options.title)}</h4>`;
-            } else {
+            if (!options.title) {
                 return '';
             }
+            
+            return `<h4 class="table-title">${escapeHTML(options.title)}</h4>`;
         },
         table: function() {
             const getHead = () => {
@@ -336,96 +325,29 @@ export function buildTable(records, Class, options) {
     };
     
     function getTable() {
-        function bindEvents() {
-            // use sort from existing table
-            function getSort() {
-                const existingEl = document.querySelector(`table.${tableClass} th[data-direction]`);
-                
-                if (existingEl == null) {
-                    return;
+        if (records.length > 0) {
+            // draw the table
+            tableEl.classList.add('table-wrapper');
+            tableEl.innerHTML = [
+                getHTML.controls('top', !options.no_download && true),
+                getHTML.table(),
+                getHTML.controls('bottom')
+            ].join('');
+            // get table elements for binding events
+            page = {
+                body: tableEl.querySelector('tbody'),
+                rows: tableEl.querySelectorAll('tbody tr'),
+                sortable: tableEl.querySelectorAll('th[data-sort-column]'),
+                dropdowns: tableEl.querySelectorAll('.dropdown .dropdown-content a'),
+                pagination: {
+                    controls: tableEl.querySelectorAll('.pagination .next, .pagination .previous'),
+                    previousList: tableEl.querySelectorAll('.pagination .previous'),
+                    nextList: tableEl.querySelectorAll('.pagination .next'),
+                    indexList: tableEl.querySelectorAll('.pagination .index')
                 }
-                
-                const data = existingEl.dataset;
-                const column = data.column;
-                const foundEl = tableEl.querySelector(`th[data-column="${column}"]`);
-                
-                if (foundEl == null) {
-                    return;
-                }
-                
-                const direction = parseInt(data.direction) * -1;
-                const event = new Event('click');
-                
-                foundEl.setAttribute('data-direction', direction);
-                foundEl.dispatchEvent(event);
-            }
-            
-            function getPage() {
-                if (!options.keep_page) {
-                    return;
-                }
-                
-                const existingTableEl = document.querySelector(`table.${tableClass}`);
-                const indexEl = (
-                    existingTableEl &&
-                    existingTableEl.parentNode.querySelector('.pagination .index')
-                );
-                
-                if (indexEl != null) {
-                    const data = indexEl.dataset;
-                    const page = data.page && parseInt(data.page);
-                    // the page has changed
-                    const pageChanged = Boolean(
-                        page &&
-                        // this will go to the given page, if possible,
-                        // and return whether the page was changed or not
-                        pagination.goTo(page)
-                    );
-                    
-                    if (pageChanged) {
-                        // the table is re-drawn
-                        // but will effectively look like it did before it was re-rendered
-                        // update the pagination
-                        pagination.update();
-                    }
-                }
-            }
-            
-            function bindRowEvents() {
-                // this will only work with items that contain a primary key
-                // may redo this later to work with data that does not include a primary key
-                if (!Class.primary_key || !page.body || !display.events) {
-                    return;
-                }
-                
-                function bindEvent(eventName) {
-                    // this will get the record from the target of the row
-                    function getRecord(target) {
-                        const pattern = new RegExp(`^${escapeRegExp(Class.identifier)}_`);
-                        // extract the id from the row class by replacing its identifier
-                        const id = (target.closest('tr').id || '').replace(pattern, '');
-                        const primaryKey = Class.primary_key;
-                        
-                        return records.find((record) => {
-                            // type-agnostic check
-                            // the id value will always be a string but the value from a record may not
-                            return record[primaryKey] == id;
-                        });
-                    }
-                    
-                    page.body.addEventListener(eventName, (e) => {
-                        const record = getRecord(e.target);
-                        
-                        if (record != null) {
-                            display.events[eventName](e, record);
-                        }
-                    });
-                }
-                
-                Object.keys(display.events).forEach(bindEvent);
-            }
-            
-            function bind() {
+            };
+            // bind events to columns and pagination controls
+            (function () {
                 // changes the page
                 function changePage(e) {
                     const controlEl = e.target;
@@ -440,15 +362,35 @@ export function buildTable(records, Class, options) {
                 
                 // downloads the records
                 function downloadRecords(e) {
+                    function downloadStatic() {
+                        const data = buildFile(records, Class, options, format);
+                        
+                        if (data) {
+                            download(filename, data);
+                        }
+                    }
+                    
                     // the format option selected
                     const format = e.target.dataset.value;
+                    const filename = 'records.' + format;
                     // generate the data for this format
-                    const data = buildFile(records, Class, options, format);
+                    const { table, collection } = options;
                     
-                    if (data) {
-                        const filename = 'records.' + format;
-                        
-                        download(filename, data);
+                    if (collection) {
+                        collection.count()
+                            .then((count) => {
+                                // we already loaded all the records
+                                // this is much faster
+                                if (count === records.length) {
+                                    downloadStatic();
+                                } else {
+                                    const downloadOptions = getStreamDownloadOptions(Class, options, format);
+                                    
+                                    downloadCollection(filename, table, collection, downloadOptions);
+                                }
+                            });
+                    } else {
+                        downloadStatic();
                     }
                 }
                 
@@ -490,44 +432,98 @@ export function buildTable(records, Class, options) {
                 addListeners(page.sortable, 'click', sortColumn);
                 addListeners(page.dropdowns, 'click', downloadRecords);
                 addListeners(page.pagination.controls, 'click', changePage);
-            }
-            
-            // bind events to columns and pagiation constrols
-            bind();
+            }());
             // bind events to the table rows
-            bindRowEvents();
+            (function() {
+                // this will only work with items that contain a primary key
+                // may redo this later to work with data that does not include a primary key
+                if (!Class.primary_key || !page.body || !display.events) {
+                    return;
+                }
+                
+                function bindEvent(eventName) {
+                    // this will get the record from the target of the row
+                    function getRecord(target) {
+                        const pattern = new RegExp(`^${escapeRegExp(Class.identifier)}_`);
+                        // extract the id from the row class by replacing its identifier
+                        const id = (target.closest('tr').id || '').replace(pattern, '');
+                        const primaryKey = Class.primary_key;
+                        
+                        return records.find((record) => {
+                            // type-agnostic check
+                            // the id value will always be a string but the value from a record may not
+                            return record[primaryKey] == id;
+                        });
+                    }
+                    
+                    page.body.addEventListener(eventName, (e) => {
+                        const record = getRecord(e.target);
+                        
+                        if (record != null) {
+                            display.events[eventName](e, record);
+                        }
+                    });
+                }
+                
+                Object.keys(display.events).forEach(bindEvent);
+            }());
             // get the current sort
-            getSort();
+            (function () {
+                const existingEl = document.querySelector(`table.${tableClass} th[data-direction]`);
+                
+                if (existingEl == null) {
+                    return;
+                }
+                
+                const data = existingEl.dataset;
+                const column = data.column;
+                const foundEl = tableEl.querySelector(`th[data-column="${column}"]`);
+                
+                if (foundEl == null) {
+                    return;
+                }
+                
+                const direction = parseInt(data.direction) * -1;
+                const event = new Event('click');
+                
+                foundEl.setAttribute('data-direction', direction);
+                foundEl.dispatchEvent(event);
+            }());
             // get the current page
-            getPage();
-        }
-        
-        if (records.length === 0) {
+            (function () {
+                if (!options.keep_page) {
+                    return;
+                }
+                
+                const existingTableEl = document.querySelector(`table.${tableClass}`);
+                const indexEl = (
+                    existingTableEl &&
+                    existingTableEl.parentNode.querySelector('.pagination .index')
+                );
+                
+                if (indexEl != null) {
+                    const data = indexEl.dataset;
+                    const page = data.page && parseInt(data.page);
+                    // the page has changed
+                    const pageChanged = Boolean(
+                        page &&
+                        // this will go to the given page, if possible,
+                        // and return whether the page was changed or not
+                        pagination.goTo(page)
+                    );
+                    
+                    if (pageChanged) {
+                        // the table is re-drawn
+                        // but will effectively look like it did before it was re-rendered
+                        // update the pagination
+                        pagination.update();
+                    }
+                }
+            }());
+        } else {
             // our table is empty
             tableEl.classList.add('table-wrapper');
             tableEl.innerHTML = getHTML.empty();
-        } else {
-            // draw the table
-            tableEl.classList.add('table-wrapper');
-            tableEl.innerHTML = [
-                getHTML.controls('top', !options.no_download && true),
-                getHTML.table(),
-                getHTML.controls('bottom')
-            ].join('');
-            // get table elements for binding events
-            page = {
-                body: tableEl.querySelector('tbody'),
-                rows: tableEl.querySelectorAll('tbody tr'),
-                sortable: tableEl.querySelectorAll('th[data-sort-column]'),
-                dropdowns: tableEl.querySelectorAll('.dropdown .dropdown-content a'),
-                pagination: {
-                    controls: tableEl.querySelectorAll('.pagination .next, .pagination .previous'),
-                    previousList: tableEl.querySelectorAll('.pagination .previous'),
-                    nextList: tableEl.querySelectorAll('.pagination .next'),
-                    indexList: tableEl.querySelectorAll('.pagination .index')
-                }
-            };
-            bindEvents();
         }
         
         return tableEl;

@@ -25,7 +25,7 @@ function clearListingCount() {
  * @param {string} spinnerClassName - Class name for spinner element.
  * @returns {HTMLElement} An element containing a spinner.
  */
-function createSpinner(id, className, spinnerClassName) {
+export function createSpinner(id, className, spinnerClassName) {
     const loaderEl = document.createElement('div');
     
     loaderEl.setAttribute('id', id);

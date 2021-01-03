@@ -1,6 +1,6 @@
 'use strict';
 
-import { buildApp } from '../../app/app.js';
+import { readyState } from '../../app/readyState.js';
 import { Layout } from '../../app/layout/layout.js';
 import { Listing } from '../../app/classes/listing.js';
 import { getUrlParam, isNumber, basicPlural } from '../../app/helpers/utils.js';
@@ -14,65 +14,43 @@ const query = {
 };
 let queryDays;
 
-async function onReady() {
-    try {
-        onApp(await buildApp());
-    } catch (error) {
-        Layout.error(error);
-    }
-}
-
-function onApp(app) {
+async function onApp(app) {
     // builds the table to show the listings loaded
-    function buildTable(records) {
-        let title;
-        
-        if (queryDays !== undefined) {
-            title = `Showing ${basicPlural('since yesterday', 'last ' + queryDays + ' days', queryDays)}`;
-        }
-        
+    function buildTable(records, collection) {
         const options = Object.assign({}, Layout.getLayoutOptions(app), {
-            title
+            table,
+            collection
         });
         const tableEl = Layout.buildTable(records || [], Listing, options);
         
         Layout.render(page.results, tableEl);
     }
     
-    function onRecords(records) {
-        buildTable(records);
+    function onRecords(records, collection) {
+        buildTable(records, collection);
     }
     
     // builds the index for filters
-    function buildIndex(records) {
+    async function buildIndex(records) {
         const options = Object.assign({}, Layout.getLayoutOptions(app), {
+            limit,
             onChange: onRecords
         });
-        const indexEl = Layout.listings.buildFilters(records, Listing, options);
+        const indexEl = await Layout.listings.buildFilters(table, records, Listing, options);
         
         page.query.appendChild(indexEl);
     }
     
-    let collection = app.ListingDB.listings;
+    const { preferences, ListingDB } = app;
+    const limit = preferences.search_results_count || 1000;
+    const table = ListingDB.listings;
+    const collection = table.orderBy('index').reverse();
+    const records = await table.orderBy('index').reverse().limit(limit).toArray();
     
-    if (isNumber(query.last)) {
-        const date = new Date();
-        const days = parseInt(query.last);
-        
-        queryDays = days;
-        date.setDate(date.getDate() - days);
-        
-        collection = collection.where('date_acted').above(date);
-    }
-    
-    collection.toArray()
-        .then((records) => {
-            // this is faster than sorting in dexie
-            records = records.sort((a, b) => b.index - a.index);
-            buildIndex(records);
-            onRecords(records);
-            Layout.ready();
-        });
+    buildIndex(records);
+    onRecords(records, collection);
+    Layout.ready();
 }
 
-onReady();
+// ready
+readyState(onApp, Layout.error);

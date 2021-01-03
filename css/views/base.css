@@ -32,6 +32,10 @@ main {
     padding: 4em 0;
 }
 
+a {
+    color: #426FA6;
+}
+
 /**************************************************/
 /* Headings
 /**************************************************/
@@ -40,7 +44,7 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: bold;
     font-family: "Open Sans Condensed", sans-serif;
     margin-bottom: 0.4em;
-    line-height: 1.8em;
+    line-height: 1.4em;
 }
 
 h1 {
@@ -483,28 +487,63 @@ button.active,
     display: inline-block;
 }
 
-.dropdown-content {
+.dropdown-content, .autocomplete-items {
     position: absolute;
     z-index: 1;
-    right: 0.4em;
     background-color: #F9FBFC;
     box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.2);
 }
 
-.dropdown-content a {
+.dropdown-content {
+    right: 0.4em;
+}
+
+.dropdown-content a, .autocomplete-items div {
     color: #202429;
     padding: 8px 12px;
     text-decoration: none;
     display: block;
     min-width: 160px;
+    border-bottom: 1px solid #D0D6DE;
 }
 
-.dropdown-content a:hover {
+.dropdown-content a:last-child, .autocomplete-items div:last-child {
+    border-bottom: none;
+}
+
+.dropdown-content a:hover, .autocomplete-items div:hover {
     background-color: #D0D6DE;
 }
 
 .dropdown-content a.none {
     color: #909499;
+}
+
+
+/**************************************************/
+/* Autocomplete
+/**************************************************/
+.autocomplete {
+    position: relative;
+}
+
+.autocomplete input {
+    min-width: 240px;
+}
+
+.autocomplete-items {
+    top: 100%;
+    left: 0;
+    min-width: 240px;
+}
+
+.autocomplete-items div {
+    cursor: pointer;
+}
+
+.autocomplete-active {
+    background-color: #20A98A !important;
+    color: #FFFFFF !important;
 }
 
 /**************************************************/
@@ -965,6 +1004,19 @@ main.unloaded {
 .hidden {
     /* Something with this class should definitely appear hidden */
     display: none !important;
+}
+
+.input-spinner {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    width: 15px;
+    height: 15px;
+    padding-top: 1px;
+    padding-right: 0.8em;
+    text-align: center;
+    color: #36404D;
 }
 
 /**************************************************/

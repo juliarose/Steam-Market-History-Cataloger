@@ -2,10 +2,10 @@
 
 import { buildApp } from '../app.js';
 import { verifyLogin } from '../steam/verifyLogin.js';
-import { createListingManager } from './listingsmanager.js';
+import { createListingManager } from '../manager/listingsmanager.js';
 import { EventEmitter } from '../../lib/eventemitter.js';
 import { setLoadState } from '../layout/loadstate.js';
-import { createPreferencesManager } from './preferences.js';
+import { createPreferencesManager } from '../manager/preferences.js';
 
 /**
  * Creates a listing poller.
@@ -19,13 +19,15 @@ export function createListingPoller() {
     }
     
     async function getPollInterval() {
-        const settings = await preferences.getSettings(true);
+        const preferences = await createPreferencesManager();
+        const settings = await preferences.getSettings();
         
         return settings.background_poll_interval_minutes;
     }
     
     async function shouldLoad(force) {
-        const settings = await preferences.getSettings(true);
+        const preferences = await createPreferencesManager();
+        const settings = await preferences.getSettings();
         // should we load?
         const canLoad = Boolean(
             force ||
@@ -81,7 +83,7 @@ export function createListingPoller() {
     
     // sends count message if enabled in preferences
     async function sendCountMessage() {
-        const settings = await preferences.getSettings(true);
+        const settings = await preferences.getSettings();
         
         if (settings.show_new_listing_count) {
             poller.emit('count', listingCount);
@@ -164,7 +166,6 @@ export function createListingPoller() {
     // can be cleared if we want to load immediately at a given point
     let timer;
     
-    const preferences = createPreferencesManager();
     /**
      * Used for polling listings.
      * @class ListingPoller

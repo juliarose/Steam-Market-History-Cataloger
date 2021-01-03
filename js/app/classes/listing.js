@@ -73,6 +73,10 @@ Listing.makeDisplay = function(locales) {
     return {
         names: locales.db.listings.names,
         identifiers: locales.db.listings.identifiers,
+        stream: {
+            order: 'index',
+            direction: 1
+        },
         currency_fields: [
             'price'
         ],
@@ -226,13 +230,15 @@ Listing.makeDisplay = function(locales) {
                     // get the language from the provided locales
                     const { language } = locales;
                     
-                    getHoverAsset(appid, classid, instanceid, language).then((asset) => {
-                        tooltip(e.target, getHover(asset), {
-                            borderColor: asset.name_color
+                    getHoverAsset(appid, classid, instanceid, language)
+                        .then((asset) => {
+                            tooltip(e.target, getHover(asset), {
+                                borderColor: asset.name_color
+                            });
+                        })
+                        .catch(() => {
+                            
                         });
-                    }).catch(() => {
-                        
-                    });
                 },
                 mouseout: function(e) {
                     // we hovered over the image

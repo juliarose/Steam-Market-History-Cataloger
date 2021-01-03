@@ -9,20 +9,27 @@ const listingPoller = createListingPoller();
 function addListeners() {
     onMessage.addListener((request, sender, sendResponse) => {
         switch (request.name) {
-            case 'startLoading':
+            case 'startLoading': {
                 // force load
                 listingPoller.resumeLoading(true);
-                break;
-            case 'resumeLoading':
+                sendResponse();
+            } break;
+            case 'resumeLoading': {
                 listingPoller.resumeLoading();
-                break;
-            case 'clearListingCount':
+                sendResponse();
+            } break;
+            case 'clearListingCount': {
                 listingPoller.clearListingCount();
                 updateCount(0);
-                break;
+                sendResponse();
+            } break;
+            case 'getListingIndex': {
+                sendResponse();
+            } break;
+            default: {
+                sendResponse();
+            }
         }
-        
-        sendResponse();
     });
     
     chrome.runtime.onInstalled.addListener((object) => {
@@ -37,7 +44,7 @@ function addListeners() {
     });
 }
 
-// update the count on using the badge text
+// updates the count on using the badge text
 function updateCount(count) {
     browserLocalStorage.setItem('listingCount', count);
     
@@ -56,10 +63,9 @@ function updateCount(count) {
     });
 }
 
-function onReady() {
+// ready
+(function() {
     addListeners();
     updateCount(0);
     listingPoller.start(5);
-}
-
-onReady();
+}());
