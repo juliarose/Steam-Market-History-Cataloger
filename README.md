@@ -132,13 +132,3 @@ Steam Market History Cataloger is not affiliated with Steam or Valve.
 ## Privacy Policy
 
 This extension requires permissions to <https://steamcommunity.com> and <https://steampowered.com> to load data about your Steam account, as well as data storage to your disk. Stored data is entirely local and not shared anywhere outside of the extension.
-
-## Donations
-
-This project is offered for free. If you've found this project useful you can show your support by donating Steam items or Ethereum.
-
-**Donate Steam items:**  
-<https://steamcommunity.com/tradeoffer/new/?partner=119913840&token=ybdKNJEA>
-
-**Donate Ethereum:**  
-0xaC13438bD74b266e7da51805dfD650cB37c1709A
