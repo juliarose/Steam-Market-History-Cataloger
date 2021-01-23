@@ -59,6 +59,8 @@
             "index": "Index",
             "after_date": "After Date",
             "before_date": "Before Date",
+            "last_week": "Last Week",
+            "last_month": "Last Month",
             "before": "Before",
             "after": "After",
             "start": "Start",

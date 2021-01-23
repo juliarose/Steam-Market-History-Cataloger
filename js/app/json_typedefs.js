@@ -4,7 +4,7 @@
 /**
  * The output data when exporting listings to JSON.
  * @typedef {Object} ListingsJSON
- * @property {Currency} currency - The currency of for your Steam wallet.
+ * @property {Currency} currency - The currency of your Steam wallet.
  * @property {Listing[]} listings - An array of listings.
  */
 

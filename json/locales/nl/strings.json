@@ -42,6 +42,8 @@
             "index": "Inhoudsopgave",
             "after_date": "Na datum",
             "before_date": "Voor datum",
+            "last_week": "Vorige week",
+            "last_month": "Vorige maand",
             "before": "Voor",
             "after": "Na",
             "start": "Begin",

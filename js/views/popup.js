@@ -11,7 +11,6 @@ const page = {
     profile: document.getElementById('user'),
     loggedInButtons: document.querySelectorAll('.logged-in'),
     buttons: {
-        steamMarket: document.getElementById('steam-market-btn'),
         loadListings: document.getElementById('load-listings-page-btn'),
         loadPurchases: document.getElementById('load-purchases-page-btn'),
         view: document.getElementById('view-page-btn'),
@@ -52,12 +51,6 @@ async function onApp(app) {
                 'url': '/views/preferences.html'
             });
         });
-        
-        page.buttons.steamMarket.addEventListener('click', () => {
-            tabs.create({
-                'url': 'https://steamcommunity.com/market'
-            });
-        });
     }());
     
     // updates the listing count on the page
@@ -71,13 +64,9 @@ async function onApp(app) {
     // changes localization text on page
     (function() {
         const buttonLocaleKeys = {
-            steamMarket: 'steam_market',
-            // removed for the time being
-            // startLoading: 'start_loading',
             loadListings: 'update_listings',
             loadPurchases: 'purchase_history',
             view: 'view_all',
-            viewRecent: 'view_recent',
             viewTotals: 'view_totals',
             preferences: 'preferences',
             updateListings: 'update_listings'

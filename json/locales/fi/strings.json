@@ -29,6 +29,8 @@
             "index": "Indeksi",
             "after_date": "Päivämäärän jälkeen",
             "before_date": "Ennen päivämäärää",
+            "last_week": "Viime viikko",
+            "last_month": "Viime kuukausi",
             "before": "Ennen",
             "after": "Jälkeen",
             "start": "alkaa",

@@ -42,6 +42,8 @@
             "index": "Index",
             "after_date": "Dátum után",
             "before_date": "Dátum előtt",
+            "last_week": "Múlt hét",
+            "last_month": "Múlt hónap",
             "before": "Előtt",
             "after": "Után",
             "start": "Rajt",

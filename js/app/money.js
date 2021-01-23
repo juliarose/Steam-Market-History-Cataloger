@@ -7,9 +7,11 @@
  * @returns {string} Formatted value.
  */
 function thousands(value, thousand) {
-    return value.toString().replace(/[0-9](?=(?:[0-9]{3})+(?![0-9]))/gi, (match) => {
-        return match + thousand;
-    });
+    return value
+        .toString()
+        .replace(/[0-9](?=(?:[0-9]{3})+(?![0-9]))/gi, (match) => {
+            return match + thousand;
+        });
 }
 
 /**
@@ -39,12 +41,12 @@ function formatMoneyInteger(value, currency) {
         // if there are no divisions, and trailing zeros should be trimmed,
         // do not include them
         return formatted;
-    } else {
-        return [
-            formatted,
-            toFixedInteger(division, format_precision)
-        ].join(currency.decimal);
     }
+    
+    return [
+        formatted,
+        toFixedInteger(division, format_precision)
+    ].join(currency.decimal);
 }
 
 /**
@@ -86,14 +88,14 @@ function toFixedInteger(value, precision) {
     } else if (value.length > precision) {
         // trim decimal places to precision
         return value.substr(0, precision);
-    } else {
-        //  add some zeros to the front
-        while (value.length < precision) {
-            value = '0' + value;
-        }
-        
-        return value;
     }
+    
+    //  add some zeros to the front
+    while (value.length < precision) {
+        value = '0' + value;
+    }
+    
+    return value;
 }
 
 /**
@@ -110,9 +112,9 @@ function toFixedNoRounding(value, precision) {
     if (precision <= 0) {
         // no decimal places, just return the whole value
         return wholeValue;
-    } else {
-        return `${wholeValue}.${toFixedInteger(decimalValue, precision)}`;
     }
+    
+    return `${wholeValue}.${toFixedInteger(decimalValue, precision)}`;
 }
 
 /**
@@ -165,9 +167,9 @@ export function formatLocaleNumber(value, currency) {
             formatted,
             remainder
         ].join(currency.decimal || '.');
-    } else {
-        return formatted;
     }
+    
+    return formatted;
 }
 
 /**

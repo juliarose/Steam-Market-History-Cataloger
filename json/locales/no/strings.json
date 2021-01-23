@@ -42,6 +42,8 @@
             "index": "Hovedsiden",
             "after_date": "Etter dato",
             "before_date": "Før dato",
+            "last_week": "Forrige uke",
+            "last_month": "Forrige måned",
             "before": "Før",
             "after": "Etter",
             "start": "Start",

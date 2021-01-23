@@ -42,6 +42,8 @@
             "index": "indeks",
             "after_date": "Tarihten Sonra",
             "before_date": "Tarihten Önce",
+            "last_week": "Geçen hafta",
+            "last_month": "Geçen ay",
             "before": "Önce",
             "after": "Sonra",
             "start": "başla",

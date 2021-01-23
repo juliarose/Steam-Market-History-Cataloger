@@ -29,6 +29,8 @@
             "index": "索引",
             "after_date": "日付後",
             "before_date": "日付の前に",
+            "last_week": "先週",
+            "last_month": "先月",
             "before": "前",
             "after": "後に",
             "start": "開始",

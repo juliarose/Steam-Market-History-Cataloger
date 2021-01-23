@@ -63,6 +63,8 @@
             "index": "Index",
             "after_date": "Po datu",
             "before_date": "Před datem",
+            "last_week": "Minulý týden",
+            "last_month": "Minulý měsíc",
             "before": "Před",
             "after": "Po",
             "start": "Start",

@@ -83,6 +83,7 @@ export function createListingPoller() {
     
     // sends count message if enabled in preferences
     async function sendCountMessage() {
+        const preferences = await createPreferencesManager();
         const settings = await preferences.getSettings();
         
         if (settings.show_new_listing_count) {

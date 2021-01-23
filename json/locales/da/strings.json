@@ -63,6 +63,8 @@
             "index": "Indeks",
             "after_date": "Efter dato",
             "before_date": "Før dato",
+            "last_week": "Sidste uge",
+            "last_month": "Sidste måned",
             "before": "Før",
             "after": "Efter",
             "start": "Start",

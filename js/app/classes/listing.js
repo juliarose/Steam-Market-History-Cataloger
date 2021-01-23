@@ -93,6 +93,7 @@ Listing.makeDisplay = function(locales) {
                 'index',
                 'is_credit',
                 'transaction_id',
+                'appid',
                 'market_name',
                 'price',
                 'date_listed',

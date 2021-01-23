@@ -42,6 +42,8 @@
             "index": "Index",
             "after_date": "Efter datum",
             "before_date": "Före datum",
+            "last_week": "Förra veckan",
+            "last_month": "Förra månaden",
             "before": "Innan",
             "after": "Efter",
             "start": "Start",

@@ -1,7 +1,7 @@
 'use strict';
 
 import { applist } from '../../data/applist.js';
-import { uniq } from '../../helpers/utils.js';
+import { uniq, printDate } from '../../helpers/utils.js';
 import { createSpinner } from '../layout.js';
 
 /**
@@ -298,6 +298,43 @@ export async function buildFilters(table, records, Class, options) {
             }
         };
         const draw = {
+            dateSelectors: function() {
+                function renderSelector(name, days, dateFieldEl) {
+                    function formatDate(date) {
+                        return [
+                            date.getUTCFullYear(),
+                            (date.getUTCMonth() + 1).toString().padStart(2, '0'),
+                            date.getUTCDate()
+                        ].join('-');
+                    }
+                    
+                    const el = document.createElement('div');
+                    const ONE_DAY = 24 * 60 * 60 * 1000;
+                    
+                    el.textContent = getName(name);
+                    el.classList.add('item', 'button');
+                    el.addEventListener('click', (e) => {
+                        const date = new Date();
+                        const offsetDate = new Date(date.getTime() - days * ONE_DAY);
+                        const dateStr = formatDate(offsetDate);
+                        const event = document.createEvent('HTMLEvents');
+                        
+                        event.initEvent('change', false, true);
+                        
+                        dateFieldEl.value = dateStr;
+                        dateFieldEl.dispatchEvent(event);
+                    });
+                    
+                    return el;
+                }
+                
+                const afterDateFieldEl = fragment.getElementById('date-after_date');
+                const lastWeekButtonEl = renderSelector('last_week', 7, afterDateFieldEl);
+                const lastMonthButtonEl = renderSelector('last_month', 30, afterDateFieldEl);
+                
+                dateContainer.append(lastWeekButtonEl);
+                dateContainer.append(lastMonthButtonEl);
+            },
             dateField: function(id, name, dates) {
                 if (!dates.start) {
                     return;
@@ -321,6 +358,7 @@ export async function buildFilters(table, records, Class, options) {
                 labelEl.textContent = getName(name);
                 labelEl.setAttribute('for', name);
                 inputEl.type = 'date';
+                inputEl.setAttribute('id', `date-${name}`);
                 inputEl.setAttribute('name', name);
                 inputEl.setAttribute('data-name', name);
                 inputEl.setAttribute('min', startDate);
@@ -476,7 +514,12 @@ export async function buildFilters(table, records, Class, options) {
             return valueFields.includes(name);
         }
         
-        if (index.dates.start && index.dates.start.getTime() !== index.dates.end.getTime()) {
+        const hasDates = Boolean(
+            index.dates.start &&
+            index.dates.start.getTime() !== index.dates.end.getTime()
+        );
+        
+        if (hasDates) {
             dateContainer.classList.add('dates');
             
             fragment.append(dateContainer);
@@ -485,6 +528,10 @@ export async function buildFilters(table, records, Class, options) {
         Object.keys(index).forEach((k) => {
             addIndex(k, index[k]);
         });
+        
+        if (hasDates) {
+            draw.dateSelectors();
+        }
         
         return fragment;
     }
@@ -700,12 +747,12 @@ export async function buildFilters(table, records, Class, options) {
         after_date: {
             field: 'date_acted',
             converter: toDate,
-            key: 'above',
+            key: 'aboveOrEqual',
         },
         before_date: {
             field: 'date_acted',
             converter: toDate,
-            key: 'below'
+            key: 'belowOrEqual'
         }
     };
     // current filter query

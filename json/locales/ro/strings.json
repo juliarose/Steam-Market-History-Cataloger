@@ -42,6 +42,8 @@
             "index": "Index",
             "after_date": "După data",
             "before_date": "Înainte de data",
+            "last_week": "Săptămâna trecută",
+            "last_month": "Luna trecuta",
             "before": "Inainte de",
             "after": "După",
             "start": "start",

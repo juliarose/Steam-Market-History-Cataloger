@@ -15,3 +15,16 @@
 
 ### Removed
 - "View recent" button as it is no longer needed. This was intended as a quicker option to view your most recent transactions, but with the new search functionality listed above it is no longer necessary.
+
+## [1.1.1] - 2021-01-22
+### Added
+- Last week quick-select button on filters for selecting date from the past week.
+- Last month quick-select button on filters for selecting date from the past month.
+
+### Fixed
+- Bug with not showing new listing count.
+- Using search results limit from preferences.
+
+### Changed
+- Date filters will now additionally select dates that are equal to the date selected.
+- Updated the localization files.

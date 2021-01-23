@@ -42,6 +42,8 @@
             "index": "Индекс",
             "after_date": "После даты",
             "before_date": "До даты",
+            "last_week": "На прошлой неделе",
+            "last_month": "Прошлый месяц",
             "before": "До",
             "after": "После",
             "start": "Начните",

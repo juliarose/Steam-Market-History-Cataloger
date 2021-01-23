@@ -42,6 +42,8 @@
             "index": "Índice",
             "after_date": "Después de la fecha",
             "before_date": "Antes de la fecha",
+            "last_week": "La semana pasada",
+            "last_month": "El mes pasado",
             "before": "antes de",
             "after": "Después",
             "start": "comienzo",

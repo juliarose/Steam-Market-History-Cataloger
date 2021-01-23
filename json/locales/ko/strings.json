@@ -42,6 +42,8 @@
             "index": "색인",
             "after_date": "날짜 이후",
             "before_date": "이전 날짜",
+            "last_week": "지난주",
+            "last_month": "지난 달",
             "before": "전에",
             "after": "후",
             "start": "스타트",
