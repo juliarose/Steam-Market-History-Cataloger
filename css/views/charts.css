@@ -1,4 +1,10 @@
 
+.chart-container {
+    background-color: #E9EAEB;
+    border-top: 4px solid #C3C8CD;
+    border-bottom: 4px solid #C3C8CD;
+    padding: 3em 2.4em;
+}
 
 .ct-chart .button {
     background-color: #F0F1F2;
@@ -80,7 +86,117 @@
   stroke: #36404D;
 }
 
-
 .ct-label.ct-horizontal, .ct-label.ct-vertical {
   white-space: nowrap;
+}
+
+.chartist-tooltip {
+  background: #253242;
+  color: #F9FBFC;
+  text-align: left;
+  border-radius: 2px;
+  padding: 0.4em 0.6em;
+  line-height: 1.6em;
+}
+
+.chartist-tooltip:before {
+  border-top-color: #253242;
+}
+
+.chartist-tooltip-meta {
+  color: #B7BDC4;
+  font-weight: bold;
+  font-size: 0.85em;
+}
+
+.chartist-tooltip-value {
+  font-size: 1.4em;
+}
+
+.ct-legend li.inactive:before {
+  background: transparent !important;
+}
+
+
+
+
+.ct-sales.ct-chart.ct-pie .ct-legend li.ct-series-0:before {
+  background-color: #33615D;
+  border-color: #33615D;
+}
+
+.ct-sales.ct-chart.ct-pie  .ct-series-a .ct-slice-pie {
+  fill: #33615D;
+}
+
+.ct-sales.ct-chart.ct-pie .ct-legend li.ct-series-1:before {
+  background-color: #31786B;
+  border-color: #31786B;
+}
+
+.ct-sales.ct-chart.ct-pie  .ct-series-b .ct-slice-pie {
+  fill: #31786B;
+}
+
+.ct-sales.ct-chart.ct-pie .ct-legend li.ct-series-2:before {
+  background-color: #2E8A76;
+  border-color: #2E8A76;
+}
+
+.ct-sales.ct-chart.ct-pie  .ct-series-c .ct-slice-pie {
+  fill: #2E8A76;
+}
+
+.ct-sales.ct-chart.ct-pie .ct-legend li.ct-series-3:before {
+  background-color: #2A9A81;
+  border-color: #2A9A81;
+}
+
+.ct-sales.ct-chart.ct-pie  .ct-series-d .ct-slice-pie {
+  fill: #2A9A81;
+}
+
+.ct-sales.ct-chart.ct-pie .ct-legend li.ct-series-4:before {
+  background-color: #27A88A;
+  border-color: #27A88A;
+}
+
+.ct-sales.ct-chart.ct-pie  .ct-series-e .ct-slice-pie {
+  fill: #27A88A;
+}
+
+.ct-sales.ct-chart.ct-pie .ct-legend li.ct-series-5:before {
+  background-color: #75B8A4;
+  border-color: #75B8A4;
+}
+
+.ct-sales.ct-chart.ct-pie  .ft-series-f .ct-slice-pie {
+  fill: #75B8A4;
+}
+
+.ct-sales.ct-chart.ct-pie .ct-legend li.ct-series-6:before {
+  background-color: #9DC6B9;
+  border-color: #9DC6B9;
+}
+
+.ct-sales.ct-chart.ct-pie  .ft-series-g .ct-slice-pie {
+  fill: #9DC6B9;
+}
+
+.ct-sales.ct-chart.ct-pie .ct-legend li.ct-series-7:before {
+  background-color: #BBD3CB;
+  border-color: #BBD3CB;
+}
+
+.ct-sales.ct-chart.ct-pie  .ft-series-h .ct-slice-pie {
+  fill: #BBD3CB;
+}
+
+.ct-sales.ct-chart.ct-pie .ct-legend li.ct-series-8:before {
+  background-color: #D4DFDC;
+  border-color: #D4DFDC;
+}
+
+.ct-sales.ct-chart.ct-pie  .ft-series-i .ct-slice-pie {
+  fill: #D4DFDC;
 }

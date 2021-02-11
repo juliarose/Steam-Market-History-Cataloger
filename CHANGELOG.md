@@ -28,3 +28,10 @@
 ### Changed
 - Date filters will now additionally select dates that are equal to the date selected.
 - Updated the localization files.
+
+## [1.1.2] - 2021-02-11
+### Fixed
+- Last week/month filters not always working due to improper date formats.
+
+### Changed
+- Titles on pages to include "Steam Market History Cataloger".

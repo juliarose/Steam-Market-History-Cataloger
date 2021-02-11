@@ -304,7 +304,7 @@ export async function buildFilters(table, records, Class, options) {
                         return [
                             date.getUTCFullYear(),
                             (date.getUTCMonth() + 1).toString().padStart(2, '0'),
-                            date.getUTCDate()
+                            date.getUTCDate().toString().padStart(2, '0')
                         ].join('-');
                     }
                     

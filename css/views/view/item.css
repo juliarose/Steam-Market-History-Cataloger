@@ -1,11 +1,4 @@
 
-#chart-transactions {
-    background-color: #E9EAEB;
-    border-top: 4px solid #C3C8CD;
-    border-bottom: 4px solid #C3C8CD;
-    padding: 3em 2.4em;
-}
-
 #item-name .appname, #item-name .divider {
     font-size: 0.8em;
     font-weight: normal;

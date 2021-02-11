@@ -584,6 +584,33 @@ main.unloaded {
     margin-bottom: 0;
 }
 
+.columns {
+    display: flex;
+}
+
+.columns .column {
+    width: 50%;
+    box-sizing: border-box;
+    margin: 0 0.8em;
+}
+
+.columns .column.one-third {
+    
+    width: 33.33%;
+}
+.columns .column.two-third {
+    
+    width: 66.66%;
+}
+
+.columns .column:first-child {
+    margin-left: 0;
+}
+
+.columns .column:last-child {
+    margin-right: 0;
+}
+
 .indent {
     padding: 1em;
 }
