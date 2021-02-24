@@ -45,7 +45,7 @@ async function onApp(app) {
     const limit = preferences.settings.search_results_count || 1000;
     const table = ListingDB.listings;
     const collection = table.orderBy('index').reverse();
-    const records = await table.orderBy('index').reverse().limit(limit).toArray();
+    const records = await collection.clone().limit(limit).toArray();
     
     buildIndex(records);
     onRecords(records, collection);

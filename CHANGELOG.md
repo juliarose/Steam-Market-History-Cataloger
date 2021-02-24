@@ -39,3 +39,6 @@
 ## [1.1.3] - 2021-02-23
 ### Fixed
 - Issue with download streams limiting results to 5000.
+
+### Changed
+- JPY shows 2 decimals rather that 0.

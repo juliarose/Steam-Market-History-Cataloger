@@ -86,7 +86,7 @@ export const Currency = Object.freeze({
         precision: 2,
         // yens are commonly display without decimal places
         // we display these using 0 decimal places
-        format_precision: 0,
+        format_precision: 2,
         thousand: ',',
         decimal: '.',
         spacer: true
