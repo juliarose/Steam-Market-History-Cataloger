@@ -1,6 +1,6 @@
 {
   "name": "SteamMarketHistoryCataloger",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "type": "module",
   "description": "Indexes your Steam Community Market transactions into a local storage database. Data can be viewed within the extension and is exportable to JSON and CSV.",
   "babel": {

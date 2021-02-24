@@ -35,3 +35,7 @@
 
 ### Changed
 - Titles on pages to include "Steam Market History Cataloger".
+
+## [1.1.3] - 2021-02-23
+### Fixed
+- Issue with download streams limiting results to 5000.

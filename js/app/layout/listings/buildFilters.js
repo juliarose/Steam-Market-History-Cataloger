@@ -544,7 +544,7 @@ export async function buildFilters(table, records, Class, options) {
     async function updateQuery(only) {
         // obtain a collection without a .where clause
         function noQuery() {
-            const collection = table.limit(limit).sortBy('index');
+            const collection = table.sortBy('index');
             
             onChange(filteredRecords, collection);
         }
@@ -669,7 +669,7 @@ export async function buildFilters(table, records, Class, options) {
             }
             
             // fetch the records
-            filteredRecords = await collection.limit(limit).sortBy('index');
+            filteredRecords = await collection.clone().limit(limit).sortBy('index');
             filteredRecords = filteredRecords.reverse();
             
             onChange(filteredRecords, collection);
