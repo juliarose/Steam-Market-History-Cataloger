@@ -32,7 +32,7 @@ export async function createPreferencesManager() {
     
     // Configures the module.
     await (async function() {
-        await preferences.getAndMergeSettings();;
+        await preferences.getAndMergeSettings();
     }());
     
     return preferences;

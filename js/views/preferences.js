@@ -152,8 +152,6 @@ async function onApp(app) {
         } else {
             page.listingsDescription.textContent = 'You don\'t have any listings loaded.';
         }
-        
-        return;
     }());
     
     Layout.ready();

@@ -42,3 +42,7 @@
 
 ### Changed
 - JPY shows 2 decimals rather that 0.
+
+## [1.1.4] - 2021-02-23
+### Changed
+- Added account steamid to JSON file exports.

@@ -45,7 +45,7 @@ export const Steam = {
         );
         
         if (!hasData) {
-            return Promise.reject('No session');
+            return Promise.reject('No session. Login to <a href="https://steampowered.com">https://steampowered.com</a> to use this feature.');
         }
         
         return data;

@@ -544,9 +544,10 @@ export async function buildFilters(table, records, Class, options) {
     async function updateQuery(only) {
         // obtain a collection without a .where clause
         function noQuery() {
-            const collection = table.sortBy('index');
+            // const collection = table.sortBy('index');
             
-            onChange(filteredRecords, collection);
+            // onChange(filteredRecords, collection);
+            onChange(null);
         }
         
         // obtain a collection using a query
@@ -618,61 +619,34 @@ export async function buildFilters(table, records, Class, options) {
                     delete baseQuery[k];
                 });
             
-            let collection;
-            
-            // begin the query
-            if (Object.keys(baseQuery).length > 0) {
-                collection = table.where(baseQuery);
-            }
-            
-            // add compounds
-            let compoundQueryKeys = Object.keys(query)
-                // filter to only keys where a compound exists
-                .filter((k) => {
-                    return compoundQueries[k] !== undefined;
-                });
-            
-            // collection is not defined
-            if (compoundQueryKeys.length > 0 && collection === undefined) {
-                // take the first key and remove it from the array
-                const k = compoundQueryKeys.shift();
-                const {
-                    field,
-                    key,
-                    convertedValue
-                } = getCompoundQueryDetails(k);
-                
-                collection = table.where(field)[key](convertedValue);
-            }
-            
             // create a comparison function for each compound query key
-            const comparisons = compoundQueryKeys
-                .map((k) => {
-                    const {
-                        field,
-                        compare,
-                        convertedValue
-                    } = getCompoundQueryDetails(k);
-                    
-                    return (record) => {
-                        return compare(record[field], convertedValue);
-                    };
+            const comparisons = Object.entries(query)
+                .map(([k, v]) => {
+                    if (compoundQueries[k] !== undefined) {
+                        const {
+                            field,
+                            compare,
+                            convertedValue
+                        } = getCompoundQueryDetails(k);
+                        
+                        return (record) => {
+                            return compare(record[field], convertedValue);
+                        };
+                    } else {
+                        console.log(k, v);
+                        
+                        return (record) => {
+                            return record[k] === v;
+                        };
+                    }
                 });
-            
-            if (comparisons.length > 0) {
-                // and check that each comparison matches
-                collection = collection.and((record) => {
-                    return comparisons.every((compare) => {
-                        return compare(record);
-                    });
+            const filter = (record) => {
+                return comparisons.every((compare) => {
+                    return compare(record);
                 });
-            }
+            };
             
-            // fetch the records
-            filteredRecords = await collection.clone().limit(limit).sortBy('index');
-            filteredRecords = filteredRecords.reverse();
-            
-            onChange(filteredRecords, collection);
+            onChange(filter, baseQuery);
         }
         
         if (Object.keys(query).length === 0) {

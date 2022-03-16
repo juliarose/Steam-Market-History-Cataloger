@@ -4,6 +4,7 @@ import { escapeHTML, escapeRegExp, printDate } from '../helpers/utils.js';
 import { download, downloadCollection } from '../helpers/download.js';
 import { formatMoney } from '../money.js';
 import { buildFile, getStreamDownloadOptions } from '../buildFile.js';
+import { buildFilters } from './listings/buildFilters.js';
 
 /**
  * Gets list of classes for each column in 'columns'.
@@ -32,6 +33,7 @@ function getColumnClasses(display, columns) {
  * @param {Object} options - Options for formatting table.
  * @param {Localization} options.locales - Locale strings.
  * @param {Currency} options.currency - Currency to format money values in.
+ * @param {Account} options.account - Account details.
  * @param {string} [options.title] - Title to display above table.
  * @param {boolean} [options.keep_page] - Keep page from previously rendered table.
  * @param {boolean} [options.no_download] - Do not display download button when set to true.
@@ -325,6 +327,56 @@ export function buildTable(records, Class, options) {
     };
     
     function getTable() {
+        let filterFn;
+        let sort;
+        let query;
+        
+        async function update() {
+            if (options.table !== undefined) {
+                const limit = options.limit || 1000;
+                let collection = options.table;
+                
+                if (sort !== undefined) {
+                    const { sortColumn, direction } = sort;
+                    
+                    collection = collection.orderBy(sortColumn);
+                    
+                    if (direction < 0) {
+                        collection = collection.reverse();
+                    }
+                } else if (query !== undefined) {
+                    collection = collection.where(query);
+                } else {
+                    collection = collection.orderBy('index').reverse();
+                }
+                
+                if (typeof filterFn === 'function') {
+                    collection = collection.filter(filterFn);
+                }
+                
+                options.collection = collection;
+                
+                if (sort === undefined && query !== undefined) {
+                    collection = await options.collection.clone().limit(limit).sortBy('index');
+                    collection = collection.reverse();
+                } else {
+                    collection = await options.collection.clone().limit(limit).toArray();
+                }
+                
+                records = collection;
+            } else if (sort !== undefined) {
+                const { sortColumn, direction } = sort;
+                
+                // update the records
+                records = sortByType(sortColumn, Class.types[sortColumn], records, direction > 0);
+            }
+            
+            // reset to page 1
+            pagination.reset();
+            // then update
+            pagination.update();
+        }
+        
         if (records.length > 0) {
             // draw the table
             tableEl.classList.add('table-wrapper');
@@ -411,17 +463,16 @@ export function buildTable(records, Class, options) {
                     // list of sortable columns
                     const sortableList = page.sortable;
                     
+                    sort = {
+                        sortColumn: key,
+                        direction
+                    };
                     // reset columns
                     sortableList.forEach(resetColumn);
                     columnEl.setAttribute('data-direction', direction * -1);
                     columnEl.classList.add(directionClassName);
                     
-                    // update the records
-                    records = sortByType(key, Class.types[key], records, direction > 0);
-                    // reset to page 1
-                    pagination.reset();
-                    // then update
-                    pagination.update();
+                    update();
                 }
                 
                 // adds listeners to a list of elements
@@ -524,6 +575,21 @@ export function buildTable(records, Class, options) {
             // our table is empty
             tableEl.classList.add('table-wrapper');
             tableEl.innerHTML = getHTML.empty();
+        }
+        
+        if (options.filterEl !== undefined && options.table !== undefined) {
+            buildFilters(options.table, records, Class, {
+                ...options,
+                onChange(fn, baseQuery) {
+                    filterFn = fn;
+                    query = baseQuery;
+                    
+                    update();
+                }
+            })
+                .then((el) => {
+                    options.filterEl.appendChild(el);
+                });
         }
         
         return tableEl;

@@ -3,7 +3,7 @@
 import { readyState } from '../../app/readyState.js';
 import { Layout } from '../../app/layout/layout.js';
 import { Listing } from '../../app/classes/listing.js';
-import { getUrlParam, isNumber, basicPlural } from '../../app/helpers/utils.js';
+import { getUrlParam } from '../../app/helpers/utils.js';
 
 const page = {
     query: document.getElementById('query'),
@@ -19,26 +19,17 @@ async function onApp(app) {
     function buildTable(records, collection) {
         const options = Object.assign({}, Layout.getLayoutOptions(app), {
             table,
-            collection
+            collection,
+            limit,
+            filterEl: page.query
         });
         const tableEl = Layout.buildTable(records || [], Listing, options);
         
         Layout.render(page.results, tableEl);
     }
     
-    function onRecords(records, collection) {
-        buildTable(records, collection);
-    }
-    
-    // builds the index for filters
-    async function buildIndex(records) {
-        const options = Object.assign({}, Layout.getLayoutOptions(app), {
-            limit,
-            onChange: onRecords
-        });
-        const indexEl = await Layout.listings.buildFilters(table, records, Listing, options);
-        
-        page.query.appendChild(indexEl);
+    function onRecords(records, collection, opts = {}) {
+        buildTable(records, collection, opts);
     }
     
     const { preferences, ListingDB } = app;
@@ -47,7 +38,6 @@ async function onApp(app) {
     const collection = table.orderBy('index').reverse();
     const records = await collection.clone().limit(limit).toArray();
     
-    buildIndex(records);
     onRecords(records, collection);
     Layout.ready();
 }

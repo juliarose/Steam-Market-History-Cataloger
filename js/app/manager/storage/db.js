@@ -22,6 +22,7 @@ export function createDatabaseSettingsManager(db, tableName, primaryKey, default
         /**
          * Saves the settings.
          * @memberOf ListingManager
+         * @param {Object} settingsToSave - Any settings to save.
          * @returns {Promise} Resolve when done.
          */
         saveSettings: async function(settingsToSave) {

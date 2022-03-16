@@ -1,6 +1,6 @@
 'use strict';
 
-import { randomString, pickKeys, sleep } from '../helpers/utils.js';
+import { randomString, sleep } from '../helpers/utils.js';
 import { Steam } from '../steam/steam.js';
 import { Localization } from '../classes/localization.js';
 import { parseListings } from '../parsers/parseListings.js';

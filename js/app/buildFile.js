@@ -35,10 +35,10 @@ export function createGetCSVRow(Class, options) {
                 } else if (isNumber(value)) {
                     // as-is
                     return value;
-                } else {
-                    // escape string
-                    return escapeCSV(value);
                 }
+                
+                // escape string
+                return escapeCSV(value);
             };
             
             const formatter = formatters[key];
@@ -85,7 +85,7 @@ export function createGetCSVRow(Class, options) {
 /**
  * Gets the header for a CSV file.
  * @param {object} Class - Class.
- * @param {Object} options - Options to format with.
+ * @param {object} options - Options to format with.
  * @param {Currency} options.currency - Currency to format money values in.
  * @param {Localization} options.locales - Locale strings.
  * @returns {string} Header.
@@ -120,16 +120,22 @@ export function getCSVHeader(Class, options) {
 /**
  * Gets the template for a JSON file.
  * @param {object} record - The record.
+ * @param {object} options - Options.
+ * @param {Currency} options.currency - Currency to format money values in.
+ * @param {Localization} options.locales - Locale strings.
+ * @param {AccountManager} options.account - Account.
  * @returns {object} Record as JSON.
  */
 export function getJSONTemplate(Class, options) {
-    const { locales, currency } = options;
+    const { locales, currency, account } = options;
+    const { steamid } = account;
     const classDisplay = Class.makeDisplay(locales);
     // the currency fields for the class
     const currencyFields = classDisplay.currency_fields || [];
     const header = getJSONHeader(Class);
     
     return omitEmpty({
+        steamid,
         // only include currency if currency values are included in data
         currency: currencyFields.length > 0 ? currency : null,
         // as an empty array

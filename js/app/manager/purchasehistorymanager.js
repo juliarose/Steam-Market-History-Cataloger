@@ -49,13 +49,17 @@ export function createPurchaseHistoryManager({ account }) {
          * @returns {Promise} Resolve when done.
          */
         setup: async function() {
+            // get the session for the current logged-in user
+            // session includes steamid and sessionid
+            // the sessionid is necessary for loading purchase history
+            // but is not stored to extension
             session = await Steam.getSteamPoweredSession();
         },
         /**
          * Loads Steam transaction history.
          * @memberOf PurchaseHistoryManager
          * @param {Object} cursor - Position from last fetched result (provided by response from Steam).
-         * @param {number} [delay=0] - Delay in Seconds to load.
+         * @param {number} [delay=0] - Delay in seconds to load.
          * @returns {Promise.<PurchaseHistoryManagerLoadResponse>} Resolves with response when done.
          */
         load: async function(cursor, delay = 0) {
