@@ -2,7 +2,8 @@
 
 /**
  * Generic class for models.
- * @class Model
+ * @class
+ * @typedef Model
  * @property {Object} types - Maps for defining the data type of each column.
  * @property {string} identifier - String to uniquely identify this model.
  * @property {string} [primary_key] - The primary key for the set data set in the database.

@@ -1,23 +1,22 @@
 'use strict';
 
 import { readyState } from '../../app/readyState.js';
-import { Layout } from '../../app/layout/layout.js';
+import * as Layout from '../../app/layout/index.js';
 import { Listing } from '../../app/classes/listing.js';
-import { getUrlParam, isNumber, basicPlural } from '../../app/helpers/utils.js';
+import { getPreferences } from '../../app/preferences.js';
 
 const page = {
     query: document.getElementById('query'),
     results: document.getElementById('results')
 };
-const query = {
-    last: getUrlParam('last')
-};
-let queryDays;
 
 async function onApp(app) {
     // builds the table to show the listings loaded
     function buildTable(records, collection) {
-        const options = Object.assign({}, Layout.getLayoutOptions(app), {
+        const options = Object.assign({}, Layout.getLayoutOptions({
+            account,
+            preferences
+        }), {
             table,
             collection
         });
@@ -32,7 +31,10 @@ async function onApp(app) {
     
     // builds the index for filters
     async function buildIndex(records) {
-        const options = Object.assign({}, Layout.getLayoutOptions(app), {
+        const options = Object.assign({}, Layout.getLayoutOptions({
+            account,
+            preferences
+        }), {
             limit,
             onChange: onRecords
         });
@@ -41,16 +43,19 @@ async function onApp(app) {
         page.query.appendChild(indexEl);
     }
     
-    const { preferences, ListingDB } = app;
-    const limit = preferences.settings.search_results_count || 1000;
+    const { account, ListingDB } = app;
+    const preferences = await getPreferences();
+    const limit = preferences.search_results_count || 1000;
     const table = ListingDB.listings;
     const collection = table.orderBy('index').reverse();
     const records = await collection.clone().limit(limit).toArray();
     
-    buildIndex(records);
+    await buildIndex(records);
     onRecords(records, collection);
     Layout.ready();
 }
 
 // ready
-readyState(onApp, Layout.error);
+{
+    readyState(onApp, Layout.error);
+}

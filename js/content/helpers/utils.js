@@ -84,8 +84,9 @@ const Settings = (function() {
      * @memberOf Settings
      * @param {string} key - Settings key.
      * @param {Object} data - Data to save.
+     * @returns {Promise<void>} Promise as a callback.
      */ 
-    function store(key, data) {
+    async function store(key, data) {
         return new Promise((resolve) => {
             let obj = {};
             
@@ -99,8 +100,9 @@ const Settings = (function() {
      * @memberOf Settings
      * @param {string} key - Settings key.
      * @param {boolean} [noWrapper] - Whether data should not be wrapped by key.
+     * @returns {Promise<Object>} Promise with settings.
      */ 
-    function get(key, noWrapper) {
+    async function get(key, noWrapper) {
         return new Promise((resolve) => {
             storage.get(key, (settings) => {
                 if (noWrapper && settings) {
@@ -117,8 +119,9 @@ const Settings = (function() {
      * @memberOf Settings
      * @param {string} key - Settings key.
      * @param {Object} data - Data to add.
+     * @returns {Promise<Object>} Promise with settings.
      */ 
-    function addTo(key, data) {
+    async function addTo(key, data) {
         return get(key, true)
             .then((settings) => {
                 settings = Object.assign(settings, data);

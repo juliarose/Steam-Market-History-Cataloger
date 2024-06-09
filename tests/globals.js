@@ -46,7 +46,10 @@ if (!chrome.extension) {
     };
 }
 
+const { performance } = require('perf_hooks');
+
 global.fetch = fetch;
+global.performance = performance;
 global.Dexie = Dexie;
 global.chrome = chrome;
 

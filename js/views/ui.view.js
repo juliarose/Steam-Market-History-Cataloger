@@ -4,10 +4,10 @@
 // i.e. pages appearing in the main browser window
 // it is called right before the page-specific view script
 
-import { Layout } from '../app/layout/layout.js';
+import * as Layout from '../app/layout/index.js';
 
 // ready
-(function() {
+{
     // add page loading indicator
     Layout.addPageLoader();
-}());
+}

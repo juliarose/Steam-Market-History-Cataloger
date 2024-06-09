@@ -1,13 +1,11 @@
 'use strict';
 
 import StreamSaver from '../../lib/StreamSaver.min.js';
-import { sleep } from '../helpers/utils.js';
 
 /**
  * Downloads a file.
  * @param {string} filename - Name of file to be saved.
  * @param {string} data - Data to be saved.
- * @returns {undefined}
  */
 export function download(filename, data) {
     const link = document.createElement('a');
@@ -24,17 +22,17 @@ export function download(filename, data) {
 /**
  * Downloads a collection as a stream.
  * @param {string} filename - Name of file to be saved.
- * @param {object} table - Table containing collection.
- * @param {object} collection - Collection to save.
- * @param {object} options - Options.
+ * @param {Object} table - Table containing collection.
+ * @param {Object} collection - Collection to save.
+ * @param {Object} options - Options.
  * @param {string} options.header - Header for file.
  * @param {string} options.footer - Footer for file.
  * @param {string} options.format - Format of file.
- * @param {function} options.converter - Function for converting records to strings.
+ * @param {Function} options.converter - Function for converting records to strings.
  * @param {string} options.order - Column for order.
  * @param {number} options.direction - Direction of order.
  * @param {number} options.limit - Chunk size limit.
- * @returns {Promise.<void>} Resolves when done.
+ * @returns {Promise<void>} Resolves when done.
  */
 export async function downloadCollection(filename, table, collection, options) {
     async function downloadSorted(table, collection, options) {
@@ -66,9 +64,7 @@ export async function downloadCollection(filename, table, collection, options) {
         
         const {
             limit,
-            order,
-            // todo - use this to change the direction items are ordered in
-            direction
+            order
         } = options;
         const primaryKeySet = new Set(await collection.primaryKeys());
         const pageKeys = [];
@@ -116,7 +112,7 @@ export async function downloadCollection(filename, table, collection, options) {
         e.returnValue = 'Download in progress. Are you sure you want to exit?';
     }
     
-    function unload(e) {
+    function unload() {
         // close the stream
         writer.close();
     }
@@ -164,6 +160,5 @@ export async function downloadCollection(filename, table, collection, options) {
     // remove the listeners
     window.removeEventListener('beforeunload', beforeUnload);
     window.removeEventListener('unload', unload);
-    
     writer.close();
 }

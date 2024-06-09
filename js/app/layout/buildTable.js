@@ -4,40 +4,31 @@ import { escapeHTML, escapeRegExp, printDate } from '../helpers/utils.js';
 import { download, downloadCollection } from '../helpers/download.js';
 import { formatMoney } from '../money.js';
 import { buildFile, getStreamDownloadOptions } from '../buildFile.js';
+import { Pagination, getColumnClasses, sortByType } from './helpers.js';
 
 /**
- * Gets list of classes for each column in 'columns'.
- * @param {Object} display - Object to draw class values from.
- * @param {Array} columns - Array of column names.
- * @returns {Object} Object containing classes for each column.
+ * @typedef {import('../currency.js').Currency} Currency
+ * @typedef {import('../classes/localization.js').Localization} Localization
  */
-function getColumnClasses(display, columns) {
-    if (!display.column_class) {
-        return {};
-    }
-    
-    return columns.reduce((result, column) => {
-        if (display.column_class[column]) {
-            result[column] = display.column_class[column].join(' ');
-        }
-        
-        return result;
-    }, {});
-}
+
+/**
+ * Options for building a table.
+ * @typedef {Object} BuildTableOptions
+ * @property {Localization} locales - Locale strings.
+ * @property {Currency} currency - Currency to format money values in.
+ * @property {string} [title] - Title to display above table.
+ * @property {boolean} [keep_page] - Keep page from previously rendered table.
+ * @property {boolean} [no_download] - Do not display download button when set to true.
+ * @property {string[]} [columns] - Array of names of columns to render.
+ * @property {number} [page] - Current page for pagination.
+ * @property {number} [count] - Number of results to show per page.
+ */
 
 /**
  * Builds a table for records.
  * @param {Array} records - Records to display.
  * @param {Object} Class - Class of items in 'records'.
- * @param {Object} options - Options for formatting table.
- * @param {Localization} options.locales - Locale strings.
- * @param {Currency} options.currency - Currency to format money values in.
- * @param {string} [options.title] - Title to display above table.
- * @param {boolean} [options.keep_page] - Keep page from previously rendered table.
- * @param {boolean} [options.no_download] - Do not display download button when set to true.
- * @param {Array} [options.columns] - Array of names of columns to render.
- * @param {number} [options.page] - Current page for pagination.
- * @param {number} [options.count] - Number of results to show per page.
+ * @param {BuildTableOptions} options - Options for formatting table.
  * @returns {HTMLElement} DOM element of table.
  * @namespace Layout.buildTable
  */
@@ -71,119 +62,19 @@ export function buildTable(records, Class, options) {
     // object for storing table elements
     let page = {};
     // pagination helpers
-    const pagination = {
-        // current page for pagination
-        page: options.page || 1,
-        // number of results to show per page
-        count: options.count || 100,
-        /**
-         * Gets records for current page.
-         * @returns {Array} Array of records.
-         */
-        getRecords: function() {
-            const start = this.getIndex();
-            const end = start + this.count;
-            
-            return records.slice(start, end);
-        },
-        /*
-         * Gets total number of pages available
-         * @returns {Number} Number of pages
-         */
-        getTotalPages: function() {
-            return Math.ceil(records.length / this.count);
-        },
-        /**
-         * Gets starting index based on page number and count.
-         * @returns {number} Index to slice at.
-         */
-        getIndex: function() {
-            return (this.page - 1) * this.count;
-        },
-        /**
-         * Get text used for current page.
-         * @returns {string} Text for index, e.g. "5 / 24".
-         */
-        getIndexText: function() {
-            return `${this.page} / ${this.getTotalPages()}`;
-        },
-        /**
-         * Changes page.
-         * @param {number} difference - Number of pages to add to current page.
-         * @returns {boolean} Whether the resulting difference has changed the page or not.
-         */
-        changePage: function(difference) {
-            const page = this.page;
-            const desired = page + difference;
-            
-            return this.goTo(desired);
-        },
-        /**
-         * Go to page.
-         * @param {number} desired - Desired page.
-         * @returns {boolean} Whether the page was changed or not.
-         */
-        goTo: function(desired) {
-            const page = this.page;
-            
-            if (desired >= 1 && desired <= this.getTotalPages()) {
-                this.page = desired;
-            }
-            
-            // page changed
-            return this.page !== page;
-        },
-        /**
-         * Updates pagination state.
-         * @returns {undefined}
-         */
-        update: function() {
-            /**
-             * Adds or removes "disabled" class to every element in 'list'.
-             * @param {Array} list - List of nodes.
-             * @param {string} [method='remove'] - "add" or "remove".
-             * @returns {undefined}
-             */
-            function modify(list, method = 'add') {
-                list.forEach((el) => el.classList[method]('disabled'));
-            }
-            
-            // update pagination control buttons
-            if (this.page <= 1) {
-                // reached beginning
-                modify(page.pagination.previousList, 'add');
-                modify(page.pagination.nextList, 'remove');
-            } else if (this.page >= this.getTotalPages()) {
-                // reached end
-                modify(page.pagination.nextList, 'add');
-                modify(page.pagination.previousList, 'remove');
-            } else {
-                // in-between
-                modify(page.pagination.controls, 'remove');
-            }
-            
-            // update the index text
-            page.pagination.indexList.forEach((element) => {
-                element.textContent = this.getIndexText();
-                element.setAttribute('data-page', this.page);
-            });
-            // update the body
-            page.body.innerHTML = getHTML.body();
-        },
-        /*
-         * Resets page number back to start
-         * @returns {undefined}
-         */
-        reset: function() {
-            this.page = 1;
-        }
-    };
+    const pagination = new Pagination({
+        page: options.page,
+        count: options.count,
+        records
+    });
+    // functions for generating HTML
     const getHTML = {
         // no records to display
-        empty: function() {
+        empty() {
             return `<div class="${tableClass} empty-table">${tableLocales.empty}</div>`;
         },
-        controls: function(location, canAddDownloadControls) {
+        // draw controls for table
+        controls(location, canAddDownloadControls) {
             const totalPages = pagination.getTotalPages();
             const canAddPaginationControls = totalPages > 1;
             let contents = '';
@@ -219,54 +110,48 @@ export function buildTable(records, Class, options) {
             
             return `<div class="table-controls controls ${location}">${contents}</div>`;
         },
-        title: function() {
+        // draw title for table
+        title() {
             if (!options.title) {
                 return '';
             }
             
             return `<h4 class="table-title">${escapeHTML(options.title)}</h4>`;
         },
-        table: function() {
-            const getHead = () => {
-                const getHeadingCell = (column) => {
-                    const getColumnName = (column) => {
-                        return (display.column_names || {})[column] || '';
-                    };
-                    const getAttributes = () => {
-                        const sortColumn = sorts[column];
-                        let attributes = [
-                            `data-column="${column}"`,
-                        ];
-                        let classList = classLists[column];
+        // draw the table
+        table() {
+            const head = (function() {
+                const contents = columns
+                    .map((column) => {
+                        const attributes = (function() {
+                            const sortColumn = sorts[column];
+                            let attributes = [
+                                `data-column="${column}"`,
+                            ];
+                            let classList = classLists[column];
+                            
+                            if (sortColumn) {
+                                // add sortable to class list
+                                classList = [classList, 'sortable'].filter(a => a).join(' ');
+                                attributes.push(`data-sort-column="${sortColumn}"`);
+                            }
+                            
+                            if (classList) {
+                                attributes.push(`class="${classList}"`);
+                            }
+                            
+                            return attributes.join(' ');
+                        }());
+                        const columnName = (display.column_names || {})[column] || '';
+                        const contents = escapeHTML(columnName);
                         
-                        if (sortColumn) {
-                            // add sortable to class list
-                            classList = [classList, 'sortable'].filter(a => a).join(' ');
-                            attributes.push(`data-sort-column="${sortColumn}"`);
-                        }
-                        
-                        if (classList) {
-                            attributes.push(`class="${classList}"`);
-                        }
-                        
-                        return attributes.join(' ');
-                    };
-                    
-                    const attributes = getAttributes();
-                    const contents = escapeHTML(getColumnName(column));
-                    
-                    return `<th ${attributes}>${contents}</th>`;
-                };
-                const contents = columns.map(getHeadingCell).join('');
+                        return `<th ${attributes}>${contents}</th>`;
+                    })
+                    .join('');
                 
                 return `<tr>${contents}</tr>`;
-            };
-            const getBody = () => {
-                return getHTML.body();
-            };
-            
-            const head = getHead();
-            const body = getBody();
+            }());
+            const body = getHTML.body();
             const contents = (
                 `<thead>${head}</thead>` +
                 `<tbody>${body}</tbody>`
@@ -274,13 +159,7 @@ export function buildTable(records, Class, options) {
             
             return `<table class="${tableClass}">${contents}</table>`;
         },
-        body: function() {
-            const getCell = (column, value) => {
-                const classList = classLists[column];
-                const attributes = (classList ? 'class="' + classList + '"' : '');
-                
-                return `<td ${attributes}>${value}</td>`;
-            };
+        body() {
             const printItem = (record, key) => {
                 const formatter = formatters[key];
                 let val = record[key];
@@ -301,28 +180,69 @@ export function buildTable(records, Class, options) {
                 
                 return escapeHTML(val);
             };
-            const getRow = (record) => {
-                const classList = display.row_class && display.row_class(record).join(' ');
-                const primaryKey = Class.primary_key;
-                const attributes = [
-                    primaryKey ? `id="${Class.identifier}_${record[primaryKey]}"` : null,
-                    classList ? `class="${classList}"` : null
-                ].filter(Boolean).join(' ');
-                const contents = columns.map((column) => {
-                    return getCell(column, printItem(record, column));
-                }).join('');
-                
-                return `<tr ${attributes}>${contents}</tr>`;
-            };
-            
             // get current page of results
             const displayRecords = pagination.getRecords();
             const formatters = display.cell_value || {};
-            const contents = displayRecords.map(getRow).join('');
+            const contents = displayRecords
+                .map((record) => {
+                    const classList = display.row_class && display.row_class(record).join(' ');
+                    const primaryKey = Class.primary_key;
+                    const attributes = [
+                        primaryKey ? `id="${Class.identifier}_${record[primaryKey]}"` : null,
+                        classList ? `class="${classList}"` : null
+                    ].filter(Boolean).join(' ');
+                    const contents = columns.map((column) => {
+                        const value = printItem(record, column);
+                        const classList = classLists[column];
+                        const attributes = (classList ? 'class="' + classList + '"' : '');
+                        
+                        return `<td ${attributes}>${value}</td>`;
+                    }).join('');
+                    
+                    return `<tr ${attributes}>${contents}</tr>`;
+                })
+                .join('');
             
             return contents;
         }
     };
+    
+    /**
+     * Updates the paginaton layout.
+     * @param {Pagination} pagination 
+     */
+    function updatePagination(pagination) {
+        /**
+         * Adds or removes "disabled" class to every element in 'list'.
+         * @param {Array} list - List of nodes.
+         * @param {string} [method='remove'] - "add" or "remove".
+         */
+        function modify(list, method = 'add') {
+            list.forEach((el) => el.classList[method]('disabled'));
+        }
+        
+        // update pagination control buttons
+        if (pagination.page <= 1) {
+            // reached beginning
+            modify(page.pagination.previousList, 'add');
+            modify(page.pagination.nextList, 'remove');
+        } else if (pagination.page >= pagination.getTotalPages()) {
+            // reached end
+            modify(page.pagination.nextList, 'add');
+            modify(page.pagination.previousList, 'remove');
+        } else {
+            // in-between
+            modify(page.pagination.controls, 'remove');
+        }
+        
+        // update the index text
+        page.pagination.indexList.forEach((element) => {
+            element.textContent = pagination.getIndexText();
+            element.setAttribute('data-page', pagination.page);
+        });
+        // update the body
+        page.body.innerHTML = getHTML.body();
+    }
     
     function getTable() {
         if (records.length > 0) {
@@ -356,7 +276,7 @@ export function buildTable(records, Class, options) {
                     
                     // the page has changed
                     if (pagination.changePage(difference)) {
-                        pagination.update();
+                        updatePagination(pagination);
                     }
                 }
                 
@@ -421,7 +341,7 @@ export function buildTable(records, Class, options) {
                     // reset to page 1
                     pagination.reset();
                     // then update
-                    pagination.update();
+                    updatePagination(pagination);
                 }
                 
                 // adds listeners to a list of elements
@@ -516,7 +436,7 @@ export function buildTable(records, Class, options) {
                         // the table is re-drawn
                         // but will effectively look like it did before it was re-rendered
                         // update the pagination
-                        pagination.update();
+                        updatePagination(pagination);
                     }
                 }
             }());
@@ -530,70 +450,4 @@ export function buildTable(records, Class, options) {
     }
     
     return getTable();
-}
-
-/**
- * Sorts an array by key based on data type.
- *
- * The sorting methods are based on the type of data we are sorting.
- * @param {string} key - Sort key.
- * @param {Object} type - Class object of data type e.g. Number, Date...
- * @param {Array} arr - Array to sort.
- * @param {boolean} reverse - Sort in reverse?
- * @returns {Array} Sorted array.
- */
-function sortByType(key, type, arr, reverse) {
-    // picking a function based on the data type we're sorting as well as the direction
-    // depending on how many records the user has this can make the sorting noticeably more responsive
-    // sorting numbers on 140,000+ records took ~40ms 
-    // sorting dates on 140,000+ records took ~60ms
-    // however, for some reason the performance is worse on the first sort and is much faster there-after
-    // these are the numbers for performance after the first sort
-    // the first sort is generally 2-4 times slower
-    function getComparisonFunction(type, reverse) {
-        switch (type) {
-            case Number:
-            case Boolean: {
-                if (reverse) {
-                    return function(a, b) {
-                        return a[key] - b[key];
-                    };
-                }
-                
-                return function(a, b) {
-                    return b[key] - a[key];
-                };
-            }
-            case Date: {
-                if (reverse) {
-                    return function(a, b) {
-                        // date.getTime is a little faster than using raw date
-                        return a[key].getTime() - b[key].getTime();
-                    };
-                }
-                
-                return function(a, b) {
-                    // date.getTime is a little faster than using raw date
-                    return b[key].getTime() - a[key].getTime();
-                };
-            }
-            case String:
-            default: {
-                if (reverse) {
-                    return function(a, b) {
-                        return (a[key]).localeCompare(b[key]);
-                    };
-                }
-                
-                return function(a, b) {
-                    return (b[key]).localeCompare(a[key]);
-                };
-            }
-        }
-    }
-    
-    const compare = getComparisonFunction(type, reverse);
-    
-    // sorted array
-    return arr.sort(compare);
 }

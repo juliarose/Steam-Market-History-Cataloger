@@ -5,7 +5,6 @@ import { setIcon } from '../browser.js';
 /**
  * Updates extension icon based on loading state.
  * @param {boolean} isLoading - Load state to set.
- * @returns {undefined}
  */
 export function setLoadState(isLoading) {
     const iconPath = (

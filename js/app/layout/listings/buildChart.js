@@ -4,6 +4,11 @@ import { partition, groupBy, arrAverage } from '../../helpers/utils.js';
 import { formatMoney } from '../../money.js';
 
 /**
+ * @typedef {import('../../currency.js').Currency} Currency
+ * @typedef {import('../../classes/localization.js').Localization} Localization
+ */
+
+/**
  * Clusters records by date.
  * @param {Array} records - Objects to cluster.
  * @param {Function} [sum] - Sum function.
@@ -40,8 +45,6 @@ function cluster(records, sum) {
  * @param {Object} options - Options.
  * @param {Currency} options.currency - Currency to use for displaying prices.
  * @param {Localization} options.locales - Locale strings.
- * @returns {undefined}
- * @namespace Layout.listings.buildChart
  */
 export function buildChart(records, element, options) {
     function getPlot(record) {
@@ -79,23 +82,7 @@ export function buildChart(records, element, options) {
         labels: keys,
         series: series
     };
-    const plugins = [
-        Chartist.plugins.legend({
-            legendNames: keys.filter((key, i) => {
-                return split[i].length > 0;
-            }),
-            classNames: classNames.filter((className, i) => {
-                return split[i].length > 0;
-            }),
-            position: 'bottom'
-        }),
-        Chartist.plugins.zoom({
-            onZoom: onZoom,
-            // if set to true, a right click in the zoom area, will reset zoom.
-            resetOnRightMouseBtn: true 
-        })
-    ];
-    const chartOptions = {
+    const chart = new Chartist.Line(element, chartData, {
         showPoint: true,
         lineSmooth: false,
         chartPadding: 0,
@@ -116,9 +103,23 @@ export function buildChart(records, element, options) {
                 return formatMoney(value, currency);
             }
         },
-        plugins: plugins
-    };
-    const chart = new Chartist.Line(element, chartData, chartOptions);
+        plugins: [
+            Chartist.plugins.legend({
+                legendNames: keys.filter((key, i) => {
+                    return split[i].length > 0;
+                }),
+                classNames: classNames.filter((className, i) => {
+                    return split[i].length > 0;
+                }),
+                position: 'bottom'
+            }),
+            Chartist.plugins.zoom({
+                onZoom,
+                // if set to true, a right click in the zoom area, will reset zoom.
+                resetOnRightMouseBtn: true 
+            })
+        ]
+    });
     const chartContainer = chart.container;
     
     chartContainer.addEventListener('dblclick', resetZoom);

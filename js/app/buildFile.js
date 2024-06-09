@@ -4,8 +4,13 @@ import { printCSVDate, escapeCSV, omitEmpty, isNumber } from './helpers/utils.js
 import { formatMoney } from './money.js';
 
 /**
+ * @typedef {import('./currency.js').Currency} Currency
+ * @typedef {import('./classes/localization.js').Localization} Localization
+ */
+
+/**
  * Gets the header name for a JSON file.
- * @param {object} Class - Class.
+ * @param {Object} Class - Class.
  * @returns {string} Header.
  */
 function getJSONHeader(Class) {
@@ -14,11 +19,11 @@ function getJSONHeader(Class) {
 
 /**
  * Gets the function for a creating a CSV row.
- * @param {object} Class - Class.
+ * @param {Object} Class - Class.
  * @param {Object} options - Options to format with.
  * @param {Currency} options.currency - Currency to format money values in.
  * @param {Localization} options.locales - Locale strings.
- * @returns {function} Function for creating a CSV row.
+ * @returns {Function} Function for creating a CSV row.
  */
 export function createGetCSVRow(Class, options) {
     const getRow = (record) => {
@@ -84,7 +89,7 @@ export function createGetCSVRow(Class, options) {
 
 /**
  * Gets the header for a CSV file.
- * @param {object} Class - Class.
+ * @param {Object} Class - Class.
  * @param {Object} options - Options to format with.
  * @param {Currency} options.currency - Currency to format money values in.
  * @param {Localization} options.locales - Locale strings.
@@ -119,8 +124,11 @@ export function getCSVHeader(Class, options) {
 
 /**
  * Gets the template for a JSON file.
- * @param {object} record - The record.
- * @returns {object} Record as JSON.
+ * @param {Object} Class - The record.
+ * @param {Object} options - Options to format with.
+ * @param {Currency} options.currency - Currency to format money values in.
+ * @param {Localization} options.locales - Locale strings.
+ * @returns {Object} Record as JSON.
  */
 export function getJSONTemplate(Class, options) {
     const { locales, currency } = options;
@@ -139,8 +147,8 @@ export function getJSONTemplate(Class, options) {
 
 /**
  * Converts a record to JSON.
- * @param {object} record - The record.
- * @returns {object} Record as JSON.
+ * @param {Object} record - The record.
+ * @returns {Object} Record as JSON.
  */
 export function recordToJSON(record) {
     if (!record.toJSON) {
@@ -198,7 +206,7 @@ export function buildFile(records, Class, options, format) {
  * @param {Currency} options.currency - Currency to format money values in.
  * @param {Localization} options.locales - Locale strings.
  * @param {string} format - Format to save in.
- * @returns {object} Save options.
+ * @returns {Object} Save options.
  */
 export function getStreamDownloadOptions(Class, options, format) {
     const get = {

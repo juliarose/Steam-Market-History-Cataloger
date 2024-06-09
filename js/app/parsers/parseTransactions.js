@@ -6,6 +6,13 @@ import { AccountTransaction } from '../classes/accounttransaction.js';
 import { ETransactionType } from '../enums/ETransactionType.js';
 
 /**
+ * Type and count.
+ * @typedef {Object} CountAndType
+ * @property {number} count - Count of transactions.
+ * @property {number} type - Type of transaction.
+ */
+
+/**
  * Parses a response object from Steam.
  * @param {Object} response - Response object from Steam.
  * @param {Currency} currency - Currency object for parsing price strings.
@@ -15,8 +22,8 @@ import { ETransactionType } from '../enums/ETransactionType.js';
 export function parseTransactions(response, currency, locales) {
     /**
      * Gets list of items that were purchased in transaction.
-     * @param {Object} itemsEl - Container element of items.
-     * @returns {(Array|null)} Array of items parsed from element, if available.
+     * @param {Element} itemsEl - Container element of items.
+     * @returns {(Array | null)} Array of items parsed from element, if available.
      */
     function parseItems(itemsEl) {
         const payItemsList = itemsEl.getElementsByClassName('wth_payment');
@@ -45,8 +52,8 @@ export function parseTransactions(response, currency, locales) {
     
     /**
      * Gets transaction ID.
-     * @param {Object} transactionEl - Transaction element.
-     * @returns {(string|null)} ID of transaction if available.
+     * @param {Element} transactionEl - Transaction element.
+     * @returns {(string | null)} ID of transaction if available.
      */
     function getTransactionID(transactionEl) {
         const onClickAttribute = transactionEl.getAttribute('onclick') || '';
@@ -62,8 +69,8 @@ export function parseTransactions(response, currency, locales) {
     
     /**
      * Gets count and type.
-     * @param {Object} countEl - Element containing string for count and type e.g. "22 Market Transactions".
-     * @returns {Object} Object containing the type and count.
+     * @param {Element} countEl - Element containing string for count and type e.g. "22 Market Transactions".
+     * @returns {CountAndType} Object containing the type and count.
      */
     function getCountAndType(countEl) {
         const identifiers = classDisplay.identifiers.transaction_type;

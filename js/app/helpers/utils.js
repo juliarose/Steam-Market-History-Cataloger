@@ -105,7 +105,7 @@ export function partition(arr, method) {
 /**
  * Groups an array by value from key.
  * @param {Array} arr - Array.
- * @param {(string|Function)} key - Key to take value from.
+ * @param {(string | Function)} key - Key to take value from.
  * @returns {Object} Object of groups.
  */
 export function groupBy(arr, key) {
@@ -224,7 +224,7 @@ export function queryString(query) {
      * Get query parameter for value.
      * @param {string} name - Name of value.
      * @param {*} value - Value.
-     * @returns {(string|Array)} Query parameter.
+     * @returns {(string | Array)} Query parameter.
      */
     function getQuery(name, value) {
         if (Array.isArray(value)) {
@@ -486,9 +486,9 @@ export function getUrlParam(name) {
 /**
  * Converts HTML to nodes.
  * @param {string} html - Valid HTML string.
- * @returns {Object} HTML document object.
+ * @returns {Document} HTML document object.
  */
 export function getDocument(html) {
     // return the body
-    return new DOMParser().parseFromString(html, 'text/html').querySelector('body');
+    return new DOMParser().parseFromString(html, 'text/html');
 }

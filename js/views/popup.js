@@ -2,9 +2,9 @@
 
 import { readyState } from '../app/readyState.js';
 import { formatLocaleNumber } from '../app/money.js';
-import { createListingManager } from '../app/manager/listingsmanager.js';
+import { ListingManager } from '../app/manager/listingsmanager.js';
 import { escapeHTML, truncate } from '../app/helpers/utils.js';
-import { tabs, browserLocalStorage, sendMessage } from '../app/browser.js';
+import { tabs, sendMessage } from '../app/browser.js';
 
 const page = {
     contents: document.getElementById('contents'),
@@ -86,7 +86,7 @@ async function onApp(app) {
     
     try {
         // get total number of listings in db
-        const settings = await createListingManager(app).getSettings();
+        const settings = await new ListingManager(app).getSettings();
         
         // updates state based on whether loading is in progress
         (function() {
@@ -96,7 +96,6 @@ async function onApp(app) {
                 // page.buttons.startLoading.classList.remove('hidden');
             }
         }());
-            
         
         // adds details related to account (name, profile picture, listing count)
         (function() {
@@ -132,15 +131,17 @@ async function onApp(app) {
                 });
             });
         }());
-    } catch (e) {
+    } catch {
         // error
     }
 }
 
 // ready
-readyState(onApp, (error) => {
-    page.loggedInButtons.forEach((el) => {
-        el.remove();
+{
+    readyState(onApp, (error) => {
+        page.loggedInButtons.forEach((el) => {
+            el.remove();
+        });
+        page.profile.innerHTML = `<p class="app-error">${escapeHTML(error)}</p>`;
     });
-    page.profile.innerHTML = `<p class="app-error">${escapeHTML(error)}</p>`;
-});
+}

@@ -5,6 +5,14 @@ import { parseMoney } from '../money.js';
 import { Listing } from '../classes/listing.js';
 
 /**
+ * @typedef {import('../classes/listing.js').Listing} Listing
+ * @typedef {import('../currency.js').Currency} Currency
+ * @typedef {import('../classes/localization.js').Localization} Localization
+ * @typedef {import('../steam/requests/get.js').MyHistoryResponse} MyHistoryResponse
+ * @typedef {import('../manager/listingsmanager.js').LoadState} LoadState
+ */
+
+/**
  * Makes a date.
  * @param {number} year - Year of date.
  * @param {number} month - Month of date.
@@ -19,22 +27,22 @@ function makeDate(year, month, day) {
 /**
  * Results of parsing.
  * @typedef {Object} ParseListingResult
- * @property {(error|null)} error - Error, if any.
- * @property {(Boolean|null)} fatal - Whether the error is fatal.
+ * @property {(error | null)} error - Error, if any.
+ * @property {(boolean | null)} fatal - Whether the error is fatal.
  * @property {Listing[]} records - Array of parsed listings.
- * @property {Object} modifiedDate - Modified object from store passed to function.
+ * @property {Object} modifiedDate - Modified object from state passed to function.
  */
 
 /**
  * Parses listings from response.
- * @param {Object} response - Response from Steam.
- * @param {Object} store - Stored state object.
+ * @param {MyHistoryResponse} response - Response from Steam.
+ * @param {LoadState} state - Stored state object.
  * @param {Currency} currency - Currency object for parsing price strings.
  * @param {Localization} localization - Locales.
  * @throws {Error} When dates were unable to be parsed or data is missing from some listings.
  * @returns {ParseListingResult} Results of parsing.
  */
-export function parseListings(response, store, currency, localization) {
+export function parseListings(response, state, currency, localization) {
     const doc = getDocument(response.results_html);
     const messageEl = doc.querySelector('.market_listing_table_message');
     const messageLinkEl = messageEl && messageEl.querySelector('a');
@@ -70,8 +78,8 @@ export function parseListings(response, store, currency, localization) {
         // does not have assets
         response.assets == null
     );
-    // all values used from "store", create clone so we do not modify original object
-    let modifiedDate = Object.assign({}, store.date);
+    // all values used from "state", create clone so we do not modify original object
+    let modifiedDate = Object.assign({}, state.date);
     
     if (hasError) {
         const messageText = messageEl && messageEl.textContent.trim();
@@ -97,13 +105,13 @@ export function parseListings(response, store, currency, localization) {
     
     /**
      * Gets array of objects from elements.
-     * @param {Array} listingsArr - Array of DOM elements for each listing.
+     * @param {Element[]} listingsArr - Array of DOM elements for each listing.
      * @returns {Listing[]} Array of listings.
      */
     function listingsToJSON(listingsArr) {
-        const lastTxID = store.last && store.last.transaction_id;
-        const lastIndexedTxID = store.last_indexed && store.last_indexed.transaction_id;
-        const lastFetchedTxID = store.last_fetched && store.last_fetched.transaction_id;
+        const lastTxID = state.last && state.last.transaction_id;
+        const lastIndexedTxID = state.last_indexed && state.last_indexed.transaction_id;
+        const lastFetchedTxID = state.last_fetched && state.last_fetched.transaction_id;
         // array of jquery objects
         let listings = [];
         
@@ -158,16 +166,14 @@ export function parseListings(response, store, currency, localization) {
      * Parses a listing row.
      * @param {Object} details - Listing row element.
      * @param {number} details.index - Index of listing.
-     * @param {Object} details.listingEl - Listing row element.
-     * @returns {Object} Listing data for row.
+     * @param {Element} details.listingEl - Listing row element.
+     * @returns {Listing} Listing data for row.
      */
     function listingToJSON({ index, listingEl }) {
         // get our elements
         const gainOrLossEl = listingEl.querySelector('.market_listing_gainorloss');
         const priceEl = listingEl.querySelector('.market_listing_price');
         const listedDateList = listingEl.querySelectorAll('.market_listing_listed_date');
-        const whoActedEl = listingEl.querySelector('.market_listing_whoactedwith');
-        const whoActedLinkEl = whoActedEl.querySelector('a');
         // collect the data
         const transactionId = getTransactionId(listingEl);
         const gainText = gainOrLossEl.textContent.trim();
@@ -187,38 +193,47 @@ export function parseListings(response, store, currency, localization) {
             appid,
             contextid,
             assetid,
+            index,
+            price,
             transaction_id: transactionId,
-            index: index,
-            price: price,
             price_raw: priceText,
             is_credit: isCredit ? 1 : 0,
             date_acted_raw: listedDateList[0].textContent.trim(),
-            date_listed_raw: listedDateList[1].textContent.trim(),
-            seller: whoActedLinkEl.getAttribute('href')
+            date_listed_raw: listedDateList[1].textContent.trim()
         };
-        const assetData = getAssetKeys(data, [
-            'classid',
-            'instanceid',
-            'name',
-            'market_name',
-            'market_hash_name',
-            'name_color',
-            'background_color',
-            'icon_url'
-        ]);
-        const dateData = getDate(data) || {};
+        const {
+            date_listed,
+            date_acted
+        } = getDate(data.date_listed_raw, data.date_acted_raw);
+        
+        data.date_listed = date_listed;
+        data.date_acted = date_acted;
+        
+        const asset = getAsset(data);
+        
+        if (!asset) {
+            // asset is missing
+            throw new Error('Asset not found');
+        }
+        
+        data.classid = asset.classid;
+        data.instanceid = asset.instanceid;
+        data.name = asset.name;
+        data.market_name = asset.market_name;
+        data.market_hash_name = asset.market_hash_name;
         
         // name color should always be uppercase for uniformity
-        if (assetData.name_color) {
-            assetData.name_color = assetData.name_color.toUpperCase();
+        if (asset.name_color) {
+            data.name_color = asset.name_color.toUpperCase();
         }
         
-        if (assetData.background_color) {
-            assetData.background_color = assetData.background_color.toUpperCase();
+        if (asset.background_color) {
+            data.background_color = asset.background_color.toUpperCase();
         }
         
-        // now wrap it all together
-        return new Listing(Object.assign(data, assetData, dateData));
+        data.icon_url = asset.icon_url;
+        
+        return new Listing(data);
     }
     
     // calculates the index for a listing
@@ -251,37 +266,11 @@ export function parseListings(response, store, currency, localization) {
     /**
      * Gets dates of listing, this is a complicated process since dates are displayed in short string formats.
      * E.g. "Mar 30", which must be manually parsed and year must be determined based on numerous conditions.
-     * @param {Object} data - Object containing date strings.
+     * @param {string} dateListedRaw - Raw date listed string.
+     * @param {string} dateActedRaw - Raw date acted string.
      * @returns {Object} Parsed dates.
      */
-    function getDate(data) {
-        /**
-         * Parses dates from date strings.
-         * @param {Object} data - Object containing date strings; "date_listed_raw" and "date_acted_raw".
-         * @returns {Object} Object containing parsed month and day from strings for each date; "date_listed" and "date_acted".
-         */
-        function getParsedDate(data) {
-            const names = [
-                'date_listed',
-                'date_acted'
-            ];
-            
-            return names.reduce((result, name) => {
-                // get the raw date string
-                const dateStr = data[name + '_raw'];
-                const date = (
-                    dateStr &&
-                    localization.parseDateString(dateStr)
-                );
-                
-                if (date) {
-                    result[name] = date;
-                }
-                
-                return result;
-            }, {});
-        }
-        
+    function getDate(dateListedRaw, dateActedRaw) {
         /**
          * Gets date from parsed date.
          * @param {Object} parsedDate - Object containing month and day of date.
@@ -342,16 +331,15 @@ export function parseListings(response, store, currency, localization) {
             now.getMonth(),
             now.getDate() + 1
         );
-        const parsed = getParsedDate(data);
-        const failedParsing = Boolean(
-            !parsed.date_listed ||
-            !parsed.date_acted
-        );
+        const parsed = {
+            date_listed: dateListedRaw && localization.parseDateString(dateListedRaw),
+            date_acted: dateActedRaw && localization.parseDateString(dateActedRaw)
+        };
         
         // parsing failed
         // the parsing function would normally throw an error, but in case it doesn't...
         // must have date_listed and date_acted
-        if (failedParsing) {
+        if (!parsed.date_listed || !parsed.date_acted) {
             throw new Error('Date parsing failed');
         }
         
@@ -373,31 +361,9 @@ export function parseListings(response, store, currency, localization) {
         return response.assets[appid][contextid][assetid];
     }
     
-    /**
-     * Extracts data from item asset.
-     * @param {Object} data - Asset data.
-     * @param {Array} keys - Keys to collect.
-     * @returns {Object} Object with keys mapped from asset using list from "keys".
-     */
-    function getAssetKeys(data, keys) {
-        let obj = {};
-        const asset = getAsset(data);
-        
-        for (let i = 0; i < keys.length; i++) {
-            const k = keys[i];
-            const val = asset[k];
-            
-            // not null or undefined
-            if (val != undefined) {
-                obj[k] = val;
-            }
-        }
-        
-        return obj;
-    }
-    
-    const listings = listingsToJSON(Array.from(listingsList));
-    const missingData = listings.some((listing) => {
+    const listingsArr = Array.from(listingsList);
+    const listings = listingsToJSON(listingsArr);
+    const isMissingData = listings.some((listing) => {
         // listing must have these values defined
         return [
             'appid',
@@ -416,7 +382,7 @@ export function parseListings(response, store, currency, localization) {
         });
     });
     
-    if (missingData) {
+    if (isMissingData) {
         // fatal
         // we do not want to store bad data
         throw new Error('Invalid listing data');

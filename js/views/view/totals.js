@@ -1,8 +1,9 @@
 'use strict';
 
 import { readyState } from '../../app/readyState.js';
-import { Layout } from '../../app/layout/layout.js';
+import * as Layout from '../../app/layout/index.js';
 import { Listing } from '../../app/classes/listing.js';
+import { getPreferences } from '../../app/preferences.js';
 
 const page = {
     results: document.getElementById('results')
@@ -23,7 +24,10 @@ async function map(collection, mapperFn) {
 
 async function onApp(app) {
     function buildSummaries(records) {
-        const options = Object.assign({}, Layout.getLayoutOptions(app), {
+        const options = Object.assign({}, Layout.getLayoutOptions({
+            account,
+            preferences
+        }), {
             count: 1e3
         });
         const tablesEl = Layout.listings.buildSummaries(records || [], Listing, options);
@@ -48,6 +52,8 @@ async function onApp(app) {
             price: record.price
         };
     });
+    const { account } = app;
+    const preferences = await getPreferences();
     
     records = records.sort((a, b) => b.index - a.index);
     onRecords(records);
@@ -55,4 +61,6 @@ async function onApp(app) {
 }
 
 // ready
-readyState(onApp, Layout.error);
+{
+    readyState(onApp, Layout.error);
+}

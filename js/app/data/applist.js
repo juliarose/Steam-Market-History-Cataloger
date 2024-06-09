@@ -11,8 +11,8 @@ import { getExtensionURL } from '../browser.js';
 export const applist = {
     /**
      * Get app list from stored JSON file.
-     * @param {applist.get-callback} callback - Called when finished loading.
-     * @returns {Promise.<Object>} Resolve with applist when done, reject on error.
+     * @param {Function} callback - Called when finished loading.
+     * @returns {Promise<Object>} Resolves with applist when done, reject on error.
      * @memberOf applist
      */
     get: async function() {
@@ -26,7 +26,6 @@ export const applist = {
     /**
      * Set app list.
      * @param {Object} apps - JSON object containing apps.
-     * @returns {undefined}
      * @memberOf applist
      */
     set: function(apps) {

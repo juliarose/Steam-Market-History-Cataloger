@@ -41,23 +41,13 @@ body {
     font-weight: bold;
 }
 
-#user .text {
-    margin-top: 2px;
-}
-
-#user .count {
-    
-}
-
 #user .avatar img {
     border-radius: 50%;
     display: block;
 }
 
-#user .avatar .img-wrapper {
-}
-
 #user .text {
+    margin-top: 2px;
     vertical-align:top;
     display: inline-block
 }

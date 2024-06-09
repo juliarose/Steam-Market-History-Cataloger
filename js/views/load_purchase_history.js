@@ -1,9 +1,10 @@
 'use strict';
 
 import { readyState } from '../app/readyState.js';
-import { Layout } from '../app/layout/layout.js';
+import * as Layout from '../app/layout/index.js';
 import { AccountTransaction } from '../app/classes/accounttransaction.js';
-import { createPurchaseHistoryManager } from '../app/manager/purchasehistorymanager.js';
+import { PurchaseHistoryManager } from '../app/manager/purchasehistorymanager.js';
+import { getPreferences } from '../app/preferences.js';
 
 const page = {
     results: document.getElementById('results'),
@@ -17,7 +18,10 @@ const page = {
 
 async function onApp(app) {
     function renderTable(records) {
-        const options = Object.assign({}, Layout.getLayoutOptions(app), {
+        const options = Object.assign({}, Layout.getLayoutOptions({
+            account,
+            preferences
+        }), {
             keep_page: true
         });
         const tableEl = Layout.buildTable(records || [], AccountTransaction, options);
@@ -71,7 +75,9 @@ async function onApp(app) {
     
     // array that will hold all of our collected records from loading
     let total = [];
-    const purchaseHistoryManager = createPurchaseHistoryManager(app);
+    const purchaseHistoryManager = new PurchaseHistoryManager(app);
+    const preferences = await getPreferences();
+    const { account } = app;
         
     // add listeners
     (function() {
@@ -82,11 +88,12 @@ async function onApp(app) {
         });
     }());
     
-    
     purchaseHistoryManager.setup()
         .then(Layout.ready)
         .catch(Layout.error);
 }
 
 // ready
-readyState(onApp, Layout.error);
+{
+    readyState(onApp, Layout.error);
+}

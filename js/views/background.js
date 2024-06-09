@@ -1,40 +1,44 @@
 'use strict';
 
 import { setBadgeText } from '../app/browser.js';
-import { createListingPoller } from '../app/manager/listingspoller.js';
+import { ListingPoller } from '../app/manager/listingpoller.js';
 import { browserLocalStorage, onMessage } from '../app/browser.js';
 
-const listingPoller = createListingPoller();
+const listingPoller = new ListingPoller();
 
 function addListeners() {
-    onMessage.addListener((request, sender, sendResponse) => {
+    onMessage.addListener((request, _sender, sendResponse) => {
         switch (request.name) {
             case 'startLoading': {
                 // force load
                 listingPoller.resumeLoading(true);
                 sendResponse();
-            } break;
+                break;
+            }
             case 'resumeLoading': {
                 listingPoller.resumeLoading();
                 sendResponse();
-            } break;
+                break;
+            }
             case 'clearListingCount': {
                 listingPoller.clearListingCount();
                 updateCount(0);
                 sendResponse();
-            } break;
+                break;
+            }
             case 'getListingIndex': {
                 sendResponse();
-            } break;
+                break;
+            }
             default: {
                 sendResponse();
             }
         }
     });
     
-    chrome.runtime.onInstalled.addListener((object) => {
+    chrome.runtime.onInstalled.addListener(() => {
         // this will load the initial data it needs
-        chrome.tabs.create({ url: 'https://steamcommunity.com/market?installation=1' }, (tab) => {
+        chrome.tabs.create({ url: 'https://steamcommunity.com/market?installation=1' }, () => {
             
         });
     });
@@ -64,8 +68,8 @@ function updateCount(count) {
 }
 
 // ready
-(function() {
+{
     addListeners();
     updateCount(0);
     listingPoller.start(5);
-}());
+}

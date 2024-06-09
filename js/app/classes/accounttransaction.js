@@ -3,6 +3,11 @@
 import { createClass } from './helpers/createClass.js';
 import { ETransactionType } from '../enums/ETransactionType.js';
 
+/**
+ * @typedef {import('./helpers/createClass.js').DisplayOptions} DisplayOptions
+ * @typedef {import('./localization.js').Localization} Localization
+ */
+
 const types = {
     transaction_id: String,
     transaction_type: Number,
@@ -15,6 +20,8 @@ const types = {
 
 /**
  * Account transaction.
+ * @namespace AccountTransaction
+ * @class
  * @property {string} [transaction_id] - Transaction ID, if available.
  * @property {number} transaction_type - Transaction type given fom ETransactionType.
  * @property {Date} date - Date of transaction.
@@ -22,8 +29,6 @@ const types = {
  * @property {number} price - Total price.
  * @property {string} price_raw - Raw stirng of price.
  * @property {boolean} is_credit - Whether the transaction resulted in credit or not.
- * @namespace AccountTransaction
- * @class
  */
 export const AccountTransaction = createClass({
     types,

@@ -3,8 +3,8 @@
 /**
  * Creates an XHR request.
  * @param {string} url - URL of location.
- * @param {Object} [settings={}] - Settings for request.
- * @returns {Promise} Fetch promise.
+ * @param {RequestInit} [settings={}] - Settings for request.
+ * @returns {Promise<Response>} Fetch promise.
  */
 export async function getXHR(url, settings = {}) {
     console.log(`${settings.method || 'GET'} %s`, url);

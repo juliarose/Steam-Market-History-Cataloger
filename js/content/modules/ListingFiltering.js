@@ -108,10 +108,10 @@ ListingFiltering.prototype.getListingValue = function(listingEl, key) {
     return value;
 };
 
-/*
+/**
  * Get 
  * @param {Object} listingEl - Listing element
- * @returns {String} Transaction ID of listing
+ * @returns {string} Transaction ID of listing
  */
 function getTransactionId(listingEl) {
     return listingEl.id.replace('history_row_', '').replace('_', '-');

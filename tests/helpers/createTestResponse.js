@@ -21,7 +21,6 @@ name: "Unusual Bomber's Bucket Hat",
 name_color: "8650AC",
 price: 1579,
 price_raw: "$15.79",
-seller: "https://steamcommunity.com/profiles/76561198375077095",
 transaction_id: "1938161662147970447-1938161662147970448"
 */
 function buildAsset(listing) {
@@ -164,7 +163,6 @@ function createRow(listing) {
     const {
         name,
         icon_url,
-        seller,
         background_color,
         border_color,
         price_raw,
@@ -173,7 +171,6 @@ function createRow(listing) {
     } = listing;
     const icon = icon_url;
     const borderStyle = border_color ? `border-color: #${border_color};` : '';
-    const sellerName = 'Meower';
     /*
     const priceStr = formatMoney(listing,price, currency);
     const dateActedStr = locales.toDateString(listing.date_acted);
@@ -202,19 +199,6 @@ function createRow(listing) {
                     </span>
                     <br/>
                 </span>
-            </div>
-            <div class="market_listing_right_cell market_listing_whoactedwith">
-                <span class="market_listing_owner_avatar">
-                    <span class="playerAvatar online">
-                        <a href="${seller}">
-                            <img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/18/1847e767407ff97e8dd72a0229d1fef83c085a7d.jpg" alt="" title="${sellerName}" />
-                        </a>
-                    </span>
-                </span>
-                <div class="market_listing_whoactedwith_name_block">
-                    Buyer: <br/>
-                    ${sellerName}
-                </div>
             </div>
             <div class="market_listing_right_cell market_listing_listed_date can_combine">
                 ${dateActedStr}

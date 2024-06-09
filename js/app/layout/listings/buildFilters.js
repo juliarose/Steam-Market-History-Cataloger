@@ -1,15 +1,12 @@
 'use strict';
 
 import { applist } from '../../data/applist.js';
-import { uniq, printDate } from '../../helpers/utils.js';
-import { createSpinner } from '../layout.js';
 
 /**
  * Creates an autocomplete field with the given values.
  * @param {HTMLElement} inputEl - The input element for the complete.
  * @param {string[]} values - Array of values to be used as search terms.
- * @param {function} submitFn - The function to call when submitting the search.
- * @returns {undefined}
+ * @param {Function} submitFn - The function to call when submitting the search.
  */
 function addAutocompleteToField(inputEl, values, submitFn) {
     // adapted from https://www.w3schools.com/howto/howto_js_autocomplete.asp
@@ -106,7 +103,7 @@ function addAutocompleteToField(inputEl, values, submitFn) {
                 itemEl.innerHTML = `${startStr}<strong>${matchingStr}</strong>${endStr}`;
                 
                 // execute a function when the item is clicked
-                itemEl.addEventListener('click', (e) => {
+                itemEl.addEventListener('click', () => {
                     // change the input's value to the value for this element
                     inputEl.value = value;
                     
@@ -176,14 +173,16 @@ function addAutocompleteToField(inputEl, values, submitFn) {
                 
                 // update the active selected element
                 updateActiveItem(itemsList);
-            } break;
+                break;
+            }
             // down
             case 38: {
                 currentFocus--;
                 
                 // update the active selected element
                 updateActiveItem(itemsList);
-            } break;
+                break;
+            }
             // enter
             case 13: {
                 // prevent the form from being submitted
@@ -193,7 +192,9 @@ function addAutocompleteToField(inputEl, values, submitFn) {
                     // force click event on the active item
                     itemsList[currentFocus].click();
                 }
-            } break;
+                
+                break;
+            }
         }
     });
     
@@ -205,6 +206,7 @@ function addAutocompleteToField(inputEl, values, submitFn) {
 
 /**
  * Builds filters for listings.
+ * @param {Object} table - Table to draw filters for.
  * @param {Array} records - Records to draw filters from.
  * @param {Object} Class - Listing class object.
  * @param {Object} options - Options.
@@ -313,7 +315,7 @@ export async function buildFilters(table, records, Class, options) {
                     
                     el.textContent = getName(name);
                     el.classList.add('item', 'button');
-                    el.addEventListener('click', (e) => {
+                    el.addEventListener('click', () => {
                         const date = new Date();
                         const offsetDate = new Date(date.getTime() - days * ONE_DAY);
                         const dateStr = formatDate(offsetDate);
@@ -538,13 +540,12 @@ export async function buildFilters(table, records, Class, options) {
     
     /**
      * Updates filter queries.
-     * @param {string} [only] - Only filter using this key.
-     * @returns {Promise.<void>} Resolves when done.
+     * @returns {Promise<void>} Resolves when done.
      */
-    async function updateQuery(only) {
+    async function updateQuery() {
         // obtain a collection without a .where clause
         function noQuery() {
-            const collection = table.sortBy('index');
+            const collection = table.orderBy('index');
             
             onChange(filteredRecords, collection);
         }

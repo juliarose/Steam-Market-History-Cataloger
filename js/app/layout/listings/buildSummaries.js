@@ -9,14 +9,18 @@ import { DailyTotal } from '../../classes/totals/dailytotal.js';
 import { AppTotal } from '../../classes/totals/apptotal.js';
 
 /**
+ * @typedef {import('../../currency.js').Currency} Currency
+ * @typedef {import('../../classes/localization.js').Localization} Localization
+ */
+
+/**
  * Builds summary tables for listings.
  * @param {Array} records - Records to summarize.
  * @param {Object} Class - Listing class object.
  * @param {Object} options - Options.
  * @param {Currency} options.currency - Currency to use for displaying prices.
- * @param {Object} [options.locales] - Locale strings.
+ * @param {Localization} [options.locales] - Locale strings.
  * @returns {HTMLElement} Document fragment.
- * @namespace Layout.listings.buildSummaries
  */
 export function buildSummaries(records, Class, options = {}) {
     const buildIndex = (function() {

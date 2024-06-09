@@ -8,7 +8,7 @@ export function createDatabaseSettingsManager(db, tableName, primaryKey, default
          * Gets the settings.
          * @memberOf ListingManager
          * @param {boolean} noWrapper - Get settings object without wrapper.
-         * @returns {Promise.<Object>} Resolve with settings when done.
+         * @returns {Promise<Object>} Resolves with settings when done.
          */
         getSettings: async function() {
             const record = await table.get(primaryKey);
@@ -22,7 +22,7 @@ export function createDatabaseSettingsManager(db, tableName, primaryKey, default
         /**
          * Saves the settings.
          * @memberOf ListingManager
-         * @returns {Promise} Resolve when done.
+         * @returns {Promise} Resolves when done.
          */
         saveSettings: async function(settingsToSave) {
             const primKey = table.schema.primKey.keyPath;
@@ -30,13 +30,6 @@ export function createDatabaseSettingsManager(db, tableName, primaryKey, default
             const fullData = Object.assign({}, {
                 [primKey]: primaryKey
             }, settingsToSave);
-            //// the columns from the schema
-            //const columns = [
-            //    table.schema.primKey,
-            //    ...table.schema.indexes
-            //].filter(Boolean).map(index => index.keyPath);
-            //// the data set with only the database columns
-            //const data = pickKeys(fullData, columns);
             const data = fullData;
             
             // add or update the data on the database
@@ -45,7 +38,7 @@ export function createDatabaseSettingsManager(db, tableName, primaryKey, default
         /**
          * Deletes the settings.
          * @memberOf ListingManager
-         * @returns {Promise} Resolve when done.
+         * @returns {Promise} Resolves when done.
          */
         deleteSettings: async function() {
             return db[tableName].delete(primaryKey);

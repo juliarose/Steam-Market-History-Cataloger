@@ -1,6 +1,10 @@
 'use strict';
 
 /**
+ * @typedef {import('./currency.js').Currency} Currency
+ */
+
+/**
  * Formats thousands places with seperators.
  * @param {number} value - Value.
  * @param {string} thousand - Thousand seperator.
@@ -63,8 +67,10 @@ function formatMoneyInteger(value, currency) {
  */
 function extractNumber(value, currency) {
     const stripped = value
+        // take out the symbol
+        .replace(currency.symbol, '')
         // remove thousand places
-        .replace(currency.thousand, '')
+        .replaceAll(currency.thousand, '')
         // replace decimal places to actual decimals
         .replace(currency.decimal, '.')
         // remove all non-digits and non-decimals
@@ -75,7 +81,7 @@ function extractNumber(value, currency) {
 
 /**
  * Fixes an integer to a certain length.
- * @param {(string|number)} value - Value.
+ * @param {(string | number)} value - Value.
  * @param {number} precision - Length of number.
  * @returns {string} Fixed string.
  */
@@ -100,7 +106,7 @@ function toFixedInteger(value, precision) {
 
 /**
  * Fixes a number to a certain precision.
- * @param {(string|number)} value - Value.
+ * @param {(string | number)} value - Value.
  * @param {number} precision - Number of decimal places.
  * @returns {string} Fixed string.
  */

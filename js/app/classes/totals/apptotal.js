@@ -10,6 +10,4 @@ const tableColumns = [
     'purchase',
     'purchase_count'
 ];
-const AppTotal = createTotalClass(identifier, tableColumns);
-
-export { AppTotal };
+export const AppTotal = createTotalClass(identifier, tableColumns);

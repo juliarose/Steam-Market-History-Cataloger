@@ -1,7 +1,5 @@
-import { createListingDatabase } from '../../js/app/initializers/db.js';
-import { createAccountDatabase } from '../../js/app/initializers/accountdb.js';
-import { createPreferencesManager } from '../../js/app/manager/preferences.js';
-import { configureDB } from '../../js/app/initializers/db.js';
+import { createListingDatabase } from '../../js/app/db/listing.js';
+import { createAccountDatabase } from '../../js/app/db/account.js';
 import { getCurrency } from '../../js/app/currency.js';
 
 const getLocales = require('./getLocales');
@@ -17,13 +15,11 @@ async function getApp(steamid, language = 'english', currencyCode = 1) {
             currency
         }
     };
-    const preferences = createPreferencesManager();
     const AccountDB = createAccountDatabase();
     const ListingDB = createListingDatabase(account.steamid);
     
     return {
         account,
-        preferences,
         AccountDB,
         ListingDB
     };

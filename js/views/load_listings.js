@@ -1,10 +1,11 @@
 'use strict';
 
 import { readyState } from '../app/readyState.js';
-import { Layout } from '../app/layout/layout.js';
+import * as Layout from '../app/layout/index.js';
 import { Listing } from '../app/classes/listing.js';
-import { createListingManager } from '../app/manager/listingsmanager.js';
+import { ListingManager } from '../app/manager/listingsmanager.js';
 import { sendMessage } from '../app/browser.js';
+import { getPreferences } from '../app/preferences.js';
 
 const page = {
     results: document.getElementById('results'),
@@ -19,7 +20,7 @@ const page = {
     }
 };
 
-function onApp(app) {
+async function onApp(app) {
     async function render() {
         await updateCount();
         // database table
@@ -42,7 +43,10 @@ function onApp(app) {
     
     // Renders table of listings.
     function renderTable(records) {
-        const options = Object.assign({}, Layout.getLayoutOptions(app), {
+        const options = Object.assign({}, Layout.getLayoutOptions({
+            account,
+            preferences,
+        }), {
             keep_page: true,
             no_download: true
         });
@@ -67,6 +71,8 @@ function onApp(app) {
     
     // Starting loading listings
     function load() {
+        let hasAlerted = false;
+        
         function loadListings(now) {
             function done(error) {
                 isLoading = false;
@@ -87,11 +93,15 @@ function onApp(app) {
                 loadListings();
             }
             
-            Layout.alert(
-                'Loading started! Loading will resume in background if you close this page at any point.',
-                page.results,
-                'active'
-            );
+            // make sure this is only called once...
+            if (!hasAlerted) {
+                Layout.alert(
+                    'Loading started! Loading will resume in background if you close this page at any point.',
+                    page.results,
+                    'active'
+                );
+                hasAlerted = true;
+            }
             
             listingManager.load(0, now).then(getMore).catch(done);
         }
@@ -103,7 +113,7 @@ function onApp(app) {
     }
     
     function addListeners() {
-        window.addEventListener('beforeunload', (event) => {
+        window.addEventListener('beforeunload', () => {
             // if the page is closed while loading is in progress
             if (isLoading) {
                 // continue loading in background
@@ -122,11 +132,15 @@ function onApp(app) {
     // array that will hold all of our collected records from loading
     let total = [];
     let isLoading;
-    const listingManager = createListingManager(app);
+    const listingManager = new ListingManager(app);
+    const { account } = app;
+    const preferences = await getPreferences();
     
     addListeners();
     render().then(Layout.ready);
 }
 
 // ready
-readyState(onApp, Layout.error);
+{
+    readyState(onApp, Layout.error);
+}

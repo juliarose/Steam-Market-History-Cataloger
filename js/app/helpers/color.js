@@ -1,5 +1,27 @@
 'use strict';
 
+// substr polyfill
+// https://stackoverflow.com/a/77882760
+function substr(s, start, length) {
+    const size = s.length;
+    let intStart = Number.isNaN(Number(start)) ? 0 : Number.parseInt(start);
+    
+    if (intStart === -Infinity) {
+        intStart = 0;
+    } else if (intStart < 0) {
+        intStart = Math.max(size + intStart, 0);
+    } else {
+        intStart = Math.min(intStart, size);
+    }
+    
+    let intLength = length === undefined ? size : (Number.isNaN(Number(length)) ? 0 : Number.parseInt(length));
+    intLength = Math.max(Math.min(intLength, size), 0);
+    
+    let intEnd = Math.min(intStart + intLength, size);
+    
+    return s.substring(intStart, intEnd);
+}
+
 /**
  * Get individual color channel from color.
  * @param {string} color - 6-digit hexadecimal number of color.
@@ -10,7 +32,7 @@
  * getChannel('00FF00', 1); // 'FF'
  */
 function getChannel(color, position) {
-    return color.substr(position * 2, 2);
+    return substr(color, position * 2, 2);
 }
 
 /**

@@ -10,6 +10,5 @@ const tableColumns = [
     'purchase',
     'purchase_count'
 ];
-const AnnualTotal = createTotalClass(identifier, tableColumns);
 
-export { AnnualTotal };
+export const AnnualTotal = createTotalClass(identifier, tableColumns);

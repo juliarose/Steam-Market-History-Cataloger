@@ -1,7 +1,8 @@
 'use strict';
 
-import { Steam } from '../../../steam/steam.js';
+import { getClassinfo } from '../../../steam/index.js';
 import { escapeHTML } from '../../../helpers/utils.js';
+import { AppError } from '../../../error.js';
 
 // id for current hover
 // since requests are done through AJAX,
@@ -14,21 +15,20 @@ let hoverID = 0;
  * @param {string} classid - Classid for asset.
  * @param {string} instanceid - Instanceid for asset.
  * @param {string} [language='english'] - Language.
- * @returns {Promise.<Object>} Resolve with asset when done, reject on failure.
+ * @returns {Promise<Object>} Resolves with asset when done, reject on failure.
  */
-function getHoverAsset(appid, classid, instanceid, language = 'english') {
+export async function getHoverAsset(appid, classid, instanceid, language = 'english') {
     addToHoverState();
     
     const id = hoverID;
+    const asset = await getClassinfo(appid, classid, instanceid, language);
     
-    return Steam.getClassinfo(appid, classid, instanceid, language)
-        .then((asset) => {
-            if (id === hoverID) {
-                return asset;
-            } else {
-                return Promise.reject('No asset');
-            }
-        });
+    // if the hover ID has changed, then we don't want to display this asset anymore
+    if (id !== hoverID) {
+        return Promise.reject(new AppError('No asset'));
+    }
+    
+    return asset;
 }
 
 /**
@@ -36,7 +36,7 @@ function getHoverAsset(appid, classid, instanceid, language = 'english') {
  * @param {Object} asset - Asset to display.
  * @returns {string} HTML string describing asset.
  */
-function getHover(asset) {
+export function getHover(asset) {
     const isEmpty = (description) => {
         return Boolean(
             description &&
@@ -102,10 +102,7 @@ function getHover(asset) {
 
 /**
  * Increments the hover state.
- * @returns {undefined}
  */
-function addToHoverState() {
+export function addToHoverState() {
     hoverID += 1;
 }
-
-export { getHover, getHoverAsset, addToHoverState };

@@ -2,7 +2,8 @@
 
 /**
  * Gets options to pass to a layout method.
- * @param {Object} options - Options.
+ * @param {Account} account - Account.
+ * @param {Preferences} preferences - Preferences.
  * @returns {LayoutOptions} Object containing options to use in formatting.
  */
 export function getLayoutOptions({ account, preferences }) {
@@ -14,7 +15,7 @@ export function getLayoutOptions({ account, preferences }) {
      * @property {Localization} currency - Currency related to account.
      */
     return {
-        count: preferences.settings.pagination_count,
+        count: preferences.pagination_count,
         locales: account.locales,
         currency: account.wallet.currency
     };

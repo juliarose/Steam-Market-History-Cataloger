@@ -11,6 +11,5 @@ const tableColumns = [
     'purchase',
     'purchase_count'
 ];
-const MonthlyTotal = createTotalClass(identifier, tableColumns);
 
-export { MonthlyTotal };
+export const MonthlyTotal = createTotalClass(identifier, tableColumns);

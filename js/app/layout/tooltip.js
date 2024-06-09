@@ -59,7 +59,6 @@ export function tooltip(element, contents, options = {}) {
 
 /**
  * Removes tooltip.
- * @returns {undefined}
  */
 export function removeTooltip() {
     const found = document.getElementById('tooltip');

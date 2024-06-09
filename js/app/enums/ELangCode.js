@@ -1,5 +1,8 @@
 'use strict';
 
+/**
+ * @enum Enum for language codes.
+ */
 export const ELangCode = Object.freeze({
     'bulgarian': 'bg',
     'czech': 'cs',

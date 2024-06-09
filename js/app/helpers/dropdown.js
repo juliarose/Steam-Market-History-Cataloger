@@ -8,7 +8,6 @@ document.body.addEventListener('click', dropdownDelegator);
 /**
  * Hides dropdown when conditions are met.
  * @param {Object} e - Event object.
- * @returns {undefined}
  */
 function hideDropdown(e) {
     const target = e.target;
@@ -32,7 +31,6 @@ function hideDropdown(e) {
 /**
  * Shows dropdown of target.
  * @param {Object} e - Event object.
- * @returns {undefined}
  */
 function showDropdown(e) {
     const target = e.target;
@@ -51,7 +49,6 @@ function showDropdown(e) {
 /**
  * Checks if event target is a dropdown button.
  * @param {Object} e - Event object.
- * @returns {undefined}
  */
 function dropdownDelegator(e) {
     // is a dropdown button

@@ -1,12 +1,12 @@
 'use strict';
 
-import { Steam } from '../../../steam/steam.js';
+import { getClassinfo } from '../../../steam/index.js';
 import { buildLink } from './buildLink.js';
 
 export const buildThirdPartyLinks = {
     // fetch an asset from steam to display links
     withAsset: async function(record) {
-        const asset = await Steam.getClassinfo(record.appid, record.classid, record.instanceid);
+        const asset = await getClassinfo(record.appid, record.classid, record.instanceid);
         let links = [];
         
         switch (record.appid) {
@@ -29,7 +29,8 @@ export const buildThirdPartyLinks = {
                         title: 'Marketplace.tf'
                     })
                 ];
-            } break;
+                break;
+            }
         }
         
         return links;

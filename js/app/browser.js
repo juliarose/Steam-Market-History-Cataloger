@@ -12,7 +12,6 @@ export const onMessage = browser.runtime.onMessage;
  * Sets browser icon.
  * @param {Object} details - Details.
  * @param {Function} [callback=function(){}] - Callback function.
- * @returns {undefined}
  */
 export function setIcon(details, callback = function() {}) {
     browser.browserAction.setIcon(details, callback);
@@ -22,7 +21,6 @@ export function setIcon(details, callback = function() {}) {
  * Sets browser badge text.
  * @param {Object} details - Details.
  * @param {Function} [callback=function(){}] - Callback function.
- * @returns {undefined}
  */
 export function setBadgeText(details, callback = function() {}) {
     browser.browserAction.setBadgeText(details, callback);
@@ -32,7 +30,6 @@ export function setBadgeText(details, callback = function() {}) {
  * Gets browser badge text.
  * @param {Object} details - Details.
  * @param {Function} [callback=function(){}] - Callback function.
- * @returns {undefined}
  */
 export function getBadgeText(details, callback = function() {}) {
     browser.browserAction.getBadgeText({}, callback);
@@ -41,7 +38,7 @@ export function getBadgeText(details, callback = function() {}) {
 /**
  * Sends a runtime message.
  * @param {Object} details - Details.
- * @returns {Promise.<any>} Resolves with message.
+ * @returns {Promise<any>} Resolves with message.
  */
 export async function sendMessage(details) {
     return new Promise((resolve) => {

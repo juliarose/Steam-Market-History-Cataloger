@@ -2,6 +2,11 @@
 
 import { createClass } from './helpers/createClass.js';
 
+/**
+ * @typedef {import('./helpers/createClass.js').DisplayOptions} DisplayOptions
+ * @typedef {import('./localization.js').Localization} Localization
+ */
+
 const types = {
     app: String,
     count: Number,
@@ -11,12 +16,12 @@ const types = {
 
 /**
  * Game item.
+ * @namespace GameItem
+ * @class
  * @property {string} app - App name.
  * @property {number} count - Number of this particular item.
  * @property {Date} name - Name of item.
  * @property {boolean} price - Price of item(s).
- * @namespace GameItem
- * @class
  */
 export const GameItem = createClass({
     types,

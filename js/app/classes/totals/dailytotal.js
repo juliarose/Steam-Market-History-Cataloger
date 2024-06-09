@@ -10,6 +10,5 @@ const tableColumns = [
     'purchase',
     'purchase_count'
 ];
-const DailyTotal = createTotalClass(identifier, tableColumns);
 
-export { DailyTotal };
+export const DailyTotal = createTotalClass(identifier, tableColumns);

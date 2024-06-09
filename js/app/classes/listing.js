@@ -7,6 +7,11 @@ import { escapeHTML, printDate } from '../helpers/utils.js';
 import { tooltip, removeTooltip } from '../layout/tooltip.js';
 import { getHover, getHoverAsset, addToHoverState } from '../layout/listings/hovers/hovers.js';
 
+/**
+ * @typedef {import('./helpers/createClass.js').DisplayOptions} DisplayOptions
+ * @typedef {import('./localization.js').Localization} Localization
+ */
+
 const types = {
     transaction_id: String,
     index: Number,
@@ -27,12 +32,13 @@ const types = {
     date_acted_raw: String,
     date_listed_raw: String,
     price: Number,
-    price_raw: String,
-    seller: String
+    price_raw: String
 };
 
 /**
  * Listing.
+ * @namespace Listing
+ * @class
  * @property {string} transaction_id - Transaction ID.
  * @property {number} index - Index of listing in history.
  * @property {boolean} is_credit - Whether the transaction resulted in credit or not.
@@ -53,9 +59,6 @@ const types = {
  * @property {string} date_listed_raw - Raw string of date list.
  * @property {number} price - Integer value of price.
  * @property {string} price_raw - Raw string of price.
- * @property {string} seller - Seller profile URL (vanity URLs are not converted).
- * @namespace Listing
- * @class
  */
 export const Listing = createClass({
     types,

@@ -1,13 +1,13 @@
 'use strict';
 
 import { readyState } from '../../app/readyState.js';
-import { Layout } from '../../app/layout/layout.js';
+import * as Layout from '../../app/layout/index.js';
 import { Listing } from '../../app/classes/listing.js';
 import { applist } from '../../app/data/applist.js';
 import { getUrlParam } from '../../app/helpers/utils.js';
 import { buildThirdPartyLinks } from '../../app/layout/listings/external/buildThirdPartyLinks.js';
 import { buildLink } from '../../app/layout/listings/external/buildLink.js';
-import { Steam } from '../../app/steam/steam.js';
+import { getPreferences } from '../../app/preferences.js';
 
 const page = {
     chart: document.getElementById('chart-transactions'),
@@ -23,7 +23,7 @@ let item = {
     market_hash_name: getUrlParam('market_hash_name')
 };
 
-function onApp(app) {
+async function onApp(app) {
     function onRecords(records) {
         // newest to oldest
         records = records.reverse();
@@ -66,39 +66,22 @@ function onApp(app) {
     }
     
     function buildChart(records) {
-        const options = Object.assign({}, Layout.getLayoutOptions(app), {});
+        const options = Object.assign({}, Layout.getLayoutOptions({
+            account,
+            preferences
+        }), {});
         
         Layout.listings.buildChart(records, page.chart, options);
     }
     
     function buildTable(records) {
-        const options = Object.assign({}, Layout.getLayoutOptions(app), {});
+        const options = Object.assign({}, Layout.getLayoutOptions({
+            account,
+            preferences
+        }), {});
         const tableEl = Layout.buildTable(records || [], Listing, options);
         
         Layout.render(page.results, tableEl);
-    }
-    
-    // gets the lowest price from Steam and displays it on page
-    // currently not using but may add later
-    async function getLowestPrice() {
-        function addLowestPrice(details) {
-            page.startingAt.textContent = `Starting at ${details.lowest_price}`;
-        }
-        
-        try {
-            const response = Steam.requests.get.lowestPrice({
-                country: app.account.info.settings.country,
-                currency: app.account.wallet.currency.wallet_code,
-                appid: item.appid,
-                market_hash_name: item.market_hash_name
-            });
-            
-            if (response.ok) {
-                addLowestPrice(await response.json());
-            }
-        } catch (error) {
-            page.startingAt.textContent = 'No listings';
-        }
     }
 
     // sets the title of the page
@@ -134,8 +117,13 @@ function onApp(app) {
         return getItem();
     }
     
+    const { account } = app;
+    const preferences = await getPreferences();
+    
     render().then(Layout.ready);
 }
 
 // ready
-readyState(onApp, Layout.error);
+{
+    readyState(onApp, Layout.error);
+}

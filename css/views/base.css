@@ -16,10 +16,6 @@ html {
 }
 
 body {
-    /*
-    background: url('/images/layout/bg.jpg') no-repeat center center fixed;
-    background-size: cover;
-    */
     background-color: #B7BDC4;
     font-size: 13px;
     color: #253242;
@@ -77,10 +73,8 @@ select {
     padding: 0.4em;
 }
 
-input[type=checkbox] {
-}
-
 input[type=number] {
+    appearance: textfield;
     -moz-appearance: textfield;
 }
 
@@ -141,36 +135,6 @@ input[type=date]::-webkit-clear-button {
     padding-right: 0.3em;
 }
 
-/* May do something with these later */
-input[type=date]::-webkit-datetime-edit {
-    
-}
-input[type=date]::-webkit-datetime-edit-fields-wrapper {
-    
-}
-
-input[type=date]::-webkit-datetime-edit-text {
-}
-
-/*
-input[type=date]::-webkit-datetime-edit-month-field {
-    background-color: #F9FBFC;
-    text-transform: uppercase;
-}
-
-input[type=date]::-webkit-datetime-edit-day-field {
-    text-transform: uppercase;
-}
-
-input[type=date]::-webkit-datetime-edit-year-field {
-    text-transform: uppercase;
-}
-*/
-
-input[type=date]::-webkit-clear-button {
-    
-}
-
 /**************************************************/
 /* Tables
 /**************************************************/
@@ -227,10 +191,6 @@ th.sortable.desc:after {
     content: ' \25B5';
 }
 
-th.sortable.desc:after {
-    content: ' \25B5';
-}
-
 th.sortable.asc:after {
     content: ' \25BF';
 }
@@ -240,6 +200,9 @@ th.sortable:hover {
 }
 
 td.price {
+    width: 4.8em;
+    text-align: right;
+    font-weight: bold;
     color: #C9CBCC;
     text-align: right;
 }
@@ -259,12 +222,6 @@ table .center {
 
 table .right {
     text-align: right;
-}
-
-td.price {
-    width: 4.8em;
-    text-align: right;
-    font-weight: bold;
 }
 
 td.cond {
@@ -433,10 +390,9 @@ button.active,
     border-radius: 5px;
     font-size: 1.2em;
     line-height: 1.6em;
-    padding: 1.4em 1.8em;
+    padding: 0;
     width: 100%;
     height: 0;
-    padding: 0;
     overflow: hidden;
     color: #253242;
     background-color: #CED1D6;
@@ -483,7 +439,6 @@ button.active,
 
 .dropdown {
     position: relative;
-    display: inline-block;
     display: inline-block;
 }
 
@@ -1107,14 +1062,25 @@ main.unloaded {
         transparent
     );
     z-index: 1;
+    background-size: 50px 50px;
     -webkit-background-size: 50px 50px;
     -moz-background-size: 50px 50px;
+    animation: move 2s linear infinite;
     -webkit-animation: move 2s linear infinite;
     overflow: hidden;
 }
 
 .animate > span:after {
     display: none;
+}
+
+@keyframes move {
+    0% {
+       background-position: 0 0;
+    }
+    100% {
+       background-position: 50px 50px;
+    }
 }
 
 @-webkit-keyframes move {
@@ -1127,6 +1093,7 @@ main.unloaded {
 }
 
 .nostripes > span > span, .nostripes > span:after {
+    animation: none;
     -webkit-animation: none;
     background-image: none;
 }

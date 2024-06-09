@@ -1,7 +1,6 @@
 {
-  "name": "SteamMarketHistoryCataloger",
+  "name": "steam-market-history-cataloger",
   "version": "1.1.3",
-  "type": "module",
   "description": "Indexes your Steam Community Market transactions into a local storage database. Data can be viewed within the extension and is exportable to JSON and CSV.",
   "babel": {
     "presets": [
@@ -14,27 +13,31 @@
     "docs": "documentation readme js/app/json_typedefs.js --section=Models"
   },
   "devDependencies": {
-    "@babel/core": "^7.8.4",
+    "@babel/core": "^7.24.7",
+    "@babel/eslint-parser": "^7.24.7",
     "@babel/plugin-transform-runtime": "^7.8.3",
-    "@babel/preset-env": "^7.8.4",
+    "@babel/preset-env": "^7.24.7",
+    "@eslint/js": "^9.4.0",
     "babel-jest": "^24.9.0",
     "chrome-mock": "0.0.9",
     "dexie": "^2.0.4",
-    "documentation": "^12.1.4",
-    "eslint": "^6.8.0",
-    "eslint-plugin-jsdoc": "^15.12.2",
+    "documentation": "^14.0.3",
+    "eslint": "^9.4.0",
+    "eslint-plugin-jsdoc": "^48.2",
     "fake-indexeddb": "^2.1.1",
     "fetch-mock": "^7.7.3",
+    "globals": "^15.4.0",
     "isomorphic-fetch": "^2.2.1",
     "jest": "^25.1",
     "jest-fetch-mock": "^2.1.2",
     "jest-localstorage-mock": "^2.4.0",
     "jest-webextension-mock": "^3.5.0",
-    "jsdom": "^15.2.1",
+    "jsdom": "^24.1.0",
     "jsdom-global": "^3.0.2",
     "sinon-chrome": "^3.0.1",
-    "whatwg-fetch": "^3.0.0"
+    "whatwg-fetch": "^3.0.0",
+    "nx": "^19.2.1"
   },
-  "author": "Julia Rose",
+  "author": "Julia",
   "license": "GPL-2.0"
 }

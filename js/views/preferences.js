@@ -2,9 +2,10 @@
 
 import { readyState } from '../app/readyState.js';
 import { formatLocaleNumber } from '../app/money.js';
-import { Layout } from '../app/layout/layout.js';
-import { createListingManager } from '../app/manager/listingsmanager.js';
+import * as Layout from '../app/layout/index.js';
+import { ListingManager } from '../app/manager/listingsmanager.js';
 import { isNumber, escapeHTML } from '../app/helpers/utils.js';
+import { addPreferences, getPreferences } from '../app/preferences.js';
 
 const page = {
     inputs: document.querySelectorAll('input, select'),
@@ -43,8 +44,7 @@ async function onApp(app) {
         }
         
         updateState();
-        preferences.settings[id] = value;
-        preferences.saveSettings();
+        addPreferences({ [id]: value });
     }
     
     // deletes listing data and settings
@@ -60,8 +60,8 @@ async function onApp(app) {
         ]);
     }
     
-    const { preferences } = app;
-    const listingManager = createListingManager(app);
+    const preferences = await getPreferences();
+    const listingManager = new ListingManager(app);
     
     // add listeners
     (function() {
@@ -103,12 +103,12 @@ async function onApp(app) {
             }
         });
     }());
-
+    
     // autofills from saved preferences
     (function autofill() {
-        for (let k in preferences.settings) {
+        for (let k in preferences) {
             const element = document.getElementById(k);
-            const value = preferences.settings[k];
+            const value = preferences[k];
             
             if (element) {
                 if (element.type === 'checkbox') {
@@ -160,9 +160,11 @@ async function onApp(app) {
 }
 
 // ready
-readyState(onApp, (error) => {
-    page.loggedInButtons.forEach((el) => {
-        el.remove();
+{
+    readyState(onApp, (error) => {
+        page.loggedInButtons.forEach((el) => {
+            el.remove();
+        });
+        page.profile.innerHTML = `<p class="app-error">${escapeHTML(error)}</p>`;
     });
-    page.profile.innerHTML = `<p class="app-error">${escapeHTML(error)}</p>`;
-});
+}

@@ -78,27 +78,35 @@ export function createListingDatabase(steamid) {
         });
     });
     
-    //db.version(3).stores({
-    //    listings: [
-    //        '&transaction_id',
-    //        'index',
-    //        'is_credit',
-    //        'appid',
-    //        'contextid',
-    //        'assetid',
-    //        'classid',
-    //        'instanceid',
-    //        'name',
-    //        'market_name',
-    //        'market_hash_name',
-    //        'name_color',
-    //        'background_color',
-    //        'date_acted',
-    //        'date_listed',
-    //        'price',
-    //        'seller'
-    //    ].join(',')
-    //});
+    // Removes seller from listings
+    db.version(3).stores({
+        listings: [
+            '&transaction_id',
+            'index',
+            'is_credit',
+            'appid',
+            'contextid',
+            'assetid',
+            'classid',
+            'instanceid',
+            'name',
+            'market_name',
+            'market_hash_name',
+            'name_color',
+            'background_color',
+            'icon_url',
+            'date_acted',
+            'date_listed',
+            'date_acted_raw',
+            'date_listed_raw',
+            'price',
+            'price_raw'
+        ].join(',')
+    }).upgrade((trans) => {
+        return trans.listings.toCollection().modify((record) => {
+            delete record.seller;
+        });
+    });
     
     db.listings.mapToClass(Listing);
     

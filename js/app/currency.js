@@ -62,7 +62,7 @@ export const Currency = Object.freeze({
     6: {
         wallet_code: 6,
         code: 'PLN',
-        symbol: 'zl',
+        symbol: 'zł',
         precision: 2,
         thousand: ' ',
         decimal: ',',
@@ -84,8 +84,8 @@ export const Currency = Object.freeze({
         symbol: '¥',
         // minor unit is 1/100 = Sen
         precision: 2,
-        // yens are commonly display without decimal places
-        // we display these using 0 decimal places
+        // Japanese yen are commonly displayed without decimal places
+        // we display these using 2 decimal places
         format_precision: 2,
         thousand: ',',
         decimal: '.',
@@ -233,6 +233,8 @@ export const Currency = Object.freeze({
         wallet_code: 24,
         code: 'INR',
         symbol: '₹',
+        // minor unit is 1/100 = Paisa
+        // Steam displays these as 0 decimal places
         precision: 2,
         thousand: ',',
         decimal: '.',
@@ -242,9 +244,12 @@ export const Currency = Object.freeze({
         wallet_code: 25,
         code: 'CLP',
         symbol: 'CLP$',
-        precision: 2,
-        thousand: '.',
-        decimal: ',',
+        // minor unit is 1/100 = Centavo
+        // but Steam displays these as 3 decimal places
+        // these are also commonly formatted using 2 decimal places
+        precision: 3,
+        thousand: ',',
+        decimal: '.',
         spacer: true,
         trim_trailing: true
     },
@@ -382,8 +387,8 @@ export const Currency = Object.freeze({
 
 /**
  * Gets a currency.
- * @param {(number|string)} id - ID of currency.
- * @returns {(Currency|undefined)} Currency details.
+ * @param {(number | string)} id - ID of currency.
+ * @returns {(Currency | undefined)} Currency details.
  */
 export function getCurrency(id) {
     return Currency[id];

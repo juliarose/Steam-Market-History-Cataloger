@@ -118,10 +118,13 @@ Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Globa
 
 -   Since history results do not usually include the year of the date, the extension must make a best guess for the year. If you have gaps larger than a year in your history results you may experience issues. This issue may or may not be resolved in the future.
 -   Any refunded transactions will persist if they were not refunded at the time of loading. There is no way to remove them from your results at this point unless you clear your entire listing data.
+-   Pending transactions are treated as completed transactions. More than 99% of the time these are completed successfully. In the event they don't go through they shouldn't be recorded. Keeping track of pending transactions would add a bit of complexity and it's not something I have time for now.
 
 ## Contributing
 
-You may contribute to this project by opening an [issue](issues) to file a bug report or feature request. If you would like to contribute code, please open an issue explaining what you're changing and submit a pull request.
+You may contribute to this project by opening an [issue](https://github.com/juliarose/Steam-Market-History-Cataloger/issues) to file a bug report. At this time new features are not a priority and are unlikely to be added.
+
+If there is an error in the extension and you are unable to load data, the extension should log errors to the console. You can open the console with `Ctrl+Shift+J` or `Cmd+Option+J` on Mac. Please include the error message in your issue along with what currency and language your Steam account uses.
 
 ## Legal
 

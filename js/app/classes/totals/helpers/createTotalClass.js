@@ -9,7 +9,7 @@ import { applist } from '../../../data/applist.js';
  * @param {Array} tableColumns - Columns to display.
  * @returns {Object} Class object.
  */
-function createTotalClass(identifier, tableColumns) {
+export function createTotalClass(identifier, tableColumns) {
     const types = {
         year: Number,
         month: Number,
@@ -107,5 +107,3 @@ function createTotalClass(identifier, tableColumns) {
     
     return Class;
 }
-
-export { createTotalClass };

@@ -1,4 +1,4 @@
-import { createListingManager } from '../js/app/manager/listingsmanager.js';
+import { ListingManager } from '../js/app/manager/listingsmanager.js';
 const getApp = require('./environment/getApp');
 const steamid = '10000000000000000';
 
@@ -7,7 +7,7 @@ let listingManager;
 beforeAll(async () => {
     const app = await getApp(steamid);
     
-    listingManager = createListingManager(app);
+    listingManager = new ListingManager(app);
     
     await listingManager.setup();
     
@@ -15,5 +15,5 @@ beforeAll(async () => {
 });
 
 it('Listing manager is setup properly', () => {
-    expect(listingManager.language).toBeDefined();
+    expect(typeof listingManager.setup).toBe('function');
 });

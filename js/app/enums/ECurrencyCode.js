@@ -3,7 +3,7 @@
 /**
  * @enum ECurrencyCode
  */
- export const ECurrencyCode = Object.freeze({
+export const ECurrencyCode = Object.freeze({
     1: 'USD',
     2: 'GBP',
     3: 'EUR',
