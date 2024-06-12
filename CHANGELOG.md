@@ -4,7 +4,6 @@
 ### Fixed
 - Parsing listings as a result of history no longer including seller information.
 - Parsing Polish złoty (PLN) currency.
-- Parsing Chilean pesos (CLP) currency. These are now stored with 3-decimal precision. If you had previous records with this currency. Older records will not be updated and should be deleted and re-collected.
 
 ### Changed
 - Updated extension to Manifest V3.

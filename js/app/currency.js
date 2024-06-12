@@ -236,6 +236,8 @@ export const Currency = Object.freeze({
         // minor unit is 1/100 = Paisa
         // Steam displays these as 0 decimal places
         precision: 2,
+        // we display these using 0 decimal places
+        format_precision: 0,
         thousand: ',',
         decimal: '.',
         spacer: true
@@ -245,11 +247,12 @@ export const Currency = Object.freeze({
         code: 'CLP',
         symbol: 'CLP$',
         // minor unit is 1/100 = Centavo
-        // but Steam displays these as 3 decimal places
-        // these are also commonly formatted using 2 decimal places
-        precision: 3,
-        thousand: ',',
-        decimal: '.',
+        // Steam displays these as 0 decimal places
+        precision: 2,
+        // we display these using 0 decimal places
+        format_precision: 0,
+        thousand: '.',
+        decimal: ',',
         spacer: true,
         trim_trailing: true
     },
