@@ -43,7 +43,7 @@ export function createTotalClass(identifier, tableColumns) {
             ],
             csv: {
                 cell_value: {
-                    month: function(value, record) {
+                    month: function(_value, record) {
                         return moment()
                             .year(record.year)
                             .month(record.month)

@@ -1,5 +1,7 @@
 'use strict';
 
+import { Dexie } from '../dexie.js';
+
 /**
  * Configures database - should be called after locales have been loaded.
  * @param {Object} account - Account this database would belong to.

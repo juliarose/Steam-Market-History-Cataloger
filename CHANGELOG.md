@@ -7,6 +7,7 @@
 - Parsing Chilean pesos (CLP) currency. These are now stored with 3-decimal precision. If you had previous records with this currency. Older records will not be updated and should be deleted and re-collected.
 
 ### Changed
+- Updated extension to Manifest V3.
 - Significant refactor of the codebase. Many factory-style functions were replaced in favor of ES6 classes. This makes it much easier to reason about as well as document. However, this may have introduced new bugs.
 - Updated ESLint to use the flat configuration format.
 - Updated the localization files.

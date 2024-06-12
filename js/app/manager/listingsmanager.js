@@ -8,6 +8,7 @@ import { parseListings } from '../parsers/parseListings.js';
 import { createDatabaseSettingsManager } from '../storage/db.js';
 import { EventEmitter } from '../../lib/eventemitter.js';
 import { getPreferences } from '../preferences.js';
+import { Dexie } from '../dexie.js';
 
 /**
  * @typedef {import('../classes/listing.js').Listing} Listing
@@ -565,7 +566,7 @@ export class ListingManager extends EventEmitter {
         // check the current load state to see whether we can load or not
         await this.#checkLoadState();
         
-        // delay it to space out requests
+        // delay to space out requests
         await sleep(delay);
         
         // then we can load

@@ -2,6 +2,7 @@
 
 // this is the only class tied to the database
 import { Listing } from '../classes/listing.js';
+import { Dexie } from '../dexie.js';
 
 /**
  * Configures database - should be called after locales have been loaded.

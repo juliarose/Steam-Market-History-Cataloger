@@ -517,5 +517,4 @@ function functionBindPolyfill(context) {
   };
 }
 
-
-export {EventEmitter};
+export { EventEmitter };

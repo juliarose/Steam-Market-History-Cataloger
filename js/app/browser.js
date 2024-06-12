@@ -3,7 +3,8 @@
 // browser utilities
 
 const browser = chrome;
-export const browserLocalStorage = localStorage;
+const browserAction = browser.action;
+
 export const tabs = browser.tabs;
 export const storage = browser.storage.sync || browser.storage.local;
 export const onMessage = browser.runtime.onMessage;
@@ -14,7 +15,7 @@ export const onMessage = browser.runtime.onMessage;
  * @param {Function} [callback=function(){}] - Callback function.
  */
 export function setIcon(details, callback = function() {}) {
-    browser.browserAction.setIcon(details, callback);
+    browserAction.setIcon(details, callback);
 }
 
 /**
@@ -23,7 +24,7 @@ export function setIcon(details, callback = function() {}) {
  * @param {Function} [callback=function(){}] - Callback function.
  */
 export function setBadgeText(details, callback = function() {}) {
-    browser.browserAction.setBadgeText(details, callback);
+    browserAction.setBadgeText(details, callback);
 }
 
 /**
@@ -32,7 +33,7 @@ export function setBadgeText(details, callback = function() {}) {
  * @param {Function} [callback=function(){}] - Callback function.
  */
 export function getBadgeText(details, callback = function() {}) {
-    browser.browserAction.getBadgeText({}, callback);
+    browserAction.getBadgeText(details, callback);
 }
 
 /**
@@ -52,5 +53,5 @@ export async function sendMessage(details) {
  * @returns {string} Absolute extension URL.
  */
 export function getExtensionURL(url) {
-    return browser.extension.getURL(url);
+    return browser.runtime.getURL(url);
 }

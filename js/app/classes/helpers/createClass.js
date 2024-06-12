@@ -1,5 +1,7 @@
 'use strict';
 
+import { Dexie } from '../../dexie.js';
+
 /**
  * Generic class for models.
  * @class

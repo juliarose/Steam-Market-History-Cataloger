@@ -35,8 +35,6 @@ function MyBetterCAjaxPagingControls(rgSearchData, url) {
         m_rgAvailableSizes: []
     });
     
-    console.log(this.m_iCurrentPage);
-    
     // most importantly, this will manage filters
     // we pass the wallet currency for parsing prices from listings
     this.filtering = new ListingFiltering(g_rgWalletInfo && g_rgWalletInfo.wallet_currency);
