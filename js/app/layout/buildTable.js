@@ -1,5 +1,3 @@
-'use strict';
-
 import { escapeHTML, escapeRegExp, printDate } from '../helpers/utils.js';
 import { download, downloadCollection } from '../helpers/download.js';
 import { formatMoney } from '../money.js';

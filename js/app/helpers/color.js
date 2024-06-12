@@ -1,5 +1,3 @@
-'use strict';
-
 // substr polyfill
 // https://stackoverflow.com/a/77882760
 function substr(s, start, length) {

@@ -1,5 +1,3 @@
-'use strict';
-
 import { MyBetterCAjaxPagingControls } from '/js/content/modules/MyBetterCAjaxPagingControls.js';
 
 (function() {

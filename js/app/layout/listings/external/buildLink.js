@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * Builds an external link.
  * @param {Object} data - Data for link.

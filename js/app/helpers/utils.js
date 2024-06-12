@@ -1,5 +1,3 @@
-'use strict';
-
 // Utilities used throughout app
 
 /**

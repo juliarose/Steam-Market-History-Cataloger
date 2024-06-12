@@ -1,5 +1,3 @@
-'use strict';
-
 export function createDatabaseSettingsManager(db, tableName, primaryKey, defaults = {}) {
     const table = db[tableName];
     

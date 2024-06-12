@@ -1,5 +1,3 @@
-'use strict';
-
 function offset(element) {
     const bounds = element.getBoundingClientRect();
     const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;

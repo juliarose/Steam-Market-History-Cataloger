@@ -1,5 +1,3 @@
-'use strict';
-
 import { ERROR_TYPE } from '../error.js';
 
 /**

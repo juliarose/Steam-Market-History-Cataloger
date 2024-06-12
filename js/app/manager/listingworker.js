@@ -1,5 +1,3 @@
-'use strict';
-
 // This is intended for use within the background service worker script.
 
 import { buildApp } from '../app.js';

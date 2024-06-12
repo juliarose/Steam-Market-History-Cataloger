@@ -1,5 +1,3 @@
-'use strict';
-
 import { buildApp } from './app.js';
 
 /**

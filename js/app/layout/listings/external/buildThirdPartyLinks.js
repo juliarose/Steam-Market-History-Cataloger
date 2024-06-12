@@ -1,5 +1,3 @@
-'use strict';
-
 import { getClassinfo } from '../../../steam/index.js';
 import { buildLink } from './buildLink.js';
 

@@ -1,5 +1,3 @@
-'use strict';
-
 import { readyState } from '../app/readyState.js';
 import { formatLocaleNumber } from '../app/money.js';
 import * as Layout from '../app/layout/index.js';

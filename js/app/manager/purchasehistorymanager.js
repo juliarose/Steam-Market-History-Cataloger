@@ -1,5 +1,3 @@
-'use strict';
-
 import { getSteamPoweredSession } from '../steam/index.js';
 import { sleep } from '../helpers/utils.js';
 import { getPurchaseHistory } from '../steam/requests/post.js';

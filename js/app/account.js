@@ -1,5 +1,3 @@
-'use strict';
-
 import { AppError } from './error.js';
 import { LocalStorage } from './storage/local.js';
 import { getCurrency } from './currency.js';

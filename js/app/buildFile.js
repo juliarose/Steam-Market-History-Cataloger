@@ -1,5 +1,3 @@
-'use strict';
-
 import { printCSVDate, escapeCSV, omitEmpty, isNumber } from './helpers/utils.js';
 import { formatMoney } from './money.js';
 

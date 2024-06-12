@@ -1,5 +1,3 @@
-'use strict';
-
 import { createTotalClass } from './helpers/createTotalClass.js';
 
 const identifier = 'monthlytotals';

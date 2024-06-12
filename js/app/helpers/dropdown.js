@@ -1,5 +1,3 @@
-'use strict';
-
 // require this module anywhere to enable dropdowns
 
 window.addEventListener('click', hideDropdown);

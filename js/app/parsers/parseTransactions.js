@@ -1,5 +1,3 @@
-'use strict';
-
 import { omitEmpty, getDocument } from '../helpers/utils.js';
 import { parseMoney } from '../money.js';
 import { AccountTransaction } from '../classes/accounttransaction.js';

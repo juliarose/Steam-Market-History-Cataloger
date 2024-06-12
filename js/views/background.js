@@ -1,5 +1,3 @@
-'use strict';
-
 import { setBadgeText } from '../app/browser.js';
 import { ListingWorker } from '../app/manager/listingworker.js';
 import { onMessage } from '../app/browser.js';

@@ -1,5 +1,3 @@
-'use strict';
-
 import { queryString } from '../../helpers/utils.js';
 import { getXHR } from './helpers/getXHR.js';
 

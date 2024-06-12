@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @enum Enum for language codes.
  */

@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * Creates an XHR request.
  * @param {string} url - URL of location.

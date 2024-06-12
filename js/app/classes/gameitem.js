@@ -1,5 +1,3 @@
-'use strict';
-
 import { createClass } from './helpers/createClass.js';
 
 /**

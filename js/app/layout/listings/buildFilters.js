@@ -1,5 +1,3 @@
-'use strict';
-
 import { applist } from '../../data/applist.js';
 
 /**

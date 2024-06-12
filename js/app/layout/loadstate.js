@@ -1,5 +1,3 @@
-'use strict';
-
 import { setIcon } from '../browser.js';
 
 /**

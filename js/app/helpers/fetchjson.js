@@ -1,5 +1,3 @@
-'use strict';
-
 import { AppError } from '../error.js';
 
 /**

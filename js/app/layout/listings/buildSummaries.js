@@ -1,5 +1,3 @@
-'use strict';
-
 import { range, arrToKeys, groupBy, transformObj } from '../../helpers/utils.js';
 import { buildTable } from '../../layout/buildTable.js';
 import { applist } from '../../data/applist.js';

@@ -1,5 +1,3 @@
-'use strict';
-
 import { ListingFiltering } from '/js/content/modules/ListingFiltering.js';
 
 /*

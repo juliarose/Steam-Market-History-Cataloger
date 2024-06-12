@@ -1,5 +1,3 @@
-'use strict';
-
 // browser utilities
 
 const browser = chrome;

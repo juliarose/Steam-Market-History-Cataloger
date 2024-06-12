@@ -1,5 +1,3 @@
-'use strict';
-
 import { fetchJSON } from '../helpers/fetchjson.js'; 
 import { ELangCode } from '../enums/ELangCode.js'; 
 import { isNumber, valuesAsKeys } from '../helpers/utils.js';

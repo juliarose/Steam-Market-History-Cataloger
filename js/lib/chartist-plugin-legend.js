@@ -17,9 +17,7 @@
      * This Chartist plugin creates a legend to show next to the chart.
      *
      */
-    'use strict';
-
-    var defaultOptions = {
+        var defaultOptions = {
         className: '',
         classNames: false,
         removeAll: false,

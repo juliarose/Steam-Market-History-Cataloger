@@ -1,5 +1,3 @@
-'use strict';
-
 import { partition, groupBy, arrAverage } from '../../helpers/utils.js';
 import { formatMoney } from '../../money.js';
 

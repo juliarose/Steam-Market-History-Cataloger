@@ -1,5 +1,3 @@
-'use strict';
-
 import { readyState } from '../app/readyState.js';
 import * as Layout from '../app/layout/index.js';
 import { Listing } from '../app/classes/listing.js';

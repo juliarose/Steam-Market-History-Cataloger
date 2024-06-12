@@ -1,5 +1,3 @@
-'use strict';
-
 import StreamSaver from '../../lib/StreamSaver.min.js';
 
 /**

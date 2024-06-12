@@ -1,5 +1,3 @@
-'use strict';
-
 import { getCurrency } from '/js/app/currency.js';
 import { parseMoney } from '/js/app/money.js';
 

@@ -3,9 +3,7 @@
  *
  */
 (function (window, document, Chartist) {
-  'use strict';
-
-  var defaultOptions = {
+    var defaultOptions = {
     // onZoom
     // resetOnRightMouseBtn
     pointClipOffset: 5

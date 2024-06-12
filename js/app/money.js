@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @typedef {import('./currency.js').Currency} Currency
  */

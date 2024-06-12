@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * Gets list of classes for each column in 'columns'.
  * @param {Object} display - Object to draw class values from.

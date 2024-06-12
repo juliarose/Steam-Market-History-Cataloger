@@ -1,5 +1,3 @@
-'use strict';
-
 import { getDocument } from '../helpers/utils.js';
 import { parseMoney } from '../money.js';
 import { Listing } from '../classes/listing.js';

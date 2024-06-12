@@ -1,5 +1,3 @@
-'use strict';
-
 import { AppError, AppSuccessError } from '../error.js';
 import { randomString, sleep } from '../helpers/utils.js';
 import { getListings } from '../steam/requests/get.js';

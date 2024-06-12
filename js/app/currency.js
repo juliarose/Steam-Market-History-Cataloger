@@ -1,5 +1,3 @@
-'use strict';
-
 /*
  * This file contains details of how every currency should be parsed and formatted
  *
