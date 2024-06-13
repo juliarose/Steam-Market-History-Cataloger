@@ -25,7 +25,7 @@ export const preferencesStorage = new LocalStorage(PREFERENCES_SETTINGS_NAME);
 export async function getPreferences() {
     const preferences = await preferencesStorage.getSettings() || {};
     
-    return Object.assign(preferences || {}, {
+    return Object.assign({
         market_per_page: 100,
         market_poll_interval_seconds: 5,
         background_poll_boolean: true,
@@ -33,7 +33,7 @@ export async function getPreferences() {
         show_new_listing_count: true,
         pagination_count: 20,
         search_results_count: 1000
-    });
+    }, preferences);
 }
 
 /**
