@@ -103,11 +103,11 @@ async function load(force = false) {
         await startAlarm(pollIntervalMinutes);
     }
     
-    listingWorker.start(force)
+    return listingWorker.start(force)
         .then(next)
         .catch((err) => {
             console.warn('Error getting listings:', err);
-            next();
+            return next();
         });
 }
 

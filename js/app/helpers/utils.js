@@ -1,5 +1,7 @@
 // Utilities used throughout app
 
+import { parseFromString } from '../../lib/dom-parser.js';
+
 /**
  * Sleeps for a set amount of time.
  * @param {number} [time=1000] - Time in ms to delay.
@@ -487,6 +489,8 @@ export function getUrlParam(name) {
  * @returns {Document} HTML document object.
  */
 export function getDocument(html) {
-    // return the body
-    return new DOMParser().parseFromString(html, 'text/html');
+    // Native DOMParser is not available in manifest V3 service workers.
+    // // return the body
+    // return new DOMParser().parseFromString(html, 'text/html');
+    return parseFromString(html);
 }

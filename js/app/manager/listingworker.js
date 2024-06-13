@@ -6,6 +6,7 @@ import { ListingManager } from './listingsmanager.js';
 import { EventEmitter } from '../../lib/eventemitter.js';
 import { setLoadState } from '../layout/loadstate.js';
 import { getPreferences } from '../preferences.js';
+import { ERROR_TYPE } from '../error.js';
 
 /**
  * Current listing count.
@@ -92,20 +93,30 @@ export class ListingWorker extends EventEmitter {
             
             this.emit('complete');
         };
-        const loadListings = () => {
-            // we've received a response and now want to get more
-            function getMore({ records }) {
-                this.#listingCount += records.length;
-                
-                // call the load function again
-                loadListings();
+        const loadListingsDone = async (error) => {
+            if (error.name != ERROR_TYPE.APP_SUCCESS_ERROR) {
+                console.warn('Error loading listings:', error.message);
             }
             
-            listingManager.load().then(getMore).catch(done);
+            return done();
+        };
+        // we've received a response and now want to get more
+        const getMore = async ({ records }) => {
+            this.#listingCount += records.length;
+            
+            // call the load function again
+            return loadListings();
+        };
+        const loadListings = async () => {
+            return listingManager.load()
+                .then(getMore)
+                .catch(loadListingsDone);
         };
         
         this.#updateLoadState(true);
-        return listingManager.setup().then(loadListings).catch(done);
+        await listingManager.setup();
+        
+        return loadListings();
     }
     
     /** 

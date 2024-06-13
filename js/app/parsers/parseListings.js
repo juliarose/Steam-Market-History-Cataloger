@@ -42,8 +42,8 @@ function makeDate(year, month, day) {
  */
 export function parseListings(response, state, currency, localization) {
     const doc = getDocument(response.results_html);
-    const messageEl = doc.querySelector('.market_listing_table_message');
-    const messageLinkEl = messageEl && messageEl.querySelector('a');
+    const messageEl = doc.getElementsByClassName('.market_listing_table_message')[0];
+    const messageLinkEl = messageEl && messageEl.getElementsByTagName('a')[0];
     const listingsList = doc.getElementsByClassName('market_listing_row');
     const { start, total_count, assets } = response;
     let hasBrokenAssets = false;
@@ -116,9 +116,9 @@ export function parseListings(response, state, currency, localization) {
         // get listings after last obtained listing
         for (let i = 0; i < listingsArr.length; i++) {
             const listingEl = listingsArr[i];
-            const gainOrLossEl = listingEl.querySelector('.market_listing_gainorloss');
+            const gainOrLossEl = listingEl.getElementsByClassName('market_listing_gainorloss')[0];
             // listings that were refunded will include a span with a style "text-decoration: line-through"
-            const refundedPriceEl = listingEl.querySelector('.market_listing_price span');
+            const refundedPriceEl = listingEl.getElementsByClassName('market_listing_price span')[0];
             const isCompletedTransaction = Boolean(
                 // has + or - text
                 gainOrLossEl.textContent.trim().length > 0 &&
@@ -169,13 +169,13 @@ export function parseListings(response, state, currency, localization) {
      */
     function listingToJSON({ index, listingEl }) {
         // get our elements
-        const gainOrLossEl = listingEl.querySelector('.market_listing_gainorloss');
-        const priceEl = listingEl.querySelector('.market_listing_price');
-        const listedDateList = listingEl.querySelectorAll('.market_listing_listed_date');
+        const gainOrLossEl = listingEl.getElementsByClassName('market_listing_gainorloss')[0];
+        const priceEl = listingEl.getElementsByClassName('market_listing_price')[0];
+        const listedDateList = listingEl.getElementsByClassName('market_listing_listed_date');
         // collect the data
         const transactionId = getTransactionId(listingEl);
         const gainText = gainOrLossEl.textContent.trim();
-        const id = listingEl.id;
+        const id = listingEl.getAttribute('id');
         // is this a sale or purchase?
         const isCredit = gainText === '-';
         const priceText = (priceEl.textContent || '').trim();
@@ -241,7 +241,7 @@ export function parseListings(response, state, currency, localization) {
     
     // gets the transaction id from an element
     function getTransactionId(listingEl) {
-        return listingEl.id.replace('history_row_', '').replace('_', '-');
+        return listingEl.getAttribute('id').replace('history_row_', '').replace('_', '-');
     }
     
     /**

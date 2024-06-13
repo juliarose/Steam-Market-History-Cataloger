@@ -34,10 +34,13 @@
     "jest-webextension-mock": "^3.5.0",
     "jsdom": "^24.1.0",
     "jsdom-global": "^3.0.2",
+    "nx": "^19.2.1",
     "sinon-chrome": "^3.0.1",
-    "whatwg-fetch": "^3.0.0",
-    "nx": "^19.2.1"
+    "whatwg-fetch": "^3.0.0"
   },
   "author": "Julia",
-  "license": "GPL-2.0"
+  "license": "GPL-2.0",
+  "dependencies": {
+    "dom-parser": "^1.1.5"
+  }
 }
