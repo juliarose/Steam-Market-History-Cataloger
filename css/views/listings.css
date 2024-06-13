@@ -1,48 +1,5 @@
 
 /* Listing table related styles */
-td .market-name,
-td .market-name a {
-    color: #C9CBCC;
-}
-
-td .market-name a {
-    text-decoration: none;
-}
-
-h4.table-title {
-    float: left;
-}
-
-td .market-name {
-    font-weight: bold;
-}
-
-td .game-name {
-    font-size: 0.85em;
-}
-
-td.image {
-    padding: 0 2px;
-}
-
-td.image img {
-    vertical-align: middle;
-}
-
-td .item-icon {
-    height: 34px;
-}
-
-td .item-icon-wrapper {
-    vertical-align: middle;
-    padding: 0.3em;
-    margin: 0.2em;
-    border-radius: 50%;
-    border: 2px solid #A3B8D1;
-    background-color: #323A45;
-    width: 34px;
-    height: 34px;
-}
 
 .query {
     text-align: right;

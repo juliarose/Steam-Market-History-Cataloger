@@ -3,6 +3,89 @@
 @import url('https://fonts.googleapis.com/css?family=Slabo+27px');
 @import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300');
 
+:root {
+    /* Color used for the page background */
+    --color-background: #B7BDC4;
+    /* Color used for text against the background and other components */
+    --color-base: #253242;
+    /* Color used for input text color, and component borders */
+    --color-components: #36404D;
+    
+    /* Gain or loss colors */
+    --color-gain-text: #20A98A;
+    --color-loss-text: #F9836A;
+    
+    /* Colors used for input fields */
+    --color-input-border: #9DA2A8;
+    --color-button-border: #8F9396;
+    --color-input-active-border: #20A98A;
+    --color-input-active-text: #119074;
+    --color-input-background: #C0C5CC;
+    --color-input-background-2: #C5CAD1;
+    --color-input-background-hover: #CACFD6;
+    --color-input-disabled-text: #566475;
+    --color-input-disabled-background: #ADB1B8;
+    
+    /* Colors used for action buttons */
+    --color-action-background: #D9CAA3;
+    --color-action-background-2: #E3D39A;
+    --color-action-border: #E8D7AE;
+    --color-action-background-active: #F0E0AA;
+    
+    /* Colors used for tooltips */
+    --color-tooltip-text: #B3B3B3;
+    --color-tooltip-border: #FFFFFF;
+    --color-tooltip-background: #13161A;
+    
+    /* Colors used in tables */
+    --color-table-text: #A4ABB3;
+    --color-table-border: #546173;
+    --color-table-text-cond: #B8B9BA;
+    --color-table-text-heading: #C9CBCC;
+    --color-table-hyperlink: #A4ABB3;
+    
+    /* Colors used for large buttons */
+    --color-large-button-background: #D7D9DE;
+    --color-large-button-background-2: #DFE1E6;
+    --color-large-button-text-shadow: #F0F3F5;
+    --color-large-button-border: #E6ECF2;
+    
+    /* Colors used for item icons */
+    --color-item-icon-border: #A3B8D1;
+    --color-item-icon-background: #323A45;
+    
+    /* Colors used for autocomplete fields */
+    --color-autocomplete-active-background: #20A98A;
+    --color-autocomplete-active-text: #FFFFFF;
+    
+    /* Colors used for progress bars */
+    --color-progress-bar: #20A98A;
+    --color-progress-bar-2: #1CC7A0;
+    
+    /* Colors used for hyperlinks */
+    --color-hyperlink: #426FA6;
+    --color-button-hyperlink-background: #11997B;
+    --color-button-hyperlink-background-2: #119074;
+    --color-button-hover-hyperlink-background: #1FA385;
+    --color-button-hyperlink-text: #D8DEE6;
+    
+    /* Colors used for dropdowns */
+    --color-dropdown-background: #F9FBFC;
+    --color-dropdown-background-hover: #D0D6DE;
+    /* Color used for the "none" option in dropdowns */
+    --color-dropdown-none-text: #909499;
+    
+    /* Colors used for pagination */
+    --color-pagination-text: #747980;
+    --color-pagination-border: #7D838A;
+    --color-pagination-background: #B0B5BD;
+    --color-pagination-center-border: #86898C;
+    
+    /* Colors used for alerts */
+    --color-alert-background: #CED1D6;
+    --color-alert-border: #D3D6DB;
+}
+
 html, body, div, span, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 table, caption, tbody, tfoot, thead, tr, th, td {
@@ -16,9 +99,9 @@ html {
 }
 
 body {
-    background-color: #B7BDC4;
+    background-color: var(--color-background);
     font-size: 13px;
-    color: #253242;
+    color: var(--color-base);
     line-height: 1.8em;
     font-family: "Open Sans", Corbel, "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "DejaVu Sans", "Bitstream Vera Sans", "Liberation Sans", Verdana, "Verdana Ref", sans-serif;
 }
@@ -29,7 +112,7 @@ main {
 }
 
 a {
-    color: #426FA6;
+    color: var(--color-hyperlink);
 }
 
 /**************************************************/
@@ -45,16 +128,20 @@ h1, h2, h3, h4, h5, h6 {
 
 h1 {
     font-size: 2.4em;
-    border-bottom: 1px solid #253242;
+    border-bottom: 1px solid var(--color-base);
+}
+
+h4.table-title {
+    float: left;
 }
 
 /**************************************************/
 /* Inputs
 /**************************************************/
 input, select {
-    border: 1px solid #9DA2A8;
-    color: #36404D;
-    background-color: #C0C5CC;
+    border: 1px solid var(--color-input-border);
+    color: var(--color-components);
+    background-color: var(--color-input-background);
     box-shadow: 0px 1px 1px 1px rgba(138, 142, 148, 0.2);
     padding: 0.5em 0.8em 0.5em 0.8em;
     border-radius: 2px;
@@ -64,8 +151,8 @@ input, select {
 
 input:disabled,
 select:disabled {
-    color: #566475;
-    background-color: #ADB1B8;
+    color: var(--color-input-disabled-text);
+    background-color: var(--color-input-disabled-background);
 }
 
 select {
@@ -86,12 +173,12 @@ input[type=number]::-webkit-outer-spin-button {
 
 input:focus {
     outline: thin dotted;
-    outline-color: #36404D;
+    outline-color: var(--color-components);
 }
 
 input[type=text].active {
-    border-color: #20A98A;
-    color: #119074;
+    border-color: var(--color-input-active-border);
+    color: var(--color-input-active-text);
 }
 
 input[type=date] {
@@ -103,8 +190,8 @@ input[type=date] {
 }
 
 input[type=date].active {
-    border-color: #20A98A;
-    color: #119074;
+    border-color: var(--color-input-active-border);
+    color: var(--color-input-active-text);
 }
 
 input[type=date]::-webkit-inner-spin-button {
@@ -144,67 +231,8 @@ table {
 }
 
 table tbody a {
-    color: #A4ABB3;
+    color: var(--color-table-hyperlink);
     text-decoration: none;
-}
-
-td {
-    padding: 12px 12px;
-}
-
-th {
-    padding: 8px 12px;
-    line-height: 3em;
-    font-size: 0.8em;
-    color: #253242;
-    text-align: left;
-    font-weight: bold;
-    text-transform: uppercase;
-    border-top: 1px solid #36404D;
-    white-space: nowrap;
-}
-
-tbody tr {
-    line-height: 1.6em;
-    color: #A4ABB3;
-    border-bottom: 1px solid #546173;
-    background-color: #36404D;
-}
-
-tbody tr:last-child {
-    border-bottom: none;
-}
-
-th.sortable {
-    cursor: pointer;
-    position: relative;
-    user-select: none;
-}
-
-th.sortable:after {
-    margin-left: 0.7em;
-    margin-top: -0.1em;
-    position: absolute;
-}
-
-th.sortable.desc:after {
-    content: ' \25B5';
-}
-
-th.sortable.asc:after {
-    content: ' \25BF';
-}
-
-th.sortable:hover {
-    color: #5D6C80;
-}
-
-td.price {
-    width: 4.8em;
-    text-align: right;
-    font-weight: bold;
-    color: #C9CBCC;
-    text-align: right;
 }
 
 table .price,
@@ -224,23 +252,118 @@ table .right {
     text-align: right;
 }
 
-td.cond {
-    width: 1.4em;
+th {
+    padding: 8px 12px;
+    line-height: 3em;
+    font-size: 0.8em;
+    color: var(--color-base);
+    text-align: left;
     font-weight: bold;
-    color: #B8B9BA;
+    text-transform: uppercase;
+    border-top: 1px solid var(--color-components);
+    white-space: nowrap;
 }
 
-.loss .sale-type {
-    color: #F9836A;
+th.sortable:after {
+    margin-left: 0.7em;
+    margin-top: -0.1em;
+    position: absolute;
 }
 
-.gain .sale-type {
-    color: #20A98A;
+th.sortable.desc:after {
+    content: ' \25B5';
+}
+
+th.sortable.asc:after {
+    content: ' \25BF';
+}
+
+th.sortable {
+    cursor: pointer;
+    position: relative;
+    user-select: none;
 }
 
 /* since this column is empty we center the arrow */
 th.sortable.sale-type:after {
     margin-left: -0.2em;
+}
+
+tbody tr {
+    line-height: 1.6em;
+    color: var(--color-table-text);
+    border-bottom: 1px solid var(--color-table-border);
+    background-color: var(--color-components);
+}
+
+tbody tr:last-child {
+    border-bottom: none;
+}
+
+td {
+    padding: 12px 12px;
+}
+
+td.price {
+    width: 4.8em;
+    text-align: right;
+    font-weight: bold;
+    color: var(--color-table-text-heading);
+    text-align: right;
+}
+
+td.cond {
+    width: 1.4em;
+    font-weight: bold;
+    color: var(--color-table-text-cond);
+}
+
+td .market-name,
+td .market-name a {
+    color: var(--color-table-text-heading);
+}
+
+td .market-name a {
+    text-decoration: none;
+}
+
+td .market-name {
+    font-weight: bold;
+}
+
+td .game-name {
+    font-size: 0.85em;
+}
+
+td.image {
+    padding: 0 2px;
+}
+
+td.image img {
+    vertical-align: middle;
+}
+
+td .item-icon {
+    height: 34px;
+}
+
+td .item-icon-wrapper {
+    vertical-align: middle;
+    padding: 0.3em;
+    margin: 0.2em;
+    border-radius: 50%;
+    border: 2px solid var(--color-item-icon-border);
+    background-color: var(--color-item-icon-background);
+    width: 34px;
+    height: 34px;
+}
+
+.loss .sale-type {
+    color: var(--color-loss-text);
+}
+
+.gain .sale-type {
+    color: var(--color-gain-text);
 }
 
 .empty-table {
@@ -250,8 +373,8 @@ th.sortable.sale-type:after {
     padding: 1.4em 1.8em;
     margin-top: 1em;
     background-color: transparent;
-    border: 1px solid #36404D;
-    color: #253242;
+    border: 1px solid var(--color-components);
+    color: var(--color-base);
 }
 
 /**************************************************/
@@ -260,8 +383,8 @@ th.sortable.sale-type:after {
 button,
 .button {
     border-radius: 5px;
-    border: 1px solid #8F9396;
-    color: #36404D;
+    border: 1px solid var(--color-input-border);
+    color: var(--color-components);
     padding: 0.5em 1.2em;
     text-align: center;
     text-decoration: none;
@@ -273,24 +396,22 @@ button,
     cursor: pointer;
     user-select: none;
     box-shadow: 0px 1px 1px 1px rgba(138, 142, 148, 0.2);
-    background: #C5CAD1; /* Old browsers */
-    background: -moz-linear-gradient(left, #C5CAD1 0%, #C0C5CC 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(left, #C5CAD1 0%, #C0C5CC 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to right, #C5CAD1 0%, #C0C5CC 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#C5CAD1', endColorstr='#C0C5CC',GradientType=1 ); /* IE6-9 */
+    background: var(--color-input-background-2); /* Old browsers */
+    background: -moz-linear-gradient(left, var(--color-input-background-2) 0%, var(--color-input-background) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(left, var(--color-input-background-2) 0%, var(--color-input-background) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to right, var(--color-input-background-2) 0%, var(--color-input-background) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 }
 
 a .button {
     font-weight: bold;
-    color: #D8DEE6;
-    border: 1px solid #11997b;
+    color: var(--color-button-hyperlink-text);
+    border: 1px solid var(--color-button-hyperlink-background);
     box-shadow: none;
     /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#119074+0,11997b+100 */
-    background: #119074; /* Old browsers */
-    background: -moz-linear-gradient(left,  #119074 0%, #11997b 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(left,  #119074 0%,#11997b 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to right,  #119074 0%,#11997b 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#119074', endColorstr='#11997b',GradientType=1 ); /* IE6-9 */
+    background: var(--color-button-hyperlink-background-2); /* Old browsers */
+    background: -moz-linear-gradient(left, var(--color-button-hyperlink-background-2) 0%, var(--color-button-hyperlink-background) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(left, var(--color-button-hyperlink-background-2) 0%,var(--color-button-hyperlink-background) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to right, var(--color-button-hyperlink-background-2) 0%,var(--color-button-hyperlink-background) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 }
 
 a.placeholder .button {
@@ -298,24 +419,24 @@ a.placeholder .button {
 }
 
 a .button:hover {
-    border: 1px solid #1FA385;
-    background: #1FA385;
+    border: 1px solid var(--color-button-hover-hyperlink-background);
+    background: var(--color-button-hover-hyperlink-background);
 }
 
 button:hover,
 .button:hover {
-    background: #CACFD6;
+    background: var(--color-input-background-hover);
 }
 
 button:active,
 .button:active {
-    background: #C0C5CC;
+    background: var(--color-input-background);
 }
 
 button.active,
 .button.active {
-    border-color: #20A98A;
-    color: #119074;
+    border-color: var(--color-input-active-border);
+    color: var(--color-input-active-text)
 }
 
 /* for icons */
@@ -328,18 +449,17 @@ button.active,
     font-size: 1.3em;
     padding: 1.2em 1.6em;
     box-sizing: border-box;
-    border-color: #E6ECF2;
+    border-color: var(--color-large-button-border);
     box-shadow: 0px 1px 6px 1px rgba(138, 142, 148, 0.6);
-    text-shadow: 1px 1px 2px #F0F3F5;
-    background: #DFE1E6; /* Old browsers */
-    background: -moz-linear-gradient(left, #DFE1E6 0%, #D7D9DE 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(left, #DFE1E6 0%, #D7D9DE 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to right, #DFE1E6 0%, #D7D9DE 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#DFE1E6', endColorstr='#D7D9DE',GradientType=1 ); /* IE6-9 */
+    text-shadow: 1px 1px 2px var(--color-large-button-text-shadow);
+    background: var(--color-large-button-background-2); /* Old browsers */
+    background: -moz-linear-gradient(left, var(--color-large-button-background-2) 0%, var(--color-large-button-background) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(left, var(--color-large-button-background-2) 0%, var(--color-large-button-background) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to right, var(--color-large-button-background-2) 0%, var(--color-large-button-background) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 }
 
 .large.button:hover {
-    background: #DFE1E6;
+    background: var(--color-large-button-background-2);
 }
 
 .long.button {
@@ -347,40 +467,20 @@ button.active,
 }
 
 .action.button {
-    border-color: #E8D7AE;
+    border-color: var(--color-action-border);
     /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#e3d39a+0,d9caa3+100 */
-    background: #e3d39a; /* Old browsers */
-    background: -moz-linear-gradient(left,  #e3d39a 0%, #d9caa3 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(left,  #e3d39a 0%,#d9caa3 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to right,  #e3d39a 0%,#d9caa3 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e3d39a', endColorstr='#d9caa3',GradientType=1 ); /* IE6-9 */
+    background: var(--color-action-background-2); /* Old browsers */
+    background: -moz-linear-gradient(left, var(--color-action-background-2) 0%, var(--color-action-background) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(left, var(--color-action-background-2) 0%, var(--color-action-background) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to right, var(--color-action-background-2) 0%, var(--color-action-background) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 }
 
 .action.button:hover {
-    background: #e3d39a;
+    background: var(--color-action-background-2);
 }
 
 .action.button:active {
-    background: #F0E0AA;
-}
-
-.steam.button {
-    color: #A4D7F5;
-    text-shadow: none;
-    border-color: #27688C;
-    background: #276283; /* Old browsers */
-    background: -moz-linear-gradient(left,  #276283 0%, #214F6A 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(left,  #276283 0%,#214F6A 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to right,  #276283 0%,#214F6A 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#276283', endColorstr='#214F6A',GradientType=1 ); /* IE6-9 */
-}
-
-.steam.button:hover {
-    background: #276283;
-}
-
-.steam.button:active {
-    background: #27688C;
+    background: var(--color-action-background-active)
 }
 
 /**************************************************/
@@ -394,19 +494,18 @@ button.active,
     width: 100%;
     height: 0;
     overflow: hidden;
-    color: #253242;
-    background-color: #CED1D6;
-    border: 1px solid #D3D6DB;
+    color: var(--color-base);
+    background-color: var(--color-alert-background);
+    border: 1px solid var(--color-alert-border);
 }
 
 .alert.active {
-    border-color: #E8D7AE;
+    border-color: var(--color-action-border);
     /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#e3d39a+0,d9caa3+100 */
-    background: #e3d39a; /* Old browsers */
-    background: -moz-linear-gradient(left,  #e3d39a 0%, #d9caa3 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(left,  #e3d39a 0%,#d9caa3 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to right,  #e3d39a 0%,#d9caa3 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e3d39a', endColorstr='#d9caa3',GradientType=1 ); /* IE6-9 */
+    background: var(--color-action-background-2); /* Old browsers */
+    background: -moz-linear-gradient(left, var(--color-action-background-2) 0%, var(--color-action-background) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(left, var(--color-action-background-2) 0%, var(--color-action-background) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to right, var(--color-action-background-2) 0%, var(--color-action-background) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 }
 
 .alert p {
@@ -414,7 +513,7 @@ button.active,
 }
 
 .alert a {
-    color: #426FA6;
+    color: var(--color-hyperlink);
     font-weight: bold;
 }
 
@@ -445,7 +544,7 @@ button.active,
 .dropdown-content, .autocomplete-items {
     position: absolute;
     z-index: 1;
-    background-color: #F9FBFC;
+    background-color: var(--color-dropdown-background);
     box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.2);
 }
 
@@ -454,12 +553,12 @@ button.active,
 }
 
 .dropdown-content a, .autocomplete-items div {
-    color: #202429;
+    color: var(--color-components);
     padding: 8px 12px;
     text-decoration: none;
     display: block;
     min-width: 160px;
-    border-bottom: 1px solid #D0D6DE;
+    border-bottom: 1px solid var(--color-dropdown-background-hover);
 }
 
 .dropdown-content a:last-child, .autocomplete-items div:last-child {
@@ -467,13 +566,12 @@ button.active,
 }
 
 .dropdown-content a:hover, .autocomplete-items div:hover {
-    background-color: #D0D6DE;
+    background-color: var(--color-dropdown-background-hover);
 }
 
 .dropdown-content a.none {
-    color: #909499;
+    color: var(--color-dropdown-none-text);
 }
-
 
 /**************************************************/
 /* Autocomplete
@@ -497,8 +595,8 @@ button.active,
 }
 
 .autocomplete-active {
-    background-color: #20A98A !important;
-    color: #FFFFFF !important;
+    background-color: var(--color-autocomplete-active-background) !important;
+    color: var(--color-autocomplete-active-text) !important;
 }
 
 /**************************************************/
@@ -526,11 +624,6 @@ main.unloaded {
     min-width: 520px;
 }
 
-.stretch {
-    width: 100%;
-    background-color: #1D1D1E;
-}
-
 .section {
     margin-bottom: 1.6em;
 }
@@ -550,7 +643,6 @@ main.unloaded {
 }
 
 .columns .column.one-third {
-    
     width: 33.33%;
 }
 .columns .column.two-third {
@@ -580,12 +672,12 @@ main.unloaded {
 .stripe,
 .load-progress-bar {
     height: 0.5em;
-    background-color: #36404D;
+    background-color: var(--color-components);
     width: 100%;
 }
 
 .load-progress-bar {
-    background-color: #20A98A;
+    background-color: var(--color-progress-bar);
     width: 0;
 }
 
@@ -667,17 +759,17 @@ main.unloaded {
 .pagination .control.next {
     border-top-left-radius: 0; 
     border-bottom-left-radius: 0;
-    border-left: 1px solid #86898C !important;
+    border-left: 1px solid var(--color-pagination-center-border) !important;
 }
 
 .pagination .control.disabled {
-    color: #747980;
-    border-color: #7D838A;
-    background: #B0B5BD;
+    color: var(--color-pagination-text);
+    border-color: var(--color-pagination-border);
+    background: var(--color-pagination-background);
 }
 
 .pagination .control.disabled:hover {
-    background: #B0B5BD;
+    background: var(--color-pagination-background);
 }
 
 /**************************************************/
@@ -708,7 +800,7 @@ main.unloaded {
   position: absolute;
   width: 5px;
   height: 5px;
-  background: #253242;
+  background: var(--color-base);
   border-radius: 50%;
   animation: lds-default 1.2s linear infinite;
 }
@@ -817,7 +909,7 @@ main.unloaded {
     width: 5px;
     height: 14px;
     border-radius: 20%;
-    background: #253242;
+    background: var(--color-base);
 }
 
 .ids-spinner-small {
@@ -936,15 +1028,15 @@ main.unloaded {
 .tooltip {    
     z-index: 100;
     position: absolute;
-    background-color: #13161A;
+    background-color: var(--color-tooltip-background);
     background-image: url('/images/layout/item_tooltip.png');
     background-repeat: no-repeat;
-    color: #B3B3B3;
+    color: var(--color-tooltip-text);
     font-weight: normal;
     padding: 22px 12px;
     line-height: 1.4em;
     box-sizing: border-box;
-    border: 2px solid #FFFFFF;
+    border: 2px solid var(--color-tooltip-border);
     box-shadow: 0px 1px 1px 1px rgba(138, 142, 148, 0.2);
     width: 354px;
 }
@@ -998,7 +1090,7 @@ main.unloaded {
     padding-top: 1px;
     padding-right: 0.8em;
     text-align: center;
-    color: #36404D;
+    color: var(--color-components);
 }
 
 /**************************************************/
@@ -1016,25 +1108,24 @@ main.unloaded {
     background: -moz-linear-gradient(top, rgba(57,66,78,0.2) 0%, rgba(57,66,78,0.39) 100%); /* FF3.6-15 */
     background: -webkit-linear-gradient(top, rgba(57,66,78,0.2) 0%,rgba(57,66,78,0.39) 100%); /* Chrome10-25,Safari5.1-6 */
     background: linear-gradient(to bottom, rgba(57,66,78,0.2) 0%,rgba(57,66,78,0.39) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3339424e', endColorstr='#6339424e',GradientType=0 ); /* IE6-9 */
 }
 
 .meter > span {
     display: block;
     height: 100%;
-    background-color: rgb(32,169,138);
+    background-color: var(--color-progress-bar);
     background-image: -webkit-gradient(
       linear,
       left bottom,
       left top,
-      color-stop(0, rgb(32,169,138)),
-      color-stop(1, rgb(28,199,160))
+      color-stop(0, var(--color-progress-bar)),
+      color-stop(1, var(--color-progress-bar-2))
      );
     background-image: -moz-linear-gradient(
       center bottom,
-      rgb(43,194,83) 37%,
-      rgb(84,240,84) 69%
-     );
+      var(--color-progress-bar) 37%,
+      var(--color-progress-bar-2) 69%
+    );
     position: relative;
     overflow: hidden;
 }
