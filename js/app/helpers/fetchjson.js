@@ -9,7 +9,7 @@ export async function fetchJSON(uri) {
     const response = await fetch(uri);
     
     if (!response.ok) {
-        return Promise.reject(new AppError(`Failed to load ${uri}: ${response.statusText}`));
+        throw new AppError(`Failed to load ${uri}: ${response.statusText}`);
     }
     
     return response.json();

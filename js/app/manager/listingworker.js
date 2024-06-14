@@ -3,23 +3,14 @@
 import { buildApp } from '../app.js';
 import { verifyLogin } from '../steam/index.js';
 import { ListingManager } from './listingsmanager.js';
-import { EventEmitter } from '../../lib/eventemitter.js';
 import { setLoadState } from '../layout/loadstate.js';
 import { getPreferences } from '../preferences.js';
 import { ERROR_TYPE } from '../error.js';
 
 /**
- * Current listing count.
- * @event ListingWorker#count
- * @type {number}
- */
-
-/**
  * Used for polling listings.
- * 
- * @fires ListingWorker#count
  */
-export class ListingWorker extends EventEmitter {
+export class ListingWorker {
     /**
      * The total number of listings collected by the poller.
      * @type {number}
@@ -34,7 +25,7 @@ export class ListingWorker extends EventEmitter {
     #isLoading = false;
     
     constructor() {
-        super();
+        
     }
     
     /**
@@ -74,7 +65,7 @@ export class ListingWorker extends EventEmitter {
     
     /**
      * Loads listings.
-     * @returns {Promise<void>} Resolves when done.
+     * @returns {Promise<number>} Resolves with listing count when done.
      */
     async #load() {
         await verifyLogin();
@@ -83,22 +74,21 @@ export class ListingWorker extends EventEmitter {
         // creates the listing manager
         const listingManager = new ListingManager(app);
         // we're done
-        const done = async () => {
+        const loadListingsDone = async (error) => {
             if (this.#isLoading) {
                 this.#updateLoadState(false);
-                this.#sendCountMessage();
-            } else {
-                this.clearListingCount();
             }
             
-            this.emit('complete');
-        };
-        const loadListingsDone = async (error) => {
             if (error.name != ERROR_TYPE.APP_SUCCESS_ERROR) {
                 console.warn('Error loading listings:', error.message);
+                return Promise.reject(error);
             }
             
-            return done();
+            const count = this.#listingCount;
+            
+            this.clearListingCount();
+            
+            return count;
         };
         // we've received a response and now want to get more
         const getMore = async ({ records }) => {
@@ -119,19 +109,6 @@ export class ListingWorker extends EventEmitter {
         return loadListings();
     }
     
-    /** 
-     * Sends count message if enabled in preferences.
-     * @returns {Promise<void>} Resolves when done.
-     * @private
-     */
-    async #sendCountMessage() {
-        const preferences = await getPreferences();
-        
-        if (preferences.show_new_listing_count) {
-            this.emit('count', this.#listingCount);
-        }
-    }
-    
     /**
      * Checks the current state of the application then loads if everything is OK.
      * @param {boolean} [force=false] - Whether to force loading.
@@ -141,13 +118,13 @@ export class ListingWorker extends EventEmitter {
     async #checkStateThenLoad(force = false) {
         // already loading
         if (this.#isLoading) {
-            return Promise.reject(new AppError('Already loading listings.'));
+            throw new AppError('Already loading listings.');
         }
         
         const preferences = await getPreferences();
         
         if (!force && !preferences.background_poll_boolean) {
-            return Promise.reject(new AppError('Background polling is disabled.'));
+            throw new AppError('Background polling is disabled.');
         }
         
         return this.#load();

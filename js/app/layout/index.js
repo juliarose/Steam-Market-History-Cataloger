@@ -100,35 +100,6 @@ export function alert(message, beforeEl, elClass) {
         beforeEl = document.querySelector('main').firstChild;
     }
     
-    function animate(el){
-        const curHeight = el.clientHeight;
-        el.style.height = 'auto';
-        const autoHeight = el.clientHeight;
-        el.style.height = curHeight;
-        
-        // animate height to auto height
-        Velocity(el, {
-            height: autoHeight
-        }, {
-            duration: 160
-        }); 
-    }
-    
-    // set the contents of the element
-    function setText(el, message) {
-        el.querySelector('p').innerHTML = message;
-    }
-    
-    // set the class of the element
-    function setClass(el) {
-        el.className = '';
-        el.classList.add('alert');
-        
-        if (elClass) {
-            el.classList.add(elClass);
-        }
-    }
-    
     let alertEl = document.querySelector('.alert');
     
     if (!alertEl) {
@@ -158,9 +129,29 @@ export function alert(message, beforeEl, elClass) {
         message = message.message;
     }
     
-    setText(alertEl, message);
-    setClass(alertEl);
-    animate(alertEl);
+    // set the contents of the element
+    alertEl.querySelector('p').innerHTML = message;
+    
+    // set the class of the element
+    alertEl.className = '';
+    alertEl.classList.add('alert');
+    
+    if (elClass) {
+        alertEl.classList.add(elClass);
+    }
+    
+    // animate the alert
+    const curHeight = alertEl.clientHeight;
+    alertEl.style.height = 'auto';
+    const autoHeight = alertEl.clientHeight;
+    alertEl.style.height = curHeight;
+    
+    // animate height to auto height
+    Velocity(alertEl, {
+        height: autoHeight
+    }, {
+        duration: 160
+    }); 
 }
 
 /**

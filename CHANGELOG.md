@@ -6,7 +6,7 @@
 - Parsing Polish złoty (PLN) currency.
 
 ### Changed
-- Updated extension to Manifest V3.
+- Updated extension to Manifest V3. There are some limitations to Manifest V3 which required many changes to the codebase but shouldn't affect the user experience. Notably, background tasks are changed in favor of service workers which run only when the service worker is actively doing something. 
 - Significant refactor of the codebase. Many factory-style functions were replaced in favor of ES6 classes. This makes it much easier to reason about as well as document. However, this may have introduced new bugs.
 - Updated ESLint to use the flat configuration format.
 - Updated the localization files.

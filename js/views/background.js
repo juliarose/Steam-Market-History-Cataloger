@@ -1,6 +1,7 @@
 import { setBadgeText } from '../app/browser.js';
 import { ListingWorker } from '../app/manager/listingworker.js';
 import { onMessage } from '../app/browser.js';
+import { getPreferences } from '../app/preferences.js';
 
 const LOAD_LISTINGS_ALARM_KEY = 'load-listings';
 const listingWorker = new ListingWorker();
@@ -35,15 +36,13 @@ function addListeners() {
         }
     });
     
-    chrome.runtime.onInstalled.addListener(() => {
-        // this will load the initial data it needs
-        chrome.tabs.create({ url: 'https://steamcommunity.com/market?installation=1' }, () => {
-            
-        });
-    });
-    
-    listingWorker.on('count', (count) => {
-        updateCount(count);
+    chrome.runtime.onInstalled.addListener(({ reason }) => {
+        if (reason === 'install') {
+            // this will load the initial data it needs
+            chrome.tabs.create({ url: 'https://steamcommunity.com/market?installation=1' }, () => {
+                
+            });
+        }
     });
     
     chrome.alarms.onAlarm.addListener((alarm) => {
@@ -97,14 +96,24 @@ async function load(force = false) {
         return;
     }
     
+    async function complete(count) {
+        const preferences = await getPreferences();
+        
+        if (preferences.show_new_listing_count) {
+            updateCount(count);
+        }
+        
+        return next();
+    }
+    
     async function next() {
         const pollIntervalMinutes = await listingWorker.getPollIntervalMinutes();
         
-        await startAlarm(pollIntervalMinutes);
+        return startAlarm(pollIntervalMinutes);
     }
     
     return listingWorker.start(force)
-        .then(next)
+        .then(complete)
         .catch((err) => {
             console.warn('Error getting listings:', err);
             return next();

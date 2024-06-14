@@ -58,7 +58,7 @@ export class PurchaseHistoryManager {
         const response = await getPurchaseHistory(data);
         
         if (!response.ok) {
-            return Promise.reject(new AppError(response.statusText));
+            throw new AppError(response.statusText);
         }
         
         return response.json();
@@ -83,7 +83,7 @@ export class PurchaseHistoryManager {
         const { sessionid } = this.#session;
         
         if (!sessionid) {
-            return Promise.reject(new AppError('No login'));
+            throw new AppError('No login');
         }
         
         await sleep(delay * 1000);

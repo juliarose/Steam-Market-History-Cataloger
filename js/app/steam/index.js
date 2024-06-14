@@ -42,7 +42,7 @@ export async function getSteamPoweredSession() {
     const response = await getAccountHistory();
     
     if (!response.ok) {
-        return Promise.reject(new AppError(response.statusText));
+        throw new AppError(response.statusText);
     }
     
     const responseText = await response.text();
@@ -53,7 +53,7 @@ export async function getSteamPoweredSession() {
     );
     
     if (!hasData) {
-        return Promise.reject(new AppError('No session'));
+        throw new AppError('No session');
     }
     
     return data;
@@ -94,14 +94,14 @@ export async function getClassinfo(appid, classid, instanceid, language = 'engli
     const response = await getHoverClassinfo(appid, classid, instanceid, language);
     
     if (!response.ok) {
-        return Promise.reject(new AppError(response.statusText));
+        throw new AppError(response.statusText);
     }
     
     const responseText = await response.text();
     const asset = parseResponseText(responseText);
     
     if (!asset) {
-        return Promise.reject(new AppError('Failed to parse asset from response'));
+        throw new AppError('Failed to parse asset from response');
     }
     
     // cache it
@@ -132,7 +132,7 @@ export async function verifyLogin() {
     const response = await getMarketHome();
         
     if (!response.ok) {
-        return Promise.reject(new AppError(response.statusText));
+        throw new AppError(response.statusText);
     }
     
     const responseText = await response.text();
@@ -144,5 +144,5 @@ export async function verifyLogin() {
     }
     
     // and reject with an error that we are not logged in
-    return Promise.reject(new AppError('Not logged in'));
+    throw new AppError('Not logged in');
 }

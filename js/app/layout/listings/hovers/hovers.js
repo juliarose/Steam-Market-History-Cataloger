@@ -23,7 +23,7 @@ export async function getHoverAsset(appid, classid, instanceid, language = 'engl
     
     // if the hover ID has changed, then we don't want to display this asset anymore
     if (id !== hoverID) {
-        return Promise.reject(new AppError('No asset'));
+        throw new AppError('No asset');
     }
     
     return asset;

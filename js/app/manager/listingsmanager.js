@@ -268,12 +268,12 @@ export class ListingManager extends EventEmitter {
         // sessions do not match
         if (settings.session !== this.#session) {
             // ListingManager.load was called elsewhere
-            return Promise.reject(new AppError('Load was called elsewhere'));
+            throw new AppError('Load was called elsewhere');
         }
         
         // Verifies that the language settings are configured.
         if (!settings.language) {
-            return Promise.reject(new AppError('No language'));
+            throw new AppError('No language');
         }
         
         // Verifies that more listings can be loaded.
@@ -295,13 +295,11 @@ export class ListingManager extends EventEmitter {
         if (isBeginning) {
             // reset settings
             await this.reset();
-            
-            return Promise.reject(new AppSuccessError('Listings successfully updated!'));
+            throw new AppSuccessError('Listings successfully updated!');
         } else if (isEnd) {
             // reset settings
             await this.reset();
-            
-            return Promise.reject(new AppSuccessError('Listings fully loaded!'));
+            throw new AppSuccessError('Listings fully loaded!');
         }
     }
     
@@ -350,7 +348,7 @@ export class ListingManager extends EventEmitter {
      */
     async #getListings(start, count, language) {
         if (isNaN(start)) {
-            return Promise.reject(new AppError('Start should be a number'));
+            throw new AppError('Start should be a number');
         }
         
         this.#requests.push([count, start, language].join(':'));
@@ -365,7 +363,7 @@ export class ListingManager extends EventEmitter {
         );
         
         if (isRepetitiveRequests){
-            return Promise.reject(new AppError('Too many errors'));
+            throw new AppError('Too many errors');
         }
         
         const response = await getListings({
@@ -375,13 +373,13 @@ export class ListingManager extends EventEmitter {
         });
         
         if (!response.ok) {
-            return Promise.reject(new AppError(response.statusText));
+            throw new AppError(response.statusText);
         }
         
         const body = await response.json();
         
         if (!body.success) {
-            return Promise.reject(new AppError(body.error || body.message || 'Response failed'));
+            throw new AppError(body.error || body.message || 'Response failed');
         }
         
         return body;
@@ -608,7 +606,7 @@ export class ListingManager extends EventEmitter {
             // language configuration is a MUST
             // this will lock down the language from the first load
             // and will not change regardless of what language the user selects on Steam
-            return Promise.reject(new AppError('No language detected when configuring ListingManager'));
+            throw new AppError('No language detected when configuring ListingManager');
         }
         
         // Gets locales for the language listings are loaded in

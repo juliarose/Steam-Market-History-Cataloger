@@ -37,7 +37,7 @@ export async function loadAccount() {
     const accountInfoLocalStorage = new LocalStorage(`${steamid}_accountinfo`);
                 
     if (steamid == null) {
-        return Promise.reject(new AppError('No steamcommunity.com login detected. Either login or view a page on steamcommunity.com to configure login.'));
+        throw new AppError('No steamcommunity.com login detected. Either login or view a page on steamcommunity.com to configure login.');
     }
     
     const accountInfoData = await accountInfoLocalStorage.getSettings();
@@ -45,18 +45,18 @@ export async function loadAccount() {
     const { language } = accountInfoData;
             
     if (!language) {
-        return Promise.reject(new AppError('No language detected'));
+        throw new AppError('No language detected');
     }
     
     if (!accountInfoData.wallet_currency) {
-        return Promise.reject(new AppError('No wallet detected.'));
+        throw new AppError('No wallet detected.');
     }
     
     wallet.currency = getCurrency(accountInfoData.wallet_currency);
     
     if (!wallet.currency) {
         // currency was not found on sotrage
-        return Promise.reject(new AppError(`No currency detected with ID "${accountInfoData.wallet_currency}"`));
+        throw new AppError(`No currency detected with ID "${accountInfoData.wallet_currency}"`);
     }
     
     const locales = await Localization.get(language);

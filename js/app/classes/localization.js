@@ -57,7 +57,7 @@ export class Localization {
         const uri = getExtensionURL(`/json/locales/${code}/strings.json`);
         
         if (!code) {
-            return Promise.reject(new AppError(`No locales available for ${language}`));
+            throw new AppError(`No locales available for ${language}`);
         }
         
         // get the json for the localizations
