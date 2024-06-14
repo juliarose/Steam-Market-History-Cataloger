@@ -138,11 +138,11 @@ export async function verifyLogin() {
     const responseText = await response.text();
     const isLoggedIn = /g_bLoggedIn = true;/.test(responseText);
     
-    if (isLoggedIn) {
-        // everything is alright
-        return;
+    if (!isLoggedIn) {
+        // and reject with an error that we are not logged in
+        throw new AppError('Not logged in');
     }
     
-    // and reject with an error that we are not logged in
-    throw new AppError('Not logged in');
+    // everything is alright
+    return;
 }

@@ -10,7 +10,7 @@ function loadLocales() {
         const languages = valuesAsKeys(ELangCode);
         const language = languages[code];
         
-        return await Localization.get(language);
+        return Localization.get(language);
     };
     const parentPath = path.join(__dirname, '..');
     const jsonPath = path.join(parentPath, 'json', 'locales');

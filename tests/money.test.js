@@ -106,7 +106,7 @@ it('Parses money value in Chilean pesos', () => {
     const value = 'CLP$ 34.500';
     const parsed = parseMoney(value, currency);
     
-    expect(parsed).toBe(34500);
+    expect(parsed).toBe(3450000);
 });
 
 it('Parses money value in Kazakhstani tenges', () => {

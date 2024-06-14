@@ -37,17 +37,29 @@ const fetch = function(url) {
     return fetch(url);
 };
 
-if (!chrome.extension) {
-    chrome.extension = {
-        getURL: function(url) {
-            // return the absolute url of this resource
-            return path.join(rootPath, url);
-        }
-    };
+if (!chrome.runtime) {
+    chrome.runtime = {};
 }
+
+chrome.runtime.getURL = function(url) {
+    // return the absolute url of this resource
+    return path.join(rootPath, url);
+};
 
 const { performance } = require('perf_hooks');
 
+// fake AbortController needed for Dexie
+class AbortController {
+    constructor() {
+        
+    }
+    
+    abort() {
+        
+    }
+}
+
+global.AbortController = AbortController;
 global.fetch = fetch;
 global.performance = performance;
 global.Dexie = Dexie;
