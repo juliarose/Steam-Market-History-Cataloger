@@ -328,7 +328,7 @@ export async function buildFilters(table, records, Class, options) {
                     return el;
                 }
                 
-                const afterDateFieldEl = fragment.getElementById('date-after_date');
+                const afterDateFieldEl = fragment.getElementById('after_date');
                 const lastWeekButtonEl = renderSelector('last_week', 7, afterDateFieldEl);
                 const lastMonthButtonEl = renderSelector('last_month', 30, afterDateFieldEl);
                 
@@ -358,7 +358,7 @@ export async function buildFilters(table, records, Class, options) {
                 labelEl.textContent = getName(name);
                 labelEl.setAttribute('for', name);
                 inputEl.type = 'date';
-                inputEl.setAttribute('id', `date-${name}`);
+                inputEl.setAttribute('id', name);
                 inputEl.setAttribute('name', name);
                 inputEl.setAttribute('data-name', name);
                 inputEl.setAttribute('min', startDate);
