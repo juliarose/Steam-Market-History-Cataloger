@@ -1,4 +1,6 @@
 #!/bin/sh
+
+# This script is used to package the extension into a zip file for distribution
 rm -rf ./dist/marketcataloger
 mkdir -p dist
 mkdir ./dist/marketcataloger
