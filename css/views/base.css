@@ -7,6 +7,8 @@
     /* Color groups are ordered from lightest to darkest. */
     
     /* The base colors. */
+    /* These should be a relatively neutral color */
+    /* The difference in luminance from 100 to 1000 should be within 50% of the total range */
     --color-base-100: #FAFCFD;
     --color-base-200: #EDEFF1;
     --color-base-300: #E0E4E7;
@@ -19,6 +21,7 @@
     --color-base-1000: #7D838A;
     
     /* Colors used to contrast against the base colors, such as text against a base color */
+    /* These should be a relatively neutral color */
     --color-contrast-300: #566475;
     --color-contrast-400: #36404D;
     --color-contrast-500: #323A45;
@@ -26,14 +29,16 @@
     --color-contrast-700: #2B3038;
     
     /* Colors used for buttons and to add some color where desired */
-    /* Colors used for buttons and to add some color where desired */
     --color-primary-300: #FFD700;
     --color-primary-400: #FFC400;
     --color-primary-500: #FFB100;
     --color-primary-600: #FF9E00;
     --color-primary-700: #FF8B00;
     
-    /* Colors used for the action buttons */
+    /* Colors used as a secondary */
+    --color-secondary-500: #426FA6;
+    
+    /* Colors used for the action buttons, these should stand out */
     --color-action-300: #F7EBC2;
     --color-action-400: #F0E6C2;
     --color-action-500: #E9E1C2;
@@ -41,6 +46,7 @@
     --color-action-700: #D9D8C2;
     
     /* Colors used for the gain indicators */
+    /* These should indicate positive */
     --color-positive-300: #36C9A7;
     --color-positive-400: #2DBB9A;
     --color-positive-500: #24AD8E;
@@ -48,14 +54,12 @@
     --color-positive-700: #119074;
     
     /* Colors used for the loss indicators */
+    /* These should indicate negative */
     --color-negative-300: #F88E79;
     --color-negative-400: #EB826D;
     --color-negative-500: #DE765F;
     --color-negative-600: #D16A55;
     --color-negative-700: #C25F4A;
-    
-    /* Colors used as a secondary */
-    --color-secondary-500: #426FA6;
     
     /* Colors used for Steam item hovers (tooltips) */
     --color-tooltip-text: #CDCDCD;
@@ -71,6 +75,8 @@
     --color-base: var(--color-contrast-600);
     /* Color used for input text color, and component borders */
     --color-components: var(--color-contrast-400);
+    /* Color used for hyperlinks */
+    --color-hyperlink: var(--color-secondary-500);
     /* Color used for text dividers */
     --color-text-divider: var(--color-base-1000);
     
@@ -123,8 +129,7 @@
     --color-progress-bar: var(--color-primary-500);
     --color-progress-bar-2: var(--color-primary-400);
     
-    /* Colors used for hyperlinks */
-    --color-hyperlink: var(--color-secondary-500);
+    /* Colors used for hyperlink buttons */
     --color-button-hyperlink-background: var(--color-primary-500);
     --color-button-hyperlink-background-2: var(--color-primary-600);
     --color-button-hover-hyperlink-background: var(--color-primary-600);
