@@ -46,10 +46,22 @@ export const Currency = Object.freeze({
         decimal: ',',
         after: true
     },
+    4: {
+        wallet_code: 4,
+        code: 'CHF',
+        symbol: 'CHF',
+        // minor unit is 1/100 = Rappen
+        precision: 2,
+        // This seems to be the most common format for the thousands separator but I'm not sure if 
+        // that's what Steam uses. These would rarely be encountered.
+        thousand: '\'',
+        decimal: '.'
+    },
     5: {
         wallet_code: 5,
         code: 'RUB',
         symbol: 'pуб.',
+        // minor unit is 1/100 = Kopek
         precision: 2,
         thousand: ' ',
         decimal: ',',
@@ -158,7 +170,8 @@ export const Currency = Object.freeze({
         symbol: '₩',
         precision: 2,
         thousand: ',',
-        decimal: '.'
+        decimal: '.',
+        spacer: true
     },
     17: {
         wallet_code: 17,
@@ -345,7 +358,6 @@ export const Currency = Object.freeze({
         precision: 2,
         thousand: ' ',
         decimal: ',',
-        spacer: true,
         after: true
     },
     38: {

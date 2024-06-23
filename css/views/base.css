@@ -4,122 +4,134 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300');
 
 :root {
-    --color-background-100: #FAFCFD;
-    --color-background-200: #F0F3F5;
-    --color-background-300: #E4E8ED;
-    --color-background-400: #D9E0E8;
-    --color-background-450: #D0D6DE;
-    --color-background-500: #CACFD6;
-    --color-background-600: #C0C5CC;
-    --color-background-700: #B7BDC4;
-    --color-background-800: #9DA2A8;
-    --color-background-900: #8F9396;
-    --color-background-1000: #7D838A;
-    --color-background-1100: #6B7076;
+    --color-base-100: #FAFCFD;
+    --color-base-200: #F0F3F5;
+    --color-base-300: #E4E8ED;
+    --color-base-400: #D9E0E8;
+    --color-base-450: #D0D6DE;
+    --color-base-500: #CACFD6;
+    --color-base-600: #BDC2C9;
+    --color-base-700: #B7BDC4;
+    --color-base-800: #AFB5BC;
+    --color-base-900: #95989B;
+    --color-base-1000: #7D838A;
     
-    --color-primary-300: #253242;
-    --color-primary-400: #323A45;
-    --color-primary-500: #36404D;
-    --color-primary-600: #546173;
-    --color-primary-700: #566475;
+    --color-contrast-300: #253242;
+    --color-contrast-400: #323A45;
+    --color-contrast-500: #36404D;
+    --color-contrast-600: #2B3038;
+    --color-contrast-700: #566475;
+    --color-contrast-800: #697B91;
     
-    /* This is the base accent color, everything below 500 is lighter and everything above is darker */
-    --color-accent-400: #1CC7A0;
-    --color-accent-500: #20A98A;
-    --color-accent-600: #1FA385;
-    --color-accent-700: #119074;
+    --color-primary-300: #36C9A7;
+    --color-primary-400: #1CC7A0;
+    --color-primary-500: #20A98A;
+    --color-primary-600: #1FA385;
+    --color-primary-700: #119074;
     
-    --color-accent3-400: #F0E0AA;
-    --color-accent3-500: #D9CAA3;
-    --color-accent3-600: #E3D39A;
-    --color-accent3-700: #E8D7AE;
+    --color-action-400: #F0E0AA;
+    --color-action-500: #D9CAA3;
+    --color-action-600: #E3D39A;
+    --color-action-700: #E8D7AE;
     
-    --color-accent2-500: #426FA6;
+    /* Only used for hyperlinks */
+    --color-secondary-500: #426FA6;
+    
+    --color-positive-300: #36C9A7;
+    --color-positive-400: #1CC7A0;
+    --color-positive-500: #20A98A;
+    --color-positive-600: #1FA385;
+    --color-positive-700: #119074;
     
     --color-negative-500: #F9836A;
-    
+    --color-negative-600: #D16E59;
+        
     /* Color used for the page background */
-    --color-background: var(--color-background-700);
+    --color-background: var(--color-base-700);
     /* Color used for text against the background and other components */
-    --color-base: var(--color-primary-300);
+    --color-base: var(--color-contrast-300);
     /* Color used for input text color, and component borders */
-    --color-components: var(--color-primary-500);
+    --color-components: var(--color-contrast-500);
     
     /* Gain or loss colors */
-    --color-gain-text: var(--color-accent-500);
+    --color-gain-text: var(--color-positive-500);
     --color-loss-text: var(--color-negative-500);
     
     /* Colors used for input fields */
-    --color-input-border: var(--color-background-800);
-    --color-button-border: var(--color-background-800);
-    --color-input-active-border: var(--color-accent-500);
-    --color-input-active-text: var(--color-accent-700);
-    --color-input-background: var(--color-background-500);
-    --color-input-background-2: var(--color-background-500);
-    --color-input-background-hover: var(--color-background-500);
-    --color-input-disabled-text: var(--color-primary-700);
-    --color-input-disabled-background: var(--color-background-700);
+    --color-input-active-border: var(--color-primary-500);
+    --color-input-active-text: var(--color-primary-700);
+    
+    --color-input-border: var(--color-base-800);
+    --color-input-background: var(--color-base-500);
+    --color-input-background-2: var(--color-base-500);
+    --color-input-background-hover: var(--color-base-400);
+    --color-input-disabled-text: var(--color-contrast-700);
+    --color-input-disabled-background: var(--color-base-700);
+    --color-input-disabled-border: var(--color-base-800);
     
     /* Colors used for action buttons */
-    --color-action-background: var(--color-accent3-500);
-    --color-action-background-2: var(--color-accent3-600);
-    --color-action-border: var(--color-accent3-700);
-    --color-action-background-active: var(--color-accent3-400);
+    --color-action-background: var(--color-action-500);
+    --color-action-background-2: var(--color-action-600);
+    --color-action-border: var(--color-action-700);
+    --color-action-background-active: var(--color-action-400);
     
     /* Colors used for tooltips */
-    --color-tooltip-text: var(--color-background-700);
+    --color-tooltip-text: var(--color-base-700);
     /* Generally this gets replaced with the item's border color */
-    --color-tooltip-border: var(--color-background-100);
+    --color-tooltip-border: var(--color-base-100);
     --color-tooltip-background: #13161A;
     
     /* Colors used in tables */
-    --color-table-text: var(--color-background-800);
-    --color-table-border: var(--color-primary-600);
-    --color-table-text-cond: var(--color-background-800);
-    --color-table-text-heading: var(--color-background-600);
-    --color-table-hyperlink: var(--color-background-800);
+    --color-table-text: var(--color-base-900);
+    --color-table-border: var(--color-contrast-700);
+    --color-table-text-cond: var(--color-base-800);
+    --color-table-text-heading: var(--color-base-600);
+    --color-table-hyperlink: var(--color-base-900);
     
     /* Colors used for large buttons */
-    --color-large-button-background: var(--color-background-400);
-    --color-large-button-background-2: var(--color-background-500);
-    --color-large-button-box-shadow: var(--color-background-800);
-    --color-large-button-text-shadow: var(--color-background-500);
-    --color-large-button-border: var(--color-background-500);
+    --color-large-button-background: var(--color-base-400);
+    --color-large-button-background-2: var(--color-base-500);
+    --color-large-button-box-shadow: var(--color-base-800);
+    --color-large-button-text-shadow: var(--color-base-500);
+    --color-large-button-border: var(--color-base-500);
     
     /* Colors used for item icons */
-    --color-item-icon-border: var(--color-primary-700);
-    --color-item-icon-background: var(--color-primary-400);
+    --color-item-icon-border: var(--color-contrast-700);
+    --color-item-icon-background: var(--color-contrast-400);
     
     /* Colors used for autocomplete fields */
-    --color-autocomplete-active-background: var(--color-accent-500);
-    --color-autocomplete-active-text: var(--color-background-100);
+    --color-autocomplete-active-background: var(--color-primary-500);
+    --color-autocomplete-active-text: var(--color-base-100);
     
     /* Colors used for progress bars */
-    --color-progress-bar: var(--color-accent-500);
-    --color-progress-bar-2: var(--color-accent-400);
+    --color-progress-bar: var(--color-primary-500);
+    --color-progress-bar-2: var(--color-primary-400);
     
     /* Colors used for hyperlinks */
-    --color-hyperlink: var(--color-accent2-500);
-    --color-button-hyperlink-background: var(--color-accent-700);
-    --color-button-hyperlink-background-2: var(--color-accent-700);
-    --color-button-hover-hyperlink-background: var(--color-accent-600);
-    --color-button-hyperlink-text: var(--color-background-400);
+    --color-hyperlink: var(--color-secondary-500);
+    --color-button-hyperlink-background: var(--color-primary-700);
+    --color-button-hyperlink-background-2: var(--color-primary-700);
+    --color-button-hover-hyperlink-background: var(--color-primary-600);
+    --color-button-hyperlink-text: var(--color-base-400);
     
     /* Colors used for dropdowns */
-    --color-dropdown-background: var(--color-background-100);
-    --color-dropdown-background-hover: var(--color-background-800);
+    --color-dropdown-background: var(--color-base-100);
+    --color-dropdown-background-hover: var(--color-base-800);
     /* Color used for the "none" option in dropdowns */
-    --color-dropdown-none-text: var(--color-background-800);
+    --color-dropdown-none-text: var(--color-base-800);
     
     /* Colors used for pagination */
-    --color-pagination-text: var(--color-background-1100);
-    --color-pagination-border: var(--color-background-1000);
-    --color-pagination-background: var(--color-background-700);
-    --color-pagination-center-border: var(--color-background-900);
+    --color-pagination-text: var(--color-base-1000);
+    --color-pagination-border: var(--color-base-900);
+    --color-pagination-background: var(--color-base-700);
+    --color-pagination-center-border: var(--color-base-900);
     
     /* Colors used for alerts */
-    --color-alert-background: var(--color-background-500);
-    --color-alert-border: var(--color-background-500);
+    --color-alert-background: var(--color-base-500);
+    --color-alert-border: var(--color-base-500);
+    
+    --color-white-shadow: rgba(255, 255, 255, .2);
+    --color-black-shadow: rgba(0, 0, 0, .1);
 }
 
 html, body, div, span, object, iframe,
@@ -188,6 +200,7 @@ input:disabled,
 select:disabled {
     color: var(--color-input-disabled-text);
     background-color: var(--color-input-disabled-background);
+    border-color: var(--color-input-disabled-border);
 }
 
 select {
@@ -579,7 +592,7 @@ button.active,
     position: absolute;
     z-index: 1;
     background-color: var(--color-dropdown-background);
-    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 2px 4px 0px var(--color-black-shadow);
 }
 
 .dropdown-content {
@@ -1071,7 +1084,7 @@ main.unloaded {
     line-height: 1.4em;
     box-sizing: border-box;
     border: 2px solid var(--color-tooltip-border);
-    box-shadow: 0px 1px 1px 1px rgba(138, 142, 148, 0.2);
+    box-shadow: 0px 1px 1px 1px var(--color-black-shadow);
     width: 354px;
 }
 
@@ -1139,9 +1152,9 @@ main.unloaded {
     user-select: none;
     background: #FFFFFF;
     /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#39424e+0,39424e+100&0.2+0,0.39+100 */
-    background: -moz-linear-gradient(top, rgba(57,66,78,0.2) 0%, rgba(57,66,78,0.39) 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(top, rgba(57,66,78,0.2) 0%,rgba(57,66,78,0.39) 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to bottom, rgba(57,66,78,0.2) 0%,rgba(57,66,78,0.39) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    background: -moz-linear-gradient(top, var(--color-black-shadow) 0%, var(--color-black-shadow) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, var(--color-black-shadow) 0%,var(--color-black-shadow) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, var(--color-black-shadow) 0%,var(--color-black-shadow)00%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 }
 
 .meter > span {
@@ -1170,19 +1183,19 @@ main.unloaded {
     top: 0; left: 0; bottom: 0; right: 0;
     background-image: -webkit-gradient(
         linear, 0 0, 100% 100%, 
-        color-stop(.25, rgba(255, 255, 255, .2)), 
+        color-stop(.25, var(--color-white-shadow)), 
         color-stop(.25, transparent), color-stop(.5, transparent), 
-        color-stop(.5, rgba(255, 255, 255, .2)), 
-        color-stop(.75, rgba(255, 255, 255, .2)), 
+        color-stop(.5, var(--color-white-shadow)), 
+        color-stop(.75, var(--color-white-shadow)), 
         color-stop(.75, transparent), to(transparent)
     );
     background-image: -moz-linear-gradient(
         -45deg, 
-        rgba(255, 255, 255, .2) 25%, 
+        var(--color-white-shadow) 25%, 
         transparent 25%, 
         transparent 50%, 
-        rgba(255, 255, 255, .2) 50%, 
-        rgba(255, 255, 255, .2) 75%, 
+        var(--color-white-shadow) 50%, 
+        var(--color-white-shadow) 75%, 
         transparent 75%, 
         transparent
     );
@@ -1221,4 +1234,126 @@ main.unloaded {
     animation: none;
     -webkit-animation: none;
     background-image: none;
+}
+
+/**************************************************/
+/* Charts
+/**************************************************/
+
+.chart-container {
+    background-color: var(--color-base-300);
+    border-top: 4px solid var(--color-base-500);
+    border-bottom: 4px solid var(--color-base-500);
+    padding: 3em 2.4em;
+}
+
+.ct-chart .button {
+    background-color: var(--color-base-200);
+    border-color: var(--color-contrast-800);
+    color: var(--color-contrast-700);
+    float: right;
+    margin-right: 0;
+    margin-bottom: 1.2em;
+}
+
+.ct-label {
+    color: var(--color-contrast-500) !important;
+}
+
+.ct-grid {
+    stroke: var(--color-contrast-800) !important;
+}
+
+.ct-series-a .ct-line {
+    stroke: var(--color-positive-500);
+    stroke-width: 2px;
+}
+
+.ct-series-a .ct-point {
+    stroke: var(--color-positive-300);
+    stroke-width: 6px;
+}
+
+.ct-series-a .sales .ct-line, .ct-series-a .sales .ct-point  {
+    stroke: var(--color-negative-600);
+}
+
+.ct-legend {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+}
+
+.ct-legend li {
+    position: relative;
+    padding-left: 2em;
+    list-style-type: none;
+    display: inline-block;
+    margin-right: 2em;
+}
+
+.ct-legend:last-child {
+    margin-right: 0;
+}
+
+.ct-legend li.sales:before {
+    background-color: var(--color-negative-600);
+    border-color: var(--color-negative-600);
+}
+
+.ct-legend li.purchases:before {
+    background-color: var(--color-positive-500);
+    border-color: var(--color-positive-500);
+}
+
+.ct-legend li:before {
+    width: 1em;
+    height: 1em;
+    margin-top: 0.2em;
+    position: absolute;
+    left: 0;
+    content: '';
+    background-color: var(----color-contrast-500);
+    border: 2px solid var(----color-contrast-500);
+    border-radius: 2px;
+}
+
+.ct-legend li.inactive:before {
+    background: transparent;
+}
+
+.ct-zoom-rect {
+  fill: var(--color-black-shadow);
+  stroke: var(----color-contrast-500);
+}
+
+.ct-label.ct-horizontal, .ct-label.ct-vertical {
+  white-space: nowrap;
+}
+
+.chartist-tooltip {
+  background: var(--color-contrast-300);
+  color: var(--color-base-100);
+  text-align: left;
+  border-radius: 2px;
+  padding: 0.4em 0.6em;
+  line-height: 1.6em;
+}
+
+.chartist-tooltip:before {
+  border-top-color: var(--color-contrast-300);
+}
+
+.chartist-tooltip-meta {
+  color: var(--color-base-700);
+  font-weight: bold;
+  font-size: 0.85em;
+}
+
+.chartist-tooltip-value {
+  font-size: 1.4em;
+}
+
+.ct-legend li.inactive:before {
+  background: transparent !important;
 }
