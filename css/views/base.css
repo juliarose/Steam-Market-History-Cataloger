@@ -6,14 +6,14 @@
 :root {
     /* These are the base colors */
     --color-base-100: #FAFCFD;
-    --color-base-200: #F0F3F5;
-    --color-base-300: #E4E8ED;
-    --color-base-400: #D9E0E8;
-    --color-base-500: #CACFD6;
-    --color-base-600: #BDC2C9;
-    --color-base-700: #B7BDC4;
-    --color-base-800: #AFB5BC;
-    --color-base-900: #969CA3;
+    --color-base-200: #EDEFF1;
+    --color-base-300: #E0E4E7;
+    --color-base-400: #D3D8DD;
+    --color-base-500: #C6CCD3;
+    --color-base-600: #B9C0C9;
+    --color-base-700: #ACB4BF;
+    --color-base-800: #9FA8B5;
+    --color-base-900: #929CAA;
     --color-base-1000: #7D838A;
     
     /* Colors used to contrast against the base colors */
@@ -25,30 +25,30 @@
     
     /* Colors used for buttons and to add some color where desired */
     --color-primary-300: #36C9A7;
-    --color-primary-400: #1CC7A0;
-    --color-primary-500: #20A98A;
-    --color-primary-600: #1FA385;
+    --color-primary-400: #2DBB9A;
+    --color-primary-500: #24AD8E;
+    --color-primary-600: #1B9E81;
     --color-primary-700: #119074;
     
     /* Colors used for the action buttons */
     --color-action-300: #F7EBC2;
     --color-action-400: #F0E6C2;
-    --color-action-500: #D9D8C2;
-    --color-action-600: #E3DCC2;
-    --color-action-700: #E8E2C2;
+    --color-action-500: #E9E1C2;
+    --color-action-600: #E2DCC2;
+    --color-action-700: #D9D8C2;
     
     /* Colors used for the gain indicators */
     --color-positive-300: #36C9A7;
-    --color-positive-400: #1CC7A0;
-    --color-positive-500: #20A98A;
-    --color-positive-600: #1FA385;
+    --color-positive-400: #2DBB9A;
+    --color-positive-500: #24AD8E;
+    --color-positive-600: #1B9E81;
     --color-positive-700: #119074;
     
     /* Colors used for the loss indicators */
     --color-negative-300: #F88E79;
-    --color-negative-400: #FA8871;
-    --color-negative-500: #F9836A;
-    --color-negative-600: #D16E59;
+    --color-negative-400: #EB826D;
+    --color-negative-500: #DE765F;
+    --color-negative-600: #D16A55;
     --color-negative-700: #C25F4A;
     
     /* Only used for hyperlinks */
