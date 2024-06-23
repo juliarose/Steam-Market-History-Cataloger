@@ -4,86 +4,122 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300');
 
 :root {
+    --color-background-100: #FAFCFD;
+    --color-background-200: #F0F3F5;
+    --color-background-300: #E4E8ED;
+    --color-background-400: #D9E0E8;
+    --color-background-450: #D0D6DE;
+    --color-background-500: #CACFD6;
+    --color-background-600: #C0C5CC;
+    --color-background-700: #B7BDC4;
+    --color-background-800: #9DA2A8;
+    --color-background-900: #8F9396;
+    --color-background-1000: #7D838A;
+    --color-background-1100: #6B7076;
+    
+    --color-primary-300: #253242;
+    --color-primary-400: #323A45;
+    --color-primary-500: #36404D;
+    --color-primary-600: #546173;
+    --color-primary-700: #566475;
+    
+    /* This is the base accent color, everything below 500 is lighter and everything above is darker */
+    --color-accent-400: #1CC7A0;
+    --color-accent-500: #20A98A;
+    --color-accent-600: #1FA385;
+    --color-accent-700: #119074;
+    
+    --color-accent3-400: #F0E0AA;
+    --color-accent3-500: #D9CAA3;
+    --color-accent3-600: #E3D39A;
+    --color-accent3-700: #E8D7AE;
+    
+    --color-accent2-500: #426FA6;
+    
+    --color-negative-500: #F9836A;
+    
     /* Color used for the page background */
-    --color-background: #B7BDC4;
+    --color-background: var(--color-background-700);
     /* Color used for text against the background and other components */
-    --color-base: #253242;
+    --color-base: var(--color-primary-300);
     /* Color used for input text color, and component borders */
-    --color-components: #36404D;
+    --color-components: var(--color-primary-500);
     
     /* Gain or loss colors */
-    --color-gain-text: #20A98A;
-    --color-loss-text: #F9836A;
+    --color-gain-text: var(--color-accent-500);
+    --color-loss-text: var(--color-negative-500);
     
     /* Colors used for input fields */
-    --color-input-border: #9DA2A8;
-    --color-button-border: #8F9396;
-    --color-input-active-border: #20A98A;
-    --color-input-active-text: #119074;
-    --color-input-background: #C0C5CC;
-    --color-input-background-2: #C5CAD1;
-    --color-input-background-hover: #CACFD6;
-    --color-input-disabled-text: #566475;
-    --color-input-disabled-background: #ADB1B8;
+    --color-input-border: var(--color-background-800);
+    --color-button-border: var(--color-background-800);
+    --color-input-active-border: var(--color-accent-500);
+    --color-input-active-text: var(--color-accent-700);
+    --color-input-background: var(--color-background-500);
+    --color-input-background-2: var(--color-background-500);
+    --color-input-background-hover: var(--color-background-500);
+    --color-input-disabled-text: var(--color-primary-700);
+    --color-input-disabled-background: var(--color-background-700);
     
     /* Colors used for action buttons */
-    --color-action-background: #D9CAA3;
-    --color-action-background-2: #E3D39A;
-    --color-action-border: #E8D7AE;
-    --color-action-background-active: #F0E0AA;
+    --color-action-background: var(--color-accent3-500);
+    --color-action-background-2: var(--color-accent3-600);
+    --color-action-border: var(--color-accent3-700);
+    --color-action-background-active: var(--color-accent3-400);
     
     /* Colors used for tooltips */
-    --color-tooltip-text: #B3B3B3;
-    --color-tooltip-border: #FFFFFF;
+    --color-tooltip-text: var(--color-background-700);
+    /* Generally this gets replaced with the item's border color */
+    --color-tooltip-border: var(--color-background-100);
     --color-tooltip-background: #13161A;
     
     /* Colors used in tables */
-    --color-table-text: #A4ABB3;
-    --color-table-border: #546173;
-    --color-table-text-cond: #B8B9BA;
-    --color-table-text-heading: #C9CBCC;
-    --color-table-hyperlink: #A4ABB3;
+    --color-table-text: var(--color-background-800);
+    --color-table-border: var(--color-primary-600);
+    --color-table-text-cond: var(--color-background-800);
+    --color-table-text-heading: var(--color-background-600);
+    --color-table-hyperlink: var(--color-background-800);
     
     /* Colors used for large buttons */
-    --color-large-button-background: #D7D9DE;
-    --color-large-button-background-2: #DFE1E6;
-    --color-large-button-text-shadow: #F0F3F5;
-    --color-large-button-border: #E6ECF2;
+    --color-large-button-background: var(--color-background-400);
+    --color-large-button-background-2: var(--color-background-500);
+    --color-large-button-box-shadow: var(--color-background-800);
+    --color-large-button-text-shadow: var(--color-background-500);
+    --color-large-button-border: var(--color-background-500);
     
     /* Colors used for item icons */
-    --color-item-icon-border: #A3B8D1;
-    --color-item-icon-background: #323A45;
+    --color-item-icon-border: var(--color-primary-700);
+    --color-item-icon-background: var(--color-primary-400);
     
     /* Colors used for autocomplete fields */
-    --color-autocomplete-active-background: #20A98A;
-    --color-autocomplete-active-text: #FFFFFF;
+    --color-autocomplete-active-background: var(--color-accent-500);
+    --color-autocomplete-active-text: var(--color-background-100);
     
     /* Colors used for progress bars */
-    --color-progress-bar: #20A98A;
-    --color-progress-bar-2: #1CC7A0;
+    --color-progress-bar: var(--color-accent-500);
+    --color-progress-bar-2: var(--color-accent-400);
     
     /* Colors used for hyperlinks */
-    --color-hyperlink: #426FA6;
-    --color-button-hyperlink-background: #11997B;
-    --color-button-hyperlink-background-2: #119074;
-    --color-button-hover-hyperlink-background: #1FA385;
-    --color-button-hyperlink-text: #D8DEE6;
+    --color-hyperlink: var(--color-accent2-500);
+    --color-button-hyperlink-background: var(--color-accent-700);
+    --color-button-hyperlink-background-2: var(--color-accent-700);
+    --color-button-hover-hyperlink-background: var(--color-accent-600);
+    --color-button-hyperlink-text: var(--color-background-400);
     
     /* Colors used for dropdowns */
-    --color-dropdown-background: #F9FBFC;
-    --color-dropdown-background-hover: #D0D6DE;
+    --color-dropdown-background: var(--color-background-100);
+    --color-dropdown-background-hover: var(--color-background-800);
     /* Color used for the "none" option in dropdowns */
-    --color-dropdown-none-text: #909499;
+    --color-dropdown-none-text: var(--color-background-800);
     
     /* Colors used for pagination */
-    --color-pagination-text: #747980;
-    --color-pagination-border: #7D838A;
-    --color-pagination-background: #B0B5BD;
-    --color-pagination-center-border: #86898C;
+    --color-pagination-text: var(--color-background-1100);
+    --color-pagination-border: var(--color-background-1000);
+    --color-pagination-background: var(--color-background-700);
+    --color-pagination-center-border: var(--color-background-900);
     
     /* Colors used for alerts */
-    --color-alert-background: #CED1D6;
-    --color-alert-border: #D3D6DB;
+    --color-alert-background: var(--color-background-500);
+    --color-alert-border: var(--color-background-500);
 }
 
 html, body, div, span, object, iframe,
@@ -142,7 +178,6 @@ input, select {
     border: 1px solid var(--color-input-border);
     color: var(--color-components);
     background-color: var(--color-input-background);
-    box-shadow: 0px 1px 1px 1px rgba(138, 142, 148, 0.2);
     padding: 0.5em 0.8em 0.5em 0.8em;
     border-radius: 2px;
     margin-right: 0.4em;
@@ -395,7 +430,6 @@ button,
     font-size: 0.85em;
     cursor: pointer;
     user-select: none;
-    box-shadow: 0px 1px 1px 1px rgba(138, 142, 148, 0.2);
     background: var(--color-input-background-2); /* Old browsers */
     background: -moz-linear-gradient(left, var(--color-input-background-2) 0%, var(--color-input-background) 100%); /* FF3.6-15 */
     background: -webkit-linear-gradient(left, var(--color-input-background-2) 0%, var(--color-input-background) 100%); /* Chrome10-25,Safari5.1-6 */
@@ -450,7 +484,7 @@ button.active,
     padding: 1.2em 1.6em;
     box-sizing: border-box;
     border-color: var(--color-large-button-border);
-    box-shadow: 0px 1px 6px 1px rgba(138, 142, 148, 0.6);
+    box-shadow: 0px 1px 6px 1px var(--color-large-button-box-shadow);
     text-shadow: 1px 1px 2px var(--color-large-button-text-shadow);
     background: var(--color-large-button-background-2); /* Old browsers */
     background: -moz-linear-gradient(left, var(--color-large-button-background-2) 0%, var(--color-large-button-background) 100%); /* FF3.6-15 */

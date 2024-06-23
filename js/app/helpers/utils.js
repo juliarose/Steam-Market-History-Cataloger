@@ -16,7 +16,7 @@ export async function sleep(time = 1000) {
 /**
  * Prints a date as a string.
  * @param {Date} date - Date to print.
- * @param {string} [separator='/'] - Separator used between dates.
+ * @param {string} [separator='/'] - Separator used between numbers.
  * @returns {string} String of date.
  */
 export function printDate(date, separator = '/') {
@@ -28,16 +28,20 @@ export function printDate(date, separator = '/') {
 }
 
 /**
- * Prints a date for a CSV file.
+ * Prints a date for a CSV file in the format 'YYYY-MM-DD'.
  * @param {Date} date - Date to print.
  * @returns {string} String of date to be inserted into a CSV cell.
+ * 
+ * @example
+ * const date = Date.parse('04 Dec 1995 00:12:00 GMT');
+ * const printed = printCSVDate(date); // '1995-04-12'
  */
 export function printCSVDate(date) {
     return [
-        date.getMonth() + 1,
-        date.getDate(),
-        date.getFullYear()
-    ].join('/');
+        date.getFullYear().toString(),
+        date.getDate().toString().padStart(2, '0'),
+        (date.getMonth() + 1).toString().padStart(2, '0')
+    ].join('-');
 }
 
 /**
@@ -55,15 +59,6 @@ export function omitEmpty(obj) {
     }
     
     return result;
-}
-
-/**
- * Gets unique values from array.
- * @param {Array} arr - Array of basic items (strings, numbers).
- * @returns {Array} Array with unique values.
- */
-export function uniq(arr) {
-    return [...new Set(arr)];
 }
 
 /**
@@ -393,21 +388,6 @@ export function truncate(string, length, trail = '...') {
         return string.substr(0, length).trim() + trail;
     } else {
         return string;
-    }
-}
-
-/**
- * Chooses a form based on number.
- * @param {string} singular - Singular form.
- * @param {string} plural - Plural form.
- * @param {number} value - Test value.
- * @returns {string} Form based on value.
- */
-export function basicPlural(singular, plural, value) {
-    if (value !== 1) {
-        return plural;
-    } else {
-        return singular;
     }
 }
 
