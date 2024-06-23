@@ -7,8 +7,8 @@
     /* Color groups are ordered from lightest to darkest. */
     
     /* The base colors. */
-    /* These should be a relatively neutral color */
-    /* The difference in luminance from 100 to 1000 should be within 50% of the total range */
+    /* These shouldn't be too saturated. Primarily used for backgrounds. */
+    /* The luminance range should not be too high */
     --color-base-100: #FAFCFD;
     --color-base-200: #EDEFF1;
     --color-base-300: #E0E4E7;
@@ -21,7 +21,7 @@
     --color-base-1000: #7D838A;
     
     /* Colors used to contrast against the base colors, such as text against a base color */
-    /* These should be a relatively neutral color */
+    /* These shouldn't be too saturated. This is primarily used for text */
     --color-contrast-300: #566475;
     --color-contrast-400: #36404D;
     --color-contrast-500: #323A45;
@@ -29,6 +29,7 @@
     --color-contrast-700: #2B3038;
     
     /* Colors used for buttons and to add some color where desired */
+    /* These should be a saturated color. These aren't used much */
     --color-primary-300: #FFD700;
     --color-primary-400: #FFC400;
     --color-primary-500: #FFB100;
@@ -36,9 +37,11 @@
     --color-primary-700: #FF8B00;
     
     /* Colors used as a secondary */
+    /* These should be a saturated color. Sparsely used */
     --color-secondary-500: #426FA6;
     
-    /* Colors used for the action buttons, these should stand out */
+    /* Colors used for the action buttons */
+    /* These should stand out. */
     --color-action-300: #F7EBC2;
     --color-action-400: #F0E6C2;
     --color-action-500: #E9E1C2;
