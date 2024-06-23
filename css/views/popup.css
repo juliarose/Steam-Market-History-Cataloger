@@ -1,5 +1,4 @@
 
-
 body {
     width: 240px;
     padding: 0.8em;
@@ -19,7 +18,6 @@ body {
     padding-right: 0.6em;
     font-size: 1.2em;
 }
-
 
 .button:last-child {
     margin-bottom: 0;
