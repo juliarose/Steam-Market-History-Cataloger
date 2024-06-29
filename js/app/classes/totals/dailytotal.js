@@ -30,7 +30,7 @@ export class DailyTotal {
     static identifier = 'dailytotals';
     /**
      * Types for daily totals.
-     * @type {ModelTypes}
+     * @type {DisplayableTypes}
      * @static
      */
     static types = types;

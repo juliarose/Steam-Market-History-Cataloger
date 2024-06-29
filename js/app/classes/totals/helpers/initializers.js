@@ -52,7 +52,7 @@ export function makeTotalDisplay(locales, tableColumns) {
                 date: function(value) {
                     return moment(value).format('MMMM Do, YYYY');
                 },
-                month: function(value, record) {
+                month: function(_value, record) {
                     return moment()
                         .year(record.year)
                         .month(record.month)

@@ -31,7 +31,7 @@ export class AppTotal {
     static identifier = 'apptotals';
     /**
      * Types for app totals.
-     * @type {ModelTypes}
+     * @type {DisplayableTypes}
      * @static
      */
     static types = types;

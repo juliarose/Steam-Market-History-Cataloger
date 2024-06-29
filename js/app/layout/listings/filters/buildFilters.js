@@ -2,7 +2,7 @@ import { stringToDate } from '../../../helpers/utils.js';
 import { drawFilters } from './drawFilters.js';
 
 /**
- * @typedef {import('../../../classes/base.js').Displayable} Displayable
+ * @typedef {import('../../../classes/helpers/createClass.js').Displayable} Displayable
  * @typedef {import('../../../classes/localization.js').Localization} Localization
  */
 

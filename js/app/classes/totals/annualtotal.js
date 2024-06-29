@@ -1,5 +1,11 @@
 import { types, makeTotalDisplay } from './helpers/initializers.js';
 
+/**
+ * @typedef {import('../helpers/createClass.js').DisplayOptions} DisplayOptions
+ * @typedef {import('../helpers/createClass.js').DisplayableTypes} DisplayableTypes
+ * @typedef {import('../localization.js').Localization} Localization
+ */
+
 const tableColumns = [
     'year',
     'sale',
@@ -31,7 +37,7 @@ export class AnnualTotal {
     static identifier = 'annualtotals';
     /**
      * Types for annual totals.
-     * @type {ModelTypes}
+     * @type {DisplayableTypes}
      * @static
      */
     static types = types;

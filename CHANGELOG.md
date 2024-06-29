@@ -1,13 +1,13 @@
 # Changelog
 
 ## [1.2.1] - 2024-06-24
-### Fixed
-- Parsing purchase history results.
-- A bug where filtering queries would return results from previous queries.
-
 ### Added
 - Dark theme. This is determined by the system theme.
 - More detailed error messages when parsing fails.
+
+### Fixed
+- Parsing purchase history results.
+- A bug where filtering queries would return results from previous queries.
 
 ## [1.2.0] - 2024-06-07
 ### Fixed

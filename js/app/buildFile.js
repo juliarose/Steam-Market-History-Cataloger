@@ -2,7 +2,7 @@ import { printCSVDate, escapeCSV, omitEmpty, isNumber } from './helpers/utils.js
 import { formatMoney } from './money.js';
 
 /**
- * @typedef {import('./classes/base.js').Displayable} Displayable
+ * @typedef {import('./classes/helpers/createClass.js').Displayable} Displayable
  * @typedef {import('./currency.js').Currency} Currency
  * @typedef {import('./classes/localization.js').Localization} Localization
  * @typedef {import('./helpers/download.js').DownloadCollectionOptions} DownloadCollectionOptions

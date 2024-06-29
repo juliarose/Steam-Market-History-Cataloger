@@ -2,9 +2,9 @@ import { createClass } from './helpers/createClass.js';
 import { ETransactionType } from '../enums/ETransactionType.js';
 
 /**
- * @typedef {import('./base.js').DisplayOptions} DisplayOptions
- * @typedef {import('./base.js').ModelTypes} ModelTypes
- * @typedef {import('./localization.js').Localization} Localization
+ * @typedef {import('../helpers/createClass.js').DisplayOptions} DisplayOptions
+ * @typedef {import('../helpers/createClass.js').DisplayableTypes} DisplayableTypes
+ * @typedef {import('../localization.js').Localization} Localization
  */
 
 /**
@@ -47,7 +47,7 @@ export class AccountTransaction extends createClass(types) {
     static primary_key = 'transaction_id';
     /**
      * Types for listings.
-     * @type {ModelTypes}
+     * @type {DisplayableTypes}
      * @static
      */
     static types = types;

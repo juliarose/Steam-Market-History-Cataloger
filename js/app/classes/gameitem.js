@@ -1,8 +1,8 @@
 import { createClass } from './helpers/createClass.js';
 
 /**
- * @typedef {import('./base.js').Displayable} Displayable
- * @typedef {import('./base.js').DisplayOptions} DisplayOptions
+ * @typedef {import('./helpers/createClass.js').Displayable} Displayable
+ * @typedef {import('./helpers/createClass.js').DisplayOptions} DisplayOptions
  * @typedef {import('./localization.js').Localization} Localization
  */
 
@@ -35,7 +35,7 @@ export class GameItem extends createClass(types) {
     static identifier = 'gameitems';
     /**
      * Types for game items.
-     * @type {ModelTypes}
+     * @type {DisplayableTypes}
      * @static
      */
     static types = types;

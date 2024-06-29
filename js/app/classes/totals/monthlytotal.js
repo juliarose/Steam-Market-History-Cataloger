@@ -32,7 +32,7 @@ export class MonthlyTotal {
     static identifier = 'monthlytotals';
     /**
      * Types for monthly totals.
-     * @type {ModelTypes}
+     * @type {DisplayableTypes}
      * @static
      */
     static types = types;
