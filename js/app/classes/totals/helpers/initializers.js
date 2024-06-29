@@ -94,5 +94,5 @@ export function makeTotalDisplay(locales, tableColumns) {
                 purchase_count: 'purchase_count'
             }
         }
-    }
+    };
 }

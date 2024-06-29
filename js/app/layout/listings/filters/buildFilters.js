@@ -10,7 +10,7 @@ import { drawFilters } from './drawFilters.js';
  * @typedef {Object} WhereQuery
  * @property {string} field - Field to query.
  * @property {string} key - Key for comparison.
- * @property {Function} converter - Function
+ * @property {Function} converter - Function.
  */
 
 /**
@@ -31,7 +31,7 @@ const WhereQueries = {
 };
 
 /**
- * Description of the function
+ * Description of the function.
  * @name ComparisonFunction
  * @function
  * @param {(number|string|null)} a - First value.

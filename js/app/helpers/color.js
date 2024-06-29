@@ -95,7 +95,7 @@ export function rgba(color, alpha = 1) {
 /**
  * Gets the lightness of a color.
  * @param {string} color - Hexadecimal number string.
- * @returns {number} lightness of color.
+ * @returns {number} Lightness of color.
  */
 export function lightness(color) {
     // get lightness using
@@ -190,7 +190,7 @@ export function rgbToHSL(red, green, blue) {
  * Converts HSL color to RGB color.
  * @param {number} hue - Hue value.
  * @param {number} saturation - Saturation value.
- * @param {number} lightness - lightness value.
+ * @param {number} lightness - Lightness value.
  * @returns {number[]} RGB color channels.
  * 
  * @example
