@@ -5,7 +5,7 @@ import { verifyLogin } from '../steam/index.js';
 import { ListingManager } from './listingsmanager.js';
 import { setLoadState } from '../layout/loadstate.js';
 import { getPreferences } from '../preferences.js';
-import { ERROR_TYPE } from '../error.js';
+import { AppError, ERROR_TYPE } from '../error.js';
 
 /**
  * Used for polling listings.

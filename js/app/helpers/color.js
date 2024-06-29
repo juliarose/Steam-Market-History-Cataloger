@@ -160,9 +160,7 @@ export function rgbToHSL(red, green, blue) {
         
         switch (max) {
             case red:
-                let offset = green < blue ? 6 : 0;
-                
-                hue = ((green - blue) / difference) + offset;
+                hue = ((green - blue) / difference) + green < blue ? 6 : 0;
                 break;
             case green:
                 hue = ((blue - red) / difference) + 2;

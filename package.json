@@ -10,7 +10,8 @@
   "scripts": {
     "test": "jest --verbose --config=tests/jestconfig.js",
     "watch": "jest --verbose --watch --config=tests/jestconfig.js .js",
-    "docs": "documentation readme js/app/json_typedefs.js --section=Models"
+    "docs": "documentation readme js/app/json_typedefs.js --section=Models",
+    "lint": "npx eslint"
   },
   "devDependencies": {
     "@babel/core": "^7.24.7",

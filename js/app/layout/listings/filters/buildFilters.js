@@ -31,7 +31,7 @@ const WhereQueries = {
 };
 
 /**
- * Description of the function.
+ * Function for comparing two values.
  * @name ComparisonFunction
  * @function
  * @param {(number|string|null)} a - First value.

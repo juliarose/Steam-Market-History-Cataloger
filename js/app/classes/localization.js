@@ -193,7 +193,7 @@ export class Localization {
         this.ui = json.ui;
         this.db = json.db;
         
-        json.months.abbreviations.forEach((abbreviations, i) => {
+        json.months.abbreviations.forEach((abbreviations) => {
             this.#monthPatterns.push(new RegExp(abbreviations, 'i'));
             this.#monthAbbreviations.push(abbreviations.split('|')[0]);
         });
