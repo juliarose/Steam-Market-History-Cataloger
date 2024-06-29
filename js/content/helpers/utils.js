@@ -4,7 +4,7 @@
 /**
  * Pick keys from an object.
  * @param {Object} object - Object to pick values from.
- * @param {Array} keys - Array of keys to pick.
+ * @param {string[]} keys - Array of keys to pick.
  * @returns {Object} Object with picked keys.
  */
 function pickKeys(object, keys) {

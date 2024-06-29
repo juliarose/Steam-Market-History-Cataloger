@@ -2,28 +2,30 @@ import { printCSVDate, escapeCSV, omitEmpty, isNumber } from './helpers/utils.js
 import { formatMoney } from './money.js';
 
 /**
+ * @typedef {import('./classes/base.js').Displayable} Displayable
  * @typedef {import('./currency.js').Currency} Currency
  * @typedef {import('./classes/localization.js').Localization} Localization
+ * @typedef {import('./helpers/download.js').DownloadCollectionOptions} DownloadCollectionOptions
  */
 
 /**
  * Gets the header name for a JSON file.
- * @param {Object} Class - Class.
+ * @param {Displayable} Displayable - Displayable.
  * @returns {string} Header.
  */
-function getJSONHeader(Class) {
-    return Class.identifier || 'items';
+function getJSONHeader(Displayable) {
+    return Displayable.identifier || 'items';
 }
 
 /**
  * Gets the function for a creating a CSV row.
- * @param {Object} Class - Class.
+ * @param {Displayable} Displayable - Displayable.
  * @param {Object} options - Options to format with.
  * @param {Currency} options.currency - Currency to format money values in.
  * @param {Localization} options.locales - Locale strings.
  * @returns {Function} Function for creating a CSV row.
  */
-export function createGetCSVRow(Class, options) {
+export function createGetCSVRow(Displayable, options) {
     const getRow = (record) => {
         // it'll try its best to display the item
         const printItem = (record, key) => {
@@ -59,7 +61,7 @@ export function createGetCSVRow(Class, options) {
         }).join(',');
     };
     const { locales, currency } = options;
-    const classDisplay = Class.makeDisplay(locales);
+    const classDisplay = Displayable.makeDisplay(locales);
     const tableDisplay = classDisplay.table || {};
     const formatDisplay = classDisplay.csv || {};
     // the currency fields for the class
@@ -87,15 +89,15 @@ export function createGetCSVRow(Class, options) {
 
 /**
  * Gets the header for a CSV file.
- * @param {Object} Class - Class.
+ * @param {Displayable} Displayable - Displayable.
  * @param {Object} options - Options to format with.
  * @param {Currency} options.currency - Currency to format money values in.
  * @param {Localization} options.locales - Locale strings.
  * @returns {string} Header.
  */
-export function getCSVHeader(Class, options) {
+export function getCSVHeader(Displayable, options) {
     const { locales } = options;
-    const classDisplay = Class.makeDisplay(locales);
+    const classDisplay = Displayable.makeDisplay(locales);
     const tableDisplay = classDisplay.table || {};
     const formatDisplay = classDisplay.csv || {};
     // the display option to pick from
@@ -122,18 +124,18 @@ export function getCSVHeader(Class, options) {
 
 /**
  * Gets the template for a JSON file.
- * @param {Object} Class - The record.
+ * @param {Displayable} Displayable - Displayable.
  * @param {Object} options - Options to format with.
  * @param {Currency} options.currency - Currency to format money values in.
  * @param {Localization} options.locales - Locale strings.
  * @returns {Object} Record as JSON.
  */
-export function getJSONTemplate(Class, options) {
+export function getJSONTemplate(Displayable, options) {
     const { locales, currency } = options;
-    const classDisplay = Class.makeDisplay(locales);
+    const classDisplay = Displayable.makeDisplay(locales);
     // the currency fields for the class
     const currencyFields = classDisplay.currency_fields || [];
-    const header = getJSONHeader(Class);
+    const header = getJSONHeader(Displayable);
     
     return omitEmpty({
         // only include currency if currency values are included in data
@@ -158,60 +160,61 @@ export function recordToJSON(record) {
 
 /**
  * Builds a file for the given records.
- * @param {Array} records - Records to build with.
- * @param {Object} Class - Class of records.
+ * @param {Object[]} records - Records to build with.
+ * @param {Displayable} Displayable - Displayable of records.
  * @param {Object} options - Options to format with.
  * @param {Currency} options.currency - Currency to format money values in.
  * @param {Localization} options.locales - Locale strings.
  * @param {string} format - Format to save in.
  * @returns {string} File contents, will be blank if a valid format is not supplied.
  */
-export function buildFile(records, Class, options, format) {
-    const get = {
-        csv: function() {
-            const header = getCSVHeader(Class, options);
+export function buildFile(records, Displayable, options, format) {
+    switch (format) {
+        case 'csv': {
+            const header = getCSVHeader(Displayable, options);
             // create the function for getting a row
-            const getCSVRow = createGetCSVRow(Class, options);
-            const rows = records.map(getCSVRow);
+            const getCSVRow = createGetCSVRow(Displayable, options);
+            // create the rows, leading with the header
+            let rows = [header];
             
-            return [
-                header,
-                ...rows
-            ].join('\n');
-        },
-        json: function () {
-            const json = getJSONTemplate(Class, options);
-            const header = getJSONHeader(Class);
+            // add the rows for each record
+            rows = rows.concat(records.map(getCSVRow));
+            
+            return rows.join('\n');
+        };
+        case 'json': {
+            const json = getJSONTemplate(Displayable, options);
+            const header = getJSONHeader(Displayable);
             
             json[header] = records.map(recordToJSON);
             
             return JSON.stringify(json);
-        }
-    };
-    const build = get[format];
-    
-    if (build === undefined) {
-        return '';
+        };
+        default:
+            return '';
     }
-    
-    return build();
 }
 
 /**
  * Gets the options to download to a stream.
- * @param {Object} Class - Class.
+ * @param {Displayable} displayable - Displayable.
  * @param {Object} options - Options to format with.
  * @param {Currency} options.currency - Currency to format money values in.
  * @param {Localization} options.locales - Locale strings.
  * @param {string} format - Format to save in.
- * @returns {Object} Save options.
+ * @returns {DownloadCollectionOptions} Save options.
  */
-export function getStreamDownloadOptions(Class, options, format) {
-    const get = {
-        csv: function() {
-            const header = getCSVHeader(Class, options);
+export function getStreamDownloadOptions(Displayable, options, format) {
+    const limit = 10000;
+    const { locales } = options;
+    const classDisplay = Displayable.makeDisplay(locales);
+    const { order, direction } = classDisplay.stream || {};
+    
+    switch (format) {
+        case 'csv': {
+            const header = getCSVHeader(Displayable, options);
             // create the function for getting a row
-            const getCSVRow = createGetCSVRow(Class, options);
+            const getCSVRow = createGetCSVRow(Displayable, options);
             
             return {
                 format,
@@ -222,9 +225,9 @@ export function getStreamDownloadOptions(Class, options, format) {
                 seperator: '\n',
                 converter: getCSVRow
             };
-        },
-        json: function () {
-            const json = getJSONTemplate(Class, options);
+        };
+        case 'json': {
+            const json = getJSONTemplate(Displayable, options);
             // take off the closing piece
             const header = JSON.stringify(json).replace(/\]\}$/, '');
             const footer = ']}';
@@ -241,17 +244,8 @@ export function getStreamDownloadOptions(Class, options, format) {
                     return JSON.stringify(recordToJSON(record));
                 }
             };
-        }
+        };
+        default:
+            return null;
     };
-    const limit = 10000;
-    const { locales } = options;
-    const classDisplay = Class.makeDisplay(locales);
-    const { order, direction } = classDisplay.stream || {};
-    const build = get[format];
-    
-    if (build === undefined) {
-        return null;
-    }
-    
-    return build();
 }

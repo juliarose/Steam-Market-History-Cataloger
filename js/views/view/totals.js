@@ -1,19 +1,18 @@
 import { readyState } from '../../app/readyState.js';
 import * as Layout from '../../app/layout/index.js';
-import { Listing } from '../../app/classes/listing.js';
 import { getPreferences } from '../../app/preferences.js';
 
 const page = {
     results: document.getElementById('results')
 };
 
-    
-async function map(collection, mapperFn) {
+async function map(collection, fn) {
     const result = [];
     
     return collection
         .each((row) => {
-            result.push(mapperFn(row));
+            console.log(row);
+            result.push(fn(row));
         })
         .then(() => {
             return result;
@@ -28,7 +27,7 @@ async function onApp(app) {
         }), {
             count: 1e3
         });
-        const tablesEl = Layout.listings.buildSummaries(records || [], Listing, options);
+        const tablesEl = Layout.listings.buildSummaries(records || [], options);
         
         Layout.render(page.results, tablesEl);
     }

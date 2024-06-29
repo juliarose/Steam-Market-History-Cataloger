@@ -3,42 +3,42 @@
 @import url('https://fonts.googleapis.com/css?family=Slabo+27px');
 @import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300');
 
-:root {
+body {
     /* Color groups are ordered from lightest to darkest. */
     
     /* The base colors. */
     /* These shouldn't be too saturated. Primarily used for backgrounds. */
     /* The luminance range should not be too high */
-    --color-base-100: #FAFCFD;
-    --color-base-200: #EDEFF1;
-    --color-base-300: #E0E4E7;
-    --color-base-400: #D3D8DD;
-    --color-base-500: #C6CCD3;
-    --color-base-600: #B9C0C9;
-    --color-base-700: #ACB4BF;
-    --color-base-800: #9FA8B5;
-    --color-base-900: #929CAA;
-    --color-base-1000: #7D838A;
+    --color-neutral-100: #FAFCFD;
+    --color-neutral-200: #EDEFF1;
+    --color-neutral-300: #E0E4E7;
+    --color-neutral-400: #D3D8DD;
+    --color-neutral-500: #C6CCD3;
+    --color-neutral-600: #B9C0C9;
+    --color-neutral-700: #ACB4BF;
+    --color-neutral-800: #9FA8B5;
+    --color-neutral-900: #929CAA;
+    --color-neutral-1000: #7D838A;
     
     /* Colors used to contrast against the base colors, such as text against a base color */
     /* These shouldn't be too saturated. This is primarily used for text */
-    --color-contrast-300: #566475;
-    --color-contrast-400: #36404D;
-    --color-contrast-500: #323A45;
-    --color-contrast-600: #253242;
-    --color-contrast-700: #2B3038;
+    --color-primary-300: #566475;
+    --color-primary-400: #36404D;
+    --color-primary-500: #323A45;
+    --color-primary-600: #253242;
+    --color-primary-700: #2B3038;
     
     /* Colors used for buttons and to add some color where desired */
     /* These should be a saturated color. These aren't used much */
-    --color-primary-300: #FFD700;
-    --color-primary-400: #FFC400;
-    --color-primary-500: #FFB100;
-    --color-primary-600: #FF9E00;
-    --color-primary-700: #FF8B00;
+    --color-secondary-300: #36C9A7;
+    --color-secondary-400: #2DBB9A;
+    --color-secondary-500: #24AD8E;
+    --color-secondary-600: #1B9E81;
+    --color-secondary-700: #119074;
     
     /* Colors used as a secondary */
     /* These should be a saturated color. Sparsely used */
-    --color-secondary-500: #426FA6;
+    --color-tertiary-500: #426FA6;
     
     /* Colors used for the action buttons */
     /* These should stand out. */
@@ -69,113 +69,202 @@
     --color-tooltip-border: #F0F0F0;
     --color-tooltip-background: #13161A;
     
-    --color-white-shadow: rgba(255, 255, 255, .2);
+    --color-white-shadow: rgba(255, 255, 255, .5);
     --color-black-shadow: rgba(0, 0, 0, .1);
     
     /* Color used for the page background */
-    --color-background: var(--color-base-700);
+    --color-background: var(--color-neutral-700);
     /* Color used for text against the background and other components */
-    --color-base: var(--color-contrast-600);
+    --color-foreground-1: var(--color-primary-600);
     /* Color used for input text color, and component borders */
-    --color-components: var(--color-contrast-400);
+    --color-foreground-2: var(--color-primary-400);
     /* Color used for hyperlinks */
-    --color-hyperlink: var(--color-secondary-500);
+    --color-hyperlink: var(--color-tertiary-500);
     /* Color used for text dividers */
-    --color-text-divider: var(--color-base-1000);
+    --color-text-divider: var(--color-neutral-1000);
+    --color-divider: var(--color-foreground-1)
     
     /* Gain or loss colors */
     --color-gain-text: var(--color-positive-500);
     --color-loss-text: var(--color-negative-500);
     
     /* Colors used for input fields */
-    --color-input-active-background: var(--color-base-500);
-    --color-input-active-background-2: var(--color-base-500);
-    --color-input-active-border: var(--color-primary-500);
-    --color-input-active-text: var(--color-primary-700);
+    --color-input-active-background-1: var(--color-neutral-500);
+    --color-input-active-background-2: var(--color-neutral-500);
+    --color-input-active-border: var(--color-secondary-500);
+    --color-input-active-text: var(--color-secondary-700);
     
-    --color-input-border: var(--color-base-800);
-    --color-input-background: var(--color-base-500);
-    --color-input-background-2: var(--color-base-500);
-    --color-input-background-hover: var(--color-base-400);
-    --color-input-disabled-text: var(--color-contrast-300);
-    --color-input-disabled-background: var(--color-base-700);
-    --color-input-disabled-border: var(--color-base-800);
+    --color-input-border: var(--color-neutral-800);
+    --color-input-background-1: var(--color-neutral-500);
+    --color-input-background-2: var(--color-neutral-500);
+    --color-input-hover-background: var(--color-neutral-400);
+    --color-input-disabled-text: var(--color-primary-300);
+    --color-input-disabled-background: var(--color-neutral-700);
+    --color-input-disabled-border: var(--color-neutral-900);
     
     /* Colors used for action buttons */
-    --color-action-background: var(--color-action-500);
+    --color-action-text: var(--color-foreground-1);
+    --color-action-background-1: var(--color-action-500);
     --color-action-background-2: var(--color-action-600);
     --color-action-border: var(--color-action-700);
-    --color-action-background-active: var(--color-action-400);
+    --color-action-active-background: var(--color-action-400);
     
     /* Colors used in tables */
-    --color-table-text: var(--color-base-900);
-    --color-table-border: var(--color-contrast-300);
-    --color-table-text-cond: var(--color-base-800);
-    --color-table-text-heading: var(--color-base-600);
-    --color-table-hyperlink: var(--color-base-900);
+    --color-table-text: var(--color-neutral-900);
+    --color-table-text-heading: var(--color-neutral-600);
+    --color-table-border: var(--color-primary-300);
+    --color-table-background: var(--color-foreground-2);
+    --color-table-hyperlink: var(--color-neutral-900);
     
     /* Colors used for large buttons */
-    --color-large-button-background: var(--color-base-400);
-    --color-large-button-background-2: var(--color-base-500);
-    --color-large-button-box-shadow: var(--color-base-800);
-    --color-large-button-border: var(--color-base-400);
+    --color-large-button-background-1: var(--color-neutral-400);
+    --color-large-button-background-2: var(--color-neutral-500);
+    --color-large-button-box-shadow: var(--color-neutral-800);
+    --color-large-button-border: var(--color-neutral-400);
     
     /* Colors used for item icons */
-    --color-item-icon-border: var(--color-contrast-300);
-    --color-item-icon-background: var(--color-contrast-500);
+    --color-item-icon-border: var(--color-primary-300);
+    --color-item-icon-background: var(--color-primary-500);
     
     /* Colors used for autocomplete fields */
     --color-autocomplete-active-background: var(--color-primary-500);
-    --color-autocomplete-active-text: var(--color-base-100);
+    --color-autocomplete-active-text: var(--color-neutral-100);
     
     /* Colors used for progress bars */
-    --color-progress-bar: var(--color-primary-500);
-    --color-progress-bar-2: var(--color-primary-400);
+    --color-progress-bar-1: var(--color-secondary-500);
+    --color-progress-bar-2: var(--color-secondary-300);
     
     /* Colors used for hyperlink buttons */
-    --color-button-hyperlink-background: var(--color-primary-500);
-    --color-button-hyperlink-background-2: var(--color-primary-600);
-    --color-button-hover-hyperlink-background: var(--color-primary-600);
-    --color-button-hyperlink-text: var(--color-contrast-600);
+    --color-button-hyperlink-background-1: var(--color-secondary-500);
+    --color-button-hyperlink-background-2: var(--color-secondary-600);
+    --color-button-hyperlink-hover-background: var(--color-secondary-600);
+    --color-button-hyperlink-text: var(--color-neutral-400);
     
     /* Colors used for dropdowns */
-    --color-dropdown-background: var(--color-base-100);
-    --color-dropdown-background-hover: var(--color-base-800);
+    --color-dropdown-text: var(--color-foreground-1);
+    --color-dropdown-border: var(--color-neutral-500);
+    --color-dropdown-background: var(--color-neutral-100);
+    --color-dropdown-hover-text: var(--color-neutral-500);
+    --color-dropdown-hover-background: var(--color-secondary-300);
     /* Color used for the "none" option in dropdowns */
-    --color-dropdown-none-text: var(--color-base-800);
+    --color-dropdown-none-text: var(--color-neutral-1000);
     
     /* Colors used for pagination */
-    --color-pagination-text: var(--color-base-1000);
-    --color-pagination-border: var(--color-base-900);
-    --color-pagination-background: var(--color-base-700);
-    --color-pagination-center-border: var(--color-base-900);
+    --color-pagination-disabled-text: var(--color-primary-300);
+    --color-pagination-disabled-border: var(--color-neutral-900);
+    --color-pagination-disabled-background: var(--color-neutral-700);
+    --color-pagination-disabled-hover-background: var(--color-neutral-700);
+    --color-pagination-center-border: var(--color-neutral-900);
     
     /* Colors used for form fields */
-    --color-form-tip: var(--color-contrast-300);
-    --color-form-background: var(--color-base-500);
-    --color-form-border: var(--color-base-600);
-    --color-form-input-background: var(--color-base-400);
-    --color-form-input-background-2: var(--color-base-400);
-    --color-form-input-border: var(--color-base-800);
-    --color-form-border: var(--color-base-900);
+    --color-form-text-tip: var(--color-primary-300);
+    --color-form-background: var(--color-neutral-500);
+    --color-form-border: var(--color-neutral-900);
+    --color-form-input-background-1: var(--color-neutral-400);
+    --color-form-input-background-2: var(--color-neutral-400);
+    --color-form-input-border: var(--color-neutral-800);
     
     /* Colors used for charts */
-    --color-chart-background: var(--color-base-300);
-    --color-chart-border: var(--color-base-500);
-    --color-chart-button-background: var(--color-base-200);
-    --color-chart-button-border: var(--color-contrast-300);
-    --color-chart-button-text: var(--color-contrast-300);
-    --color-chart-text: var(--color-contrast-400);
-    --color-chart-grid: var(--color-contrast-300);
-    --color-chart-legend: var(--color-contrast-400);
-    --color-chart-zoom-border: var(--color-contrast-400);
-    --color-chart-tooltip-text: var(--color-base-100);
-    --color-chart-tooltip-background: var(--color-contrast-600);
-    --color-chart-tooltip-text-meta: var(--color-base-600);
+    --color-chart-background: var(--color-neutral-300);
+    --color-chart-border: var(--color-neutral-500);
+    --color-chart-button-text: var(--color-primary-300);
+    --color-chart-button-background: var(--color-neutral-200);
+    --color-chart-button-border: var(--color-primary-300);
+    --color-chart-text: var(--color-primary-400);
+    --color-chart-grid: var(--color-primary-300);
+    --color-chart-zoom-border: var(--color-primary-400);
+    --color-chart-tooltip-text: var(--color-neutral-100);
+    --color-chart-tooltip-text-tip: var(--color-neutral-600);
+    --color-chart-tooltip-background: var(--color-primary-600);
     
     /* Colors used for alerts */
-    --color-alert-background: var(--color-base-500);
-    --color-alert-border: var(--color-base-500);
+    --color-alert-action-text: var(--color-foreground-1);
+    --color-alert-background: var(--color-neutral-500);
+    --color-alert-border: var(--color-neutral-500);
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        /* The base colors. */
+        /* These shouldn't be too saturated. Primarily used for backgrounds. */
+        /* The luminance range should not be too high */
+        --color-neutral-100: #323A45;
+        --color-neutral-200: #2B3038;
+        --color-neutral-300: #253242;
+        --color-neutral-400: #1D2730;
+        --color-neutral-500: #16202A;
+        --color-neutral-600: #0F1923;
+        --color-neutral-700: #08121C;
+        --color-neutral-800: #010B15;
+        --color-neutral-900: #00040E;
+        --color-neutral-1000: #000000;
+        
+        /* Colors used to contrast against the base colors, such as text against a base color */
+        /* These shouldn't be too saturated. This is primarily used for text */
+        --color-primary-300: #C4CBD4;
+        --color-primary-400: #B7BFC6;
+        --color-primary-500: #ABB3BC;
+        --color-primary-600: #96A0A9;
+        --color-primary-700: #6F7B85;
+        
+        /* Colors used for buttons and to add some color where desired */
+        /* These should be a saturated color. These aren't used much */
+        --color-secondary-300: #5AE1C7;
+        --color-secondary-400: #4AD9BD;
+        --color-secondary-500: #3ACFB3;
+        --color-secondary-600: #2AC7A9;
+        --color-secondary-700: #1ABF9F;
+        
+        /* Colors used as a secondary */
+        /* These should be a saturated color. Sparsely used */
+        --color-tertiary-500: #426FA6;
+        
+        /* Colors used for the action buttons */
+        /* These should stand out. */
+        --color-action-300: #D4CFA2;
+        --color-action-400: #CCC79E;
+        --color-action-500: #C4BF9A;
+        --color-action-600: #BCB796;
+        --color-action-700: #B4AF92;
+        
+        /* Colors used for the gain indicators */
+        /* These should indicate positive */
+        --color-positive-300: #5AE1C7;
+        --color-positive-400: #4AD9BD;
+        --color-positive-500: #3ACFB3;
+        --color-positive-600: #2AC7A9;
+        --color-positive-700: #1ABF9F;
+        
+        /* Colors used for the loss indicators */
+        /* These should indicate negative */
+        --color-negative-300: #FFA99E;
+        --color-negative-400: #FF9D92;
+        --color-negative-500: #FF917F;
+        --color-negative-600: #FF856D;
+        --color-negative-700: #FF7A5A;
+        
+        --color-divider: var(--color-neutral-500);
+        
+        /* Colors used in tables */
+        --color-table-text: var(--color-primary-500);
+        --color-table-text-heading: var(--color-primary-300);
+        --color-table-border: var(--color-neutral-700);
+        --color-table-background: var(--color-neutral-500);
+        --color-table-hyperlink: var(--color-primary-500);
+        
+
+    
+        --color-dropdown-none-text: var(--color-primary-700);
+        --color-dropdown-border: var(--color-primary-700);
+        
+        
+        /* Colors used for item icons */
+        --color-item-icon-border: var(--color-neutral-300);
+        --color-item-icon-background: var(--color-neutral-500);
+        
+        --color-action-text: var(--color-neutral-700);
+        --color-alert-action-text: var(--color-neutral-700);
+    }
 }
 
 html, body, div, span, object, iframe,
@@ -187,13 +276,13 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 }
 
 html {
-    font-size: 13px;
+    font-size: 14px;
 }
 
 body {
     background-color: var(--color-background);
-    font-size: 13px;
-    color: var(--color-base);
+    font-size: 14px;
+    color: var(--color-foreground-1);
     line-height: 1.8em;
     font-family: "Open Sans", Corbel, "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "DejaVu Sans", "Bitstream Vera Sans", "Liberation Sans", Verdana, "Verdana Ref", sans-serif;
 }
@@ -220,7 +309,7 @@ h1, h2, h3, h4, h5, h6 {
 
 h1 {
     font-size: 2.4em;
-    border-bottom: 1px solid var(--color-base);
+    border-bottom: 1px solid var(--color-foreground-1);
 }
 
 h4.table-title {
@@ -231,9 +320,9 @@ h4.table-title {
 /* Inputs
 /**************************************************/
 input, select {
-    border: 1px solid var(--color-input-border);
-    color: var(--color-components);
-    background-color: var(--color-input-background);
+    border: 1px solid var(--color-input-border, #000000);
+    color: var(--color-foreground-2);
+    background-color: var(--color-input-background-1);
     padding: 0.5em 0.8em 0.5em 0.8em;
     border-radius: 2px;
     margin-right: 0.4em;
@@ -244,7 +333,7 @@ input:disabled,
 select:disabled {
     color: var(--color-input-disabled-text);
     background-color: var(--color-input-disabled-background);
-    border-color: var(--color-input-disabled-border);
+    border-color: var(--color-input-disabled-border, #000000);
 }
 
 select {
@@ -265,15 +354,15 @@ input[type=number]::-webkit-outer-spin-button {
 
 input:focus {
     outline: thin dotted;
-    outline-color: var(--color-components);
+    outline-color: var(--color-foreground-2);
 }
 
 input[type=text].active {
     background: var(--color-input-active-background-2); /* Old browsers */
-    background: -moz-linear-gradient(top, var(--color-input-active-background-2) 0%, var(--color-input-active-background) 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(top, var(--color-input-active-background-2) 0%, var(--color-input-active-background) 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to bottom, var(--color-input-active-background-2) 0%, var(--color-input-active-background) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    border-color: var(--color-input-active-border);
+    background: -moz-linear-gradient(top, var(--color-input-active-background-2) 0%, var(--color-input-active-background-1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, var(--color-input-active-background-2) 0%, var(--color-input-active-background-1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, var(--color-input-active-background-2) 0%, var(--color-input-active-background-1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    border-color: var(--color-input-active-border, #000000);
     color: var(--color-input-active-text);
 }
 
@@ -287,10 +376,10 @@ input[type=date] {
 
 input[type=date].active {
     background: var(--color-input-active-background-2); /* Old browsers */
-    background: -moz-linear-gradient(top, var(--color-input-active-background-2) 0%, var(--color-input-active-background) 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(top, var(--color-input-active-background-2) 0%, var(--color-input-active-background) 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to bottom, var(--color-input-active-background-2) 0%, var(--color-input-active-background) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    border-color: var(--color-input-active-border);
+    background: -moz-linear-gradient(top, var(--color-input-active-background-2) 0%, var(--color-input-active-background-1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, var(--color-input-active-background-2) 0%, var(--color-input-active-background-1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, var(--color-input-active-background-2) 0%, var(--color-input-active-background-1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    border-color: var(--color-input-active-border, #000000);
     color: var(--color-input-active-text);
 }
 
@@ -356,11 +445,11 @@ th {
     padding: 8px 12px;
     line-height: 3em;
     font-size: 0.8em;
-    color: var(--color-base);
+    color: var(--color-foreground-1);
     text-align: left;
     font-weight: bold;
     text-transform: uppercase;
-    border-top: 1px solid var(--color-components);
+    border-top: 1px solid var(--color-foreground-2);
     white-space: nowrap;
 }
 
@@ -392,8 +481,8 @@ th.sortable.sale-type:after {
 tbody tr {
     line-height: 1.6em;
     color: var(--color-table-text);
-    border-bottom: 1px solid var(--color-table-border);
-    background-color: var(--color-components);
+    border-bottom: 1px solid var(--color-table-border, #000000);
+    background-color: var(--color-table-background);
 }
 
 tbody tr:last-child {
@@ -415,7 +504,6 @@ td.price {
 td.cond {
     width: 1.4em;
     font-weight: bold;
-    color: var(--color-table-text-cond);
 }
 
 td .market-name,
@@ -452,18 +540,18 @@ td .item-icon-wrapper {
     padding: 0.3em;
     margin: 0.2em;
     border-radius: 50%;
-    border: 2px solid var(--color-item-icon-border);
+    border: 2px solid var(--color-item-icon-border, #000000);
     background-color: var(--color-item-icon-background);
     width: 34px;
     height: 34px;
 }
 
 .loss .sale-type {
-    color: var(--color-loss-text);
+    color: var(--color-loss-text, red);
 }
 
 .gain .sale-type {
-    color: var(--color-gain-text);
+    color: var(--color-gain-text, green);
 }
 
 .empty-table {
@@ -473,8 +561,8 @@ td .item-icon-wrapper {
     padding: 1.4em 1.8em;
     margin-top: 1em;
     background-color: transparent;
-    border: 1px solid var(--color-components);
-    color: var(--color-base);
+    border: 1px solid var(--color-foreground-2, #000000);
+    color: var(--color-foreground-1);
 }
 
 /**************************************************/
@@ -483,8 +571,8 @@ td .item-icon-wrapper {
 button,
 .button {
     border-radius: 5px;
-    border: 1px solid var(--color-input-border);
-    color: var(--color-components);
+    border: 1px solid var(--color-input-border, #000000);
+    color: var(--color-foreground-2);
     padding: 0.5em 1.2em;
     text-align: center;
     text-decoration: none;
@@ -496,21 +584,21 @@ button,
     cursor: pointer;
     user-select: none;
     background: var(--color-input-background-2); /* Old browsers */
-    background: -moz-linear-gradient(top, var(--color-input-background-2) 0%, var(--color-input-background) 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(top, var(--color-input-background-2) 0%, var(--color-input-background) 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to bottom, var(--color-input-background-2) 0%, var(--color-input-background) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    background: -moz-linear-gradient(top, var(--color-input-background-2) 0%, var(--color-input-background-1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, var(--color-input-background-2) 0%, var(--color-input-background-1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, var(--color-input-background-2) 0%, var(--color-input-background-1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 }
 
 a .button {
     font-weight: bold;
     color: var(--color-button-hyperlink-text);
-    border: 1px solid var(--color-button-hyperlink-background);
+    border: 1px solid var(--color-button-hyperlink-background-2, #000000);
     box-shadow: none;
     /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#119074+0,11997b+100 */
     background: var(--color-button-hyperlink-background-2); /* Old browsers */
-    background: -moz-linear-gradient(top, var(--color-button-hyperlink-background-2) 0%, var(--color-button-hyperlink-background) 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(top, var(--color-button-hyperlink-background-2) 0%,var(--color-button-hyperlink-background) 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to bottom, var(--color-button-hyperlink-background-2) 0%,var(--color-button-hyperlink-background) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    background: -moz-linear-gradient(top, var(--color-button-hyperlink-background-2) 0%, var(--color-button-hyperlink-background-1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, var(--color-button-hyperlink-background-2) 0%, var(--color-button-hyperlink-background-1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, var(--color-button-hyperlink-background-2) 0%, var(--color-button-hyperlink-background-1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 }
 
 a.placeholder .button {
@@ -518,26 +606,26 @@ a.placeholder .button {
 }
 
 a .button:hover {
-    border: 1px solid var(--color-button-hover-hyperlink-background);
-    background: var(--color-button-hover-hyperlink-background);
+    border: 1px solid var(--color-button-hyperlink-hover-background);
+    background: var(--color-button-hyperlink-hover-background);
 }
 
 button:hover,
 .button:hover {
-    background: var(--color-input-background-hover);
+    background: var(--color-input-hover-background);
 }
 
 button:active,
 .button:active {
-    background: var(--color-input-background);
+    background: var(--color-input-background-1);
 }
 
 button.active,
 .button.active {
     background: var(--color-input-active-background-2); /* Old browsers */
-    background: -moz-linear-gradient(top, var(--color-input-active-background-2) 0%, var(--color-input-active-background) 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(top, var(--color-input-active-background-2) 0%, var(--color-input-active-background) 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to bottom, var(--color-input-active-background-2) 0%, var(--color-input-active-background) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    background: -moz-linear-gradient(top, var(--color-input-active-background-2) 0%, var(--color-input-active-background-1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, var(--color-input-active-background-2) 0%, var(--color-input-active-background-1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, var(--color-input-active-background-2) 0%, var(--color-input-active-background-1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
     border-color: var(--color-input-active-border);
     color: var(--color-input-active-text)
 }
@@ -552,12 +640,12 @@ button.active,
     font-size: 1.3em;
     padding: 1.2em 1.6em;
     box-sizing: border-box;
-    border-color: var(--color-large-button-border);
+    border-color: var(--color-large-button-border, #000000);
     box-shadow: 0px 1px 6px 1px var(--color-large-button-box-shadow);
     background: var(--color-large-button-background-2); /* Old browsers */
-    background: -moz-linear-gradient(left, var(--color-large-button-background-2) 0%, var(--color-large-button-background) 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(left, var(--color-large-button-background-2) 0%, var(--color-large-button-background) 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to right, var(--color-large-button-background-2) 0%, var(--color-large-button-background) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    background: -moz-linear-gradient(left, var(--color-large-button-background-2) 0%, var(--color-large-button-background-1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(left, var(--color-large-button-background-2) 0%, var(--color-large-button-background-1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to right, var(--color-large-button-background-2) 0%, var(--color-large-button-background-1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 }
 
 .large.button:hover {
@@ -569,12 +657,13 @@ button.active,
 }
 
 .action.button {
+    color: var(--color-action-text);
     border-color: var(--color-action-border);
     /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#e3d39a+0,d9caa3+100 */
     background: var(--color-action-background-2); /* Old browsers */
-    background: -moz-linear-gradient(left, var(--color-action-background-2) 0%, var(--color-action-background) 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(left, var(--color-action-background-2) 0%, var(--color-action-background) 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to right, var(--color-action-background-2) 0%, var(--color-action-background) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    background: -moz-linear-gradient(left, var(--color-action-background-2) 0%, var(--color-action-background-1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(left, var(--color-action-background-2) 0%, var(--color-action-background-1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to right, var(--color-action-background-2) 0%, var(--color-action-background-1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 }
 
 .action.button:hover {
@@ -582,7 +671,7 @@ button.active,
 }
 
 .action.button:active {
-    background: var(--color-action-background-active)
+    background: var(--color-action-active-background)
 }
 
 /**************************************************/
@@ -596,18 +685,21 @@ button.active,
     width: 100%;
     height: 0;
     overflow: hidden;
-    color: var(--color-base);
+    color: var(--color-alert-text);
     background-color: var(--color-alert-background);
-    border: 1px solid var(--color-alert-border);
+    border: 1px solid var(--color-alert-border, #000000);
+    text-wrap: normal;
+    white-space: wrap;
 }
 
 .alert.active {
+    color: var(--color-alert-action-text);
     border-color: var(--color-action-border);
     /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#e3d39a+0,d9caa3+100 */
     background: var(--color-action-background-2); /* Old browsers */
-    background: -moz-linear-gradient(left, var(--color-action-background-2) 0%, var(--color-action-background) 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(left, var(--color-action-background-2) 0%, var(--color-action-background) 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to right, var(--color-action-background-2) 0%, var(--color-action-background) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    background: -moz-linear-gradient(left, var(--color-action-background-2) 0%, var(--color-action-background-1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(left, var(--color-action-background-2) 0%, var(--color-action-background-1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to right, var(--color-action-background-2) 0%, var(--color-action-background-1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 }
 
 .alert p {
@@ -646,8 +738,8 @@ button.active,
 .dropdown-content, .autocomplete-items {
     position: absolute;
     z-index: 1;
-    background-color: var(--color-dropdown-background);
-    box-shadow: 0px 2px 4px 0px var(--color-black-shadow);
+    background-color: var(--color-dropdown-background, #FFFFFF);
+    box-shadow: 0px 2px 4px 0px var(--color-black-shadow, rgba(0, 0, 0, 0.1));
 }
 
 .dropdown-content {
@@ -655,12 +747,12 @@ button.active,
 }
 
 .dropdown-content a, .autocomplete-items div {
-    color: var(--color-components);
+    color: var(--color-dropdown-text);
     padding: 8px 12px;
     text-decoration: none;
     display: block;
     min-width: 160px;
-    border-bottom: 1px solid var(--color-dropdown-background-hover);
+    border-bottom: 1px solid var(--color-dropdown-border, #000000);
 }
 
 .dropdown-content a:last-child, .autocomplete-items div:last-child {
@@ -668,7 +760,9 @@ button.active,
 }
 
 .dropdown-content a:hover, .autocomplete-items div:hover {
-    background-color: var(--color-dropdown-background-hover);
+    color: var(--color-dropdown-hover-text);
+    background-color: var(--color-dropdown-hover-background, rgba(0, 0, 0, 0.1));
+    border-color: var(--color-dropdown-hover-background, rgba(0, 0, 0, 0.1));
 }
 
 .dropdown-content a.none {
@@ -779,7 +873,7 @@ main.unloaded {
 
 .form-group label .tip,
 .form-group .label-box .tip {
-    color: var(--color-form-tip);
+    color: var(--color-form-text-tip);
     font-size: 0.9em;
 }
 
@@ -790,9 +884,9 @@ main.unloaded {
 .form-group input,
 .form-group select {
     background: var(--color-form-input-background-2); /* Old browsers */
-    background: -moz-linear-gradient(top, var(--color-form-input-background-2) 0%, var(--color-form-input-background) 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(top, var(--color-form-input-background-2) 0%, var(--color-form-input-background) 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to bottom, var(--color-form-input-background-2) 0%, var(--color-form-input-background) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    background: -moz-linear-gradient(top, var(--color-form-input-background-2) 0%, var(--color-form-input-background-1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, var(--color-form-input-background-2) 0%, var(--color-form-input-background-1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, var(--color-form-input-background-2) 0%, var(--color-form-input-background-1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 }
 
 .form-group input,
@@ -823,7 +917,7 @@ main.unloaded {
 
 .form-group {
     background-color: var(--color-form-background);
-    border: 1px solid var(--color-form-border);
+    border: 1px solid var(--color-form-border, #000000);
     border-radius: 2px;
     padding: 1.6em 1.6em;
     margin-bottom: 0.8em;
@@ -873,7 +967,7 @@ main.unloaded {
 .stripe,
 .load-progress-bar {
     height: 0.5em;
-    background-color: var(--color-components);
+    background-color: var(--color-foreground-2);
     width: 100%;
 }
 
@@ -960,17 +1054,17 @@ main.unloaded {
 .pagination .control.next {
     border-top-left-radius: 0; 
     border-bottom-left-radius: 0;
-    border-left: 1px solid var(--color-pagination-center-border) !important;
+    border-left: 1px solid var(--color-pagination-center-border, #000000) !important;
 }
 
 .pagination .control.disabled {
-    color: var(--color-pagination-text);
-    border-color: var(--color-pagination-border);
-    background: var(--color-pagination-background);
+    color: var(--color-pagination-disabled-text);
+    border-color: var(--color-pagination-disabled-border);
+    background: var(--color-pagination-disabled-background);
 }
 
 .pagination .control.disabled:hover {
-    background: var(--color-pagination-background);
+    background: var(--color-pagination-disabled-hover-background);
 }
 
 /**************************************************/
@@ -1001,7 +1095,7 @@ main.unloaded {
   position: absolute;
   width: 5px;
   height: 5px;
-  background: var(--color-base);
+  background: var(--color-foreground-1, #000000);
   border-radius: 50%;
   animation: lds-default 1.2s linear infinite;
 }
@@ -1110,7 +1204,7 @@ main.unloaded {
     width: 5px;
     height: 14px;
     border-radius: 20%;
-    background: var(--color-base);
+    background: var(--color-foreground-1);
 }
 
 .ids-spinner-small {
@@ -1229,15 +1323,15 @@ main.unloaded {
 .tooltip {    
     z-index: 100;
     position: absolute;
-    background-color: var(--color-tooltip-background);
+    background-color: var(--color-tooltip-background, #13161A);
     background-image: url('/images/layout/item_tooltip.png');
     background-repeat: no-repeat;
-    color: var(--color-tooltip-text);
+    color: var(--color-tooltip-text, #FFFFFF);
     font-weight: normal;
     padding: 22px 12px;
     line-height: 1.4em;
     box-sizing: border-box;
-    border: 2px solid var(--color-tooltip-border);
+    border: 2px solid var(--color-tooltip-border, #FFFFFF);
     box-shadow: 0px 1px 1px 1px var(--color-black-shadow);
     width: 354px;
 }
@@ -1291,7 +1385,7 @@ main.unloaded {
     padding-top: 1px;
     padding-right: 0.8em;
     text-align: center;
-    color: var(--color-components);
+    color: var(--color-foreground-2);
 }
 
 /**************************************************/
@@ -1304,7 +1398,7 @@ main.unloaded {
     height: 0.8em;
     position: relative;
     user-select: none;
-    background: #FFFFFF;
+    background: var(--color-black-shadow, #000000);
     /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#39424e+0,39424e+100&0.2+0,0.39+100 */
     background: -moz-linear-gradient(top, var(--color-black-shadow) 0%, var(--color-black-shadow) 100%); /* FF3.6-15 */
     background: -webkit-linear-gradient(top, var(--color-black-shadow) 0%,var(--color-black-shadow) 100%); /* Chrome10-25,Safari5.1-6 */
@@ -1314,17 +1408,17 @@ main.unloaded {
 .meter > span {
     display: block;
     height: 100%;
-    background-color: var(--color-progress-bar);
+    background-color: var(--color-progress-bar-1);
     background-image: -webkit-gradient(
       linear,
       left bottom,
       left top,
-      color-stop(0, var(--color-progress-bar)),
+      color-stop(0, var(--color-progress-bar-1)),
       color-stop(1, var(--color-progress-bar-2))
      );
     background-image: -moz-linear-gradient(
       center bottom,
-      var(--color-progress-bar) 37%,
+      var(--color-progress-bar-1) 37%,
       var(--color-progress-bar-2) 69%
     );
     position: relative;
@@ -1402,34 +1496,34 @@ main.unloaded {
 }
 
 .ct-chart .button {
-    background-color: var(--color-chart-button-background);
-    border-color: var(--color-chart-button-border);
-    color: var(--color-chart-button-text);
+    background-color: var(--color-chart-button-background, #000000);
+    border-color: var(--color-chart-button-border, #000000);
+    color: var(--color-chart-button-text, #000000);
     float: right;
     margin-right: 0;
     margin-bottom: 1.2em;
 }
 
 .ct-label {
-    color: var(--color-chart-text) !important;
+    color: var(--color-chart-text, #000000) !important;
 }
 
 .ct-grid {
-    stroke: var(--color-chart-grid) !important;
+    stroke: var(--color-chart-grid, #000000) !important;
 }
 
 .ct-series-a .ct-line {
-    stroke: var(--color-positive-500);
+    stroke: var(--color-positive-500, green);
     stroke-width: 2px;
 }
 
 .ct-series-a .ct-point {
-    stroke: var(--color-positive-300);
+    stroke: var(--color-positive-300, green);
     stroke-width: 6px;
 }
 
 .ct-series-a .sales .ct-line, .ct-series-a .sales .ct-point  {
-    stroke: var(--color-negative-500);
+    stroke: var(--color-negative-500, red);
 }
 
 .ct-legend {
@@ -1451,13 +1545,13 @@ main.unloaded {
 }
 
 .ct-legend li.sales:before {
-    background-color: var(--color-negative-600);
-    border-color: var(--color-negative-600);
+    background-color: var(--color-negative-600, red);
+    border-color: var(--color-negative-600, red);
 }
 
 .ct-legend li.purchases:before {
-    background-color: var(--color-positive-500);
-    border-color: var(--color-positive-500);
+    background-color: var(--color-positive-500, green);
+    border-color: var(--color-positive-500, green);
 }
 
 .ct-legend li:before {
@@ -1467,8 +1561,8 @@ main.unloaded {
     position: absolute;
     left: 0;
     content: '';
-    background-color: var(--color-chart-legend);
-    border: 2px solid var(--color-chart-legend);
+    background-color: var(--color-chart-text, #000000);
+    border: 2px solid var(--color-chart-text, #000000);
     border-radius: 2px;
 }
 
@@ -1477,8 +1571,8 @@ main.unloaded {
 }
 
 .ct-zoom-rect {
-  fill: var(--color-black-shadow);
-  stroke: var(---color-chart-zoom-border);
+  fill: var(--color-black-shadow, rgba(0, 0, 0, 0.1));
+  stroke: var(---color-chart-zoom-border, #000000);
 }
 
 .ct-label.ct-horizontal, .ct-label.ct-vertical {
@@ -1486,8 +1580,8 @@ main.unloaded {
 }
 
 .chartist-tooltip {
-  background: var(--color-chart-tooltip-background);
-  color: var(--color-chart-tooltip-text);
+  background: var(--color-chart-tooltip-background, #000000);
+  color: var(--color-chart-tooltip-text, #000000);
   text-align: left;
   border-radius: 2px;
   padding: 0.4em 0.6em;
@@ -1495,11 +1589,11 @@ main.unloaded {
 }
 
 .chartist-tooltip:before {
-  border-top-color: var(--color-chart-tooltip-background);
+  border-top-color: var(--color-chart-tooltip-background, #000000);
 }
 
 .chartist-tooltip-meta {
-  color: var(--color-chart-tooltip-text-meta);
+  color: var(--color-chart-tooltip-text-tip, #000000);
   font-weight: bold;
   font-size: 0.85em;
 }
@@ -1536,64 +1630,44 @@ div.color {
     height: 4em;
 }
 
-div.color.color-base-100 {
-    background-color: var(--color-base-100);
+div.color.color-neutral-100 {
+    background-color: var(--color-neutral-100);
 }
 
-div.color.color-base-200 {
-    background-color: var(--color-base-200);
+div.color.color-neutral-200 {
+    background-color: var(--color-neutral-200);
 }
 
-div.color.color-base-300 {
-    background-color: var(--color-base-300);
+div.color.color-neutral-300 {
+    background-color: var(--color-neutral-300);
 }
 
-div.color.color-base-400 {
-    background-color: var(--color-base-400);
+div.color.color-neutral-400 {
+    background-color: var(--color-neutral-400);
 }
 
-div.color.color-base-500 {
-    background-color: var(--color-base-500);
+div.color.color-neutral-500 {
+    background-color: var(--color-neutral-500);
 }
 
-div.color.color-base-600 {
-    background-color: var(--color-base-600);
+div.color.color-neutral-600 {
+    background-color: var(--color-neutral-600);
 }
 
-div.color.color-base-700 {
-    background-color: var(--color-base-700);
+div.color.color-neutral-700 {
+    background-color: var(--color-neutral-700);
 }
 
-div.color.color-base-800 {
-    background-color: var(--color-base-800);
+div.color.color-neutral-800 {
+    background-color: var(--color-neutral-800);
 }
 
-div.color.color-base-900 {
-    background-color: var(--color-base-900);
+div.color.color-neutral-900 {
+    background-color: var(--color-neutral-900);
 }
 
-div.color.color-base-1000 {
-    background-color: var(--color-base-1000);
-}
-
-div.color.color-contrast-300 {
-    background-color: var(--color-contrast-300);
-}
-
-div.color.color-contrast-400 {
-    background-color: var(--color-contrast-400);
-}
-
-div.color.color-contrast-500 {
-    background-color: var(--color-contrast-500);
-}
-
-div.color.color-contrast-600 {
-    background-color: var(--color-contrast-600);
-}
-
-div.color.color-contrast-700 {
-    background-color: var(--color-contrast-700);
+div.color.color-neutral-1000 {
+    background-color: var(--color-neutral-1000);
 }
 
 div.color.color-primary-300 {
@@ -1614,6 +1688,30 @@ div.color.color-primary-600 {
 
 div.color.color-primary-700 {
     background-color: var(--color-primary-700);
+}
+
+div.color.color-secondary-300 {
+    background-color: var(--color-secondary-300);
+}
+
+div.color.color-secondary-400 {
+    background-color: var(--color-secondary-400);
+}
+
+div.color.color-secondary-500 {
+    background-color: var(--color-secondary-500);
+}
+
+div.color.color-secondary-600 {
+    background-color: var(--color-secondary-600);
+}
+
+div.color.color-secondary-700 {
+    background-color: var(--color-secondary-700);
+}
+
+div.color.color-tertiary-500 {
+    background-color: var(--color-tertiary-500);
 }
 
 div.color.color-action-300 {
@@ -1674,8 +1772,4 @@ div.color.color-negative-600 {
 
 div.color.color-negative-700 {
     background-color: var(--color-negative-700);
-}
-
-div.color.color-secondary-500 {
-    background-color: var(--color-secondary-500);
 }

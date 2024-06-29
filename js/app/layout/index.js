@@ -10,6 +10,7 @@ import { sendMessage } from '../browser.js';
 import '../helpers/dropdown.js'; 
 
 export * as listings from './listings/index.js';
+import { escapeHTML } from '../helpers/utils.js';
 export { buildTable } from './buildTable.js';
 export { tooltip } from './tooltip.js';
 export { getLayoutOptions } from './getLayoutOptions.js';
@@ -121,12 +122,23 @@ export function alert(message, beforeEl, elClass) {
         
         if (isAppError) {
             console.log(message);
+            message = message.message;
         } else {
             // An unexpected error occurred.
             console.error(message);
+            const stackTrace = message.stack.replace(/chrome\-extension\:\/\/[A-z0-9]+/g, '');
+            let isparseListingsError = stackTrace.includes('parseListings.js');
+            isparseListingsError = true;
+            
+            message = `An unexpected error occurred.`
+            message += `<br/><br/>Please <a href="https://github.com/juliarose/Steam-Market-History-Cataloger/issues">file an issue</a> on this project's Github page with the following stack trace included:`
+            message += `<br/><br/><code>${escapeHTML(stackTrace)}</code>`;
+            
+            if (isparseListingsError) {
+                message += `<br/><br/>Also include:<ul><li>Your account's language.</li><li>Your account's currency.</li><li>A screenshot of your history results at <a href="https://steamcommunity.com/market/#myhistory">https://steamcommunity.com/market</a>. This is optional if you prefer to keep your privacy but will help much more than the above. This extension depends on parsing your history results correctly which can vary in different locales.</li></ul>`;
+            
+            }
         }
-        
-        message = message.message;
     }
     
     // set the contents of the element

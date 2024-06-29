@@ -247,7 +247,7 @@ export function parseListings(response, state, currency, localization) {
     /**
      * Gets parameters from hover.
      * @param {string} id - ID of listing.
-     * @returns {Array} RegExp results.
+     * @returns {{appid: string, contextid: string, assetid: string}} RegExp results.
      */
     function getHover(id) {
         const pattern = new RegExp(`CreateItemHoverFromContainer\\(\\s*g_rgAssets\\s*,\\s*\\\'${id}_image\\\'\\s*,\\s*(\\d+)\\s*,\\s*\\\'(\\d+)\\\'\\s*,\\s*\\\'(\\d+)\\\'\\s*,\\s*(\\d+)\\s*\\);`);
@@ -262,8 +262,9 @@ export function parseListings(response, state, currency, localization) {
     }
     
     /**
-     * Gets dates of listing, this is a complicated process since dates are displayed in short string formats.
-     * E.g. "Mar 30", which must be manually parsed and year must be determined based on numerous conditions.
+     * Gets dates of listing, this is a complicated process since dates are displayed in short 
+     * string formats. E.g. "Mar 30", which must be manually parsed and year must be determined 
+     * based on numerous conditions.
      * @param {string} dateListedRaw - Raw date listed string.
      * @param {string} dateActedRaw - Raw date acted string.
      * @returns {Object} Parsed dates.

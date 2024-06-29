@@ -1,3 +1,4 @@
+
 /**
  * Gets list of classes for each column in 'columns'.
  * @param {Object} display - Object to draw class values from.
@@ -24,9 +25,9 @@ export function getColumnClasses(display, columns) {
  * The sorting methods are based on the type of data we are sorting.
  * @param {string} key - Sort key.
  * @param {Object} type - Class object of data type e.g. Number, Date...
- * @param {Array} arr - Array to sort.
+ * @param {Object[]} arr - Array to sort.
  * @param {boolean} reverse - Sort in reverse?
- * @returns {Array} Sorted array.
+ * @returns {Object[]} Sorted array.
  */
 export function sortByType(key, type, arr, reverse) {
     // picking a function based on the data type we're sorting as well as the direction
@@ -100,7 +101,7 @@ export class Pagination {
     count = 100;
     /**
      * Array of records.
-     * @type {Array}
+     * @type {Object[]}
      */
     #records = [];
     
@@ -109,7 +110,7 @@ export class Pagination {
      * @param {Object} options - Options for pagination.
      * @param {number} [options.page] - Current page for pagination.
      * @param {number} [options.count] - Number of results to show per page.
-     * @param {Array} options.records - Array of records.
+     * @param {Object[]} options.records - Array of records.
      */
     constructor({ page, count, records }) {
         this.page = page || 1;
@@ -119,7 +120,7 @@ export class Pagination {
     
     /**
      * Gets records for current page.
-     * @returns {Array} Slice of records based on pagination.
+     * @returns {Object[]} Slice of records based on pagination.
      */
     getRecords() {
         const start = this.getIndex();

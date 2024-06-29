@@ -1,4 +1,4 @@
-import { range, arrToKeys, groupBy, transformObj } from '../../helpers/utils.js';
+import { groupBy } from '../../helpers/utils.js';
 import { buildTable } from '../../layout/buildTable.js';
 import { applist } from '../../data/applist.js';
 import { AnnualTotal } from '../../classes/totals/annualtotal.js';
@@ -13,14 +13,13 @@ import { AppTotal } from '../../classes/totals/apptotal.js';
 
 /**
  * Builds summary tables for listings.
- * @param {Array} records - Records to summarize.
- * @param {Object} Class - Listing class object.
+ * @param {Object[]} records - Records to summarize.
  * @param {Object} options - Options.
  * @param {Currency} options.currency - Currency to use for displaying prices.
  * @param {Localization} [options.locales] - Locale strings.
  * @returns {HTMLElement} Document fragment.
  */
-export function buildSummaries(records, Class, options = {}) {
+export function buildSummaries(records, options) {
     const buildIndex = (function() {
         function date() {
             let index = {};
@@ -64,8 +63,12 @@ export function buildSummaries(records, Class, options = {}) {
                 // group by difference in days
                 return Math.floor((today - record.date_acted) / ONE_DAY);
             });
+            const daysRange = {};
+            
             // get a day for each day within the range
-            const daysRange = arrToKeys(range(0, DAYS_RANGE), []);
+            for (let i = 0; i < DAYS_RANGE; i++) {
+                daysRange[i] = [];
+            }
             
             // daysRange will fill in missing days from date range
             return Object.assign(daysRange, byDay);
@@ -86,16 +89,12 @@ export function buildSummaries(records, Class, options = {}) {
     const getTotal = (function() {
         // starting value for reducing totals
         function getStart() {
-            const prices = {
+            return {
                 sale: 0,
-                purchase: 0
+                sale_count: 0,
+                purchase: 0,
+                purchase_count: 0
             };
-            // will transform the above object but suffix the keys with "_count"
-            const counts = transformObj(prices, {
-                keys: countKey
-            });
-            
-            return Object.assign(prices, counts);
         }
         
         // the key for the count of the sale type
@@ -177,16 +176,13 @@ export function buildSummaries(records, Class, options = {}) {
         };
     }());
     const drawTable = (function() {
-        function draw(records, Class, title) {
-            const tableOptions = Object.assign({}, options, {
-                title
-            });
+        function draw(records, Displayable, title) {
+            const tableOptions = {
+                title,
+                ...options
+            };
             
-            return buildTable(records, Class, tableOptions);
-        }
-        
-        function createRecord(total, mix) {
-            return Object.assign(total, mix);
+            return buildTable(records, Displayable, tableOptions);
         }
         
         function annual(index) {
@@ -194,8 +190,9 @@ export function buildSummaries(records, Class, options = {}) {
             
             for (let year in index) {
                 const total = index[year];
-                const record = createRecord(total, {
-                    year: parseInt(year)
+                const record = new AnnualTotal({
+                    year: parseInt(year),
+                    ...total
                 });
                 
                 records.push(record);
@@ -210,9 +207,10 @@ export function buildSummaries(records, Class, options = {}) {
             for (let year in index) {
                 for (let month in index[year]) {
                     const total = index[year][month];
-                    const record = createRecord(total, {
+                    const record = new MonthlyTotal({
                         year: parseInt(year),
-                        month: parseInt(month)
+                        month: parseInt(month),
+                        ...total
                     });
                     
                     records.push(record);
@@ -227,9 +225,10 @@ export function buildSummaries(records, Class, options = {}) {
             
             for (let appid in index) {
                 const total = index[appid];
-                const record = createRecord(total, {
+                const record = new AppTotal({
                     appname: applist[appid] || appid.toString(),
-                    appid: parseInt(appid)
+                    appid: parseInt(appid),
+                    ...total
                 });
                 
                 records.push(record);
@@ -252,8 +251,9 @@ export function buildSummaries(records, Class, options = {}) {
             for (let day in index) {
                 const date = getDate(day);
                 const total = index[day];
-                const record = createRecord(total, {
-                    date: date
+                const record = new DailyTotal({
+                    date,
+                    ...total
                 });
                 
                 records.push(record);
@@ -272,7 +272,6 @@ export function buildSummaries(records, Class, options = {}) {
     
     const { locales } = options;
     const uiLocales = locales.ui;
-    const fragment = document.createDocumentFragment();
     const indices = {
         date: buildIndex.date(),
         app: buildIndex.app(),
@@ -287,12 +286,6 @@ export function buildSummaries(records, Class, options = {}) {
         app: getTotal.app(indices.app),
         daily: getTotal.daily(indices.daily)
     };
-    const tables = Object.keys(totals).reduce((result, key) => {
-        // draw table for totals
-        result[key] = drawTable[key](totals[key]);
-        
-        return result;
-    }, {});
     // the order we want to display the tables in
     const orderedNames = [
         'annual',
@@ -300,10 +293,13 @@ export function buildSummaries(records, Class, options = {}) {
         'daily',
         'app'
     ];
+    const fragment = document.createDocumentFragment();
     
     orderedNames
-        .map((name) => tables[name])
-        .forEach((table) => {
+        .forEach((name) => {
+            // Draw the table for each name
+            const table = drawTable[name](totals[name]);
+            
             // then add them to the fragment in this order
             fragment.appendChild(table);
         });

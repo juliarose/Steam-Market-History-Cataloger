@@ -53,7 +53,7 @@ export async function getSteamPoweredSession() {
     );
     
     if (!hasData) {
-        throw new AppError('No session');
+        throw new AppError('No session detected. You must be logged into <a href="https://steampowered.com" target="_blank">https://steampowered.com</a> to check your account\'s purchase history.');
     }
     
     return data;

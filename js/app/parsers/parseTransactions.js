@@ -30,7 +30,8 @@ export function parseTransactions(response, currency, locales) {
             return null;
         }
         
-        const app = itemsEl.children[0].textContent.trim();
+        const itemsElChildren = itemsEl.getElementsByTagName('div');
+        const app = itemsElChildren[0].textContent.trim();
         
         // map each item in the transaction
         return Array.from(payItemsList).map((itemEl) => {
@@ -104,13 +105,15 @@ export function parseTransactions(response, currency, locales) {
     const transactionsList = doc.getElementsByClassName('wallet_table_row');
     const transactions = Array.from(transactionsList).map((transactionEl) => {
         // get match of transaction type and count (if available)
-        const countEl = transactionEl.getElementsByClassName('wht_type')[0].children[0];
+        const countParentEl = transactionEl.getElementsByClassName('wht_type')[0];
+        const countEl = countParentEl.getElementsByTagName('div')[0];
         const totalEl = transactionEl.getElementsByClassName('wht_total')[0];
+        const totalElChildren = totalEl.getElementsByTagName('div');
         const itemsEl = transactionEl.getElementsByClassName('wht_items')[0];
         const dateEl = transactionEl.getElementsByClassName('wht_date')[0];
         const paymentEl = totalEl.getElementsByClassName('wth_payment')[0];
         const totalPriceEl = (
-            totalEl.children[0] ||
+            totalElChildren[0] ||
             totalEl
         );
         const { count, type } = getCountAndType(countEl);

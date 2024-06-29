@@ -18,18 +18,23 @@ export function download(filename, data) {
 }
 
 /**
+ * Options for downloading a collection.
+ * @typedef {Object} DownloadCollectionOptions
+ * @property {string} header - Header for file.
+ * @property {string} footer - Footer for file.
+ * @property {string} format - Format of file.
+ * @property {Function} converter - Function for converting records to strings.
+ * @property {string} order - Column for order.
+ * @property {number} direction - Direction of order.
+ * @property {number} limit - Chunk size limit.
+ */
+
+/**
  * Downloads a collection as a stream.
  * @param {string} filename - Name of file to be saved.
  * @param {Object} table - Table containing collection.
  * @param {Object} collection - Collection to save.
- * @param {Object} options - Options.
- * @param {string} options.header - Header for file.
- * @param {string} options.footer - Footer for file.
- * @param {string} options.format - Format of file.
- * @param {Function} options.converter - Function for converting records to strings.
- * @param {string} options.order - Column for order.
- * @param {number} options.direction - Direction of order.
- * @param {number} options.limit - Chunk size limit.
+ * @param {DownloadCollectionOptions} options - Options.
  * @returns {Promise<void>} Resolves when done.
  */
 export async function downloadCollection(filename, table, collection, options) {

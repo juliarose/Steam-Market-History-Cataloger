@@ -1,6 +1,5 @@
-import { createTotalClass } from './helpers/createTotalClass.js';
+import { types, makeTotalDisplay } from './helpers/initializers.js';
 
-const identifier = 'monthlytotals';
 const tableColumns = [
     'year',
     'month',
@@ -10,4 +9,78 @@ const tableColumns = [
     'purchase_count'
 ];
 
-export const MonthlyTotal = createTotalClass(identifier, tableColumns);
+/**
+ * Monthly total properties.
+ * @typedef {Object} MonthlyTotalProperties
+ * @property {number} year - Year.
+ * @property {number} month - Month.
+ * @property {number} sale - Sale total.
+ * @property {number} sale_count - Number of sales.
+ * @property {number} purchase - Purchase total.
+ * @property {number} purchase_count - Number of purchases.
+ */
+
+/**
+ * Monthly total.
+ */
+export class MonthlyTotal {
+    /**
+     * Identifier for monthly totals.
+     * @type {string}
+     * @static
+     */
+    static identifier = 'monthlytotals';
+    /**
+     * Types for monthly totals.
+     * @type {ModelTypes}
+     * @static
+     */
+    static types = types;
+    /**
+     * Year.
+     * @type {number}
+     */
+    year;
+    /**
+     * Month.
+     * @type {number}
+     */
+    month;
+    /**
+     * Sale total.
+     * @type {number}
+     */
+    sale;
+    /**
+     * Number of sales.
+     * @type {number}
+     */
+    sale_count;
+    /**
+     * Purchase total.
+     * @type {number}
+     */
+    purchase;
+    /**
+     * Number of purchases.
+     * @type {number}
+     */
+    purchase_count;
+    
+    /**
+     * Creates a new monthly total.
+     * @param {MonthlyTotalProperties} properties - Properties.
+     */
+    constructor(properties) {
+        Object.assign(this, properties);
+    }
+    
+    /**
+     * Builds the display attributes.
+     * @param {Localization} locales - Localization strings.
+     * @returns {DisplayOptions} Display options.
+     */
+    static makeDisplay(locales) {
+        return makeTotalDisplay(locales, tableColumns);
+    }
+}

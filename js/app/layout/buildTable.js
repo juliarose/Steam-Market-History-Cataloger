@@ -5,6 +5,7 @@ import { buildFile, getStreamDownloadOptions } from '../buildFile.js';
 import { Pagination, getColumnClasses, sortByType } from './helpers.js';
 
 /**
+ * @typedef {import('../classes/base.js').Displayable} Displayable
  * @typedef {import('../currency.js').Currency} Currency
  * @typedef {import('../classes/localization.js').Localization} Localization
  */
@@ -24,15 +25,14 @@ import { Pagination, getColumnClasses, sortByType } from './helpers.js';
 
 /**
  * Builds a table for records.
- * @param {Array} records - Records to display.
- * @param {Object} Class - Class of items in 'records'.
+ * @param {Object[]} records - Records to display.
+ * @param {Displayable} Displayable - Displayable of items in `records`.
  * @param {BuildTableOptions} options - Options for formatting table.
  * @returns {HTMLElement} DOM element of table.
- * @namespace Layout.buildTable
  */
-export function buildTable(records, Class, options) {
+export function buildTable(records, Displayable, options) {
     const { locales } = options;
-    const classDisplay = Class.makeDisplay(locales);
+    const classDisplay = Displayable.makeDisplay(locales);
     const display = classDisplay.table || {};
     // sorting keys for each column
     const sorts = display.sorts || {};
@@ -43,7 +43,7 @@ export function buildTable(records, Class, options) {
     // get classes for each column pre-made to improve performance
     const classLists = getColumnClasses(display, columns);
     // class of the table
-    const tableClass = Class.identifier + '-table';
+    const tableClass = Displayable.identifier + '-table';
     // container element for table
     const tableEl = document.createElement('div');
     // strings used in table
@@ -184,9 +184,9 @@ export function buildTable(records, Class, options) {
             const contents = displayRecords
                 .map((record) => {
                     const classList = display.row_class && display.row_class(record).join(' ');
-                    const primaryKey = Class.primary_key;
+                    const primaryKey = Displayable.primary_key;
                     const attributes = [
-                        primaryKey ? `id="${Class.identifier}_${record[primaryKey]}"` : null,
+                        primaryKey ? `id="${Displayable.identifier}_${record[primaryKey]}"` : null,
                         classList ? `class="${classList}"` : null
                     ].filter(Boolean).join(' ');
                     const contents = columns.map((column) => {
@@ -212,7 +212,7 @@ export function buildTable(records, Class, options) {
     function updatePagination(pagination) {
         /**
          * Adds or removes "disabled" class to every element in 'list'.
-         * @param {Array} list - List of nodes.
+         * @param {NodeListOf<Element>} list - List of nodes.
          * @param {string} [method='remove'] - "add" or "remove".
          */
         function modify(list, method = 'add') {
@@ -281,7 +281,7 @@ export function buildTable(records, Class, options) {
                 // downloads the records
                 function downloadRecords(e) {
                     function downloadStatic() {
-                        const data = buildFile(records, Class, options, format);
+                        const data = buildFile(records, Displayable, options, format);
                         
                         if (data) {
                             download(filename, data);
@@ -290,7 +290,7 @@ export function buildTable(records, Class, options) {
                     
                     // the format option selected
                     const format = e.target.dataset.value;
-                    const filename = 'records.' + format;
+                    const filename = `records.${format}`;
                     // generate the data for this format
                     const { table, collection } = options;
                     
@@ -302,7 +302,7 @@ export function buildTable(records, Class, options) {
                                 if (count === records.length) {
                                     downloadStatic();
                                 } else {
-                                    const downloadOptions = getStreamDownloadOptions(Class, options, format);
+                                    const downloadOptions = getStreamDownloadOptions(Displayable, options, format);
                                     
                                     downloadCollection(filename, table, collection, downloadOptions);
                                 }
@@ -335,7 +335,7 @@ export function buildTable(records, Class, options) {
                     columnEl.classList.add(directionClassName);
                     
                     // update the records
-                    records = sortByType(key, Class.types[key], records, direction > 0);
+                    records = sortByType(key, Displayable.types[key], records, direction > 0);
                     // reset to page 1
                     pagination.reset();
                     // then update
@@ -355,17 +355,17 @@ export function buildTable(records, Class, options) {
             (function() {
                 // this will only work with items that contain a primary key
                 // may redo this later to work with data that does not include a primary key
-                if (!Class.primary_key || !page.body || !display.events) {
+                if (!Displayable.primary_key || !page.body || !display.events) {
                     return;
                 }
                 
                 function bindEvent(eventName) {
                     // this will get the record from the target of the row
                     function getRecord(target) {
-                        const pattern = new RegExp(`^${escapeRegExp(Class.identifier)}_`);
+                        const pattern = new RegExp(`^${escapeRegExp(Displayable.identifier)}_`);
                         // extract the id from the row class by replacing its identifier
                         const id = (target.closest('tr').id || '').replace(pattern, '');
-                        const primaryKey = Class.primary_key;
+                        const primaryKey = Displayable.primary_key;
                         
                         return records.find((record) => {
                             // type-agnostic check

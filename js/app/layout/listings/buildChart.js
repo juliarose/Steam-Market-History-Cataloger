@@ -8,9 +8,9 @@ import { formatMoney } from '../../money.js';
 
 /**
  * Clusters records by date.
- * @param {Array} records - Objects to cluster.
+ * @param {Object[]} records - Objects to cluster.
  * @param {Function} [sum] - Sum function.
- * @returns {Array} Clustered records.
+ * @returns {Object[]} Clustered records.
  */
 function cluster(records, sum) {
     const groups = groupBy(records, (item) => {
@@ -38,7 +38,7 @@ function cluster(records, sum) {
 
 /**
  * Builds chart for listings.
- * @param {Array} records - Records to chart.
+ * @param {Object[]} records - Records to chart.
  * @param {HTMLElement} element - DOM element to render inside.
  * @param {Object} options - Options.
  * @param {Currency} options.currency - Currency to use for displaying prices.

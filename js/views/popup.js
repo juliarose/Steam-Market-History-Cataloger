@@ -83,25 +83,12 @@ async function onApp(app) {
     }());
     
     try {
-        // get total number of listings in db
-        const settings = await new ListingManager(app).getSettings();
-        
-        // updates state based on whether loading is in progress
-        (function() {
-            const isLoading = settings.is_loading;
-            
-            if (!isLoading && app.account.steamid) {
-                // page.buttons.startLoading.classList.remove('hidden');
-            }
-        }());
-        
         // adds details related to account (name, profile picture, listing count)
         (function() {
             if (!app.account.steamid) {
                 return;
             }
             
-            const count = settings.recorded_count;
             const { account } = app;
             const profileUrl = `https://steamcommunity.com/profiles/${account.steamid}`;
             const html = `
@@ -114,7 +101,7 @@ async function onApp(app) {
                 </div>
                 <div class="text">
                     <div class="name">${truncate(escapeHTML(account.username), 24, '...')}</div>
-                    <div class="count">${formatLocaleNumber(count || 0, account.wallet.currency)} listings</div>
+                    <div id="listing-count" class="count">--- listings</div>
                 </div>
             `;
             
@@ -129,6 +116,13 @@ async function onApp(app) {
                 });
             });
         }());
+        
+        // get total number of listings in db
+        const settings = await new ListingManager(app).getSettings();
+        const { account } = app;
+        const count = settings.recorded_count;
+        
+        document.getElementById('listing-count').textContent = `${formatLocaleNumber(count || 0, account.wallet.currency)} listings`;
     } catch {
         // error
     }

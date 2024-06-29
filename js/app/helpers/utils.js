@@ -14,6 +14,15 @@ export async function sleep(time = 1000) {
 }
 
 /**
+ * Converts a string to a date.
+ * @param {string} str - String to convert. 
+ * @returns {Date} Date.
+ */
+export function stringToDate(str) {
+    return new Date(str);
+}
+
+/**
  * Prints a date as a string.
  * @param {Date} date - Date to print.
  * @param {string} [separator='/'] - Separator used between numbers.
@@ -167,16 +176,6 @@ export function flattenCompact(arr, deep) {
 }
 
 /**
- * Create range of numbers from low to high.
- * @param {number} low - Low number.
- * @param {number} high - High number.
- * @returns {Array} Array of numbers in range.
- */
-export function range(low, high) {
-    return Array(high - low).fill(low).map((a, i) => a + i);
-}
-
-/**
  * Create a random string.
  * @param {number} [length=10] - Length of string.
  * @returns {string} Random string.
@@ -276,98 +275,6 @@ export function createTree(obj, tree, ender) {
 }
 
 /**
- * Recursively transforms key/values in object, including array values.
- *
- * Also can act as a basic deep clone method.
- * @param {Object} obj - Object to transform.
- * @param {Object} [transforms={}] - Object containing transformation functions.
- * @param {Function} [transform.keys] - Function for transforming keys from 'obj'.
- * @param {Function} [transform.values] - Function for transforming values from 'obj'.
- * @param {number} [level=0] - Level of recursion, passed as the 2nd argument to a transform function.
- * @returns {Object} Transformed object.
- *
- * @example
- * transformObj({
- *     apple: 'Green',
- *     orange: 'Orange',
- *     cherry: {
- *         color: 'Red'
- *     }
- * }, {
- *     keys: (key, level) => {
- *         return level === 0 ? `fruit_${key}` : key;
- *     },
- *     values: (value) => {
- *         return value.toUpperCase();
- *     }
- * }); // { fruit_apple: 'GREEN', fruit_orange: 'ORANGE', fruit_cherry: { color: 'RED' } }
- */
-export function transformObj(obj, transforms = {}, level = 0) {
-    if (typeof obj !== 'object' || obj === null) {
-        // nothing we can do
-        return obj;
-    }
-    
-    function convertValue(value) {
-        if (Array.isArray(value)) {
-            return value.map(convertValue);
-        } else if (typeof value === 'object') {
-            return transformObj(value, transforms, level + 1);
-        } else if (transforms.values) {
-            // transform value
-            return transforms.values(value, level);
-        } else {
-            return value;
-        }
-    }
-    
-    return Object.keys(obj).reduce((result, key) => {
-        let value = obj[key];
-        
-        if (transforms.keys) {
-            // transform key
-            key = transforms.keys(key, level);
-        }
-        
-        result[key] = convertValue(value);
-        
-        return result;
-    }, {});
-}
-
-/**
- * Recursively clones an object's values.
- *
- * This will only clone objects containing basic values (e.g. Strings, numbers).
- * @param {Object} obj - Object.
- * @returns {Object} Cloned object.
- */
-export function deepClone(obj) {
-    return transformObj(obj);
-}
-
-/**
- * Creates an object from an array of keys.
- * @param {Array} keys - Array of keys.
- * @param {*} [value] - Value to assign to each key.
- * @returns {Object} Object with keys mapped from array.
- *
- * @example
- * arrToKeys(['a', 'b'], 0); // { a: 0, b: 0 }
- */
-export function arrToKeys(keys, value) {
-    let result = {};
-    
-    for (let i = 0; i < keys.length; i++) {
-        const cloned = Array.isArray(value) ? [] : deepClone(value);
-        
-        result[keys[i]] = cloned;
-    }
-    
-    return result;
-}
-
-/**
  * Checks if a value is a number or not.
  * @param {*} value - Value to test.
  * @returns {boolean} Whether the value is a number or not.
@@ -386,9 +293,9 @@ export function isNumber(value) {
 export function truncate(string, length, trail = '...') {
     if (string.length > length) {
         return string.substr(0, length).trim() + trail;
-    } else {
-        return string;
     }
+    
+    return string;
 }
 
 /**
