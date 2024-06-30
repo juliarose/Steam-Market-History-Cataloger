@@ -3,17 +3,14 @@ import { getExtensionURL } from '../browser.js';
 
 /**
  * Loads/stores app data.
- * 
- * @namespace applist
  */
 export const applist = {
     /**
      * Get app list from stored JSON file.
      * @param {Function} callback - Called when finished loading.
-     * @returns {Promise<Object>} Resolves with applist when done, reject on error.
-     * @memberOf applist
+     * @returns {Promise<Object.<string, string>>} Resolves with applist when done, reject on error.
      */
-    get: async function() {
+    async get() {
         const uri = getExtensionURL('/json/applist.json');
         const json = await fetchJSON(uri);
         
@@ -24,9 +21,8 @@ export const applist = {
     /**
      * Set app list.
      * @param {Object} apps - JSON object containing apps.
-     * @memberOf applist
      */
-    set: function(apps) {
+    set(apps) {
         Object.assign(this, apps);
     }
 };

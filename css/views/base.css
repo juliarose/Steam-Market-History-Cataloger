@@ -65,9 +65,9 @@ body {
     --color-negative-700: #C25F4A;
     
     /* Colors used for Steam item hovers (tooltips) */
-    --color-tooltip-text: #CDCDCD;
-    --color-tooltip-border: #F0F0F0;
-    --color-tooltip-background: #13161A;
+    --color-tooltip-text: var(--color-neutral-100);
+    --color-tooltip-border: var(--color-neutral-100);
+    --color-tooltip-background: var(--color-primary-700);
     
     --color-white-shadow: rgba(255, 255, 255, .5);
     --color-black-shadow: rgba(0, 0, 0, .1);
@@ -144,7 +144,7 @@ body {
     --color-dropdown-text: var(--color-foreground-1);
     --color-dropdown-border: var(--color-neutral-500);
     --color-dropdown-background: var(--color-neutral-100);
-    --color-dropdown-hover-text: var(--color-neutral-500);
+    --color-dropdown-hover-text: var(--color-primary-500);
     --color-dropdown-hover-background: var(--color-secondary-300);
     /* Color used for the "none" option in dropdowns */
     --color-dropdown-none-text: var(--color-neutral-1000);
@@ -245,6 +245,10 @@ body {
         
         --color-divider: var(--color-neutral-500);
         
+        --color-tooltip-text: var(--color-primary-300);
+        --color-tooltip-border: var(--color-primary-300);
+        --color-tooltip-background: var(--color-neutral-800);
+        
         /* Colors used in tables */
         --color-table-text: var(--color-primary-500);
         --color-table-text-heading: var(--color-primary-300);
@@ -252,11 +256,9 @@ body {
         --color-table-background: var(--color-neutral-500);
         --color-table-hyperlink: var(--color-primary-500);
         
-
-    
         --color-dropdown-none-text: var(--color-primary-700);
         --color-dropdown-border: var(--color-primary-700);
-        
+        --color-dropdown-hover-text: var(--color-neutral-500);
         
         /* Colors used for item icons */
         --color-item-icon-border: var(--color-neutral-300);
