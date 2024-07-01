@@ -4,7 +4,7 @@ import { formatMoney } from './money.js';
 /**
  * @typedef {import('./classes/helpers/createClass.js').Displayable} Displayable
  * @typedef {import('./currency.js').Currency} Currency
- * @typedef {import('./classes/localization.js').Localization} Localization
+ * @typedef {import('./classes/Localization.js').Localization} Localization
  * @typedef {import('./helpers/download.js').DownloadCollectionOptions} DownloadCollectionOptions
  */
 
@@ -240,7 +240,7 @@ export function getStreamDownloadOptions(Displayable, options, format) {
                 direction,
                 limit,
                 seperator: ',',
-                converter: (record) => {
+                converter(record) {
                     return JSON.stringify(recordToJSON(record));
                 }
             };

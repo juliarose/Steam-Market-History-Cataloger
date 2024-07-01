@@ -1,11 +1,11 @@
 import { getDocument } from '../helpers/utils.js';
 import { parseMoney } from '../money.js';
-import { Listing } from '../classes/listing.js';
+import { Listing } from '../classes/Listing.js';
 
 /**
- * @typedef {import('../classes/listing.js').Listing} Listing
+ * @typedef {import('../classes/Listing.js').Listing} Listing
  * @typedef {import('../currency.js').Currency} Currency
- * @typedef {import('../classes/localization.js').Localization} Localization
+ * @typedef {import('../classes/Localization.js').Localization} Localization
  * @typedef {import('../steam/requests/get.js').MyHistoryResponse} MyHistoryResponse
  * @typedef {import('../manager/listingsmanager.js').LoadState} LoadState
  */

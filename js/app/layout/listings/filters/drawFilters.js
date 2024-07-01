@@ -3,7 +3,7 @@ import { addAutocompleteToField } from './addAutocompleteToField.js';
 
 /**
  * @typedef {Object} RecordIndex
- * @property {string[]} market_name - List of market names.
+ * @property {string[]} market_hash_name - List of market hash names.
  * @property {string[]} name_color - List of name colors.
  * @property {number[]} appid - List of appids.
  * @property {number[]} is_credit - List of credit values.
@@ -19,7 +19,7 @@ import { addAutocompleteToField } from './addAutocompleteToField.js';
 */
 async function buildIndex(table) {
     const index =  {
-        market_name: [],
+        market_hash_name: [],
         name_color: [],
         appid: [],
         is_credit: [0, 1],
@@ -46,7 +46,7 @@ async function buildIndex(table) {
 
 /**
  * @typedef {import('../../../classes/helpers/createClass.js').Displayable} Displayable
- * @typedef {import('../../../classes/localization.js').Localization} Localization
+ * @typedef {import('../../../classes/Localization.js').Localization} Localization
  */
 
 /**
@@ -87,7 +87,7 @@ export async function drawFilters(
     const uiLocales = Object.assign({}, {
         names: {
             year: 'Year',
-            market_name: 'Name',
+            market_hash_name: 'Name',
             is_credit: 'Sale Type'
         }
     }, locales.ui);
@@ -337,7 +337,7 @@ export async function drawFilters(
                 draw.dateField('after_date', v);
                 draw.dateField('before_date', v);
                 break;
-            case 'market_name':
+            case 'market_hash_name':
                 draw.textField(k, v);
                 break;
             default:
@@ -349,7 +349,7 @@ export async function drawFilters(
     // indicates that a field must have its values lazy-loaded
     function isLazyLoadedField(name) {
         return [
-            'market_name',
+            'market_hash_name',
             'name_color',
             'appid'
         ].includes(name);

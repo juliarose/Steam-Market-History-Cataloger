@@ -5,7 +5,7 @@ import { parseFromString } from '../../lib/dom-parser.js';
 /**
  * Sleeps for a set amount of time.
  * @param {number} [time=1000] - Time in ms to delay.
- * @returns {Promise} Promise that resolves after the given delay.
+ * @returns {Promise<void>} Promise that resolves after the given delay.
  */
 export async function sleep(time = 1000) {
     return new Promise((resolve) => {

@@ -4,7 +4,7 @@ import { ETransactionType } from '../enums/ETransactionType.js';
 /**
  * @typedef {import('../helpers/createClass.js').DisplayOptions} DisplayOptions
  * @typedef {import('../helpers/createClass.js').DisplayableTypes} DisplayableTypes
- * @typedef {import('../localization.js').Localization} Localization
+ * @typedef {import('../Localization.js').Localization} Localization
  */
 
 /**
@@ -92,7 +92,14 @@ export class AccountTransaction extends createClass(types) {
      * @param {AccountTransactionProperties} properties - Account transaction properties.
      */
     constructor(properties) {
-        super(properties);
+        super();
+        this.transaction_id = properties.transaction_id;
+        this.transaction_type = properties.transaction_type;
+        this.date = properties.date;
+        this.count = properties.count;
+        this.price = properties.price;
+        this.price_raw = properties.price_raw;
+        this.is_credit = properties.is_credit;
     }
     
     /**
@@ -129,15 +136,6 @@ export class AccountTransaction extends createClass(types) {
                         return ETransactionType[value] || value;
                     }
                 }
-            },
-            json: {
-                columns: [
-                    'date',
-                    'transaction_type',
-                    'is_credit',
-                    'price',
-                    'count'
-                ]
             },
             table: {
                 column_names: locales.db.accounttransactions.column_names,

@@ -2,7 +2,7 @@ import { Dexie } from '../../dexie.js';
 
 /**
  * @typedef {import('../../currency.js').Currency} Currency
- * @typedef {import('./../localization.js').Localization} Localization
+ * @typedef {import('./../Localization.js').Localization} Localization
  * @typedef {import('../../helpers/download.js').DownloadCollectionOptions} DownloadCollectionOptions
  */
 
@@ -12,15 +12,22 @@ import { Dexie } from '../../dexie.js';
  */
 
 /**
+ * Contains attributes for streaming records from the database for download.
+ * @typedef {Object} StreamDisplayOptions
+ * @property {string} order - The column to order the records by.
+ * @property {number} [direction] - 1 for descending, -1 for ascending.
+ */
+
+/**
  * Contains attributes for displaying attributes related to model.
  * @typedef {Object} DisplayOptions
  * @property {Object.<string, string>} [names] - Textual display property of each column name e.g. "appname" is mapped to "App".
  * @property {Object.<string, (string | number)>} [identifiers] - Object containing exact strings to test against for key data.
+ * @property {StreamDisplayOptions} [stream] - Options for streaming records from the database for download.
  * @property {string[]} [currency_fields] - Array of columns that are currencies.
  * @property {string[]} [boolean_fields] - Array of columns that are booleans.
  * @property {string[]} [number_fields] - Array of columns that are numbers.
  * @property {DisplayContext} [csv] - Context for displaying CSV data.
- * @property {DisplayContext} [json] - Context for displaying JSON data.
  * @property {DisplayContext} [table] - Context for displaying HTML tabular data.
  */
 

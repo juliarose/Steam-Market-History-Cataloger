@@ -52,7 +52,7 @@ it('Parses response data successfully', () => {
 
 // These are still useful, but they need to be reworked to use the new responses
 
-// import { Listing } from '../js/app/classes/listing.js';
+// import { Listing } from '../js/app/classes/Listing.js';
 // const listings = JSON.parse(require('fs').readFileSync(__dirname + '/fixtures/listings.json', 'utf8')).items.map(withDate);
 // const account = {};
 // const createResponse = require('./helpers/createTestResponse');

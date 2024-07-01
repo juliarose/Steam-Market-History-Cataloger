@@ -3,7 +3,7 @@ import { drawFilters } from './drawFilters.js';
 
 /**
  * @typedef {import('../../../classes/helpers/createClass.js').Displayable} Displayable
- * @typedef {import('../../../classes/localization.js').Localization} Localization
+ * @typedef {import('../../../classes/Localization.js').Localization} Localization
  */
 
 /**
@@ -120,7 +120,7 @@ function getWhereQueryDetails(k, query) {
  * @param {Localization} options.locales - Locale strings.
  * @param {number} options.limit - Query limit.
  * @param {OnChangeFunction} options.onChange - Function to call on filter change.
- * @returns {HTMLElement} DOM element.
+ * @returns {Promise<HTMLElement>} DOM element.
  * @namespace Layout.listings.buildFilters
  */
 export async function buildFilters(table, records, Displayable, options) {

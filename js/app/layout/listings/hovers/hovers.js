@@ -59,7 +59,7 @@ export function getHover(asset) {
     // item descriptions
     const assetDescriptions = asset.descriptions || [];
     // filtered descriptions
-    const filtered = assetDescriptions.filter((description, i) => {
+    const filteredDescriptions = assetDescriptions.filter((description, i) => {
         const prev = assetDescriptions[i - 1];
         const prevPrev = assetDescriptions[i - 2];
         const isRepeatingEmptyDescription = Boolean(
@@ -72,12 +72,12 @@ export function getHover(asset) {
             // this will trim repeating empty descriptions of 3 or more
             // e.g. 3+ descriptions in a row with a value of " "
             return false;
-        } else {
-            return true;
         }
+        
+        return true;
     });
     // the html for descriptions
-    const descriptions = filtered.map((description) => {
+    const descriptions = filteredDescriptions.map((description) => {
         const attributes = description.color ? `style="color: #${description.color}"` : '';
         let value = description.value.trim();
         

@@ -1,6 +1,6 @@
 import { readyState } from '../../app/readyState.js';
 import * as Layout from '../../app/layout/index.js';
-import { Listing } from '../../app/classes/listing.js';
+import { Listing } from '../../app/classes/Listing.js';
 import { getPreferences } from '../../app/preferences.js';
 
 const page = {

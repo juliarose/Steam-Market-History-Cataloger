@@ -1,5 +1,5 @@
 import { setBadgeText } from '../app/browser.js';
-import { ListingWorker } from '../app/manager/listingworker.js';
+import { ListingWorker } from '../app/workers/ListingWorker.js';
 import { onMessage } from '../app/browser.js';
 import { getPreferences } from '../app/preferences.js';
 

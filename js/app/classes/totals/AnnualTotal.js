@@ -3,7 +3,7 @@ import { types, makeTotalDisplay } from './helpers/initializers.js';
 /**
  * @typedef {import('../helpers/createClass.js').DisplayOptions} DisplayOptions
  * @typedef {import('../helpers/createClass.js').DisplayableTypes} DisplayableTypes
- * @typedef {import('../localization.js').Localization} Localization
+ * @typedef {import('../Localization.js').Localization} Localization
  */
 
 const tableColumns = [
@@ -18,7 +18,6 @@ const tableColumns = [
  * Annual total properties.
  * @typedef {Object} AnnualTotalProperties
  * @property {number} year - Year.
- * @property {number} month - Month.
  * @property {number} sale - Sale total.
  * @property {number} sale_count - Number of sales.
  * @property {number} purchase - Purchase total.
@@ -47,11 +46,6 @@ export class AnnualTotal {
      */
     year;
     /**
-     * Month.
-     * @type {number}
-     */
-    month;
-    /**
      * Sale total.
      * @type {number}
      */
@@ -77,7 +71,11 @@ export class AnnualTotal {
      * @param {AnnualTotalProperties} properties - Properties.
      */
     constructor(properties) {
-        Object.assign(this, properties);
+        this.year = properties.year;
+        this.sale = properties.sale;
+        this.sale_count = properties.sale_count;
+        this.purchase = properties.purchase;
+        this.purchase_count = properties.purchase_count;
     }
     
     /**

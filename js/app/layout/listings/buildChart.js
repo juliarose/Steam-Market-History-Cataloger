@@ -3,7 +3,7 @@ import { formatMoney } from '../../money.js';
 
 /**
  * @typedef {import('../../currency.js').Currency} Currency
- * @typedef {import('../../classes/localization.js').Localization} Localization
+ * @typedef {import('../../classes/Localization.js').Localization} Localization
  */
 
 /**
@@ -52,7 +52,7 @@ export function buildChart(records, element, options) {
         };
     }
     
-    function onZoom(chart, reset) {
+    function onZoom(_chart, reset) {
         resetFn = reset;
     }
     
@@ -103,10 +103,10 @@ export function buildChart(records, element, options) {
         },
         plugins: [
             Chartist.plugins.legend({
-                legendNames: keys.filter((key, i) => {
+                legendNames: keys.filter((_key, i) => {
                     return split[i].length > 0;
                 }),
-                classNames: classNames.filter((className, i) => {
+                classNames: classNames.filter((_className, i) => {
                     return split[i].length > 0;
                 }),
                 position: 'bottom'

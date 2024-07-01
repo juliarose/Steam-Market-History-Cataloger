@@ -1,101 +1,66 @@
+// Unused - this is just a slimmed down version of listings without transaction information
+
 import { createClass } from './helpers/createClass.js';
 import { applist } from '../data/applist.js';
 import * as Color from '../helpers/color.js';
-import { escapeHTML, printDate } from '../helpers/utils.js';
+import { escapeHTML } from '../helpers/utils.js';
 import { tooltip, removeTooltip } from '../layout/tooltip.js';
 import { getHover, getHoverAsset, addToHoverState } from '../layout/listings/hovers/hovers.js';
 
 /**
  * @typedef {import('./helpers/createClass.js').DisplayOptions} DisplayOptions
  * @typedef {import('./helpers/createClass.js').DisplayableTypes} DisplayableTypes
- * @typedef {import('./localization.js').Localization} Localization
+ * @typedef {import('./Localization.js').Localization} Localization
  */
 
 /**
- * Listing properties.
- * @typedef {Object} ListingProperties
- * @property {string} transaction_id - Transaction ID.
- * @property {number} index - Index of listing in history.
- * @property {boolean} is_credit - Whether the transaction resulted in credit or not.
+ * Market item properties.
+ * @typedef {Object} MarketItemProperties
  * @property {string} appid - Appid for item.
  * @property {string} contextid - Contextid for item.
  * @property {string} classid - Classid for item.
  * @property {string} instanceid - Instanceid for item.
- * @property {string} assetid - Assetid for item (unused).
- * @property {string} name - Name of item.
  * @property {string} market_name - Market name of item.
  * @property {string} market_hash_name - Market hash name for item.
  * @property {string} name_color - 6-digit hexademical color for name.
  * @property {string} background_color - 6-digit hexademical color for background.
  * @property {string} icon_url - Icon path on Steam's CDN.
- * @property {Date} date_acted - Date acted.
- * @property {Date} date_listed - Date listed.
- * @property {string} date_acted_raw - Raw string of date acted.
- * @property {string} date_listed_raw - Raw string of date list.
- * @property {number} price - Integer value of price.
- * @property {string} price_raw - Raw string of price.
  */
 
 const types = {
-    transaction_id: String,
-    index: Number,
-    is_credit: Boolean,
     appid: String,
     contextid: String,
-    assetid: String,
     classid: String,
     instanceid: String,
-    name: String,
     market_name: String,
     market_hash_name: String,
     name_color: String,
     background_color: String,
-    icon_url: String,
-    date_acted: Date,
-    date_listed: Date,
-    date_acted_raw: String,
-    date_listed_raw: String,
-    price: Number,
-    price_raw: String
+    icon_url: String
 };
 
 /**
- * Listing.
+ * MarketItem.
  */
-export class Listing extends createClass(types) {
+export class MarketItem extends createClass(types) {
     /**
-     * Identifier for listings.
+     * Identifier for market items.
      * @type {string}
      * @static
      */
-    static identifier = 'listings';
+    static identifier = 'market_items';
     /**
      * Primary key for listings.
      * @type {string}
      * @static
      */
-    static primary_key = 'transaction_id';
+    static primary_key = 'market_hash_name';
     /**
      * Types for listings.
      * @type {DisplayableTypes}
      * @static
      */
     static types = types;
-    /**
-     * Transaction ID.
-     * @type {string}
-     */
-    transaction_id;
-    /**
-     * Index of listing in history.
-     * @type {number}
-     */
-    index;
-    /**
-     * Whether the transaction resulted in credit or not.
-     * @type {boolean}
-     */
-    is_credit;
     /**
      * Appid for item.
      * @type {string}
@@ -116,16 +81,6 @@ export class Listing extends createClass(types) {
      * @type {string}
      */
     instanceid;
-    /**
-     * Assetid for item (unused).
-     * @type {string}
-     */
-    assetid;
-    /**
-     * Name of item.
-     * @type {string}
-     */
-    name;
     /**
      * Market name of item.
      * @type {string}
@@ -151,43 +106,22 @@ export class Listing extends createClass(types) {
      * @type {string}
      */
     icon_url;
-    /**
-     * Date acted.
-     * @type {Date}
-     */
-    date_acted;
-    /**
-     * Date listed.
-     * @type {Date}
-     */
-    date_listed;
-    /**
-     * Raw string of date acted.
-     * @type {string}
-     */
-    date_acted_raw;
-    /**
-     * Raw string of date list.
-     * @type {string}
-     */
-    date_listed_raw;
-    /**
-     * Integer value of price.
-     * @type {number}
-     */
-    price;
-    /**
-     * Raw string of price.
-     * @type {string}
-     */
-    price_raw;
     
     /**
-     * Creates a listing.
-     * @param {ListingProperties} properties - Properties. 
+     * Creates a market item.
+     * @param {MarketItemProperties} properties - Properties. 
      */
     constructor(properties) {
-        super(properties);
+        super();
+        this.appid = properties.appid;
+        this.contextid = properties.contextid;
+        this.classid = properties.classid;
+        this.instanceid = properties.instanceid;
+        this.market_name = properties.market_name;
+        this.market_hash_name = properties.market_hash_name;
+        this.name_color = properties.name_color;
+        this.background_color = properties.background_color;
+        this.icon_url = properties.icon_url;
     }
     
     /**
@@ -198,85 +132,37 @@ export class Listing extends createClass(types) {
      */
     static makeDisplay(locales) {
         return {
+            // Uses the same localization strings as listings
             names: locales.db.listings.names,
             identifiers: locales.db.listings.identifiers,
             stream: {
-                order: 'index',
+                order: 'market_hash_name',
                 direction: 1
             },
-            currency_fields: [
-                'price'
-            ],
+            currency_fields: [],
             boolean_fields: [],
             number_fields: [
-                'price',
-                'quantity',
                 'appid',
-                'contextid',
-                'index'
+                'contextid'
             ],
             csv: {
                 columns: [
-                    'index',
-                    'is_credit',
-                    'transaction_id',
                     'appid',
-                    'market_name',
-                    'price',
-                    'date_listed',
-                    'date_acted'
-                ]
-            },
-            json: {
-                columns: [
-                    'appid',
-                    'contextid',
-                    'assetid',
-                    'transaction_id',
-                    'index',
-                    'price',
-                    'is_credit',
-                    'classid',
-                    'instanceid',
-                    'name',
-                    'market_name',
-                    'market_hash_name',
-                    'name_color',
-                    'background_color',
-                    'icon_url',
-                    'date_acted',
-                    'date_listed'
+                    'market_name'
                 ]
             },
             table: {
                 column_names: locales.db.listings.column_names,
                 columns: [
-                    'is_credit',
                     'icon_url',
-                    'market_name',
-                    'price',
-                    'date_listed',
-                    'date_acted'
+                    'market_name'
                 ],
                 sorts: {
-                    is_credit: 'is_credit',
-                    price: 'price',
-                    market_name: 'market_name',
-                    date_listed: 'date_listed',
-                    // sort by index rather than date to get listings in correct order
-                    date_acted: 'index'
+                    market_name: 'market_name'
                 },
-                row_class: function(record) {
-                    if (record.is_credit) {
-                        return [
-                            'listing',
-                            'loss'
-                        ];
-                    }
-                    
+                row_class() {
                     return [
-                        'listing',
-                        'gain'
+                        'market_item'
                     ];
                 },
                 column_class: {
@@ -303,22 +189,13 @@ export class Listing extends createClass(types) {
                     ]
                 },
                 cell_value: {
-                    date_acted: function(value, record) {
-                        const query = `index=${record.index}&transaction_id=${record.transaction_id}`;
-                        const url = `https://steamcommunity.com/market?${query}`;
-                        
-                        return `<a href="${url}" target="_blank" rel="noreferrer">${printDate(value)}</a>`;
-                    },
-                    market_name: function(value, record) {
+                    market_name(value, record) {
                         const query = [
                             `appid=${record.appid}`,
                             `market_name=${encodeURIComponent(record.market_name)}`,
                             `market_hash_name=${encodeURIComponent(record.market_hash_name)}`
                         ].join('&');
-                        // To color the text
-                        // const color = record.name_color || 'FFFFFF';
-                        // const styles = `color: #${color};`;
-                        const url = `/views/view/item.html?${query}`;
+                        const url = `/views/view/market_item.html?${query}`;
                         const link = `<a href="${url}" target="_blank" rel="noreferrer">${escapeHTML(value)}</a>`;
                         
                         return (
@@ -326,10 +203,7 @@ export class Listing extends createClass(types) {
                             `<p class="game-name">${escapeHTML(applist[record.appid] || '')}</p>`
                         );
                     },
-                    is_credit: function(value) {
-                        return value ? '-' : '+';
-                    },
-                    icon_url: function(value, record) {
+                    icon_url(value, record) {
                         const src = `https://steamcommunity-a.akamaihd.net/economy/image/${value}/34x34f`;
                         const color = record.name_color || 'FFFFFF';
                         const darkenedColor = Color.rgba(Color.darken(color, 0.2), 0.2);
@@ -343,10 +217,10 @@ export class Listing extends createClass(types) {
                     }
                 },
                 events: {
-                    mouseover: function(e, record) {
+                    mouseover(e, record) {
                         // we hovered over the image
                         const isImage = e.target.matches('img');
-                                                         
+                        
                         if (!isImage) {
                             return;
                         }
@@ -371,10 +245,10 @@ export class Listing extends createClass(types) {
                                 
                             });
                     },
-                    mouseout: function(e) {
+                    mouseout(e) {
                         // we hovered over the image
                         const isImage = e.target.matches('img');
-                                                         
+                        
                         if (!isImage) {
                             return;
                         }
@@ -389,27 +263,20 @@ export class Listing extends createClass(types) {
     }
     
     /**
-     * Converts listing to JSON format.
-     * @returns {Object} JSON representation of the listing.
+     * Converts market item to JSON format.
+     * @returns {Object} JSON representation of the market item.
      */
     toJSON() {
         return {
-            transaction_id: this.transaction_id,
             appid: this.appid,
             contextid: this.contextid,
             classid: this.classid,
             instanceid: this.instanceid,
-            index: this.index,
-            price: this.price,
-            is_credit: this.is_credit,
-            name: this.name,
             market_name: this.market_name,
             market_hash_name: this.market_hash_name,
             name_color: this.name_color,
             background_color: this.background_color,
             icon: this.icon_url,
-            date_acted: this.date_acted,
-            date_listed: this.date_listed
         };
     }
 }

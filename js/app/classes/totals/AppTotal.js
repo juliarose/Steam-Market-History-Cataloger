@@ -1,8 +1,7 @@
 import { types, makeTotalDisplay } from './helpers/initializers.js';
 
 const tableColumns = [
-    'year',
-    'month',
+    'appid',
     'sale',
     'sale_count',
     'purchase',
@@ -10,10 +9,10 @@ const tableColumns = [
 ];
 
 /**
- * Monthly total properties.
- * @typedef {Object} MonthlyTotalProperties
- * @property {number} year - Year.
- * @property {number} month - Month.
+ * App total properties.
+ * @typedef {Object} AppTotalProperties
+ * @property {string} appname - App name.
+ * @property {number} appid - App ID.
  * @property {number} sale - Sale total.
  * @property {number} sale_count - Number of sales.
  * @property {number} purchase - Purchase total.
@@ -21,31 +20,31 @@ const tableColumns = [
  */
 
 /**
- * Monthly total.
+ * App total.
  */
-export class MonthlyTotal {
+export class AppTotal {
     /**
-     * Identifier for monthly totals.
+     * Identifier for app totals.
      * @type {string}
      * @static
      */
-    static identifier = 'monthlytotals';
+    static identifier = 'apptotals';
     /**
-     * Types for monthly totals.
+     * Types for app totals.
      * @type {DisplayableTypes}
      * @static
      */
     static types = types;
     /**
-     * Year.
-     * @type {number}
+     * App name.
+     * @type {string}
      */
-    year;
+    appname;
     /**
-     * Month.
+     * App ID.
      * @type {number}
      */
-    month;
+    appid;
     /**
      * Sale total.
      * @type {number}
@@ -68,11 +67,16 @@ export class MonthlyTotal {
     purchase_count;
     
     /**
-     * Creates a new monthly total.
-     * @param {MonthlyTotalProperties} properties - Properties.
+     * Creates a new app total.
+     * @param {AppTotalProperties} properties - Properties.
      */
     constructor(properties) {
-        Object.assign(this, properties);
+        this.appname = properties.appname;
+        this.appid = properties.appid;
+        this.sale = properties.sale;
+        this.sale_count = properties.sale_count;
+        this.purchase = properties.purchase;
+        this.purchase_count = properties.purchase_count;
     }
     
     /**

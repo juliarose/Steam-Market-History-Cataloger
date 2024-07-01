@@ -39,7 +39,7 @@ export async function getPreferences() {
 /**
  * Saves preferences.
  * @param {Preferences} preferences - Preferences to save.
- * @returns {Promise} Resolves when done.
+ * @returns {Promise<void>} Resolves when done.
  */
 export async function savePreferences(preferences) {
     return preferencesStorage.saveSettings(preferences);
@@ -48,7 +48,7 @@ export async function savePreferences(preferences) {
 /**
  * Adds preferences to existing preferences.
  * @param {Object} preferences - Preferences to add.
- * @returns {Promise} Resolves when done.
+ * @returns {Promise<void>} Resolves when done.
  */
 export async function addPreferences(preferences) {
     const currentPreferences = await getPreferences();

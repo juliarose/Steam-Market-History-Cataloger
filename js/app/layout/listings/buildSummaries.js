@@ -1,14 +1,14 @@
 import { groupBy } from '../../helpers/utils.js';
 import { buildTable } from '../../layout/buildTable.js';
 import { applist } from '../../data/applist.js';
-import { AnnualTotal } from '../../classes/totals/annualtotal.js';
-import { MonthlyTotal } from '../../classes/totals/monthlytotal.js';
-import { DailyTotal } from '../../classes/totals/dailytotal.js';
-import { AppTotal } from '../../classes/totals/apptotal.js';
+import { AnnualTotal } from '../../classes/totals/AnnualTotal.js';
+import { MonthlyTotal } from '../../classes/totals/MonthlyTotal.js';
+import { DailyTotal } from '../../classes/totals/DailyTotal.js';
+import { AppTotal } from '../../classes/totals/AppTotal.js';
 
 /**
  * @typedef {import('../../currency.js').Currency} Currency
- * @typedef {import('../../classes/localization.js').Localization} Localization
+ * @typedef {import('../../classes/Localization.js').Localization} Localization
  */
 
 /**

@@ -1,4 +1,4 @@
-import { Localization } from '../js/app/classes/localization.js';
+import { Localization } from '../js/app/classes/Localization.js';
 import { valuesAsKeys } from '../js/app/helpers/utils.js';
 import { ELangCode } from '../js/app/enums/ELangCode.js';
 

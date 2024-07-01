@@ -19,7 +19,7 @@ import { getXHR } from './helpers/getXHR.js';
  * @param {string} options.sessionid - Session ID.
  * @param {Object} [options.cursor] - Cursor object from Steam.
  * @param {string} [options.l] - Language.
- * @returns {Promise} Fetch promise.
+ * @returns {Promise<void>} Fetch promise.
  */
 export async function getPurchaseHistory(options) {
     const query = queryString(omitEmpty(options));

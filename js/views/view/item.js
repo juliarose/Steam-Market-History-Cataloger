@@ -1,6 +1,6 @@
 import { readyState } from '../../app/readyState.js';
 import * as Layout from '../../app/layout/index.js';
-import { Listing } from '../../app/classes/listing.js';
+import { Listing } from '../../app/classes/Listing.js';
 import { applist } from '../../app/data/applist.js';
 import { getUrlParam } from '../../app/helpers/utils.js';
 import { buildThirdPartyLinks } from '../../app/layout/listings/external/buildThirdPartyLinks.js';

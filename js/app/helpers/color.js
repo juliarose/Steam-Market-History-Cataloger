@@ -1,7 +1,3 @@
-/**
- * Color utilities.
- * @module Color
- */
 
 /**
  * Lightens a color.

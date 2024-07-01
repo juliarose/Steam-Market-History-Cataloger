@@ -7,7 +7,7 @@ import { Pagination, getColumnClasses, sortByType } from './helpers.js';
 /**
  * @typedef {import('../classes/helpers/createClass.js').Displayable} Displayable
  * @typedef {import('../currency.js').Currency} Currency
- * @typedef {import('../classes/localization.js').Localization} Localization
+ * @typedef {import('../classes/Localization.js').Localization} Localization
  */
 
 /**

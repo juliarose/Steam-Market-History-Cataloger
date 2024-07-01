@@ -1,11 +1,11 @@
 import { AppError } from './error.js';
 import { LocalStorage } from './storage/local.js';
 import { getCurrency } from './currency.js';
-import { Localization } from './classes/localization.js';
+import { Localization } from './classes/Localization.js';
 
 /**
  * @typedef {import('./currency.js').Currency} Currency
- * @typedef {import('./classes/localization.js').Localization} Localization
+ * @typedef {import('./classes/Localization.js').Localization} Localization
  */
 
 /**

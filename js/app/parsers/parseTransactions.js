@@ -1,6 +1,6 @@
 import { omitEmpty, getDocument } from '../helpers/utils.js';
 import { parseMoney } from '../money.js';
-import { AccountTransaction } from '../classes/accounttransaction.js';
+import { AccountTransaction } from '../classes/AccountTransaction.js';
 import { ETransactionType } from '../enums/ETransactionType.js';
 
 /**

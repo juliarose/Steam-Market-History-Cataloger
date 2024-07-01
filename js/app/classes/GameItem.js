@@ -1,9 +1,11 @@
+// Unused - this falls under account transactions but is not implemented currently.
+
 import { createClass } from './helpers/createClass.js';
 
 /**
  * @typedef {import('./helpers/createClass.js').Displayable} Displayable
  * @typedef {import('./helpers/createClass.js').DisplayOptions} DisplayOptions
- * @typedef {import('./localization.js').Localization} Localization
+ * @typedef {import('./Localization.js').Localization} Localization
  */
 
 /**
@@ -65,7 +67,11 @@ export class GameItem extends createClass(types) {
      * @param {GameItemProperties} properties - Properties.
      */
     constructor(properties) {
-        super(properties);
+        super();
+        this.app = properties.app;
+        this.count = properties.count;
+        this.name = properties.name;
+        this.price = properties.price;
     }
     
     /**

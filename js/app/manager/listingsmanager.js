@@ -1,18 +1,19 @@
 import { AppError, AppSuccessError } from '../error.js';
 import { randomString, sleep } from '../helpers/utils.js';
 import { getListings } from '../steam/requests/get.js';
-import { Localization } from '../classes/localization.js';
+import { Localization } from '../classes/Localization.js';
 import { parseListings } from '../parsers/parseListings.js';
-import { createDatabaseSettingsManager } from '../storage/db.js';
+import { DatabaseSettingsManager } from '../storage/db.js';
 import { EventEmitter } from '../../lib/eventemitter.js';
 import { getPreferences } from '../preferences.js';
 import { Dexie } from '../dexie.js';
 
 /**
- * @typedef {import('../classes/listing.js').Listing} Listing
- * @typedef {import('../classes/localization.js').Localization} Localization
+ * @typedef {import('../classes/Listing.js').Listing} Listing
+ * @typedef {import('../classes/Localization.js').Localization} Localization
  * @typedef {import('../steam/requests/get.js').MyHistoryResponse} MyHistoryResponse
  * @typedef {import('../account.js').Account} Account
+ * @typedef {import('../storage/db.js').DatabaseSettingsManager} DatabaseSettingsManager
  */
 
 /**
@@ -129,31 +130,31 @@ export class ListingManager extends EventEmitter {
      * @type {(Localization | null)}
      * @private
      */
-    #locales = null;
+    #locales;
     /**
      * Current load session hash. Used to detect loads from multiple locations.
      * @type {(string | null)}
      * @private
      */
-    #session = null;
+    #session;
     /**
      * Account. Should contain wallet currency.
      * @type {Account}
      * @private
      */
-    #account = null;
+    #account;
     /**
      * Settings manager.
-     * @type {Object}
+     * @type {DatabaseSettingsManager}
      * @private
      */
-    #settingsManager = null;
+    #settingsManager;
     /**
      * The database storing listing data for the account. 
      * @type {Object}
      * @private
      */
-    #ListingDB = null;
+    #ListingDB;
     
     /**
      * Creates a ListingManager.
@@ -166,7 +167,7 @@ export class ListingManager extends EventEmitter {
         super();
         
         this.#account = account;
-        this.#settingsManager = createDatabaseSettingsManager(
+        this.#settingsManager = new DatabaseSettingsManager(
             AccountDB,
             'listings',
             account.steamid,

@@ -2,21 +2,16 @@
 
 import { buildApp } from '../app.js';
 import { verifyLogin } from '../steam/index.js';
-import { ListingManager } from './listingsmanager.js';
+import { ListingManager } from '../manager/listingsmanager.js';
 import { setLoadState } from '../layout/loadstate.js';
 import { getPreferences } from '../preferences.js';
 import { AppError, ERROR_TYPE } from '../error.js';
+import { getWorkerState, addWorkerState, saveWorkerState } from '../workerState.js';
 
 /**
  * Used for polling listings.
  */
 export class ListingWorker {
-    /**
-     * The total number of listings collected by the poller.
-     * @type {number}
-     * @private
-     */
-    #listingCount = 0;
     /**
      * Whether we are currently loading or not.
      * @type {boolean}
@@ -24,6 +19,9 @@ export class ListingWorker {
      */
     #isLoading = false;
     
+    /**
+     * Creates a new listing worker.
+     */
     constructor() {
         
     }
@@ -58,9 +56,38 @@ export class ListingWorker {
     
     /**
      * Clears the listing count.
+     * @returns {Promise<void>} Resolves when done.
      */
-    clearListingCount() {
-        this.#listingCount = 0;
+    async clearListingCount() {
+        return addWorkerState({
+            listing_count: 0
+        });
+    }
+    
+    /**
+     * Gets the listing count. This is the number of listings collected by the worker since the 
+     * last clear.
+     * 
+     * This is stored in local storage since service workers are not meant for storing long-
+     * running state.
+     * @returns {Promise<number>} Resolves with the listing count.
+     */
+    async getListingCount() {
+        const { listing_count } = await getWorkerState();
+        
+        return listing_count;
+    }
+    
+    /**
+     * Increments the listing count.
+     * @param {number} count - Number to increment by. 
+     * @returns {Promise<void>} Resolves when done.
+     */
+    async incrementListingCount(count) {
+        const state = await getWorkerState();
+        
+        state.listing_count += count;
+        return saveWorkerState(state);
     }
     
     /**
@@ -84,15 +111,12 @@ export class ListingWorker {
                 return Promise.reject(error);
             }
             
-            const count = this.#listingCount;
-            
-            this.clearListingCount();
-            
-            return count;
+            // return the current count
+            return this.getListingCount();
         };
         // we've received a response and now want to get more
         const getMore = async ({ records }) => {
-            this.#listingCount += records.length;
+            await this.incrementListingCount(records.length);
             
             // call the load function again
             return loadListings();

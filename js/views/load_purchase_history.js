@@ -1,6 +1,6 @@
 import { readyState } from '../app/readyState.js';
 import * as Layout from '../app/layout/index.js';
-import { AccountTransaction } from '../app/classes/accounttransaction.js';
+import { AccountTransaction } from '../app/classes/AccountTransaction.js';
 import { PurchaseHistoryManager } from '../app/manager/purchasehistorymanager.js';
 import { getPreferences } from '../app/preferences.js';
 
