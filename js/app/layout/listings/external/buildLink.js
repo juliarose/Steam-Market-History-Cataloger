@@ -1,3 +1,5 @@
+// @ts-check
+
 /**
  * Builds an external link.
  * @param {Object} data - Data for link.

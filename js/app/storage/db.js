@@ -1,3 +1,4 @@
+// @ts-check
 
 /**
  * Database settings manager.
@@ -6,31 +7,26 @@ export class DatabaseSettingsManager {
     /**
      * The Dexie database.
      * @type {Object}
-     * @private
      */
     #db;
     /**
      * The table name to use from `db`.
      * @type {string}
-     * @private
      */
     #tableName;
     /**
      * The primary key of the table.
      * @type {string}
-     * @private
      */
     #primaryKey;
     /**
      * The default settings.
      * @type {Object}
-     * @private
      */
     #defaults;
     /**
      * The table to use.
      * @type {Object}
-     * @private
      */
     #table;
     
@@ -51,7 +47,6 @@ export class DatabaseSettingsManager {
     
     /**
      * Gets the settings.
-     * @param {boolean} noWrapper - Get settings object without wrapper.
      * @returns {Promise<Object>} Resolves with settings when done.
      */
     async getSettings() {

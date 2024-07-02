@@ -1,3 +1,5 @@
+// @ts-check
+
 import { setIcon } from '../browser.js';
 
 /**

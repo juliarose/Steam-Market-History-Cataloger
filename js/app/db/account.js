@@ -1,3 +1,5 @@
+// @ts-check
+
 import { Dexie } from '../dexie.js';
 
 /**

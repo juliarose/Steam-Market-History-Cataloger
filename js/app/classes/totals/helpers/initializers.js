@@ -1,4 +1,11 @@
+// @ts-check
+
 import { applist } from '../../../data/applist.js';
+
+/**
+ * @typedef {import('../../Localization.js').Localization} Localization
+ * @typedef {import('../../helpers/createClass.js').DisplayOptions} DisplayOptions
+ */
 
 export const types = {
     year: Number,
@@ -35,13 +42,18 @@ export function makeTotalDisplay(locales, tableColumns) {
         ],
         csv: {
             cell_value: {
-                month: function(_value, record) {
-                    return moment()
-                        .year(record.year)
-                        .month(record.month)
-                        .format('MMMM');
+                month(_value, record) {
+                    if (typeof record.year === 'number' && typeof record.month === 'number') {
+                        // @ts-ignore
+                        return moment()
+                            .year(record.year)
+                            .month(record.month)
+                            .format('MMMM');
+                    }
+                    
+                    return '';
                 },
-                appid: function(value) {
+                appid(value) {
                     return applist[value] || value;
                 }
             },
@@ -49,14 +61,24 @@ export function makeTotalDisplay(locales, tableColumns) {
         table: {
             columns: tableColumns,
             cell_value: {
-                date: function(value) {
-                    return moment(value).format('MMMM Do, YYYY');
+                date(value) {
+                    if (value instanceof Date) {
+                        // @ts-ignore
+                        return moment(value).format('MMMM Do, YYYY');
+                    }
+                    
+                    return '';
                 },
-                month: function(_value, record) {
-                    return moment()
-                        .year(record.year)
-                        .month(record.month)
-                        .format('MMMM');
+                month(_value, record) {
+                    if (typeof record.year === 'number' && typeof record.month === 'number') {
+                        // @ts-ignore
+                        return moment()
+                            .year(record.year)
+                            .month(record.month)
+                            .format('MMMM');
+                    }
+                    
+                    return '';
                 },
                 appid: function(value) {
                     return applist[value] || value;

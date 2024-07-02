@@ -1,3 +1,5 @@
+// @ts-check
+
 import { createClass } from './helpers/createClass.js';
 import { applist } from '../data/applist.js';
 import * as Color from '../helpers/color.js';
@@ -16,7 +18,7 @@ import { getHover, getHoverAsset, addToHoverState } from '../layout/listings/hov
  * @typedef {Object} ListingProperties
  * @property {string} transaction_id - Transaction ID.
  * @property {number} index - Index of listing in history.
- * @property {boolean} is_credit - Whether the transaction resulted in credit or not.
+ * @property {number} is_credit - Whether the transaction resulted in credit or not. 1 for true, 0 for false.
  * @property {string} appid - Appid for item.
  * @property {string} contextid - Contextid for item.
  * @property {string} assetid - Assetid for item (unused).
@@ -25,8 +27,8 @@ import { getHover, getHoverAsset, addToHoverState } from '../layout/listings/hov
  * @property {string} name - Name of item.
  * @property {string} market_name - Market name of item.
  * @property {string} market_hash_name - Market hash name for item.
- * @property {string} name_color - 6-digit hexademical color for name.
- * @property {string} background_color - 6-digit hexademical color for background.
+ * @property {string} [name_color] - 6-digit hexademical color for name.
+ * @property {string} [background_color] - 6-digit hexademical color for background.
  * @property {string} icon_url - Icon path on Steam's CDN.
  * @property {Date} date_acted - Date acted.
  * @property {Date} date_listed - Date listed.
@@ -39,7 +41,7 @@ import { getHover, getHoverAsset, addToHoverState } from '../layout/listings/hov
 const types = {
     transaction_id: String,
     index: Number,
-    is_credit: Boolean,
+    is_credit: Number,
     appid: String,
     contextid: String,
     assetid: String,
@@ -62,7 +64,7 @@ const types = {
 /**
  * Listing.
  */
-export class Listing extends createClass(types) {
+export class Listing {
     /**
      * Identifier for listings.
      * @type {string}
@@ -93,7 +95,7 @@ export class Listing extends createClass(types) {
     index;
     /**
      * Whether the transaction resulted in credit or not.
-     * @type {boolean}
+     * @type {number}
      */
     is_credit;
     /**
@@ -138,12 +140,12 @@ export class Listing extends createClass(types) {
     market_hash_name;
     /**
      * 6-digit hexademical color for name.
-     * @type {string}
+     * @type {(string | undefined)}
      */
     name_color;
     /**
      * 6-digit hexademical color for background.
-     * @type {string}
+     * @type {(string | undefined)}
      */
     background_color;
     /**
@@ -187,7 +189,7 @@ export class Listing extends createClass(types) {
      * @param {ListingProperties} properties - Properties. 
      */
     constructor(properties) {
-        super();
+        createClass();
         // Object.assign is significantly slower than direct assignment.
         // https://gist.github.com/juliarose/833e8ca41908d2614532dd4a0d7ed346
         // This is especially true for objects with many properties.
@@ -223,7 +225,7 @@ export class Listing extends createClass(types) {
     static makeDisplay(locales) {
         return {
             names: locales.db.listings.names,
-            identifiers: locales.db.listings.identifiers,
+            identifiers: {},
             stream: {
                 order: 'index',
                 direction: 1
@@ -310,7 +312,11 @@ export class Listing extends createClass(types) {
                         const query = `index=${record.index}&transaction_id=${record.transaction_id}`;
                         const url = `https://steamcommunity.com/market?${query}`;
                         
-                        return `<a href="${url}" target="_blank" rel="noreferrer">${printDate(value)}</a>`;
+                        if (value instanceof Date) {
+                            return `<a href="${url}" target="_blank" rel="noreferrer">${printDate(value)}</a>`;
+                        }
+                        
+                        return '';
                     },
                     market_name(value, record) {
                         const query = [
@@ -319,7 +325,12 @@ export class Listing extends createClass(types) {
                             `market_hash_name=${encodeURIComponent(record.market_hash_name)}`
                         ].join('&');
                         const url = `/views/view/item.html?${query}`;
-                        const link = `<a href="${url}" target="_blank" rel="noreferrer">${escapeHTML(value)}</a>`;
+                        
+                        if (typeof value !== 'string') {
+                            value = value?.toString();
+                        }
+                        
+                        const link = `<a href="${url}" target="_blank" rel="noreferrer">${escapeHTML(value || '')}</a>`;
                         
                         return (
                             `<p class="market-name">${link}</p>` +
@@ -344,8 +355,14 @@ export class Listing extends createClass(types) {
                 },
                 events: {
                     mouseover(e, record) {
-                        // we hovered over the image
-                        const isImage = e.target.matches('img');
+                        const { target } = e;
+                        
+                        if (!target) {
+                            return;
+                        }
+                        
+                        // @ts-ignore
+                        const isImage = target.matches('img');
                         
                         if (!isImage) {
                             return;
@@ -363,7 +380,8 @@ export class Listing extends createClass(types) {
                         
                         getHoverAsset(appid, classid, instanceid, language)
                             .then((asset) => {
-                                tooltip(e.target, getHover(asset), {
+                                // @ts-ignore
+                                tooltip(target, getHover(asset), {
                                     borderColor: asset.name_color
                                 });
                             })
@@ -372,8 +390,15 @@ export class Listing extends createClass(types) {
                             });
                     },
                     mouseout(e) {
+                        const { target } = e;
+                        
+                        if (!target) {
+                            return;
+                        }
+                        
                         // we hovered over the image
-                        const isImage = e.target.matches('img');
+                        // @ts-ignore
+                        const isImage = target.matches('img');
                         
                         if (!isImage) {
                             return;

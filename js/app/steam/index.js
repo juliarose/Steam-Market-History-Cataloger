@@ -1,3 +1,5 @@
+// @ts-check
+
 import { getAccountHistory, getClassinfo as getHoverClassinfo, getMarketHome } from './requests/get.js';
 import { AppError } from '../error.js';
 

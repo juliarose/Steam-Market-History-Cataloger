@@ -1,3 +1,5 @@
+// @ts-check
+
 import { buildApp } from './app.js';
 
 /**

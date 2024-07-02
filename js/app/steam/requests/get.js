@@ -1,5 +1,22 @@
+// @ts-check
+
 import { queryString } from '../../helpers/utils.js';
 import { getXHR } from './helpers/getXHR.js';
+
+/**
+ * Parameters for CORS requests.
+ * @type {RequestInit}
+ */
+const corsParams = {
+    /**@type {string} */
+    method: 'GET',
+    /** @type {RequestCredentials} Request credentials. */
+    credentials: 'include',
+    /** @type {RequestMode} Request credentials. */
+    mode: 'cors',
+    /**@type {string} */
+    referrer: 'no-referrer'
+};
 
 /* Example response:
 {
@@ -113,6 +130,26 @@ import { getXHR } from './helpers/getXHR.js';
 */
 
 /**
+ * Asset.
+ * @typedef {Object} Asset
+ * @property {string} classid - Class ID.
+ * @property {string} instanceid - Instance ID.
+ * @property {string} name - Name.
+ * @property {string} market_name - Market name.
+ * @property {string} market_hash_name - Market hash name.
+ * @property {string} [name_color] - Name color.
+ * @property {string} [background_color] - Background color.
+ * @property {string} type - Type.
+ * @property {string} icon_url - Icon URL.
+ * @property {string} icon_url_large - Large icon URL.
+ */
+
+/**
+ * Assets.
+ * @typedef {Object.<string, Object.<string, Object.<string, Asset>>>} Assets
+ */
+
+/**
  * Listings response.
  * 
  * You can find examples in "tests/fixtures/market/myhistory" at the root of this project.
@@ -121,7 +158,7 @@ import { getXHR } from './helpers/getXHR.js';
  * @property {number} [response.pagesize] - Number of listings per page.
  * @property {number} [response.total_count] - Total number of listings.
  * @property {number} [response.start] - Start of listings.
- * @property {Object} [response.assets] - Asset descriptions.
+ * @property {Assets} [response.assets] - Asset descriptions.
  * @property {string} [response.results_html] - HTML results.
  * @property {string} [response.hovers] - Hover data.
  */
@@ -141,14 +178,8 @@ import { getXHR } from './helpers/getXHR.js';
 export async function getListings(options) {
     const query = queryString(options);
     const uri = 'https://steamcommunity.com/market/myhistory?' + query;
-    const params = {
-        method: 'GET',
-        credentials: 'include',
-        mode: 'cors',
-        referrer: 'no-referrer'
-    };
     
-    return getXHR(uri, params);
+    return getXHR(uri, corsParams);
 }
 
 /**
@@ -157,14 +188,8 @@ export async function getListings(options) {
  */
 export async function getHome() {
     const uri = 'https://store.steampowered.com/';
-    const params = {
-        method: 'GET',
-        credentials: 'include',
-        mode: 'cors',
-        referrer: 'no-referrer'
-    };
     
-    return getXHR(uri, params);
+    return getXHR(uri, corsParams);
 }
 
 /**
@@ -173,14 +198,8 @@ export async function getHome() {
  */
 export async function getAccountHistory() {
     const uri = 'https://store.steampowered.com/account/history/';
-    const params = {
-        method: 'GET',
-        credentials: 'include',
-        mode: 'cors',
-        referrer: 'no-referrer'
-    };
     
-    return getXHR(uri, params);
+    return getXHR(uri, corsParams);
 }
 
 /**
@@ -194,14 +213,8 @@ export async function getAccountHistory() {
 export async function getLowestPrice(options) {
     const qs = queryString(options);
     const uri = `https://steamcommunity.com/market/priceoverview/?${qs}`;
-    const params = {
-        method: 'GET',
-        credentials: 'include',
-        mode: 'cors',
-        referrer: 'no-referrer'
-    };
     
-    return getXHR(uri, params);
+    return getXHR(uri, corsParams);
 }
 
 /**
@@ -210,14 +223,8 @@ export async function getLowestPrice(options) {
  */
 export async function getMarketHome() {
     const uri = 'https://steamcommunity.com/market';
-    const params = {
-        method: 'GET',
-        credentials: 'include',
-        mode: 'cors',
-        referrer: 'no-referrer'
-    };
     
-    return getXHR(uri, params);
+    return getXHR(uri, corsParams);
 }
 
 /**
@@ -239,12 +246,6 @@ export async function getClassinfo(appid, classid, instanceid, language = 'engli
         l: language
     });
     const uri  = `https://steamcommunity.com/economy/itemclasshover/${classinfo}?${qs}`;
-    const params = {
-        method: 'GET',
-        credentials: 'include',
-        mode: 'cors',
-        referrer: 'no-referrer'
-    };
     
-    return getXHR(uri, params);
+    return getXHR(uri, corsParams);
 }

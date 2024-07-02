@@ -17,6 +17,11 @@ import { AppError } from '../error.js';
  * @typedef {Object} MonthsLocaleData
  * @property {string[]} months.abbreviations - Array of month abbreviations. These are in order from January to December.
  */
+
+/**
+ * Identifiers for each column in the database.
+ * @typedef {Object.<string, Object.<string, (number|string)>>} Identifiers
+ */
  
 /**
  * User interface strings.
@@ -132,7 +137,7 @@ import { AppError } from '../error.js';
  * @property {string} accounttransactions.column_names.count - Count column name.
  * @property {string} accounttransactions.column_names.date - Date column name.
  * 
- * @property {Object} accounttransactions.identifiers
+ * @property {Identifiers} accounttransactions.identifiers
  * @property {Object.<string, (number|string)>} accounttransactions.identifiers.transaction_type - Transaction type identifiers.
  * 
  * @property {Object} gameitems

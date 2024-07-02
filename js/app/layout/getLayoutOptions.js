@@ -1,19 +1,28 @@
-'use string';
+// @ts-check
+
+/**
+ * @typedef {import('../account.js').Account} Account
+ * @typedef {import('../preferences.js').Preferences} Preferences
+ * @typedef {import('../classes/Localization.js').Localization} Localization
+ * @typedef {import('../currency.js').Currency} Currency
+ */
+
+/**
+ * Object containing options to use in formatting.
+ * @typedef {Object} LayoutOptions
+ * @property {number} count - Number of items for pagination results.
+ * @property {Localization} locales - Object containing localizations.
+ * @property {Currency} currency - Currency related to account.
+ */
 
 /**
  * Gets options to pass to a layout method.
- * @param {Account} account - Account.
- * @param {Preferences} preferences - Preferences.
+ * @param {Object} options - Options.
+ * @param {Account} options.account - Account.
+ * @param {Preferences} options.preferences - Preferences.
  * @returns {LayoutOptions} Object containing options to use in formatting.
  */
 export function getLayoutOptions({ account, preferences }) {
-    /**
-     * Object containing options to use in formatting.
-     * @typedef {Object} LayoutOptions
-     * @property {number} count - Number of items for pagination results.
-     * @property {Localizations} locales - Object containing localizations.
-     * @property {Localization} currency - Currency related to account.
-     */
     return {
         count: preferences.pagination_count,
         locales: account.locales,

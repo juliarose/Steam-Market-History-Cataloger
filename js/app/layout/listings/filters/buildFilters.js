@@ -1,3 +1,5 @@
+// @ts-check
+
 import { stringToDate } from '../../../helpers/utils.js';
 import { drawFilters } from './drawFilters.js';
 
@@ -32,11 +34,7 @@ const WhereQueries = {
 
 /**
  * Function for comparing two values.
- * @name ComparisonFunction
- * @function
- * @param {(number|string|null)} a - First value.
- * @param {(number|string|null)} b - Second value.
- * @returns {boolean} Result of comparison.
+ * @typedef {function((number|string|null), (number|string|null)): boolean} ComparisonFunction
 */
 
 /**
@@ -65,6 +63,10 @@ function getWhereQueryDetails(k, query) {
     
     // comparison functions
     const compare = {
+        /**
+         * Selects elements above.
+         * @type {ComparisonFunction}
+         */
         above(a, b) {
             return Boolean(
                 a &&
@@ -72,6 +74,10 @@ function getWhereQueryDetails(k, query) {
                 a > b
             );
         },
+        /**
+         * Selects elements below.
+         * @type {ComparisonFunction}
+         */
         below(a, b) {
             return Boolean(
                 a &&
@@ -79,6 +85,10 @@ function getWhereQueryDetails(k, query) {
                 a < b
             );
         },
+        /**
+         * Selects elements above or equal.
+         * @type {ComparisonFunction}
+         */
         aboveOrEqual(a, b) {
             return Boolean(
                 a &&
@@ -86,6 +96,10 @@ function getWhereQueryDetails(k, query) {
                 a >= b
             );
         },
+        /**
+         * Selects elements below or equal.
+         * @type {ComparisonFunction}
+         */
         belowOrEqual(a, b) {
             return Boolean(
                 a &&
@@ -93,6 +107,10 @@ function getWhereQueryDetails(k, query) {
                 a <= b
             );
         },
+        /**
+         * Selects elements that are equal.
+         * @type {ComparisonFunction}
+         */
         equals(a, b) {
             return a === b;
         }
@@ -120,8 +138,7 @@ function getWhereQueryDetails(k, query) {
  * @param {Localization} options.locales - Locale strings.
  * @param {number} options.limit - Query limit.
  * @param {OnChangeFunction} options.onChange - Function to call on filter change.
- * @returns {Promise<HTMLElement>} DOM element.
- * @namespace Layout.listings.buildFilters
+ * @returns {Promise<DocumentFragment>} DOM element.
  */
 export async function buildFilters(table, records, Displayable, options) {
     /**
@@ -174,13 +191,16 @@ export async function buildFilters(table, records, Displayable, options) {
             if (whereQueryKeys.length > 0 && collection === undefined) {
                 // take the first key and remove it from the array
                 const k = whereQueryKeys.shift();
-                const {
-                    field,
-                    key,
-                    convertedValue
-                } = getWhereQueryDetails(k, query);
                 
-                collection = table.where(field)[key](convertedValue);
+                if (typeof k === 'string') {
+                    const {
+                        field,
+                        key,
+                        convertedValue
+                    } = getWhereQueryDetails(k, query);
+                    
+                    collection = table.where(field)[key](convertedValue);
+                }
             }
             
             // create a comparison function for each where query key
@@ -229,29 +249,39 @@ export async function buildFilters(table, records, Displayable, options) {
         return doQuery();
     }
     
-    function addQuery(key, val) {
-        let only;
+    /**
+     * Adds a query to the filter.
+     * @param {string} key - Key.
+     * @param {*} value - Value.
+     */
+    function addQuery(key, value) {
+        // If we only want to update one field...
+        // let only;
         
-        if (query[key] === val) {
-            // nothing to be done
-            return;
-        } else if (query[key] !== undefined) {
-            // reset when re-assigning filters
-            filteredRecords = totalRecords;
-        } else {
-            // we are adding a key
-            only = key;
-        }
+        // if (query[key] === value) {
+        //     // nothing to be done
+        //     return;
+        // } else if (query[key] !== undefined) {
+        //     // reset when re-assigning filters
+        //     filteredRecords = totalRecords;
+        // } else {
+        //     // we are adding a key
+        //     only = key;
+        // }
         
         if (key === 'is_credit') {
-            val = parseInt(val);
+            value = parseInt(value);
         }
         
-        query[key] = val;
+        query[key] = value;
         
-        updateQuery(only);
+        updateQuery();
     }
     
+    /**
+     * Removes a query from the filter.
+     * @param {string} key - Key.
+     */
     function removeQuery(key) {
         delete query[key];
         
@@ -259,8 +289,13 @@ export async function buildFilters(table, records, Displayable, options) {
         updateQuery();
     }
     
-    function queryChange(key, val) {
-        addQuery(key, val);
+    /**
+     * Adds a query to the filter.
+     * @param {string} key - Key.
+     * @param {*} value - Value.
+     */
+    function queryChange(key, value) {
+        addQuery(key, value);
     }
     
     const { limit, locales, onChange } = options;

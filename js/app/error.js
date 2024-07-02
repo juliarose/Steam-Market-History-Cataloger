@@ -1,3 +1,4 @@
+// @ts-check
 
 /** Used to identify errors. */
 export const ERROR_TYPE = Object.freeze({

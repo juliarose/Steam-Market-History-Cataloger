@@ -1,15 +1,22 @@
+// @ts-check
 
 /**
  * Lightens a color.
  * @param {string} color - Hexadecimal number string of color.
  * @param {number} [ratio=0.5] - Strength of effect.
- * @returns {string} 6-digit hexadecimal number string of result.
+ * @returns {(string | null)} 6-digit hexadecimal number string of result.
 */
-export function lighten(color, ratio) {
+export function lighten(color, ratio = 0.5) {
     ratio = clampRatio(ratio);
     
     const channels = hexToRgb(color);
-    const [h, s, l] = rgbToHSL(...channels);
+    
+    if (channels === null) {
+        return null;
+    }
+    
+    const [r, g, b] = channels;
+    const [h, s, l] = rgbToHSL(r, g, b);
     // increase lightness
     const lightenedlightness = l + (100 - l) * ratio;
     const lightenedChannels = hslToRGB(h, s, lightenedlightness);
@@ -26,12 +33,17 @@ export function lighten(color, ratio) {
  * Darkens a color.
  * @param {string} color - Hexadecimal number string of color.
  * @param {number} [ratio=0.5] - Strength of effect.
- * @returns {string} 6-digit hexadecimal number string of result.
+ * @returns {(string | null)} 6-digit hexadecimal number string of result.
  */
-export function darken(color, ratio) {
+export function darken(color, ratio = 0.5) {
     ratio = clampRatio(ratio);
     
     const channels = hexToRgb(color);
+    
+    if (channels === null) {
+        return null;
+    }
+    
     let result = '';
     
     for (let i = 0; i < 3; i++) {
@@ -50,13 +62,18 @@ export function darken(color, ratio) {
  * @param {string} color1 - Hexadecimal number string of first color.
  * @param {string} color2 - Hexadecimal number string of second color.
  * @param {number} [ratio=0.5] - Strength of effect.
- * @returns {string} 6-digit hexadecimal number string of result.
+ * @returns {(string | null)} 6-digit hexadecimal number string of result.
  */
 export function blend(color1, color2, ratio = 0.5) {
     ratio = clampRatio(ratio);
     
     const channels1 = hexToRgb(color1);
     const channels2 = hexToRgb(color2);
+    
+    if (channels1 === null || channels2 === null) {
+        return null;
+    }
+    
     let result = '';
     
     for (let i = 0; i < 3; i++) {
@@ -75,12 +92,16 @@ export function blend(color1, color2, ratio = 0.5) {
  * Converts color to rgba string for use in CSS.
  * @param {string} color - Hexadecimal number string.
  * @param {number} [alpha=1] - Opacity of color.
- * @returns {string} Rgba string of color.
+ * @returns {(string | null)} Rgba string of color.
  */
 export function rgba(color, alpha = 1) {
     alpha = clampRatio(alpha);
     
     const results = hexToRgb(color);
+    
+    if (results === null) {
+        return null;
+    }
     
     // add value for alpha
     results.push(alpha);
@@ -91,12 +112,17 @@ export function rgba(color, alpha = 1) {
 /**
  * Gets the lightness of a color.
  * @param {string} color - Hexadecimal number string.
- * @returns {number} Lightness of color.
+ * @returns {(number | null)} Lightness of color.
  */
 export function lightness(color) {
     // get lightness using
     // https://www.w3.org/TR/WCAG20-TECHS/G17.html#G17-tests
     const channels = hexToRgb(color);
+    
+    if (channels === null) {
+        return null;
+    }
+    
     const values = [
         0.2126,
         0.7152,
@@ -141,7 +167,10 @@ export function rgbToHSL(red, green, blue) {
     
     const max = Math.max(red, green, blue);
     const min = Math.min(red, green, blue);
-    let hue, saturation, lightness = (max + min) / 2;
+    const average = (max + min) / 2;
+    let hue = average;
+    let saturation = average;
+    let lightness = average;
     
     if (max === min){
         hue = saturation = 0; // achromatic
@@ -244,7 +273,7 @@ export function hslToRGB(hue, saturation, lightness) {
  * Gets individual color channels from a hexadecimal color. If an alpha channel is present, it 
  * will be included.
  * @param {string} color - Hexadecimal number string.
- * @returns {number[]} Color channels.
+ * @returns {([number, number, number] | [number, number, number, number] | null)} Color channels.
  * 
  * @example
  * hexToRgb('#00FF00', 0); // [0, 255, 0]

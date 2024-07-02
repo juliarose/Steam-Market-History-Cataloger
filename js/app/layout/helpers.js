@@ -1,3 +1,4 @@
+// @ts-check
 
 /**
  * Gets list of classes for each column in 'columns'.

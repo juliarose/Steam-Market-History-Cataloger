@@ -1,10 +1,11 @@
-// Unused - this falls under account transactions but is not implemented currently.
+// @ts-check
 
-import { createClass } from './helpers/createClass.js';
+// Unused - this falls under account transactions but is not implemented currently.
 
 /**
  * @typedef {import('./helpers/createClass.js').Displayable} Displayable
  * @typedef {import('./helpers/createClass.js').DisplayOptions} DisplayOptions
+ * @typedef {import('./helpers/createClass.js').DisplayableTypes} DisplayableTypes
  * @typedef {import('./Localization.js').Localization} Localization
  */
 
@@ -28,7 +29,7 @@ const types = {
  * Game item.
  * @namespace GameItem
  */
-export class GameItem extends createClass(types) {
+export class GameItem {
     /**
      * Identifier for game items.
      * @type {string}
@@ -53,7 +54,7 @@ export class GameItem extends createClass(types) {
     count;
     /**
      * Name of item.
-     * @type {Date}
+     * @type {string}
      */
     name;
     /**
@@ -67,7 +68,6 @@ export class GameItem extends createClass(types) {
      * @param {GameItemProperties} properties - Properties.
      */
     constructor(properties) {
-        super();
         this.app = properties.app;
         this.count = properties.count;
         this.name = properties.name;
@@ -83,7 +83,7 @@ export class GameItem extends createClass(types) {
     static makeDisplay(locales) {
         return {
             names: locales.db.gameitems.names,
-            identifiers: locales.db.gameitems.identifiers,
+            identifiers: {},
             currency_fields: [
                 'price'
             ],

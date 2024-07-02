@@ -1,3 +1,5 @@
+// @ts-check
+
 // Utilities used throughout app
 
 import { parseFromString } from '../../lib/dom-parser.js';
@@ -84,12 +86,14 @@ export function difference(arr1, arr2) {
 
 /**
  * Partitions array based on conditions.
- * @param {Array} arr - Array.
- * @param {Function} method - Function to satisfy.
- * @returns {Array} Partitioned array.
+ * @template T
+ * @param {T[]} arr - Array.
+ * @param {function(T): boolean} method - Function to satisfy.
+ * @returns {[T[], T[]]} Partitioned array.
  */
 export function partition(arr, method) {
     // create an array with two empty arrays to be filled
+    /** @type {[T[], T[]]} */
     let result = [
         // for truthy values
         [],
@@ -108,18 +112,20 @@ export function partition(arr, method) {
 
 /**
  * Groups an array by value from key.
- * @param {Array} arr - Array.
- * @param {(string | Function)} key - Key to take value from.
+ * @template T
+ * @param {T[]} arr - Array.
+ * @param {(string | function(T): string | number)} key - Key to take value from.
  * @returns {Object} Object of groups.
  */
 export function groupBy(arr, key) {
-    // if 'key' is a function, set method to 'key'
-    let method = typeof key === 'function' ? key : null;
-    
     return arr.reduce((group, item) => {
-        let value = method ? method(item) : item[key];
-        
-        (group[value] = group[value] || []).push(item);
+        if (typeof key === 'function') {
+            const value = key(item);
+            (group[value] = group[value] || []).push(item);
+        } else {
+            const value = item[key];
+            (group[value] = group[value] || []).push(item);
+        }
         
         return group;
     }, {});
@@ -180,7 +186,7 @@ export function flattenCompact(arr, deep) {
  * @param {number} [length=10] - Length of string.
  * @returns {string} Random string.
  */
-export function randomString(length) {
+export function randomString(length = 10) {
     let characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'.split('');
     let count = characters.length;
     let str = '';
@@ -356,9 +362,9 @@ export function escapeHTML(text) {
                 '"': '&quot;'
             }[value];
         });
-    } else {
-        return text;
     }
+    
+    return text;
 }
 
 /**
@@ -379,5 +385,6 @@ export function getDocument(html) {
     // Native DOMParser is not available in manifest V3 service workers.
     // // return the body
     // return new DOMParser().parseFromString(html, 'text/html');
+    // @ts-ignore
     return parseFromString(html);
 }

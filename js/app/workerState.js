@@ -1,3 +1,5 @@
+// @ts-check
+
 import { LocalStorage } from './storage/local.js';
 
 const WORKER_STATE_SETTINGS_NAME = 'worker_state';

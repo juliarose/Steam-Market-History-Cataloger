@@ -1,3 +1,5 @@
+// @ts-check
+
 // This is intended for use within the background service worker script.
 
 import { buildApp } from '../app.js';
@@ -15,7 +17,6 @@ export class ListingWorker {
     /**
      * Whether we are currently loading or not.
      * @type {boolean}
-     * @private
      */
     #isLoading = false;
     
@@ -137,7 +138,6 @@ export class ListingWorker {
      * Checks the current state of the application then loads if everything is OK.
      * @param {boolean} [force=false] - Whether to force loading.
      * @returns {Promise<void>} Resolves when done.
-     * @private
      */
     async #checkStateThenLoad(force = false) {
         // already loading
@@ -151,13 +151,12 @@ export class ListingWorker {
             throw new AppError('Background polling is disabled.');
         }
         
-        return this.#load();
+        await this.#load();
     }
     
     /**
      * Sets the loading state.
      * @param {boolean} loading - Whether we are loading or not.
-     * @private
      */
     #updateLoadState(loading) {
         this.#isLoading = loading;

@@ -1,3 +1,5 @@
+// @ts-check
+
 import { AppError } from './error.js';
 import { LocalStorage } from './storage/local.js';
 import { getCurrency } from './currency.js';
@@ -5,7 +7,12 @@ import { Localization } from './classes/Localization.js';
 
 /**
  * @typedef {import('./currency.js').Currency} Currency
- * @typedef {import('./classes/Localization.js').Localization} Localization
+ */
+
+/**
+ * Wallet.
+ * @typedef {Object} Wallet
+ * @property {Currency} currency - The currency of the wallet.
  */
 
 /**
@@ -17,12 +24,6 @@ import { Localization } from './classes/Localization.js';
  * @property {string} avatar - The avatar of the user.
  * @property {Wallet} wallet - The wallet of the user.
  * @property {string} language - The language of the user.
- */
-
-/**
- * Wallet.
- * @typedef {Object} Wallet
- * @property {Currency} currency - The currency of the wallet.
  */
 
 /**
@@ -41,7 +42,6 @@ export async function loadAccount() {
     }
     
     const accountInfoData = await accountInfoLocalStorage.getSettings();
-    const wallet = {};
     const { language } = accountInfoData;
             
     if (!language) {
@@ -52,9 +52,9 @@ export async function loadAccount() {
         throw new AppError('No wallet detected.');
     }
     
-    wallet.currency = getCurrency(accountInfoData.wallet_currency);
+    const currency = getCurrency(accountInfoData.wallet_currency);
     
-    if (!wallet.currency) {
+    if (!currency) {
         // currency was not found on sotrage
         throw new AppError(`No currency detected with ID "${accountInfoData.wallet_currency}"`);
     }
@@ -66,7 +66,9 @@ export async function loadAccount() {
         steamid,
         username,
         avatar,
-        wallet,
         language,
+        wallet: {
+            currency
+        }
     };
 }

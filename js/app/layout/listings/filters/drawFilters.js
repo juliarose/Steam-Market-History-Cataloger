@@ -1,3 +1,5 @@
+// @ts-check
+
 import { applist } from '../../../data/applist.js';
 import { addAutocompleteToField } from './addAutocompleteToField.js';
 
@@ -94,12 +96,24 @@ export async function drawFilters(
     const fragment = document.createDocumentFragment();
     const dateContainer = document.createElement('div');
     const events = {
+        /**
+         * Handles input events for text fields.
+         * @param {Event} e - Input event.
+         */
         dropdownChange(e) {
             const linkEl = e.target;
+            
+            if (!linkEl) {
+                return;
+            }
+            
+            // @ts-ignore
             const dropdownEl = linkEl.parentNode.parentNode;
             const buttonEl = dropdownEl.getElementsByClassName('button')[0];
+            // @ts-ignore
             const text = linkEl.textContent;
             const name = dropdownEl.getAttribute('data-name');
+            // @ts-ignore
             const value = linkEl.dataset.value;
             
             if (value == undefined) {
@@ -112,11 +126,23 @@ export async function drawFilters(
                 queryChange(name, value);
             }
         },
+        /**
+         * Handles input events for text fields.
+         * @param {Event} e - Input event.
+         */
         textFieldChange(e) {
             const inputEl = e.target;
+            
+            if (!inputEl) {
+                return;
+            }
+            
+            // @ts-ignore
             const name = inputEl.dataset.name;
+            // @ts-ignore
             const value = inputEl.value;
             
+            // @ts-ignore
             checkInputState(inputEl);
             
             if (value === '') {
@@ -125,9 +151,15 @@ export async function drawFilters(
                 queryChange(name, value);
             }
         },
+        /**
+         * Handles input events for text fields.
+         * @param {Event} e - Input event.
+         * @returns {Event} Input event.
+         */
         textFieldInput(e) {
             const inputEl = e.target;
             
+            // @ts-ignore
             checkInputState(inputEl);
             
             // this is important for the event to function properly
@@ -135,6 +167,9 @@ export async function drawFilters(
         }
     };
     const draw = {
+        /**
+         * Draws date selectors.
+         */
         dateSelectors() {
             function renderSelector(name, days, dateFieldEl) {
                 function formatDate(date) {
@@ -173,11 +208,27 @@ export async function drawFilters(
             dateContainer.append(lastWeekButtonEl);
             dateContainer.append(lastMonthButtonEl);
         },
+        /**
+         * Draws a date field.
+         * @param {string} name - Name of the field.
+         * @param {Object} dates - Dates.
+         * @param {Date} [dates.start] - Start date.
+         * @param {Date} [dates.end] - End date.
+         */
         dateField(name, dates) {
             if (!dates.start) {
                 return;
             }
             
+            if (!dates.end) {
+                return;
+            }
+            
+            /**
+             * Formats a date.
+             * @param {Date} date 
+             * @returns {string} Formatted date.
+             */
             function formatDate(date) {
                 return [
                     date.getUTCFullYear(),
@@ -209,6 +260,11 @@ export async function drawFilters(
             inputEl.addEventListener('change', events.textFieldChange);
             dateContainer.append(containerEl);
         },
+        /**
+         * Draws a dropdown.
+         * @param {string} name - Name of the field.
+         * @param {(number[]|string[])} list - List of values.
+        */
         dropdown(name, list) {
             function getOptionText(value) {
                 let values = (uiLocales.values || {})[name] || {};
@@ -260,6 +316,11 @@ export async function drawFilters(
             
             fragment.append(dropdownEl);
         },
+        /**
+         * Draws a text field.
+         * @param {string} name - Name of the field.
+         * @param {(number[]|string[])} values - Values.
+         */
         textField(name, values) {
             function autocomplete(values) {
                 addAutocompleteToField(textEl, values, (value) => {
@@ -314,6 +375,10 @@ export async function drawFilters(
         }
     };
     
+    /**
+     * Checks the state of an input.
+     * @param {HTMLInputElement} inputEl - Input element.
+     */
     function checkInputState(inputEl) {
         if (inputEl.value) {
             inputEl.classList.add('active');
@@ -322,15 +387,24 @@ export async function drawFilters(
         }
     }
     
-    // get name of key
+    /**
+     * Gets the name of a field.
+     * @param {string} name - Name of the field.
+     * @returns {string} Name of the field.
+     */
     function getName(name) {
         return (
             uiLocales.names[name] ||
-            classDisplay.names[name] ||
+            (classDisplay.names && classDisplay.names[name]) ||
             name
         );
     }
     
+    /**
+     * Adds an index to the filter.
+     * @param {string} k - Key.
+     * @param {(number[]|string[]|Object)} v - Values.
+     */
     function addIndex(k, v) {
         switch (k) {
             case 'dates':
@@ -346,7 +420,11 @@ export async function drawFilters(
         }
     }
     
-    // indicates that a field must have its values lazy-loaded
+    /**
+     * Indicates that a field must have its values lazy-loaded.
+     * @param {string} name - Name of the field.
+     * @returns {boolean} True if the field is lazy-loaded.
+     */
     function isLazyLoadedField(name) {
         return [
             'market_hash_name',
@@ -357,6 +435,7 @@ export async function drawFilters(
     
     const hasDates = Boolean(
         index.dates.start &&
+        index.dates.end &&
         index.dates.start.getTime() !== index.dates.end.getTime()
     );
     

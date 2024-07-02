@@ -1,10 +1,11 @@
-import { createClass } from './helpers/createClass.js';
+// @ts-check
+
 import { ETransactionType } from '../enums/ETransactionType.js';
 
 /**
- * @typedef {import('../helpers/createClass.js').DisplayOptions} DisplayOptions
- * @typedef {import('../helpers/createClass.js').DisplayableTypes} DisplayableTypes
- * @typedef {import('../Localization.js').Localization} Localization
+ * @typedef {import('./helpers/createClass.js').DisplayOptions} DisplayOptions
+ * @typedef {import('./helpers/createClass.js').DisplayableTypes} DisplayableTypes
+ * @typedef {import('./Localization.js').Localization} Localization
  */
 
 /**
@@ -32,7 +33,7 @@ const types = {
 /**
  * Account transaction.
  */
-export class AccountTransaction extends createClass(types) {
+export class AccountTransaction {
     /**
      * Identifier for account transactions.
      * @type {string}
@@ -53,7 +54,7 @@ export class AccountTransaction extends createClass(types) {
     static types = types;
     /**
      * Transaction ID, if available.
-     * @type {string?}
+     * @type {(string | undefined)}
      */
     transaction_id;
     /**
@@ -92,7 +93,6 @@ export class AccountTransaction extends createClass(types) {
      * @param {AccountTransactionProperties} properties - Account transaction properties.
      */
     constructor(properties) {
-        super();
         this.transaction_id = properties.transaction_id;
         this.transaction_type = properties.transaction_type;
         this.date = properties.date;
@@ -132,8 +132,18 @@ export class AccountTransaction extends createClass(types) {
                     'count'
                 ],
                 cell_value: {
-                    transaction_type: function(value) {
-                        return ETransactionType[value] || value;
+                    transaction_type(value) {
+                        if (typeof value === 'string' || typeof value === 'number') {
+                            const transactionType = ETransactionType[value];
+                            
+                            if (transactionType) {
+                                return transactionType.toString();
+                            }
+                            
+                            return value.toString();
+                        }
+                        
+                        return '';
                     }
                 }
             },
@@ -176,15 +186,27 @@ export class AccountTransaction extends createClass(types) {
                     ]
                 },
                 cell_value: {
-                    is_credit: function(value) {
+                    is_credit(value) {
                         if (value) {
                             return '+';
                         } else {
                             return '-';
                         }
                     },
-                    transaction_type: function(value) {
-                        return locales.db.accounttransactions.identifiers.transaction_type[value] || value;
+                    transaction_type(value) {
+                        if (typeof value === 'string' || typeof value === 'number') {
+                            const transactionType = locales.db.accounttransactions.identifiers.transaction_type[value];
+                            
+                            if (transactionType) {
+                                return transactionType.toString();
+                            }
+                            
+                            return value.toString();
+                        } else if (value != null) {
+                            return value.toString();
+                        }
+                        
+                        return '';
                     }
                 }
             }

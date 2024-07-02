@@ -1,3 +1,5 @@
+// @ts-check
+
 import { queryString, omitEmpty } from '../../helpers/utils.js';
 import { getXHR } from './helpers/getXHR.js';
 
@@ -19,18 +21,21 @@ import { getXHR } from './helpers/getXHR.js';
  * @param {string} options.sessionid - Session ID.
  * @param {Object} [options.cursor] - Cursor object from Steam.
  * @param {string} [options.l] - Language.
- * @returns {Promise<void>} Fetch promise.
+ * @returns {Promise<Response>} Fetch promise.
  */
 export async function getPurchaseHistory(options) {
     const query = queryString(omitEmpty(options));
     const uri = 'https://store.steampowered.com/account/AjaxLoadMoreHistory';
     const params = {
         method: 'POST',
+        /** @type {HeadersInit} Request headers. */
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
-            'Content-Length': query.length
+            'Content-Length': query.length.toString()
         },
+        /** @type {RequestCredentials} Request credentials. */
         credentials: 'include',
+        /** @type {RequestMode} Request credentials. */
         mode: 'cors',
         referrer: 'no-referrer',
         body: query

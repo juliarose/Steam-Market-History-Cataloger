@@ -1,3 +1,5 @@
+// @ts-check
+
 import { types, makeTotalDisplay } from './helpers/initializers.js';
 
 /**

@@ -365,7 +365,7 @@ var defaultTexts = {
     TransactionInactive: "Transaction has already completed or failed",
     MissingAPI: "IndexedDB API missing. Please visit https://tinyurl.com/y2uuvskb"
 };
-function DexieError(name, msg) {
+export function DexieError(name, msg) {
     this.name = name;
     this.message = msg;
 }
@@ -378,14 +378,14 @@ function getMultiErrorMessage(msg, failures) {
         .filter(function (v, i, s) { return s.indexOf(v) === i; })
         .join('\n');
 }
-function ModifyError(msg, failures, successCount, failedKeys) {
+export function ModifyError(msg, failures, successCount, failedKeys) {
     this.failures = failures;
     this.failedKeys = failedKeys;
     this.successCount = successCount;
     this.message = getMultiErrorMessage(msg, failures);
 }
 derive(ModifyError).from(DexieError);
-function BulkError(msg, failures) {
+export function BulkError(msg, failures) {
     this.name = "BulkError";
     this.failures = Object.keys(failures).map(function (pos) { return failures[pos]; });
     this.failuresByPos = failures;

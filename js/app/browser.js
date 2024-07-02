@@ -1,3 +1,5 @@
+// @ts-check
+
 // browser utilities
 
 const browser = chrome;
@@ -10,7 +12,7 @@ export const onMessage = browser.runtime.onMessage;
 /**
  * Sets browser icon.
  * @param {Object} details - Details.
- * @param {Function} [callback=function(){}] - Callback function.
+ * @param {function(): void} [callback=function(){}] - Callback function.
  */
 export function setIcon(details, callback = function() {}) {
     browserAction.setIcon(details, callback);
@@ -19,7 +21,7 @@ export function setIcon(details, callback = function() {}) {
 /**
  * Sets browser badge text.
  * @param {Object} details - Details.
- * @param {Function} [callback=function(){}] - Callback function.
+ * @param {function(): void} [callback=function(){}] - Callback function.
  */
 export function setBadgeText(details, callback = function() {}) {
     browserAction.setBadgeText(details, callback);
@@ -28,7 +30,7 @@ export function setBadgeText(details, callback = function() {}) {
 /**
  * Gets browser badge text.
  * @param {Object} details - Details.
- * @param {Function} [callback=function(){}] - Callback function.
+ * @param {function(): void} [callback=function(){}] - Callback function.
  */
 export function getBadgeText(details, callback = function() {}) {
     browserAction.getBadgeText(details, callback);

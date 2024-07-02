@@ -1,3 +1,10 @@
+// @ts-check
+
+/**
+ * Gets the offset of an element.
+ * @param {Element} element - Element to get offset of.
+ * @returns {{top: number, left: number}} Offset.
+ */
 function offset(element) {
     const bounds = element.getBoundingClientRect();
     const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
@@ -9,7 +16,13 @@ function offset(element) {
     };
 }
 
+/**
+ * Fades in an element.
+ * @param {Element} element - Element to fade in.
+ * @param {number} duration - Duration of fade, in milliseconds.
+ */
 function fadeIn(element, duration) {
+    // @ts-ignore
     Velocity(element, 'fadeIn', {
         duration
     });

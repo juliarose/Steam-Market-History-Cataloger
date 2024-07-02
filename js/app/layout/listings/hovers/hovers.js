@@ -1,3 +1,5 @@
+// @ts-check
+
 import { getClassinfo } from '../../../steam/index.js';
 import { escapeHTML } from '../../../helpers/utils.js';
 import { AppError } from '../../../error.js';

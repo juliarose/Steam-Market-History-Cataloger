@@ -1,4 +1,4 @@
-import { Dexie } from '../../dexie.js';
+// @ts-check
 
 /**
  * @typedef {import('../../currency.js').Currency} Currency
@@ -15,14 +15,14 @@ import { Dexie } from '../../dexie.js';
  * Contains attributes for streaming records from the database for download.
  * @typedef {Object} StreamDisplayOptions
  * @property {string} order - The column to order the records by.
- * @property {number} [direction] - 1 for descending, -1 for ascending.
+ * @property {number} direction - Direction of order. 1 for descending, -1 for ascending.
  */
 
 /**
  * Contains attributes for displaying attributes related to model.
  * @typedef {Object} DisplayOptions
  * @property {Object.<string, string>} [names] - Textual display property of each column name e.g. "appname" is mapped to "App".
- * @property {Object.<string, (string | number)>} [identifiers] - Object containing exact strings to test against for key data.
+ * @property {Object.<string, Object.<string, (string | number)>>} [identifiers] - Object containing exact strings to test against for key data.
  * @property {StreamDisplayOptions} [stream] - Options for streaming records from the database for download.
  * @property {string[]} [currency_fields] - Array of columns that are currencies.
  * @property {string[]} [boolean_fields] - Array of columns that are booleans.
@@ -37,6 +37,11 @@ import { Dexie } from '../../dexie.js';
  */
 
 /**
+ * Function for binding an event.
+ * @typedef {function(Event, Object): void} EventFunction
+ */
+
+/**
  * @typedef {Object} DisplayContext
  * @property {string[]} [columns] - Names of each columns to display.
  * @property {Object.<string, string>} [column_names] - Maps for each column to get each column's name.
@@ -44,7 +49,7 @@ import { Dexie } from '../../dexie.js';
  * @property {Object.<string, string[]>} [column_class] - Maps for assigning columns classes to each column when displaying tabular data.
  * @property {Function} [row_class] - Function which returns an array of class names to apply to row on specific record when displaying tabular data.
  * @property {Object.<string, CellValueFunction>} [cell_value] - Maps for assigning contents for each cell when displaying tabular data.
- * @property {Object} [events] - Maps for events to bind to each row when displaying tabular data.
+ * @property {Object.<string, EventFunction>} [events] - Maps for events to bind to each row when displaying tabular data.
  **/
 
 /**
@@ -57,11 +62,9 @@ import { Dexie } from '../../dexie.js';
  */
 
 /**
- * Creates a new class.
- * @class
- * @param {Object} types - Maps defining the types for each column.
- * @returns {Displayable} Class constructor object.
+ * This actually does nothing but VSCode seems to only recognize the typedefs in the file if it is 
+ * imported somewhere in the project?
  */
-export function createClass(types) {
-    return Dexie.defineClass(types);
+export function createClass() {
+    return;
 }

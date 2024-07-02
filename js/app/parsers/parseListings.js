@@ -1,20 +1,23 @@
+// @ts-check
+
 import { getDocument } from '../helpers/utils.js';
 import { parseMoney } from '../money.js';
 import { Listing } from '../classes/Listing.js';
 
 /**
- * @typedef {import('../classes/Listing.js').Listing} Listing
  * @typedef {import('../currency.js').Currency} Currency
  * @typedef {import('../classes/Localization.js').Localization} Localization
  * @typedef {import('../steam/requests/get.js').MyHistoryResponse} MyHistoryResponse
+ * @typedef {import('../steam/requests/get.js').Asset} Asset
  * @typedef {import('../manager/listingsmanager.js').LoadState} LoadState
+ * @typedef {import('../manager/listingsmanager.js').LoadStateDate} LoadStateDate
  */
 
 /**
  * Makes a date.
  * @param {number} year - Year of date.
  * @param {number} month - Month of date.
- * @param {number} day - Day of date.
+ * @param {number} day - Day (date) of date.
  * @returns {Date} Date.
  */
 function makeDate(year, month, day) {
@@ -25,10 +28,10 @@ function makeDate(year, month, day) {
 /**
  * Results of parsing.
  * @typedef {Object} ParseListingResult
- * @property {(error | null)} error - Error, if any.
- * @property {(boolean | null)} fatal - Whether the error is fatal.
+ * @property {string} [error] - Error, if any.
+ * @property {boolean} [fatal] - Whether the error is fatal.
  * @property {Listing[]} records - Array of parsed listings.
- * @property {Object} modifiedDate - Modified object from state passed to function.
+ * @property {LoadStateDate} [dateStore] - Modified object from state passed to function.
  */
 
 /**
@@ -41,6 +44,14 @@ function makeDate(year, month, day) {
  * @returns {ParseListingResult} Results of parsing.
  */
 export function parseListings(response, state, currency, localization) {
+    if (!response.results_html) {
+        return {
+            fatal: false,
+            error: 'Response missing results_html',
+            records: []
+        };
+    }
+    
     const doc = getDocument(response.results_html);
     const messageEl = doc.getElementsByClassName('.market_listing_table_message')[0];
     const messageLinkEl = messageEl && messageEl.getElementsByTagName('a')[0];
@@ -68,6 +79,17 @@ export function parseListings(response, state, currency, localization) {
         }
     }
     
+    /**
+     * All values used from "state", cloned so we do not modify original object.
+     * 
+     * The properties are modified as dates from listings are processed.
+     * @type {LoadStateDate}
+     */
+    const modifiedDate = {
+        year: state.date.year,
+        month: state.date.month,
+        day: state.date.day
+    };
     const hasError = Boolean(
         messageEl ||
         total_count === null ||
@@ -76,11 +98,13 @@ export function parseListings(response, state, currency, localization) {
         // does not have assets
         response.assets == null
     );
-    // all values used from "state", create clone so we do not modify original object
-    let modifiedDate = Object.assign({}, state.date);
     
     if (hasError) {
-        const messageText = messageEl && messageEl.textContent.trim();
+        const messageText = (
+            messageEl &&
+            messageEl.textContent &&
+            messageEl.textContent.trim()
+        );
         const fatal = Boolean(
             messageLinkEl ||
             // no listings
@@ -119,9 +143,11 @@ export function parseListings(response, state, currency, localization) {
             const gainOrLossEl = listingEl.getElementsByClassName('market_listing_gainorloss')[0];
             // listings that were refunded will include a span with a style "text-decoration: line-through"
             const refundedPriceEl = listingEl.getElementsByClassName('market_listing_price span')[0];
+            const gainOrLossText = gainOrLossEl.textContent;
             const isCompletedTransaction = Boolean(
+                gainOrLossText &&
                 // has + or - text
-                gainOrLossEl.textContent.trim().length > 0 &&
+                gainOrLossText.trim().length > 0 &&
                 // was not refunded
                 !refundedPriceEl
             );
@@ -174,20 +200,78 @@ export function parseListings(response, state, currency, localization) {
         const listedDateList = listingEl.getElementsByClassName('market_listing_listed_date');
         // collect the data
         const transactionId = getTransactionId(listingEl);
-        const gainText = gainOrLossEl.textContent.trim();
         const id = listingEl.getAttribute('id');
+        
+        if (!id) {
+            // id is missing
+            throw new Error('Listing element does not contain ID attribute');
+        }
+        
+        const gainOrLossText = gainOrLossEl.textContent;
+        
+        if (!gainOrLossText) {
+            // gain or loss text is missing
+            throw new Error('Gain or loss text is missing');
+        }
+        
         // is this a sale or purchase?
-        const isCredit = gainText === '-';
-        const priceText = (priceEl.textContent || '').trim();
+        const isCredit = gainOrLossText.trim() === '-';
+        const priceText = priceEl.textContent;
+        
+        if (!priceText) {
+            // price text is missing
+            throw new Error('Price text is missing');   
+        }
+        
         // parse the price text
-        const price = parseMoney(priceText, currency);
+        const price = parseMoney(priceText.trim(), currency);
         // get the hover asset for this listing
         const {
             appid,
             contextid,
             assetid
         } = getHover(id);
-        const data = {
+        
+        const dateActedText = listedDateList[0].textContent;
+        
+        if (!dateActedText) {
+            // date acted text is missing
+            throw new Error('Date acted text is missing');
+        }
+        
+        const dateListedText = listedDateList[1].textContent;
+        
+        if (!dateListedText) {
+            // date listed text is missing
+            throw new Error('Date listed text is missing');
+        }
+        
+        const asset = getAsset(appid, contextid, assetid);
+        
+        if (!asset) {
+            // asset is missing
+            throw new Error('Asset not found');
+        }
+        
+        const date_acted_raw = dateActedText.trim();
+        const date_listed_raw = dateListedText.trim();
+        const {
+            date_listed,
+            date_acted
+        } = getDate(date_listed_raw, date_acted_raw);
+        let name_color = asset.name_color;
+        let background_color = asset.background_color;
+        
+        // name color should always be uppercase for uniformity
+        if (name_color) {
+            name_color = name_color.toUpperCase();
+        }
+        
+        if (background_color) {
+            background_color = background_color.toUpperCase();
+        }
+        
+        return new Listing({
             appid,
             contextid,
             assetid,
@@ -196,52 +280,53 @@ export function parseListings(response, state, currency, localization) {
             transaction_id: transactionId,
             price_raw: priceText,
             is_credit: isCredit ? 1 : 0,
-            date_acted_raw: listedDateList[0].textContent.trim(),
-            date_listed_raw: listedDateList[1].textContent.trim()
-        };
-        const {
+            date_acted,
+            date_acted_raw,
             date_listed,
-            date_acted
-        } = getDate(data.date_listed_raw, data.date_acted_raw);
-        
-        data.date_listed = date_listed;
-        data.date_acted = date_acted;
-        
-        const asset = getAsset(data);
-        
-        if (!asset) {
-            // asset is missing
-            throw new Error('Asset not found');
-        }
-        
-        data.classid = asset.classid;
-        data.instanceid = asset.instanceid;
-        data.name = asset.name;
-        data.market_name = asset.market_name;
-        data.market_hash_name = asset.market_hash_name;
-        
-        // name color should always be uppercase for uniformity
-        if (asset.name_color) {
-            data.name_color = asset.name_color.toUpperCase();
-        }
-        
-        if (asset.background_color) {
-            data.background_color = asset.background_color.toUpperCase();
-        }
-        
-        data.icon_url = asset.icon_url;
-        
-        return new Listing(data);
+            date_listed_raw,
+            classid: asset.classid,
+            instanceid: asset.instanceid,
+            name: asset.name,
+            market_name: asset.market_name,
+            market_hash_name: asset.market_hash_name,
+            icon_url: asset.icon_url,
+            name_color,
+            background_color
+        });
     }
     
-    // calculates the index for a listing
+    /**
+     * Calculates the index for a listing.
+     * @param {number} index - Index of listing.
+     * @returns {number} Calculated index.
+     */
     function calcListingIndex(index) {
+        if (start == null) {
+            // no start index
+            throw new Error('Start index is missing');
+        }
+        
+        if (total_count == null) {
+            // no total count
+            throw new Error('Total count is missing');
+        }
+        
         return total_count - (start + index);  
     }
     
-    // gets the transaction id from an element
+    /**
+     * Gets the transaction ID from a listing element.
+     * @param {Element} listingEl - Listing element.
+     * @returns 
+     */
     function getTransactionId(listingEl) {
-        return listingEl.getAttribute('id').replace('history_row_', '').replace('_', '-');
+        const id = listingEl.getAttribute('id');
+        
+        if (!id) {
+            throw new Error('Listing element does not contain ID attribute');
+        }
+        
+        return id.replace('history_row_', '').replace('_', '-');
     }
     
     /**
@@ -250,8 +335,17 @@ export function parseListings(response, state, currency, localization) {
      * @returns {{appid: string, contextid: string, assetid: string}} RegExp results.
      */
     function getHover(id) {
+        if (!response.hovers) {
+            throw new Error('Response missing hovers');
+        }
+        
         const pattern = new RegExp(`CreateItemHoverFromContainer\\(\\s*g_rgAssets\\s*,\\s*\\\'${id}_image\\\'\\s*,\\s*(\\d+)\\s*,\\s*\\\'(\\d+)\\\'\\s*,\\s*\\\'(\\d+)\\\'\\s*,\\s*(\\d+)\\s*\\);`);
         const match = response.hovers.match(pattern);
+        
+        if (!match) {
+            throw new Error('Hover data not found');
+        }
+        
         const [ , appid, contextid, assetid] = match;
         
         return {
@@ -267,7 +361,7 @@ export function parseListings(response, state, currency, localization) {
      * based on numerous conditions.
      * @param {string} dateListedRaw - Raw date listed string.
      * @param {string} dateActedRaw - Raw date acted string.
-     * @returns {Object} Parsed dates.
+     * @returns {{ date_acted: Date, date_listed: Date }} Parsed dates.
      */
     function getDate(dateListedRaw, dateActedRaw) {
         /**
@@ -355,8 +449,18 @@ export function parseListings(response, state, currency, localization) {
         };
     }
     
-    // returns the asset for an item from response.assets
-    function getAsset({ appid, contextid, assetid }) {
+    /**
+     * Returns the asset for an item from `response.assets`.
+     * @param {string} appid - Appid of asset.
+     * @param {string} contextid - Contextid of asset.
+     * @param {string} assetid - Assetid of asset.
+     * @returns {Asset} Asset object. 
+     */
+    function getAsset(appid, contextid, assetid) {
+        if (!response.assets) {
+            throw new Error('Response missing assets');
+        }
+        
         return response.assets[appid][contextid][assetid];
     }
     
@@ -385,10 +489,10 @@ export function parseListings(response, state, currency, localization) {
         // fatal
         // we do not want to store bad data
         throw new Error('Invalid listing data');
-    } else {
-        return {
-            records: listings,
-            dateStore: modifiedDate
-        };
     }
+    
+    return {
+        records: listings,
+        dateStore: modifiedDate
+    };
 }

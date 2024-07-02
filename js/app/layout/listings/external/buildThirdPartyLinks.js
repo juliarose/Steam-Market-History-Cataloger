@@ -1,11 +1,16 @@
+// @ts-check
+
 import { getClassinfo } from '../../../steam/index.js';
 import { buildLink } from './buildLink.js';
 
 export const buildThirdPartyLinks = {
-    // fetch an asset from steam to display links
-    withAsset: async function(record) {
+    /**
+     * Fetches asset data from Steam to display links.
+     * @param {Object} record - Record to fetch asset for.
+     * @returns {Promise<HTMLElement[]>} Resolves with array of links when done.
+     */
+    async withAsset(record) {
         const asset = await getClassinfo(record.appid, record.classid, record.instanceid);
-        let links = [];
         
         switch (record.appid) {
             case '440': {
@@ -13,7 +18,7 @@ export const buildThirdPartyLinks = {
                 const defindex = appData.def_index;
                 const quality = appData.quality;
                 
-                links = [
+                return [
                     buildLink({
                         url: `http://wiki.teamfortress.com/scripts/itemredirect.php?id=${defindex}`,
                         title: 'Wiki'
@@ -27,14 +32,17 @@ export const buildThirdPartyLinks = {
                         title: 'Marketplace.tf'
                     })
                 ];
-                break;
             }
         }
         
-        return links;
+        return [];
     },
-    // generate placeholders for the above links that can be instantly displayed
-    placeholder: function(item) {
+    /**
+     * Generates placeholders for links.
+     * @param {Object} item - Item to generate placeholders for.
+     * @returns {Object[]} Array of placeholder links.
+     */
+    placeholder(item) {
         switch (item.appid) {
             case '440':
                 return [

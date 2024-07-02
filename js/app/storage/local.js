@@ -1,3 +1,5 @@
+// @ts-check
+
 import { storage } from '../browser.js';
 
 /**
@@ -7,10 +9,13 @@ export class LocalStorage {
     /**
      * Name for settings.
      * @type {string}
-     * @private
      */
-    #settingsName = null;
+    #settingsName;
     
+    /**
+     * Creates a new local storage interface.
+     * @param {string} settingsName 
+     */
     constructor(settingsName) {
         this.#settingsName = settingsName;
     }

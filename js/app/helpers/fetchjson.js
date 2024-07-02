@@ -1,3 +1,5 @@
+// @ts-check
+
 import { AppError } from '../error.js';
 
 /**

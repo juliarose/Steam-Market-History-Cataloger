@@ -1,3 +1,5 @@
+// @ts-check
+
 import { printCSVDate, escapeCSV, omitEmpty, isNumber } from './helpers/utils.js';
 import { formatMoney } from './money.js';
 
@@ -23,7 +25,7 @@ function getJSONHeader(Displayable) {
  * @param {Object} options - Options to format with.
  * @param {Currency} options.currency - Currency to format money values in.
  * @param {Localization} options.locales - Locale strings.
- * @returns {Function} Function for creating a CSV row.
+ * @returns {function(Object): string} Function for creating a CSV row.
  */
 export function createGetCSVRow(Displayable, options) {
     const getRow = (record) => {
@@ -70,7 +72,7 @@ export function createGetCSVRow(Displayable, options) {
     // prioritize the specific display for this format from the class
     // then the display provided for tables
     // then the generic display properties
-    const display = classDisplay.csv || classDisplay.table || classDisplay || {};
+    const display = classDisplay.csv || classDisplay.table || {};
     // keep searching through display options until a "columns" value is found
     // in this particular order
     const columns = (
@@ -103,8 +105,7 @@ export function getCSVHeader(Displayable, options) {
     // the display option to pick from
     // prioritize the specific display for this format from the class
     // then the display provided for tables
-    // then the generic display properties
-    const display = classDisplay.csv || classDisplay.table || classDisplay || {};
+    const display = classDisplay.csv || classDisplay.table || {};
     // keep searching through display options until a "columns" value is found
     // in this particular order
     const columns = (
@@ -115,7 +116,7 @@ export function getCSVHeader(Displayable, options) {
         // then anything found in the display object
         (display.columns)
     ) || [];
-    const getColumnName = (column) => {
+    const getColumnName = (/** @type {string} */ column) => {
         return escapeCSV((classDisplay.names || {})[column] || '');
     };
     
@@ -197,7 +198,7 @@ export function buildFile(records, Displayable, options, format) {
 
 /**
  * Gets the options to download to a stream.
- * @param {Displayable} displayable - Displayable.
+ * @param {Displayable} Displayable - Displayable.
  * @param {Object} options - Options to format with.
  * @param {Currency} options.currency - Currency to format money values in.
  * @param {Localization} options.locales - Locale strings.
@@ -208,7 +209,13 @@ export function getStreamDownloadOptions(Displayable, options, format) {
     const limit = 10000;
     const { locales } = options;
     const classDisplay = Displayable.makeDisplay(locales);
-    const { order, direction } = classDisplay.stream || {};
+    const { stream } = classDisplay;
+    
+    if (!stream) {
+        throw new Error('No stream options provided');
+    }
+    
+    const { order, direction } = stream;
     
     switch (format) {
         case 'csv': {
@@ -246,6 +253,6 @@ export function getStreamDownloadOptions(Displayable, options, format) {
             };
         };
         default:
-            return null;
+            throw new Error(`Unknown format: ${format}`);
     };
 }

@@ -1,3 +1,5 @@
+// @ts-check
+
 import { groupBy } from '../../helpers/utils.js';
 import { buildTable } from '../../layout/buildTable.js';
 import { applist } from '../../data/applist.js';
@@ -9,15 +11,21 @@ import { AppTotal } from '../../classes/totals/AppTotal.js';
 /**
  * @typedef {import('../../currency.js').Currency} Currency
  * @typedef {import('../../classes/Localization.js').Localization} Localization
+ * @typedef {import('../../classes/helpers/createClass.js').Displayable} Displayable
+ */
+
+/**
+ * @typedef {Object} SummaryOptions
+ * @property {Currency} currency - Currency to use for displaying prices.
+ * @property {Localization} locales - Locale strings.
+ * @property {number} count - Number of items for pagination results.
  */
 
 /**
  * Builds summary tables for listings.
  * @param {Object[]} records - Records to summarize.
- * @param {Object} options - Options.
- * @param {Currency} options.currency - Currency to use for displaying prices.
- * @param {Localization} [options.locales] - Locale strings.
- * @returns {HTMLElement} Document fragment.
+ * @param {SummaryOptions} options - Options.
+ * @returns {DocumentFragment} Document fragment.
  */
 export function buildSummaries(records, options) {
     const buildIndex = (function() {
@@ -57,11 +65,11 @@ export function buildSummaries(records, options) {
                 12
             ));
             const filtered = records.filter((record) => {
-                return (today - record.date_acted) < THIRTY_DAYS;
+                return (today.getTime() - record.date_acted.getTime()) < THIRTY_DAYS;
             });
             const byDay = groupBy(filtered, (record) => {
                 // group by difference in days
-                return Math.floor((today - record.date_acted) / ONE_DAY);
+                return Math.floor((today.getTime() - record.date_acted.getTime()) / ONE_DAY);
             });
             const daysRange = {};
             
@@ -176,6 +184,13 @@ export function buildSummaries(records, options) {
         };
     }());
     const drawTable = (function() {
+        /**
+         * Draws the table.
+         * @param {Object[]} records - Records to display.
+         * @param {Displayable} Displayable - Class to display. 
+         * @param {string} title - Title of the table.
+         * @returns 
+         */
         function draw(records, Displayable, title) {
             const tableOptions = {
                 title,
@@ -259,7 +274,7 @@ export function buildSummaries(records, options) {
                 records.push(record);
             }
             
-            return draw(records, DailyTotal, uiLocales.titles.last_n_days.replace('%s', 30));
+            return draw(records, DailyTotal, uiLocales.titles.last_n_days.replace('%s', '30'));
         }
         
         return {

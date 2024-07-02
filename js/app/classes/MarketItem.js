@@ -1,6 +1,7 @@
+// @ts-check
+
 // Unused - this is just a slimmed down version of listings without transaction information
 
-import { createClass } from './helpers/createClass.js';
 import { applist } from '../data/applist.js';
 import * as Color from '../helpers/color.js';
 import { escapeHTML } from '../helpers/utils.js';
@@ -42,7 +43,7 @@ const types = {
 /**
  * MarketItem.
  */
-export class MarketItem extends createClass(types) {
+export class MarketItem {
     /**
      * Identifier for market items.
      * @type {string}
@@ -112,7 +113,6 @@ export class MarketItem extends createClass(types) {
      * @param {MarketItemProperties} properties - Properties. 
      */
     constructor(properties) {
-        super();
         this.appid = properties.appid;
         this.contextid = properties.contextid;
         this.classid = properties.classid;
@@ -134,7 +134,7 @@ export class MarketItem extends createClass(types) {
         return {
             // Uses the same localization strings as listings
             names: locales.db.listings.names,
-            identifiers: locales.db.listings.identifiers,
+            identifiers: {},
             stream: {
                 order: 'market_hash_name',
                 direction: 1
@@ -196,7 +196,12 @@ export class MarketItem extends createClass(types) {
                             `market_hash_name=${encodeURIComponent(record.market_hash_name)}`
                         ].join('&');
                         const url = `/views/view/market_item.html?${query}`;
-                        const link = `<a href="${url}" target="_blank" rel="noreferrer">${escapeHTML(value)}</a>`;
+                        
+                        if (typeof value !== 'string') {
+                            value = value?.toString();
+                        }
+                        
+                        const link = `<a href="${url}" target="_blank" rel="noreferrer">${escapeHTML(value || '')}</a>`;
                         
                         return (
                             `<p class="market-name">${link}</p>` +
@@ -218,8 +223,14 @@ export class MarketItem extends createClass(types) {
                 },
                 events: {
                     mouseover(e, record) {
-                        // we hovered over the image
-                        const isImage = e.target.matches('img');
+                        const { target } = e;
+                        
+                        if (!target) {
+                            return;
+                        }
+                        
+                        // @ts-ignore
+                        const isImage = target.matches('img');
                         
                         if (!isImage) {
                             return;
@@ -237,7 +248,8 @@ export class MarketItem extends createClass(types) {
                         
                         getHoverAsset(appid, classid, instanceid, language)
                             .then((asset) => {
-                                tooltip(e.target, getHover(asset), {
+                                // @ts-ignore
+                                tooltip(target, getHover(asset), {
                                     borderColor: asset.name_color
                                 });
                             })
@@ -246,8 +258,15 @@ export class MarketItem extends createClass(types) {
                             });
                     },
                     mouseout(e) {
+                        const { target } = e;
+                        
+                        if (!target) {
+                            return;
+                        }
+                        
                         // we hovered over the image
-                        const isImage = e.target.matches('img');
+                        // @ts-ignore
+                        const isImage = target.matches('img');
                         
                         if (!isImage) {
                             return;

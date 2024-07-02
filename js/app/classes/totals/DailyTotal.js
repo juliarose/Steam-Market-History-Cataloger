@@ -1,4 +1,12 @@
+// @ts-check
+
 import { types, makeTotalDisplay } from './helpers/initializers.js';
+
+/**
+ * @typedef {import('../helpers/createClass.js').DisplayOptions} DisplayOptions
+ * @typedef {import('../helpers/createClass.js').DisplayableTypes} DisplayableTypes
+ * @typedef {import('../Localization.js').Localization} Localization
+ */
 
 const tableColumns = [
     'date',

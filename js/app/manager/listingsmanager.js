@@ -1,3 +1,5 @@
+// @ts-check
+
 import { AppError, AppSuccessError } from '../error.js';
 import { randomString, sleep } from '../helpers/utils.js';
 import { getListings } from '../steam/requests/get.js';
@@ -10,10 +12,8 @@ import { Dexie } from '../dexie.js';
 
 /**
  * @typedef {import('../classes/Listing.js').Listing} Listing
- * @typedef {import('../classes/Localization.js').Localization} Localization
  * @typedef {import('../steam/requests/get.js').MyHistoryResponse} MyHistoryResponse
  * @typedef {import('../account.js').Account} Account
- * @typedef {import('../storage/db.js').DatabaseSettingsManager} DatabaseSettingsManager
  */
 
 /**
@@ -26,15 +26,22 @@ import { Dexie } from '../dexie.js';
  */
 
 /**
+ * Contains current month, year and day of load state. Date from last fetched listings. This is 
+ * configured on reset.
+ * @typedef {Object} LoadStateDate
+ * @property {number} year - Year.
+ * @property {number} month - Month.
+ * @property {number} day - Day.
+ */
+
+/**
  * State related to loading listings.
  * @typedef {Object} LoadState
  * @property {(Listing | null)} first - First listing object, when/if available.
  * @property {(Listing | null)} last - Last listing object, when/if available.
- * @property {Object} date - Object containing current month and year of load state. Date from last 
- *     fetched listings. This is configured on reset.
- * @property {number} date.year - Year.
- * @property {number} date.month - Month.
- * @property {(Listing | null)} last_fetched - The listing object at "settings.last_index".
+ * @property {LoadStateDate} date - Current date of load state.
+ * @property {(Listing | null)} last_fetched - The listing object at "settings.last_fetched_index".
+ * @property {(Listing | null)} last_indexed - The last indexed listing.
  */
 
 /**
@@ -68,21 +75,21 @@ export class ListingManager extends EventEmitter {
     /**
      * State related to loading listings.
      * @type {LoadState}
-     * @private
      */
     #state = {
         first: null,
         last: null,
         date: {
             year: new Date().getFullYear(),
-            month: new Date().getMonth()
+            month: new Date().getMonth(),
+            day: new Date().getDate()
         },
         last_fetched: null,
+        last_indexed: null
     };
     /**
      * Configuration settings related to loading listings.
      * @type {LoadSettings}
-     * @private
      */
     #settings = {
         current_index: 0,
@@ -97,62 +104,52 @@ export class ListingManager extends EventEmitter {
     };
     /**
      * An array of requests made used for tracking repetitive requests. Cleared on reset.
-     * @type {number}
-     * @private
+     * @type {string[]}
      */
     #requests = [];
     /**
      * Current page loaded. Incremented after a successful page load.
      * @type {number}
-     * @private
      */
     #page = 0;
     /**
      * The page size used when collecting listings. Redefined at setup.
      * @type {number}
-     * @private
      */
     #pagesize = 100;
     /**
      * The interval to poll at between loads.
      * @type {number}
-     * @private
      */
     #pollInterval = 5;
     /**
      * The number we start collecting listings at. Redefined at setup.
      * @type {number}
-     * @private
      */
     #startIndex = 0;
     /**
      * Localization strings specific to the collection of listings. Defined in setup.
      * @type {(Localization | null)}
-     * @private
      */
     #locales;
     /**
      * Current load session hash. Used to detect loads from multiple locations.
      * @type {(string | null)}
-     * @private
      */
     #session;
     /**
      * Account. Should contain wallet currency.
      * @type {Account}
-     * @private
      */
     #account;
     /**
      * Settings manager.
      * @type {DatabaseSettingsManager}
-     * @private
      */
     #settingsManager;
     /**
      * The database storing listing data for the account. 
      * @type {Object}
-     * @private
      */
     #ListingDB;
     
@@ -178,7 +175,6 @@ export class ListingManager extends EventEmitter {
     
     /**
      * Gets the next starting index to load from.
-     * @private
      * @param {number} [index=0] - Index to calculate for.
      * @returns {number} Starting index to use.
      */
@@ -190,7 +186,6 @@ export class ListingManager extends EventEmitter {
      * Calculates the index in reverse.
      *
      * E.g. The most recent listing would have an index of "1".
-     * @private
      * @param {number} [index=0] - Index to calculate for.
      * @returns {number} Index.
      */
@@ -203,7 +198,6 @@ export class ListingManager extends EventEmitter {
     
     /**
      * Gets total number of page loads needed based on current state.
-     * @private
      * @returns {number} Total number of pages to collect based on current state.
      */
     #getTotalPages() {
@@ -217,7 +211,7 @@ export class ListingManager extends EventEmitter {
         // get the difference between the total count and the starting index
         const countToEndIndex = this.#settings.total_count - this.#startIndex;
         // select the number of results we need to fetch in order to reach the end
-        const numberOfResultsNeeded = this.#settings.last_index ? countToPreviousStart : countToEndIndex;
+        const numberOfResultsNeeded = (this.#settings.last_index ? countToPreviousStart : countToEndIndex) || 0;
         // calculate the number of pages needed
         const numberOfPagesNeeded = Math.ceil(numberOfResultsNeeded / this.#pagesize);
         
@@ -231,10 +225,9 @@ export class ListingManager extends EventEmitter {
     
     /**
      * Updates settings after getting a page of new records.
-     * @private
      * @param {Listing[]} records - Array of records.
      * @param {number} currentIndex - The current index to fetch at.
-     * @returns {Promise<ListingManagerLoadResponse>} Resolves when done.
+     * @returns {Promise<void>} Resolves when done.
      */
     async #updateSettingsFromPage(records, currentIndex) {
         this.#settings.current_index = currentIndex;
@@ -253,13 +246,10 @@ export class ListingManager extends EventEmitter {
         this.#settings.recorded_count = count;
         
         await this.#saveSettings();
-        
-        return;
     }
     
     /**
      * Checks load state.
-     * @private
      * @returns {Promise<void>} Resolves when done, reject on error.
      */
     async #checkLoadState() {
@@ -306,7 +296,6 @@ export class ListingManager extends EventEmitter {
     
     /**
      * Adds records and updates settings on a successful response.
-     * @private
      * @param {Listing[]} records - Array of records.
      * @param {number} next - Next index to load.
      * @returns {Promise<ListingManagerLoadResponse>} Resolves with response when done.
@@ -317,12 +306,15 @@ export class ListingManager extends EventEmitter {
             return new Promise((resolve) => {
                 if (records && records.length > 0) {
                     this.#ListingDB.listings.bulkAdd(records)
+                        // @ts-ignore
+                        // I believe this should be here but ts-check does not recognize it
                         .catch(Dexie.BulkError, () => {
                             // do nothing
                         })
                         .finally(resolve);
                 } else {
-                    return resolve();
+                    // no records
+                    return resolve(null);
                 }
             });
         })();
@@ -341,7 +333,6 @@ export class ListingManager extends EventEmitter {
     
     /**
      * Fetch market transaction history result page.
-     * @private
      * @param {number} start - Index of listings to load from.
      * @param {number} count - Number of listings to load per page.
      * @param {string} language - Language to load.
@@ -352,7 +343,7 @@ export class ListingManager extends EventEmitter {
             throw new AppError('Start should be a number');
         }
         
-        this.#requests.push([count, start, language].join(':'));
+        this.#requests.push(`${count}:${start}:${language}`);
         
         // used for detecting requests that are repetitive
         // this may be due to a bug or a change in steam's responses
@@ -388,12 +379,19 @@ export class ListingManager extends EventEmitter {
     
     /**
      * Parses response based on current state.
-     * @private
      * @param {MyHistoryResponse} response - Response object from Steam.
      * @returns {Object} Object containing parse results.
      */
     #parse(response) {
-        const onParse = (error, fatal, records, difference) => {
+        /**
+         * Checks a parse result.
+         * @param {Listing[]} records - Array of records.
+         * @param {number} difference - Difference between stored and updated counts.
+         * @param {string} [error] - Error string.
+         * @param {boolean} [fatal] - Whether the error is fatal.
+         * @returns {Object} Parse result.
+         */
+        const onParse = (records, difference, error, fatal) => {
             // not a fatal error
             const shouldRetry = Boolean(
                 error &&
@@ -438,8 +436,12 @@ export class ListingManager extends EventEmitter {
             if (isBigDifference) {
                 // no use in going through listings
                 // we will set the new current index using the difference
-                return onParse(null, null, [], difference);
+                return onParse([], difference);
             }
+        }
+        
+        if (!this.#locales) {
+            throw new AppError('No locales set in listing manager.');
         }
         
         const currency = this.#account.wallet.currency;
@@ -460,12 +462,11 @@ export class ListingManager extends EventEmitter {
             difference = 0;
         }
         
-        return onParse(error, fatal, records, difference);
+        return onParse(records, difference, error, fatal);
     }
     
     /**
      * Saves settings.
-     * @private
      * @returns {Promise<void>} Resolves when done.
      */
     async #saveSettings() {
@@ -501,7 +502,8 @@ export class ListingManager extends EventEmitter {
         // reset dates
         this.#state.date = {
             year: new Date().getFullYear(),
-            month: new Date().getMonth()
+            month: new Date().getMonth(),
+            day: new Date().getDate()
         };
         
         // reset index
@@ -571,6 +573,11 @@ export class ListingManager extends EventEmitter {
             const start = this.#getNextLoadIndex();
             const count = this.#pagesize;
             const { language } = this.#settings;
+            
+            if (!language) {
+                throw new AppError('No language');
+            }
+            
             const response = await this.#getListings(start, count, language);
             
             return parseListings(response);
@@ -632,7 +639,7 @@ export class ListingManager extends EventEmitter {
                         .equals(this.#settings.last_fetched_index)
                         .first(resolve);
                 } else {
-                    resolve();
+                    resolve(null);
                 }
             }),
             // get the listing at last_index, if available
@@ -643,7 +650,7 @@ export class ListingManager extends EventEmitter {
                         .equals(this.#settings.last_index)
                         .first(resolve);
                 } else {
-                    resolve();
+                    resolve(null);
                 }
             })
         ]);
@@ -681,11 +688,11 @@ export class ListingManager extends EventEmitter {
         } = await getPreferences();
         
         if (market_per_page) {
-            this.#pagesize = parseInt(market_per_page);
+            this.#pagesize = market_per_page;
         }
         
         if (market_poll_interval_seconds) {
-            this.#pollInterval = parseInt(market_poll_interval_seconds);
+            this.#pollInterval = market_poll_interval_seconds;
         }
         
         await this.#saveSettings();

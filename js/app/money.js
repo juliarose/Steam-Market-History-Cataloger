@@ -1,3 +1,5 @@
+// @ts-check
+
 /**
  * @typedef {import('./currency.js').Currency} Currency
  */
@@ -68,7 +70,7 @@ function extractNumber(value, currency) {
         // take out the symbol
         .replace(currency.symbol, '')
         // remove thousand places
-        .replaceAll(currency.thousand, '')
+        .replace(new RegExp(`\\${currency.thousand}`, 'g'), '')
         // replace decimal places to actual decimals
         .replace(currency.decimal, '.')
         // remove all non-digits and non-decimals

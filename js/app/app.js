@@ -1,3 +1,5 @@
+// @ts-check
+
 import { loadAccount } from './account.js';
 import { createListingDatabase } from './db/listing.js';
 import { createAccountDatabase } from './db/account.js';

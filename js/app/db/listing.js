@@ -1,3 +1,5 @@
+// @ts-check
+
 // this is the only class tied to the database
 import { Listing } from '../classes/Listing.js';
 import { Dexie } from '../dexie.js';
@@ -107,6 +109,7 @@ export function createListingDatabase(steamid) {
         });
     });
     
+    // @ts-ignore
     db.listings.mapToClass(Listing);
     
     return db;
