@@ -29,9 +29,7 @@ More information about the data models can be found in the [EXPORTS.md](EXPORTS.
 
 ## Contributing
 
-You may contribute to this project by opening an [issue](https://github.com/juliarose/Steam-Market-History-Cataloger/issues) to file a bug report. At this time new features are not a priority and are unlikely to be added.
-
-If there is an error in the extension and you are unable to load data, the extension should log errors to the console. You can open the console with `Ctrl+Shift+J` or `Cmd+Option+J` on Mac. Please include the error message in your issue along with what currency and language your Steam account uses.
+You may contribute to this project by opening an [issue](https://github.com/juliarose/Steam-Market-History-Cataloger/issues) to file a bug report. At this time new features are not a priority and are unlikely to be added, unless you want to contribute them yourself though this does not guarantee they will be merged.
 
 ## Legal
 
