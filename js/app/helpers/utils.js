@@ -50,8 +50,8 @@ export function printDate(date, separator = '/') {
 export function printCSVDate(date) {
     return [
         date.getFullYear().toString(),
-        date.getDate().toString().padStart(2, '0'),
-        (date.getMonth() + 1).toString().padStart(2, '0')
+        date.getDate().toString(),
+        (date.getMonth() + 1).toString()
     ].join('-');
 }
 

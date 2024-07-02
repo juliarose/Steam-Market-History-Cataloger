@@ -330,7 +330,9 @@ export class Listing {
                             value = value?.toString();
                         }
                         
-                        const link = `<a href="${url}" target="_blank" rel="noreferrer">${escapeHTML(value || '')}</a>`;
+                        const color = record.name_color || 'FFFFFF';
+                        const styles = `color: #${color};`;
+                        const link = `<a href="${url}" target="_blank" rel="noreferrer" style="${styles}">${escapeHTML(value || '')}</a>`;
                         
                         return (
                             `<p class="market-name">${link}</p>` +
@@ -341,14 +343,16 @@ export class Listing {
                         return value ? '-' : '+';
                     },
                     icon_url(value, record) {
-                        const src = `https://steamcommunity-a.akamaihd.net/economy/image/${value}/34x34f`;
+                        const src = `https://community.akamai.steamstatic.com/economy/image/${value}/34x34f`;
+                        const srcSet = `https://community.akamai.steamstatic.com/economy/image/${value}/34x34f 1x, ` +
+                            `https://community.akamai.steamstatic.com/economy/image/${value}/34x34fdpx2x 2x`;
                         const color = record.name_color || 'FFFFFF';
-                        const darkenedColor = Color.rgba(Color.darken(color, 0.2), 0.2);
+                        const darkenedColor = Color.rgba(color, 0.2) || color;
                         const styles = (
                             `border-color: #${color};' ` +
-                            `background-color: ${darkenedColor};"`
+                            `background-color: ${Color.rgba(darkenedColor, 0.2)};"`
                         );
-                        const img = `<img class="item-icon" src="${src}"/>`;
+                        const img = `<img class="item-icon" src="${src}" srcset="${srcSet}" />`;
                         
                         return `<div class="item-icon-wrapper" style="${styles}">${img}</div>`;
                     }

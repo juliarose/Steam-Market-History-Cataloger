@@ -1,3 +1,5 @@
+// @ts-check
+
 import { getSteamPoweredSession } from '../steam/index.js';
 import { sleep } from '../helpers/utils.js';
 import { getPurchaseHistory } from '../steam/requests/post.js';
@@ -23,7 +25,6 @@ export class PurchaseHistoryManager {
     /**
      * Current Steam session data.
      * @type {Object} sessionid - Logged in sessionid.
-     * @private
      */
     #session = {
         /**
@@ -35,9 +36,8 @@ export class PurchaseHistoryManager {
     /**
      * Account. Should contain wallet currency.
      * @type {Account}
-     * @private
      */
-    #account = null;
+    #account;
     
     /**
      * Creates a PurchaseHistoryManager.
@@ -52,7 +52,6 @@ export class PurchaseHistoryManager {
      * Loads data from Steam.
      * @param {Object} data - Request parameters.
      * @returns {Promise<Object>} Response JSON from Steam on resolve, error with details on reject.
-     * @private
      */
     async #getPurchaseHistory(data) {
         const response = await getPurchaseHistory(data);

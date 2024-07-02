@@ -1,7 +1,15 @@
+// @ts-check
+
 import { omitEmpty, getDocument } from '../helpers/utils.js';
 import { parseMoney } from '../money.js';
 import { AccountTransaction } from '../classes/AccountTransaction.js';
 import { ETransactionType } from '../enums/ETransactionType.js';
+
+/**
+ * @typedef {import('../classes/Localization.js').Localization} Localization
+ * @typedef {import('../currency.js').Currency} Currency
+ * @typedef {import('../account.js').Account} Account
+ */
 
 /**
  * Type and count.
@@ -31,13 +39,35 @@ export function parseTransactions(response, currency, locales) {
         }
         
         const itemsElChildren = itemsEl.getElementsByTagName('div');
-        const app = itemsElChildren[0].textContent.trim();
+        const appEl = itemsElChildren[0];
+        
+        if (!appEl) {
+            throw new Error('No app element found in items element');
+        }
+        
+        const appText = appEl.textContent;
+        
+        if (!appText) {
+            throw new Error('No app text found in element');
+        }
+        
+        const app = appText.trim();
         
         // map each item in the transaction
         return Array.from(payItemsList).map((itemEl) => {
             // collect count and item name for each item
-            const text = itemEl.textContent.trim();
-            const match = text.match(/^(\d+)? ?(.*)/);
+            const text = itemEl.textContent;
+            
+            if (!text) {
+                throw new Error('No item text found in element');
+            }
+            
+            const match = text.trim().match(/^(\d+)? ?(.*)/);
+            
+            if (!match) {
+                throw new Error(`Could not parse item: ${text}`);
+            }
+            
             const count = match[1] ? parseInt(match[1]) : 1;
             const name = match[2];
             
@@ -72,13 +102,29 @@ export function parseTransactions(response, currency, locales) {
      * @returns {CountAndType} Object containing the type and count.
      */
     function getCountAndType(countEl) {
-        const identifiers = classDisplay.identifiers.transaction_type;
-        const match = countEl.textContent.trim().match(/^(\d+)? ?(.*)/);
+        const identifiers = (classDisplay.identifiers || {}).transaction_type;
+        
+        if (!identifiers) {
+            throw new Error('No transaction type identifiers found');
+        }
+        
+        const countText = countEl.textContent;
+        
+        if (!countText) {
+            throw new Error('No count text found in element');
+        }
+        
+        const match = countText.trim().match(/^(\d+)? ?(.*)/);
         // type of transaction, e.g. "Purchases", in singularized form
         const rawType = (
             match &&
             match[2]
         );
+        
+        if (rawType == null) {
+            throw new Error('Could not parse type from count element');
+        }
+        
         const rawTypeSingular = (
             rawType &&
             rawType.replace(/s$/, '')
@@ -96,6 +142,8 @@ export function parseTransactions(response, currency, locales) {
         
         return {
             count,
+            // @ts-ignore
+            // This should always be a number and never a string.
             type
         };
     }
@@ -117,8 +165,20 @@ export function parseTransactions(response, currency, locales) {
             totalEl
         );
         const { count, type } = getCountAndType(countEl);
-        const date = new Date(dateEl.textContent.trim());
-        const priceText = totalPriceEl.textContent.trim();
+        const dateText = dateEl.textContent;
+        
+        if (!dateText) {
+            throw new Error('No date text found in element');
+        }
+        
+        const date = new Date(dateText.trim());
+        const priceText = totalPriceEl.textContent;
+        
+        if (!priceText) {
+            throw new Error('No price text found in element');
+        }
+        
+        const price_raw = priceText.trim();
         // has payment element or type is refund
         const isCredit = Boolean(
             paymentEl ||
@@ -126,12 +186,12 @@ export function parseTransactions(response, currency, locales) {
         );
         
         return new AccountTransaction(omitEmpty({
+            count,
+            date,
+            price_raw,
             transaction_id: getTransactionID(transactionEl),
             transaction_type: type,
-            count: count,
-            date: date,
-            price: parseMoney(priceText, currency),
-            price_raw: priceText,
+            price: parseMoney(price_raw, currency),
             is_credit: isCredit ? 1 : 0,
             items: parseItems(itemsEl)
         }));
