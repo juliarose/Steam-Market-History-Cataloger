@@ -12,6 +12,7 @@ cp -a ./json ./dist/marketcataloger/json
 cp -a ./views ./dist/marketcataloger/views
 cp -a ./manifest.json ./dist/marketcataloger/manifest.json
 cp -a ./README.md ./dist/marketcataloger/README.md
+cp -a ./EXPORTS.md ./dist/marketcataloger/EXPORTS.md
 
 cd ./dist/marketcataloger
 

@@ -3,6 +3,7 @@
 import { ETransactionType } from '../enums/ETransactionType.js';
 
 /**
+ * @typedef {import('./GameItem.js').GameItem} GameItem
  * @typedef {import('./helpers/createClass.js').DisplayOptions} DisplayOptions
  * @typedef {import('./helpers/createClass.js').DisplayableTypes} DisplayableTypes
  * @typedef {import('./Localization.js').Localization} Localization
@@ -17,7 +18,8 @@ import { ETransactionType } from '../enums/ETransactionType.js';
  * @property {number} count - Number of this type of transaction.
  * @property {number} price - Total price.
  * @property {string} price_raw - Raw stirng of price.
- * @property {boolean} is_credit - Whether the transaction resulted in credit or not.
+ * @property {number} is_credit - Whether the transaction resulted in credit or not.
+ * @property {GameItem[]} [items] - Items from transaction.
  */
 
 const types = {
@@ -84,9 +86,14 @@ export class AccountTransaction {
     price_raw;
     /**
      * Whether the transaction resulted in credit or not.
-     * @type {boolean}
+     * @type {number}
      */
     is_credit;
+    /**
+     * Items from transaction.
+     * @type {GameItem[] | undefined}
+     */
+    items;
     
     /**
      * Account transaction.
@@ -100,6 +107,7 @@ export class AccountTransaction {
         this.price = properties.price;
         this.price_raw = properties.price_raw;
         this.is_credit = properties.is_credit;
+        this.items = properties.items;
     }
     
     /**
@@ -218,12 +226,20 @@ export class AccountTransaction {
      * @returns {Object} JSON representation of the account transaction.
      */
     toJSON() {
-        return {
+        const json = {
             date: this.date,
             transaction_type: this.transaction_type,
-            is_credit: this.is_credit,
+            is_credit: this.is_credit === 1,
             price: this.price,
             count: this.count
         };
+        
+        if (this.items) {
+            json.items = this.items.map((item) => {
+                return item.toJSON();
+            });
+        }
+        
+        return json;
     }
 }

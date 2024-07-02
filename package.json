@@ -10,7 +10,7 @@
   "scripts": {
     "test": "jest --verbose --config=tests/jestconfig.js",
     "watch": "jest --verbose --watch --config=tests/jestconfig.js .js",
-    "docs": "documentation readme js/app/json_typedefs.js --section=Models",
+    "docs": "documentation readme js/app/json_typedefs.js --readme-file=EXPORTS.md --section=Models --markdown-toc=false",
     "lint": "npx eslint"
   },
   "devDependencies": {

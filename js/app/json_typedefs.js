@@ -3,28 +3,13 @@
 
 /**
  * The output data when exporting listings to JSON.
- * @typedef {Object} ListingsJSON
+ * @typedef {Object} ExportedListings
  * @property {Currency} currency - The currency of your Steam wallet.
  * @property {Listing[]} listings - An array of listings.
  */
 
 /**
- * A currency used for prices.
- * @typedef {Object} Currency
- * @property {number} wallet_code - The ID of the currency from Steam.
- * @property {string} code - ISO 4217 currency code e.g. "USD".
- * @property {string} symbol - Currency symbol e.g. "$".
- * @property {number} precision - Decimal place precision e.g. 2 decimal places for USD.
- * @property {string} thousand - Thousand place character.
- * @property {string} decimal - Decimal place character.
- * @property {boolean} [spacer] - Whether the amount should be displayed with a space between the number and symbol.
- * @property {boolean} [after] - Whether the symbol should be displayed after the number.
- * @property {boolean} [trim_trailing] - Whether trailing zeroes should be trimmed on whole values.
- * @property {number} [format_precision] - Decimal place precision used in formatting.
- */
-
-/**
- * A listing from your Steam market history at https://steamcommunity.com/market/.
+ * A listing from your [Steam Community Market](https://steamcommunity.com/market) history.
  * @typedef {Object} Listing
  * @property {string} transaction_id - Transaction ID.
  * @property {string} appid - App ID.
@@ -45,20 +30,42 @@
  */
 
 /**
- * A row from your Steam account purchase history at https://store.steampowered.com/account/history/.
+ * The output data when exporting account transactions to JSON.
+ * @typedef {Object} ExportedAccountTransactions
+ * @property {Currency} currency - The currency of your Steam wallet.
+ * @property {AccountTransaction[]} accounttransactions - An array of account transactions.
+ */
+
+/**
+ * A row from your Steam account purchase history at <https://store.steampowered.com/account/history>.
  * @typedef {Object} AccountTransaction
- * @property {number} transaction_type - A value fom ETransactionType.
+ * @property {number} transaction_type - A value from [ETransactionType](js/app/enums/ETransactionType.js).
  * @property {Date} date - Date of transaction.
  * @property {number} count - Number of this type of transaction.
  * @property {number} price - Integer value of price formatted to the precision defined by its currency e,g. 100 for $1.00.
  * @property {boolean} is_credit - Whether the transaction resulted in credit or not.
+ * @property {GameItem[]} [items] - Items from transaction, if any.
  */
 
 /**
- * An item from an in-game purchase belonging to an account transaction (currently unused).
+ * An item from an in-game purchase belonging to an account transaction.
  * @typedef {Object} GameItem
  * @property {string} app - App name.
  * @property {number} count - Number of this particular item.
  * @property {string} name - Name.
- * @property {number} price - Price of item(s).
+ */
+
+/**
+ * A currency used for prices.
+ * @typedef {Object} Currency
+ * @property {number} wallet_code - The ID of the currency from Steam.
+ * @property {string} code - ISO 4217 currency code e.g. "USD".
+ * @property {string} symbol - Currency symbol e.g. "$".
+ * @property {number} precision - Decimal place precision e.g. 2 decimal places for USD.
+ * @property {string} thousand - Thousand place character.
+ * @property {string} decimal - Decimal place character.
+ * @property {boolean} [spacer] - Whether the amount should be displayed with a space between the number and symbol.
+ * @property {boolean} [after] - Whether the symbol should be displayed after the number.
+ * @property {boolean} [trim_trailing] - Whether trailing zeroes should be trimmed on whole values.
+ * @property {number} [format_precision] - Decimal place precision used in formatting.
  */

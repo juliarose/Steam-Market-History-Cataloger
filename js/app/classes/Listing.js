@@ -430,7 +430,7 @@ export class Listing {
             instanceid: this.instanceid,
             index: this.index,
             price: this.price,
-            is_credit: this.is_credit,
+            is_credit: this.is_credit === 1,
             name: this.name,
             market_name: this.market_name,
             market_hash_name: this.market_hash_name,

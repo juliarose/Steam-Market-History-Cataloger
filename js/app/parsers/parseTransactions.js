@@ -3,6 +3,7 @@
 import { omitEmpty, getDocument } from '../helpers/utils.js';
 import { parseMoney } from '../money.js';
 import { AccountTransaction } from '../classes/AccountTransaction.js';
+import { GameItem } from '../classes/GameItem.js';
 import { ETransactionType } from '../enums/ETransactionType.js';
 
 /**
@@ -40,11 +41,6 @@ export function parseTransactions(response, currency, locales) {
         
         const itemsElChildren = itemsEl.getElementsByTagName('div');
         const appEl = itemsElChildren[0];
-        
-        if (!appEl) {
-            throw new Error('No app element found in items element');
-        }
-        
         const appText = appEl.textContent;
         
         if (!appText) {
@@ -62,7 +58,7 @@ export function parseTransactions(response, currency, locales) {
                 throw new Error('No item text found in element');
             }
             
-            const match = text.trim().match(/^(\d+)? ?(.*)/);
+            const match = text.trim().match(/^(\d+ )?(.*)/);
             
             if (!match) {
                 throw new Error(`Could not parse item: ${text}`);
@@ -71,11 +67,11 @@ export function parseTransactions(response, currency, locales) {
             const count = match[1] ? parseInt(match[1]) : 1;
             const name = match[2];
             
-            return {
+            return new GameItem({
                 app,
                 count,
                 name
-            };
+            });
         });
     }
     

@@ -5,6 +5,9 @@
 - Dark theme. This is determined by the system theme.
 - More detailed error messages when parsing fails.
 
+### Changed
+- The applist to include up-to-date apps.
+
 ### Fixed
 - Parsing purchase history results.
 - A bug where filtering queries would return results from previous queries.

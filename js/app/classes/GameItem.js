@@ -1,7 +1,5 @@
 // @ts-check
 
-// Unused - this falls under account transactions but is not implemented currently.
-
 /**
  * @typedef {import('./helpers/createClass.js').Displayable} Displayable
  * @typedef {import('./helpers/createClass.js').DisplayOptions} DisplayOptions
@@ -15,14 +13,12 @@
  * @property {string} app - App name.
  * @property {number} count - Number of this particular item.
  * @property {string} name - Name of item.
- * @property {number} price - Price of item(s).
  */
 
 const types = {
     app: String,
     count: Number,
-    name: String,
-    price: Number
+    name: String
 };
 
 /**
@@ -57,11 +53,6 @@ export class GameItem {
      * @type {string}
      */
     name;
-    /**
-     * Price of item(s).
-     * @type {number}
-     */
-    price;
     
     /**
      * Creates a new game item.
@@ -71,7 +62,6 @@ export class GameItem {
         this.app = properties.app;
         this.count = properties.count;
         this.name = properties.name;
-        this.price = properties.price;
     }
     
     /**
@@ -92,18 +82,17 @@ export class GameItem {
             ],
             boolean_fields: []
         };
-    };
+    }
     
     /**
      * Converts game item to JSON format.
      * @returns {Object} JSON representation of the game item.
      */
-    toJSON = function() {
+    toJSON() {
         return {
             app: this.app,
             count: this.count,
-            name: this.name,
-            price: this.price
+            name: this.name
         };
-    };
+    }
 }
