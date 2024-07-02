@@ -34,7 +34,8 @@ beforeAll(async () => {
 });
 
 it('Localizations are prepared', () => {
-    expect(locales.months).toBeDefined();
+    expect(locales.language).toBe('english');
+    expect(locales.code).toBe('en');
 });
 
 it('DOM parser exists', () => {

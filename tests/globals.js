@@ -1,19 +1,18 @@
-require('fake-indexeddb/auto');
-
-const path = require('path');
-const util = require('util');
-const fs = require('fs');
-const chrome = require('chrome-mock');
-const Dexie = require('dexie');
-const jestFetch = require('jest-fetch-mock');
+import 'fake-indexeddb/auto';
+import path from 'path';
+import util from 'util';
+import fs from 'fs';
+import chrome from 'chrome-mock';
+import Dexie from 'dexie';
+import jestFetch from 'jest-fetch-mock';
 
 const rootPath = path.join(__dirname, '..');
 const promisify = util.promisify;
 const readFile = promisify(fs.readFile);
 
 // fake fetch with local files and http requests
-const fetch = function(url) {
-    const fetchLocal = (url) => {
+const fetch = async function(url) {
+    const fetchLocal = async (url) => {
         // create a fake fetch response object from data
         const createFakeResponse = (data, status = 200) => {
             return {

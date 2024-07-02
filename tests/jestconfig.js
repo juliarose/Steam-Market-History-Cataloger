@@ -1,8 +1,8 @@
-const path = require('path');
+import path from 'path';
 
-module.exports = {
+export default {
     // go up one
-    rootDir: path.join(__dirname, '..'),
+    rootDir: path.join('..'),
     testEnvironment: 'node',
     setupFiles: [
         // mock localStorage
