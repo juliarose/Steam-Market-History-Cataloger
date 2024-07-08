@@ -7,7 +7,7 @@ import { parseTransactions } from '../parsers/parseTransactions.js';
 import { AppError } from '../error.js';
 
 /**
- * @typedef {import('../classes/AccountTransaction.js').AccountTransaction} AccountTransaction
+ * @typedef {import('../models/AccountTransaction.js').AccountTransaction} AccountTransaction
  * @typedef {import('../account.js').Account} Account
  */
 

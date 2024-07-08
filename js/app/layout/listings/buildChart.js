@@ -3,7 +3,7 @@ import { formatMoney } from '../../money.js';
 
 /**
  * @typedef {import('../../currency.js').Currency} Currency
- * @typedef {import('../../classes/Localization.js').Localization} Localization
+ * @typedef {import('../../models/Localization.js').Localization} Localization
  */
 
 /**

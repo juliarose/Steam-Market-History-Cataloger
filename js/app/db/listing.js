@@ -1,7 +1,7 @@
 // @ts-check
 
 // this is the only class tied to the database
-import { Listing } from '../classes/Listing.js';
+import { Listing } from '../models/Listing.js';
 import { Dexie } from '../dexie.js';
 
 /**

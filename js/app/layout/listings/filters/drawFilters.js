@@ -47,8 +47,8 @@ async function buildIndex(table) {
 }
 
 /**
- * @typedef {import('../../../classes/helpers/createClass.js').Displayable} Displayable
- * @typedef {import('../../../classes/Localization.js').Localization} Localization
+ * @typedef {import('../../../models/helpers/createClass.js').Displayable} Displayable
+ * @typedef {import('../../../models/Localization.js').Localization} Localization
  */
 
 /**

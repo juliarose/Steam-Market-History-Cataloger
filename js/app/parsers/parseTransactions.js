@@ -2,12 +2,12 @@
 
 import { omitEmpty, getDocument } from '../helpers/utils.js';
 import { parseMoney } from '../money.js';
-import { AccountTransaction } from '../classes/AccountTransaction.js';
-import { GameItem } from '../classes/GameItem.js';
+import { AccountTransaction } from '../models/AccountTransaction.js';
+import { GameItem } from '../models/GameItem.js';
 import { ETransactionType } from '../enums/ETransactionType.js';
 
 /**
- * @typedef {import('../classes/Localization.js').Localization} Localization
+ * @typedef {import('../models/Localization.js').Localization} Localization
  * @typedef {import('../currency.js').Currency} Currency
  * @typedef {import('../account.js').Account} Account
  */

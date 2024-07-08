@@ -1,7 +1,7 @@
 import { readyState } from '../app/readyState.js';
 import * as Layout from '../app/layout/index.js';
-import { AccountTransaction } from '../app/classes/AccountTransaction.js';
-import { PurchaseHistoryManager } from '../app/manager/purchasehistorymanager.js';
+import { AccountTransaction } from '../app/models/AccountTransaction.js';
+import { PurchaseHistoryManager } from '../app/manager/PurchaseHistoryManager.js';
 import { getPreferences } from '../app/preferences.js';
 
 const page = {

@@ -1,6 +1,6 @@
 import { readyState } from '../app/readyState.js';
 import { formatLocaleNumber } from '../app/money.js';
-import { ListingManager } from '../app/manager/listingsmanager.js';
+import { ListingManager } from '../app/manager/ListingManager.js';
 import { escapeHTML, truncate } from '../app/helpers/utils.js';
 import { tabs, sendMessage } from '../app/browser.js';
 

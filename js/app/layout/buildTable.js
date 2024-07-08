@@ -5,9 +5,9 @@ import { buildFile, getStreamDownloadOptions } from '../buildFile.js';
 import { Pagination, getColumnClasses, sortByType } from './helpers.js';
 
 /**
- * @typedef {import('../classes/helpers/createClass.js').Displayable} Displayable
+ * @typedef {import('../models/helpers/createClass.js').Displayable} Displayable
  * @typedef {import('../currency.js').Currency} Currency
- * @typedef {import('../classes/Localization.js').Localization} Localization
+ * @typedef {import('../models/Localization.js').Localization} Localization
  */
 
 /**

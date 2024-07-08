@@ -2,15 +2,15 @@
 
 import { getDocument } from '../helpers/utils.js';
 import { parseMoney } from '../money.js';
-import { Listing } from '../classes/Listing.js';
+import { Listing } from '../models/Listing.js';
 
 /**
  * @typedef {import('../currency.js').Currency} Currency
- * @typedef {import('../classes/Localization.js').Localization} Localization
+ * @typedef {import('../models/Localization.js').Localization} Localization
  * @typedef {import('../steam/requests/get.js').MyHistoryResponse} MyHistoryResponse
  * @typedef {import('../steam/requests/get.js').Asset} Asset
- * @typedef {import('../manager/listingsmanager.js').LoadState} LoadState
- * @typedef {import('../manager/listingsmanager.js').LoadStateDate} LoadStateDate
+ * @typedef {import('../manager/ListingManager.js').LoadState} LoadState
+ * @typedef {import('../manager/ListingManager.js').LoadStateDate} LoadStateDate
  */
 
 /**
@@ -259,8 +259,7 @@ export function parseListings(response, state, currency, localization) {
             date_listed,
             date_acted
         } = getDate(date_listed_raw, date_acted_raw);
-        let name_color = asset.name_color;
-        let background_color = asset.background_color;
+        let { name_color, background_color } = asset;
         
         // name color should always be uppercase for uniformity
         if (name_color) {

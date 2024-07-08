@@ -2,7 +2,7 @@
 
 /**
  * @typedef {import('../../currency.js').Currency} Currency
- * @typedef {import('./../Localization.js').Localization} Localization
+ * @typedef {import('../Localization.js').Localization} Localization
  * @typedef {import('../../helpers/download.js').DownloadCollectionOptions} DownloadCollectionOptions
  */
 

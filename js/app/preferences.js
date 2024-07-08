@@ -1,6 +1,6 @@
 // @ts-check
 
-import { LocalStorage } from './storage/local.js';
+import { LocalStorage } from './storage/LocalStorage.js';
 
 const PREFERENCES_SETTINGS_NAME = 'preferences';
 

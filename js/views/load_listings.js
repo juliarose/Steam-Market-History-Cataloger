@@ -1,7 +1,7 @@
 import { readyState } from '../app/readyState.js';
 import * as Layout from '../app/layout/index.js';
-import { Listing } from '../app/classes/Listing.js';
-import { ListingManager } from '../app/manager/listingsmanager.js';
+import { Listing } from '../app/models/Listing.js';
+import { ListingManager } from '../app/manager/ListingManager.js';
 import { sendMessage } from '../app/browser.js';
 import { getPreferences } from '../app/preferences.js';
 

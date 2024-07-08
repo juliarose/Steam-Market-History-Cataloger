@@ -3,7 +3,7 @@
 /**
  * @typedef {import('../account.js').Account} Account
  * @typedef {import('../preferences.js').Preferences} Preferences
- * @typedef {import('../classes/Localization.js').Localization} Localization
+ * @typedef {import('../models/Localization.js').Localization} Localization
  * @typedef {import('../currency.js').Currency} Currency
  */
 

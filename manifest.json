@@ -47,7 +47,9 @@
         "js/content/injects/*.js",
         "js/content/modules/*.js",
         "js/app/money.js",
-        "js/app/currency.js"
+        "js/app/currency.js",
+        "js/app/helpers/utils.js",
+        "js/lib/dom-parser.js"
       ],
       "matches": [
         "https://steamcommunity.com/*",

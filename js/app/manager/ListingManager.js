@@ -3,15 +3,15 @@
 import { AppError, AppSuccessError } from '../error.js';
 import { randomString, sleep } from '../helpers/utils.js';
 import { getListings } from '../steam/requests/get.js';
-import { Localization } from '../classes/Localization.js';
+import { Localization } from '../models/Localization.js';
 import { parseListings } from '../parsers/parseListings.js';
-import { DatabaseSettingsManager } from '../storage/db.js';
+import { DatabaseSettingsManager } from '../storage/DatabaseSettingsManager.js';
 import { EventEmitter } from '../../lib/eventemitter.js';
 import { getPreferences } from '../preferences.js';
 import { Dexie } from '../dexie.js';
 
 /**
- * @typedef {import('../classes/Listing.js').Listing} Listing
+ * @typedef {import('../models/Listing.js').Listing} Listing
  * @typedef {import('../steam/requests/get.js').MyHistoryResponse} MyHistoryResponse
  * @typedef {import('../account.js').Account} Account
  */

@@ -1,9 +1,9 @@
 // @ts-check
 
 import { AppError } from './error.js';
-import { LocalStorage } from './storage/local.js';
+import { LocalStorage } from './storage/LocalStorage.js';
 import { getCurrency } from './currency.js';
-import { Localization } from './classes/Localization.js';
+import { Localization } from './models/Localization.js';
 
 /**
  * @typedef {import('./currency.js').Currency} Currency

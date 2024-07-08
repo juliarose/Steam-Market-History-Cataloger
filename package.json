@@ -1,6 +1,8 @@
 {
   "name": "steam-market-history-cataloger",
   "version": "1.2.1",
+  "author": "Julia",
+  "license": "GPL-2.0",
   "description": "Indexes your Steam Community Market transactions into a local storage database. Data can be viewed within the extension and is exportable to JSON and CSV.",
   "babel": {
     "presets": [
@@ -39,8 +41,6 @@
     "sinon-chrome": "^3.0.1",
     "whatwg-fetch": "^3.0.0"
   },
-  "author": "Julia",
-  "license": "GPL-2.0",
   "dependencies": {
     "dom-parser": "^1.1.5"
   },

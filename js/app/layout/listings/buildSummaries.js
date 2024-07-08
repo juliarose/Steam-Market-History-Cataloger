@@ -3,15 +3,15 @@
 import { groupBy } from '../../helpers/utils.js';
 import { buildTable } from '../../layout/buildTable.js';
 import { applist } from '../../data/applist.js';
-import { AnnualTotal } from '../../classes/totals/AnnualTotal.js';
-import { MonthlyTotal } from '../../classes/totals/MonthlyTotal.js';
-import { DailyTotal } from '../../classes/totals/DailyTotal.js';
-import { AppTotal } from '../../classes/totals/AppTotal.js';
+import { AnnualTotal } from '../../models/totals/AnnualTotal.js';
+import { MonthlyTotal } from '../../models/totals/MonthlyTotal.js';
+import { DailyTotal } from '../../models/totals/DailyTotal.js';
+import { AppTotal } from '../../models/totals/AppTotal.js';
 
 /**
  * @typedef {import('../../currency.js').Currency} Currency
- * @typedef {import('../../classes/Localization.js').Localization} Localization
- * @typedef {import('../../classes/helpers/createClass.js').Displayable} Displayable
+ * @typedef {import('../../models/Localization.js').Localization} Localization
+ * @typedef {import('../../models/helpers/createClass.js').Displayable} Displayable
  */
 
 /**

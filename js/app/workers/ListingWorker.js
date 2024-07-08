@@ -4,7 +4,7 @@
 
 import { buildApp } from '../app.js';
 import { verifyLogin } from '../steam/index.js';
-import { ListingManager } from '../manager/listingsmanager.js';
+import { ListingManager } from '../manager/ListingManager.js';
 import { setLoadState } from '../layout/loadstate.js';
 import { getPreferences } from '../preferences.js';
 import { AppError, ERROR_TYPE } from '../error.js';

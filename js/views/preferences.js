@@ -1,7 +1,7 @@
 import { readyState } from '../app/readyState.js';
 import { formatLocaleNumber } from '../app/money.js';
 import * as Layout from '../app/layout/index.js';
-import { ListingManager } from '../app/manager/listingsmanager.js';
+import { ListingManager } from '../app/manager/ListingManager.js';
 import { isNumber, escapeHTML } from '../app/helpers/utils.js';
 import { addPreferences, getPreferences } from '../app/preferences.js';
 
