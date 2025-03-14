@@ -11,6 +11,7 @@ import { Listing } from '../models/Listing.js';
  * @typedef {import('../steam/requests/get.js').Asset} Asset
  * @typedef {import('../manager/ListingManager.js').LoadState} LoadState
  * @typedef {import('../manager/ListingManager.js').LoadStateDate} LoadStateDate
+ * @typedef {import('../models/AccountTransaction.js').AccountTransaction} AccountTransaction
  */
 
 /**
@@ -40,10 +41,11 @@ function makeDate(year, month, day) {
  * @param {LoadState} state - Stored state object.
  * @param {Currency} currency - Currency object for parsing price strings.
  * @param {Localization} localization - Locales.
+ * @param {AccountTransaction[]} transactions - Transactions to compare against.
  * @throws {Error} When dates were unable to be parsed or data is missing from some listings.
  * @returns {ParseListingResult} Results of parsing.
  */
-export function parseListings(response, state, currency, localization) {
+export function parseListings(response, state, currency, localization, transactions) {
     if (!response.results_html) {
         return {
             fatal: false,
@@ -353,7 +355,7 @@ export function parseListings(response, state, currency, localization) {
             assetid
         };
     }
-    
+
     /**
      * Gets dates of listing, this is a complicated process since dates are displayed in short 
      * string formats. E.g. "Mar 30", which must be manually parsed and year must be determined 
@@ -384,12 +386,34 @@ export function parseListings(response, state, currency, localization) {
             if (parsedDate.year) {
                 // a year was obtained from the parser
                 modifiedDate.year = parsedDate.year;
-            } else if (date > lastDate || date > tomorrow) {
-                // date is ahead of last date, or ahead of current date
-                // so subtract a year
-                modifiedDate.year = modifiedDate.year - 1;
-                // then remake date
-                date = makeDate(modifiedDate.year, parsedDate.month, parsedDate.day);
+            } else if (date != lastDate) {
+                let dateMinusOne = new Date(date);
+                dateMinusOne.setDate(dateMinusOne.getDate() - 1); // one day before the "acted on" date
+                const filteredTransactions = transactions.filter((record) => {
+                    return (
+                        // filter out records that are not marked transactions
+                        record.transaction_type === 1 &&
+                        // Additionally, we choose from find the year in wallet transactions with the same month and day
+                        record.date.getFullYear() <= modifiedDate.year &&
+                        ((record.date.getDate() === date.getDate() &&
+                            record.date.getMonth() === date.getMonth()) ||
+                            // Because it could shift by a day:
+                            (record.date.getDate() === dateMinusOne.getDate() &&
+                                record.date.getMonth() === dateMinusOne.getMonth())) 
+                    );
+                });
+                const firstTransaction = filteredTransactions[0];
+                if (!firstTransaction) {
+                    // The difference is at most a day, anything else should not happen...
+                    throw new Error('There is no wallet transaction that matches the community market event');
+                }
+
+                modifiedDate.year = firstTransaction.date.getFullYear();
+                date = makeDate(
+                    modifiedDate.year,
+                    parsedDate.month,
+                    parsedDate.day
+                );
             }
             
             return date;
@@ -416,13 +440,6 @@ export function parseListings(response, state, currency, localization) {
             return date;
         }
         
-        const now = new Date();
-        // tomorrow's date to account for time zone differences
-        const tomorrow = makeDate(
-            now.getFullYear(),
-            now.getMonth(),
-            now.getDate() + 1
-        );
         const parsed = {
             date_listed: dateListedRaw && localization.parseDateString(dateListedRaw),
             date_acted: dateActedRaw && localization.parseDateString(dateActedRaw)
