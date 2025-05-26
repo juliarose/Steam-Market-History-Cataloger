@@ -59,10 +59,9 @@ export function parseListings(response, state, currency, localization) {
     const { start, total_count, assets } = response;
     let hasBrokenAssets = false;
     
-    // very rarely the assets object will have data where the name details are missing
-    // if this is the case, we want to ignore the response
     if (typeof assets === 'object') {
-        // this is a bit of a loop but it is probably the quickest way of going through the data
+        // very rarely the assets object will have data where the name details are missing
+        // if this is the case, we want to ignore the response
         for (let appid in assets) {
             for (let contextid in assets[appid]) {
                 for (let assetid in assets[appid][contextid]) {
@@ -70,7 +69,7 @@ export function parseListings(response, state, currency, localization) {
                     
                     // asset is missing market_hash_name
                     if (asset.market_hash_name == null || asset.market_hash_name === '') {
-                        // Item is not tradable,
+                        // item is not tradable,
                         if (asset.tradable == 0) {
                             continue;
                         }
