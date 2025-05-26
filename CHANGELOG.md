@@ -9,6 +9,7 @@
 ### Added
 - Dark theme. This is determined by the system theme.
 - More detailed error messages when parsing fails.
+- CHF currency.
 
 ### Changed
 - The applist to include up-to-date apps.

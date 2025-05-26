@@ -117,11 +117,11 @@ export const Currency = Object.freeze({
         wallet_code: 10,
         code: 'IDR',
         symbol: 'Rp',
-        // minor unit is 1/100 = Sen (obsolete)
-        // but Steam displays these as 2 decimal places
+        // minor unit is 1/100 = Sen
         precision: 2,
-        // we display these using 0 decimal places
-        format_precision: 0,
+        // we display these using 2 decimal places
+        // https://github.com/juliarose/Steam-Market-History-Cataloger/issues/39
+        format_precision: 2,
         thousand: ' ',
         decimal: '.',
         spacer: true

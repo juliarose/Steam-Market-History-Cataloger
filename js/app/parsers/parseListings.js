@@ -70,6 +70,11 @@ export function parseListings(response, state, currency, localization) {
                     
                     // asset is missing market_hash_name
                     if (asset.market_hash_name == null || asset.market_hash_name === '') {
+                        // Item is not tradable,
+                        if (asset.tradable == 0) {
+                            continue;
+                        }
+                        
                         // we have broken assets
                         hasBrokenAssets = true;
                         break;

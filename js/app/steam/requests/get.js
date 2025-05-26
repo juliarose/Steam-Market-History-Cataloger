@@ -132,6 +132,15 @@ const corsParams = {
 /**
  * Asset.
  * @typedef {Object} Asset
+ * @property {number} currency - Currency.
+ * @property {number} amount - Amount of the asset.
+ * @property {number} status - Status of the asset.
+ * @property {string} original_amount - Original amount of the asset.
+ * @property {string} unowned_id - Unowned ID.
+ * @property {string} unowned_contextid - Unowned context ID.
+ * @property {string} contextid - Context ID.
+ * @property {number} appid - App ID.
+ * @property {string} id - ID of the asset.
  * @property {string} classid - Class ID.
  * @property {string} instanceid - Instance ID.
  * @property {string} name - Name.
@@ -142,6 +151,30 @@ const corsParams = {
  * @property {string} type - Type.
  * @property {string} icon_url - Icon URL.
  * @property {string} icon_url_large - Large icon URL.
+ * @property {number} tradable - Whether the asset is tradable. 1 for true, 0 for false.
+ * @property {number} commodity - Whether the asset is a commodity. 1 for true, 0 for false.
+ * @property {Description[]} descriptions - Descriptions of the asset.
+ * @property {Action[]} actions - Actions available for the asset.
+ * @property {Action[]} market_actions - Actions available for the asset on the market.
+ * @property {number} market_tradable_restriction - Market tradable restriction.
+ * @property {number} market_marketable_restriction - Market marketable restriction.
+ * @property {number} marketable - Whether the asset is marketable. 1 for true, 0 for false.
+ * @property {string} app_icon - App icon URL.
+ * @property {number} owner - Owner ID.
+ */
+
+/**
+ * Description.
+ * @typedef {Object} Description
+ * @property {string} value - Value of the description.
+ * @property {string} [color] - Color of the description.
+ */
+
+/**
+ * Action.
+ * @typedef {Object} Action
+ * @property {string} link - Link for the action.
+ * @property {string} name - Name of the action.
  */
 
 /**
