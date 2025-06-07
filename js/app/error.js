@@ -3,7 +3,7 @@
 /** Used to identify errors. */
 export const ERROR_TYPE = Object.freeze({
     APP_ERROR: 'AppError',
-    APP_SUCCESS_ERROR: 'AppSuccessError'
+    APP_SUCCESS: 'AppSuccess'
 });
 
 /**
@@ -23,13 +23,13 @@ export class AppError extends Error {
 /**
  * Error class for handling success messages.
  */
-export class AppSuccessError extends Error {
+export class AppSuccess extends Error {
     /**
-     * Creates an instance of AppSuccessError.
+     * Creates an instance of AppSuccess.
      * @param {string} message - The success message.
      */
     constructor(message) {
         super(message);
-        this.name = ERROR_TYPE.APP_SUCCESS_ERROR;
+        this.name = ERROR_TYPE.APP_SUCCESS;
     }
 }

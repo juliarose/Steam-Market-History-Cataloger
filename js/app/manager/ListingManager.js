@@ -1,6 +1,6 @@
 // @ts-check
 
-import { AppError, AppSuccessError } from '../error.js';
+import { AppError, AppSuccess } from '../error.js';
 import { randomString, sleep } from '../helpers/utils.js';
 import { getListings } from '../steam/requests/get.js';
 import { Localization } from '../models/Localization.js';
@@ -286,11 +286,11 @@ export class ListingManager extends EventEmitter {
         if (isBeginning) {
             // reset settings
             await this.reset();
-            throw new AppSuccessError('Listings successfully updated!');
+            throw new AppSuccess('Listings successfully updated!');
         } else if (isEnd) {
             // reset settings
             await this.reset();
-            throw new AppSuccessError('Listings fully loaded!');
+            throw new AppSuccess('Listings fully loaded!');
         }
     }
     

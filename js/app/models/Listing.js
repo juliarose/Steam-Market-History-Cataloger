@@ -24,6 +24,7 @@ import { getHover, getHoverAsset, addToHoverState } from '../layout/listings/hov
  * @property {string} assetid - Assetid for item (unused).
  * @property {string} classid - Classid for item.
  * @property {string} instanceid - Instanceid for item.
+ * @property {number} [amount] - Amount sold (defaults to 1).
  * @property {string} name - Name of item.
  * @property {string} market_name - Market name of item.
  * @property {string} market_hash_name - Market hash name for item.
@@ -47,6 +48,7 @@ const types = {
     assetid: String,
     classid: String,
     instanceid: String,
+    amount: Number,
     name: String,
     market_name: String,
     market_hash_name: String,
@@ -123,6 +125,11 @@ export class Listing {
      * @type {string}
      */
     instanceid;
+    /**
+     * Amount sold.
+     * @type {number}
+     */
+    amount;
     /**
      * Name of item.
      * @type {string}
@@ -202,6 +209,7 @@ export class Listing {
         this.assetid = properties.assetid;
         this.classid = properties.classid;
         this.instanceid = properties.instanceid;
+        this.amount = properties.amount || 1; // Defaults to 1 if not provided
         this.name = properties.name;
         this.market_name = properties.market_name;
         this.market_hash_name = properties.market_hash_name;
@@ -250,12 +258,14 @@ export class Listing {
                     'market_name',
                     'price',
                     'date_listed',
-                    'date_acted'
+                    'date_acted',
+                    'amount'
                 ]
             },
             table: {
                 column_names: locales.db.listings.column_names,
                 columns: [
+                    'amount',
                     'is_credit',
                     'icon_url',
                     'market_name',
@@ -325,14 +335,17 @@ export class Listing {
                             `market_hash_name=${encodeURIComponent(record.market_hash_name)}`
                         ].join('&');
                         const url = `/views/view/item.html?${query}`;
+                        const amount = record.amount || 1;
                         
                         if (typeof value !== 'string') {
                             value = value?.toString();
                         }
                         
+                        // Add the amount to the name (if greater than 1)
+                        const name = (amount > 1 ? `${amount} ` : '') + escapeHTML(value || '');
                         const color = record.name_color || 'FFFFFF';
                         const styles = `color: #${color};`;
-                        const link = `<a href="${url}" target="_blank" rel="noreferrer" style="${styles}">${escapeHTML(value || '')}</a>`;
+                        const link = `<a href="${url}" target="_blank" rel="noreferrer" style="${styles}">${name}</a>`;
                         
                         return (
                             `<p class="market-name">${link}</p>` +
@@ -428,6 +441,7 @@ export class Listing {
             contextid: this.contextid,
             classid: this.classid,
             instanceid: this.instanceid,
+            amount: this.amount || 1,
             index: this.index,
             price: this.price,
             is_credit: this.is_credit === 1,

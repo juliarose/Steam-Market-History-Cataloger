@@ -106,7 +106,8 @@
                 "name": "Name",
                 "market_name": "Name",
                 "market_hash_name": "Name",
-                "index": "Index"
+                "index": "Index",
+                "amount": "Amount"
             },
             "column_names": {
                 "transaction_id": "Transaction ID",
@@ -124,7 +125,8 @@
                 "name": "Name",
                 "market_name": "Name",
                 "market_hash_name": "Name",
-                "index": "Index"
+                "index": "Index",
+                "amount": "Amount"
             }
         },
         "accounttransactions": {

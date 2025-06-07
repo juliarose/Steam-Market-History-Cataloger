@@ -1,6 +1,6 @@
 // @ts-check
 
-import { getDocument } from '../helpers/utils.js';
+import { getDocument, isNumber } from '../helpers/utils.js';
 import { parseMoney } from '../money.js';
 import { Listing } from '../models/Listing.js';
 
@@ -187,6 +187,7 @@ export function parseListings(response, state, currency, localization) {
             }
         }
         
+        // map each listing to JSON
         return listings.map(listingToJSON);
     }
     
@@ -200,6 +201,7 @@ export function parseListings(response, state, currency, localization) {
     function listingToJSON({ index, listingEl }) {
         // get our elements
         const gainOrLossEl = listingEl.getElementsByClassName('market_listing_gainorloss')[0];
+        const nameEl = listingEl.getElementsByClassName('market_listing_item_name')[0];
         const priceEl = listingEl.getElementsByClassName('market_listing_price')[0];
         const listedDateList = listingEl.getElementsByClassName('market_listing_listed_date');
         // collect the data
@@ -235,7 +237,6 @@ export function parseListings(response, state, currency, localization) {
             contextid,
             assetid
         } = getHover(id);
-        
         const dateActedText = listedDateList[0].textContent;
         
         if (!dateActedText) {
@@ -255,6 +256,27 @@ export function parseListings(response, state, currency, localization) {
         if (!asset) {
             // asset is missing
             throw new Error('Asset not found');
+        }
+        
+        const nameText = nameEl.textContent || '';
+        // check for stackable items
+        const amountMatch = nameText.match(/^(\d+) /);
+        let amount = 1;
+        
+        if (amountMatch) {
+            // remove amount from market name
+            const marketNameFromNameText = nameText.replace(amountMatch[0], '');
+            
+            // if these are the same, we know that this is a stackable item with an amount
+            if (asset.market_name === marketNameFromNameText) {
+                // parse the amount from the name text
+                const parsedAmount = parseInt(amountMatch[1], 10);
+                
+                // if parsed amount is a number, then we can use it
+                if (isNumber(parsedAmount)) {
+                    amount = parseInt(amountMatch[1], 10) || 1;
+                }
+            }
         }
         
         const date_acted_raw = dateActedText.trim();
@@ -278,6 +300,7 @@ export function parseListings(response, state, currency, localization) {
             appid,
             contextid,
             assetid,
+            amount,
             index,
             price,
             transaction_id: transactionId,

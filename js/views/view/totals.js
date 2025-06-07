@@ -11,7 +11,6 @@ async function map(collection, fn) {
     
     return collection
         .each((row) => {
-            console.log(row);
             result.push(fn(row));
         })
         .then(() => {

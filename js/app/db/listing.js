@@ -47,6 +47,7 @@ export function createListingDatabase(steamid) {
         ].join(',')
     });
     
+    // Converts sale_type to is_credit
     db.version(2).stores({
         listings: [
             '&transaction_id',
@@ -106,6 +107,40 @@ export function createListingDatabase(steamid) {
     }).upgrade((trans) => {
         return trans.listings.toCollection().modify((record) => {
             delete record.seller;
+        });
+    });
+    
+    // Adds amount to listings
+    db.version(4).stores({
+        listings: [
+            '&transaction_id',
+            'index',
+            'is_credit',
+            'appid',
+            'contextid',
+            'assetid',
+            'classid',
+            'instanceid',
+            'amount',
+            'name',
+            'market_name',
+            'market_hash_name',
+            'name_color',
+            'background_color',
+            'icon_url',
+            'date_acted',
+            'date_listed',
+            'date_acted_raw',
+            'date_listed_raw',
+            'price',
+            'price_raw'
+        ].join(',')
+    }).upgrade((trans) => {
+        return trans.listings.toCollection().modify((record) => {
+            if (record.amount === null || record.amount === undefined) {
+                // if amount is not set, set it to 1
+                record.amount = 1;
+            }
         });
     });
     

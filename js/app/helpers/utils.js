@@ -286,7 +286,9 @@ export function createTree(obj, tree, ender) {
  * @returns {boolean} Whether the value is a number or not.
  */
 export function isNumber(value) {
-    return !isNaN(parseFloat(value)) && isFinite(value) && !isNaN(value - 0);
+    const num = parseFloat(value);
+    
+    return !isNaN(num) && isFinite(num);
 }
 
 /**
