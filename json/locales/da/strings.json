@@ -63,6 +63,8 @@
             "index": "Indeks",
             "after_date": "Efter dato",
             "before_date": "Før dato",
+            "last_week": "Sidste uge",
+            "last_month": "Sidste måned",
             "before": "Før",
             "after": "Efter",
             "start": "Start",
@@ -104,8 +106,7 @@
                 "name": "Navn",
                 "market_name": "Navn",
                 "market_hash_name": "Navn",
-                "index": "Indeks",
-                "amount": "Beløb"
+                "index": "Indeks"
             },
             "column_names": {
                 "transaction_id": "Transaktions ID",
@@ -123,8 +124,7 @@
                 "name": "Navn",
                 "market_name": "Navn",
                 "market_hash_name": "Navn",
-                "index": "Indeks",
-                "amount": "Beløb"
+                "index": "Indeks"
             }
         },
         "accounttransactions": {
@@ -134,8 +134,7 @@
                 "price": "i alt",
                 "is_credit": "Kredit",
                 "count": "Tælle",
-                "date": "Dato",
-                "amount": "Beløb"
+                "date": "Dato"
             },
             "column_names": {
                 "transaction_id": "Transaktions ID",
@@ -143,8 +142,7 @@
                 "price": "i alt",
                 "is_credit": "​",
                 "count": "Tælle",
-                "date": "Dato",
-                "amount": "Beløb"
+                "date": "Dato"
             },
             "identifiers": {
                 "transaction_type": {

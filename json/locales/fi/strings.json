@@ -29,6 +29,8 @@
             "index": "Indeksi",
             "after_date": "Päivämäärän jälkeen",
             "before_date": "Ennen päivämäärää",
+            "last_week": "Viime viikko",
+            "last_month": "Viime kuukausi",
             "before": "Ennen",
             "after": "Jälkeen",
             "start": "alkaa",
@@ -91,8 +93,7 @@
                 "name": "Nimi",
                 "market_name": "Nimi",
                 "market_hash_name": "Nimi",
-                "index": "Indeksi",
-                "amount": "Määrä"
+                "index": "Indeksi"
             },
             "column_names": {
                 "transaction_id": "Transaktiotunnus",
@@ -110,8 +111,7 @@
                 "name": "Nimi",
                 "market_name": "Nimi",
                 "market_hash_name": "Nimi",
-                "index": "Indeksi",
-                "amount": "Määrä"
+                "index": "Indeksi"
             }
         },
         "accounttransactions": {
@@ -121,8 +121,7 @@
                 "price": "Kaikki yhteensä",
                 "is_credit": "Luotto",
                 "count": "Kreivi",
-                "date": "Treffi",
-                "amount": "Määrä"
+                "date": "Treffi"
             },
             "column_names": {
                 "transaction_id": "Transaktiotunnus",
@@ -130,8 +129,7 @@
                 "price": "Kaikki yhteensä",
                 "is_credit": "​",
                 "count": "Kreivi",
-                "date": "Treffi",
-                "amount": "Määrä"
+                "date": "Treffi"
             },
             "identifiers": {
                 "transaction_type": {

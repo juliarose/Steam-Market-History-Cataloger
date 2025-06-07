@@ -42,6 +42,8 @@
             "index": "indeks",
             "after_date": "Tarihten Sonra",
             "before_date": "Tarihten Önce",
+            "last_week": "Geçen hafta",
+            "last_month": "Geçen ay",
             "before": "Önce",
             "after": "Sonra",
             "start": "başla",
@@ -104,8 +106,7 @@
                 "name": "isim",
                 "market_name": "isim",
                 "market_hash_name": "isim",
-                "index": "indeks",
-                "amount": "Tutar"
+                "index": "indeks"
             },
             "column_names": {
                 "transaction_id": "İşlem Kimliği",
@@ -123,8 +124,7 @@
                 "name": "isim",
                 "market_name": "isim",
                 "market_hash_name": "isim",
-                "index": "indeks",
-                "amount": "Tutar"
+                "index": "indeks"
             }
         },
         "accounttransactions": {
@@ -134,8 +134,7 @@
                 "price": "Genel Toplam",
                 "is_credit": "Kredi",
                 "count": "saymak",
-                "date": "tarih",
-                "amount": "Tutar"
+                "date": "tarih"
             },
             "column_names": {
                 "transaction_id": "İşlem Kimliği",
@@ -143,8 +142,7 @@
                 "price": "Genel Toplam",
                 "is_credit": "​",
                 "count": "saymak",
-                "date": "tarih",
-                "amount": "Tutar"
+                "date": "tarih"
             },
             "identifiers": {
                 "transaction_type": {

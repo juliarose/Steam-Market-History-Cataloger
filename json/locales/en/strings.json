@@ -6,10 +6,10 @@
             "Mar",
             "Apr",
             "May",
-            "June|Jun",
-            "July|Jul",
+            "Jun|June",
+            "Jul|July",
             "Aug",
-            "Sept|Sep",
+            "Sep|Sept",
             "Oct",
             "Nov",
             "Dec"
@@ -59,6 +59,8 @@
             "index": "Index",
             "after_date": "After Date",
             "before_date": "Before Date",
+            "last_week": "Last Week",
+            "last_month": "Last Month",
             "before": "Before",
             "after": "After",
             "start": "Start",
@@ -134,8 +136,7 @@
                 "price": "Total",
                 "is_credit": "Credit",
                 "count": "Count",
-                "date": "Date",
-                "amount": "Amount"
+                "date": "Date"
             },
             "column_names": {
                 "transaction_id": "Transaction ID",
@@ -143,8 +144,7 @@
                 "price": "Total",
                 "is_credit": "​",
                 "count": "Count",
-                "date": "Date",
-                "amount": "Amount"
+                "date": "Date"
             },
             "identifiers": {
                 "transaction_type": {

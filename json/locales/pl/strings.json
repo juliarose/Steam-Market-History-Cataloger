@@ -42,6 +42,8 @@
             "index": "Indeks",
             "after_date": "Po dacie",
             "before_date": "Przed datą",
+            "last_week": "Zeszły tydzień",
+            "last_month": "W zeszłym miesiącu",
             "before": "Przed",
             "after": "Po",
             "start": "Początek",
@@ -104,8 +106,7 @@
                 "name": "Imię",
                 "market_name": "Imię",
                 "market_hash_name": "Imię",
-                "index": "Indeks",
-                "amount": "Kwota"
+                "index": "Indeks"
             },
             "column_names": {
                 "transaction_id": "Identyfikator transakcji",
@@ -123,8 +124,7 @@
                 "name": "Imię",
                 "market_name": "Imię",
                 "market_hash_name": "Imię",
-                "index": "Indeks",
-                "amount": "Kwota"
+                "index": "Indeks"
             }
         },
         "accounttransactions": {
@@ -134,8 +134,7 @@
                 "price": "Całkowity",
                 "is_credit": "Kredyt",
                 "count": "Liczyć",
-                "date": "Data",
-                "amount": "Kwota"
+                "date": "Data"
             },
             "column_names": {
                 "transaction_id": "Identyfikator transakcji",
@@ -143,8 +142,7 @@
                 "price": "Całkowity",
                 "is_credit": "​",
                 "count": "Liczyć",
-                "date": "Data",
-                "amount": "Kwota"
+                "date": "Data"
             },
             "identifiers": {
                 "transaction_type": {

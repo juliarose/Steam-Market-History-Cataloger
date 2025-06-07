@@ -42,6 +42,8 @@
             "index": "Індекс",
             "after_date": "Після дати",
             "before_date": "До дати",
+            "last_week": "Минулого тижня",
+            "last_month": "Минулого місяця",
             "before": "Раніше",
             "after": "Після",
             "start": "Початок",
@@ -104,8 +106,7 @@
                 "name": "Ім'я",
                 "market_name": "Ім'я",
                 "market_hash_name": "Ім'я",
-                "index": "Індекс",
-                "amount": "Сума"
+                "index": "Індекс"
             },
             "column_names": {
                 "transaction_id": "ID транзакції",
@@ -123,8 +124,7 @@
                 "name": "Ім'я",
                 "market_name": "Ім'я",
                 "market_hash_name": "Ім'я",
-                "index": "Індекс",
-                "amount": "Сума"
+                "index": "Індекс"
             }
         },
         "accounttransactions": {
@@ -134,8 +134,7 @@
                 "price": "Усього",
                 "is_credit": "Кредит",
                 "count": "Рахувати",
-                "date": "Дата",
-                "amount": "Сума"
+                "date": "Дата"
             },
             "column_names": {
                 "transaction_id": "ID транзакції",
@@ -143,8 +142,7 @@
                 "price": "Усього",
                 "is_credit": "​",
                 "count": "Рахувати",
-                "date": "Дата",
-                "amount": "Сума"
+                "date": "Дата"
             },
             "identifiers": {
                 "transaction_type": {

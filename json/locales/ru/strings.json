@@ -42,6 +42,8 @@
             "index": "Индекс",
             "after_date": "После даты",
             "before_date": "До даты",
+            "last_week": "На прошлой неделе",
+            "last_month": "Прошлый месяц",
             "before": "До",
             "after": "После",
             "start": "Начните",
@@ -104,8 +106,7 @@
                 "name": "название",
                 "market_name": "название",
                 "market_hash_name": "название",
-                "index": "Индекс",
-                "amount": "Сумма"
+                "index": "Индекс"
             },
             "column_names": {
                 "transaction_id": "номер транзакции",
@@ -123,8 +124,7 @@
                 "name": "название",
                 "market_name": "название",
                 "market_hash_name": "название",
-                "index": "Индекс",
-                "amount": "Сумма"
+                "index": "Индекс"
             }
         },
         "accounttransactions": {
@@ -134,8 +134,7 @@
                 "price": "Всего",
                 "is_credit": "кредит",
                 "count": "подсчитывать",
-                "date": "Дата",
-                "amount": "Сумма"
+                "date": "Дата"
             },
             "column_names": {
                 "transaction_id": "номер транзакции",
@@ -143,8 +142,7 @@
                 "price": "Всего",
                 "is_credit": "​",
                 "count": "подсчитывать",
-                "date": "Дата",
-                "amount": "Сумма"
+                "date": "Дата"
             },
             "identifiers": {
                 "transaction_type": {

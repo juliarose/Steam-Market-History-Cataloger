@@ -42,6 +42,8 @@
             "index": "Indice",
             "after_date": "Dopo la data",
             "before_date": "Prima della data",
+            "last_week": "La settimana scorsa",
+            "last_month": "Lo scorso mese",
             "before": "Prima",
             "after": "Dopo",
             "start": "Inizio",
@@ -104,8 +106,7 @@
                 "name": "Nome",
                 "market_name": "Nome",
                 "market_hash_name": "Nome",
-                "index": "Indice",
-                "amount": "Importo"
+                "index": "Indice"
             },
             "column_names": {
                 "transaction_id": "ID transazione",
@@ -123,8 +124,7 @@
                 "name": "Nome",
                 "market_name": "Nome",
                 "market_hash_name": "Nome",
-                "index": "Indice",
-                "amount": "Importo"
+                "index": "Indice"
             }
         },
         "accounttransactions": {
@@ -134,8 +134,7 @@
                 "price": "Totale",
                 "is_credit": "Credito",
                 "count": "Contare",
-                "date": "Data",
-                "amount": "Importo"
+                "date": "Data"
             },
             "column_names": {
                 "transaction_id": "ID transazione",
@@ -143,8 +142,7 @@
                 "price": "Totale",
                 "is_credit": "​",
                 "count": "Contare",
-                "date": "Data",
-                "amount": "Importo"
+                "date": "Data"
             },
             "identifiers": {
                 "transaction_type": {

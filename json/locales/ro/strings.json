@@ -42,6 +42,8 @@
             "index": "Index",
             "after_date": "După data",
             "before_date": "Înainte de data",
+            "last_week": "Săptămâna trecută",
+            "last_month": "Luna trecuta",
             "before": "Inainte de",
             "after": "După",
             "start": "start",
@@ -104,8 +106,7 @@
                 "name": "Nume",
                 "market_name": "Nume",
                 "market_hash_name": "Nume",
-                "index": "Index",
-                "amount": "Sumă"
+                "index": "Index"
             },
             "column_names": {
                 "transaction_id": "ID-ul de tranzacție",
@@ -123,8 +124,7 @@
                 "name": "Nume",
                 "market_name": "Nume",
                 "market_hash_name": "Nume",
-                "index": "Index",
-                "amount": "Sumă"
+                "index": "Index"
             }
         },
         "accounttransactions": {
@@ -134,8 +134,7 @@
                 "price": "Total",
                 "is_credit": "Credit",
                 "count": "Numara",
-                "date": "Data",
-                "amount": "Sumă"
+                "date": "Data"
             },
             "column_names": {
                 "transaction_id": "ID-ul de tranzacție",
@@ -143,8 +142,7 @@
                 "price": "Total",
                 "is_credit": "​",
                 "count": "Numara",
-                "date": "Data",
-                "amount": "Sumă"
+                "date": "Data"
             },
             "identifiers": {
                 "transaction_type": {

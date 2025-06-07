@@ -42,6 +42,8 @@
             "index": "Index",
             "after_date": "Efter datum",
             "before_date": "Före datum",
+            "last_week": "Förra veckan",
+            "last_month": "Förra månaden",
             "before": "Innan",
             "after": "Efter",
             "start": "Start",
@@ -104,8 +106,7 @@
                 "name": "namn",
                 "market_name": "namn",
                 "market_hash_name": "namn",
-                "index": "Index",
-                "amount": "Belopp"
+                "index": "Index"
             },
             "column_names": {
                 "transaction_id": "Transaktions ID",
@@ -123,8 +124,7 @@
                 "name": "namn",
                 "market_name": "namn",
                 "market_hash_name": "namn",
-                "index": "Index",
-                "amount": "Belopp"
+                "index": "Index"
             }
         },
         "accounttransactions": {
@@ -134,8 +134,7 @@
                 "price": "Total",
                 "is_credit": "Kreditera",
                 "count": "Räkna",
-                "date": "Datum",
-                "amount": "Belopp"
+                "date": "Datum"
             },
             "column_names": {
                 "transaction_id": "Transaktions ID",
@@ -143,8 +142,7 @@
                 "price": "Total",
                 "is_credit": "​",
                 "count": "Räkna",
-                "date": "Datum",
-                "amount": "Belopp"
+                "date": "Datum"
             },
             "identifiers": {
                 "transaction_type": {

@@ -42,6 +42,8 @@
             "index": "Índice",
             "after_date": "Después de la fecha",
             "before_date": "Antes de la fecha",
+            "last_week": "La semana pasada",
+            "last_month": "El mes pasado",
             "before": "antes de",
             "after": "Después",
             "start": "comienzo",
@@ -104,8 +106,7 @@
                 "name": "Nombre",
                 "market_name": "Nombre",
                 "market_hash_name": "Nombre",
-                "index": "Índice",
-                "amount": "Monto"
+                "index": "Índice"
             },
             "column_names": {
                 "transaction_id": "ID de transacción",
@@ -123,8 +124,7 @@
                 "name": "Nombre",
                 "market_name": "Nombre",
                 "market_hash_name": "Nombre",
-                "index": "Índice",
-                "amount": "Monto"
+                "index": "Índice"
             }
         },
         "accounttransactions": {
@@ -134,8 +134,7 @@
                 "price": "Total",
                 "is_credit": "Crédito",
                 "count": "Contar",
-                "date": "Fecha",
-                "amount": "Monto"
+                "date": "Fecha"
             },
             "column_names": {
                 "transaction_id": "ID de transacción",
@@ -143,8 +142,7 @@
                 "price": "Total",
                 "is_credit": "​",
                 "count": "Contar",
-                "date": "Fecha",
-                "amount": "Monto"
+                "date": "Fecha"
             },
             "identifiers": {
                 "transaction_type": {

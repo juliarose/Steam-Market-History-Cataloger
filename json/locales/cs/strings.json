@@ -63,6 +63,8 @@
             "index": "Index",
             "after_date": "Po datu",
             "before_date": "Před datem",
+            "last_week": "Minulý týden",
+            "last_month": "Minulý měsíc",
             "before": "Před",
             "after": "Po",
             "start": "Start",
@@ -104,8 +106,7 @@
                 "name": "název",
                 "market_name": "název",
                 "market_hash_name": "název",
-                "index": "Index",
-                "amount": "Částka"
+                "index": "Index"
             },
             "column_names": {
                 "transaction_id": "ID transakce",
@@ -123,8 +124,7 @@
                 "name": "název",
                 "market_name": "název",
                 "market_hash_name": "název",
-                "index": "Index",
-                "amount": "Částka"
+                "index": "Index"
             }
         },
         "accounttransactions": {
@@ -134,8 +134,7 @@
                 "price": "Celkový",
                 "is_credit": "Kredit",
                 "count": "Spočítat",
-                "date": "datum",
-                "amount": "Částka"
+                "date": "datum"
             },
             "column_names": {
                 "transaction_id": "ID transakce",
@@ -143,8 +142,7 @@
                 "price": "Celkový",
                 "is_credit": "​",
                 "count": "Spočítat",
-                "date": "datum",
-                "amount": "Částka"
+                "date": "datum"
             },
             "identifiers": {
                 "transaction_type": {

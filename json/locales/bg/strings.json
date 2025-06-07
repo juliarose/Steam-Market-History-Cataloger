@@ -63,6 +63,8 @@
             "index": "индекс",
             "after_date": "След датата",
             "before_date": "Преди датата",
+            "last_week": "Миналата седмица",
+            "last_month": "Миналия месец",
             "before": "Преди",
             "after": "След",
             "start": "начало",
@@ -104,8 +106,7 @@
                 "name": "име",
                 "market_name": "име",
                 "market_hash_name": "име",
-                "index": "индекс",
-                "amount": "Сума"
+                "index": "индекс"
             },
             "column_names": {
                 "transaction_id": "номер на транзакцията",
@@ -123,8 +124,7 @@
                 "name": "име",
                 "market_name": "име",
                 "market_hash_name": "име",
-                "index": "индекс",
-                "amount": "Сума"
+                "index": "индекс"
             }
         },
         "accounttransactions": {
@@ -134,8 +134,7 @@
                 "price": "Обща сума",
                 "is_credit": "кредит",
                 "count": "Броя",
-                "date": "Дата",
-                "amount": "Сума"
+                "date": "Дата"
             },
             "column_names": {
                 "transaction_id": "номер на транзакцията",
@@ -143,8 +142,7 @@
                 "price": "Обща сума",
                 "is_credit": "​",
                 "count": "Броя",
-                "date": "Дата",
-                "amount": "Сума"
+                "date": "Дата"
             },
             "identifiers": {
                 "transaction_type": {

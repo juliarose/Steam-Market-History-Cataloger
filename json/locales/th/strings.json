@@ -42,6 +42,8 @@
             "index": "ดัชนี",
             "after_date": "หลังจากวันที่",
             "before_date": "ก่อนวันที่",
+            "last_week": "อาทิตย์ที่แล้ว",
+            "last_month": "เดือนที่แล้ว",
             "before": "ก่อน",
             "after": "หลังจาก",
             "start": "เริ่มต้น",
@@ -104,8 +106,7 @@
                 "name": "ชื่อ",
                 "market_name": "ชื่อ",
                 "market_hash_name": "ชื่อ",
-                "index": "ดัชนี",
-                "amount": "จำนวนเงิน"
+                "index": "ดัชนี"
             },
             "column_names": {
                 "transaction_id": "รหัสธุรกรรม",
@@ -123,8 +124,7 @@
                 "name": "ชื่อ",
                 "market_name": "ชื่อ",
                 "market_hash_name": "ชื่อ",
-                "index": "ดัชนี",
-                "amount": "จำนวนเงิน"
+                "index": "ดัชนี"
             }
         },
         "accounttransactions": {
@@ -134,8 +134,7 @@
                 "price": "ทั้งหมด",
                 "is_credit": "เครดิต",
                 "count": "นับ",
-                "date": "วันที่",
-                "amount": "จำนวนเงิน"
+                "date": "วันที่"
             },
             "column_names": {
                 "transaction_id": "รหัสธุรกรรม",
@@ -143,8 +142,7 @@
                 "price": "ทั้งหมด",
                 "is_credit": "​",
                 "count": "นับ",
-                "date": "วันที่",
-                "amount": "จำนวนเงิน"
+                "date": "วันที่"
             },
             "identifiers": {
                 "transaction_type": {

@@ -42,6 +42,8 @@
             "index": "Δείκτης",
             "after_date": "Μετά την ημερομηνίαν ταυτήν",
             "before_date": "Πριν από την ημερομηνία",
+            "last_week": "Την προηγούμενη εβδομάδα",
+            "last_month": "Τον προηγούμενο μήνα",
             "before": "Πριν",
             "after": "Μετά",
             "start": "Αρχή",
@@ -104,8 +106,7 @@
                 "name": "Ονομα",
                 "market_name": "Ονομα",
                 "market_hash_name": "Ονομα",
-                "index": "Δείκτης",
-                "amount": "Ποσό"
+                "index": "Δείκτης"
             },
             "column_names": {
                 "transaction_id": "Ταυτότητα συναλλαγής",
@@ -123,8 +124,7 @@
                 "name": "Ονομα",
                 "market_name": "Ονομα",
                 "market_hash_name": "Ονομα",
-                "index": "Δείκτης",
-                "amount": "Ποσό"
+                "index": "Δείκτης"
             }
         },
         "accounttransactions": {
@@ -134,8 +134,7 @@
                 "price": "Σύνολο",
                 "is_credit": "Πίστωση",
                 "count": "μετρώ",
-                "date": "Ημερομηνία",
-                "amount": "Ποσό"
+                "date": "Ημερομηνία"
             },
             "column_names": {
                 "transaction_id": "Ταυτότητα συναλλαγής",
@@ -143,8 +142,7 @@
                 "price": "Σύνολο",
                 "is_credit": "​",
                 "count": "μετρώ",
-                "date": "Ημερομηνία",
-                "amount": "Ποσό"
+                "date": "Ημερομηνία"
             },
             "identifiers": {
                 "transaction_type": {
