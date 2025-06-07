@@ -106,7 +106,8 @@
                 "name": "ชื่อ",
                 "market_name": "ชื่อ",
                 "market_hash_name": "ชื่อ",
-                "index": "ดัชนี"
+                "index": "ดัชนี",
+                "amount": "จำนวนเงิน"
             },
             "column_names": {
                 "transaction_id": "รหัสธุรกรรม",
@@ -124,7 +125,8 @@
                 "name": "ชื่อ",
                 "market_name": "ชื่อ",
                 "market_hash_name": "ชื่อ",
-                "index": "ดัชนี"
+                "index": "ดัชนี",
+                "amount": "จำนวนเงิน"
             }
         },
         "accounttransactions": {
@@ -134,7 +136,8 @@
                 "price": "ทั้งหมด",
                 "is_credit": "เครดิต",
                 "count": "นับ",
-                "date": "วันที่"
+                "date": "วันที่",
+                "amount": "จำนวนเงิน"
             },
             "column_names": {
                 "transaction_id": "รหัสธุรกรรม",
@@ -142,7 +145,8 @@
                 "price": "ทั้งหมด",
                 "is_credit": "​",
                 "count": "นับ",
-                "date": "วันที่"
+                "date": "วันที่",
+                "amount": "จำนวนเงิน"
             },
             "identifiers": {
                 "transaction_type": {

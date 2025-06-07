@@ -106,7 +106,8 @@
                 "name": "prénom",
                 "market_name": "prénom",
                 "market_hash_name": "prénom",
-                "index": "Indice"
+                "index": "Indice",
+                "amount": "Montant"
             },
             "column_names": {
                 "transaction_id": "identifiant de transaction",
@@ -124,7 +125,8 @@
                 "name": "prénom",
                 "market_name": "prénom",
                 "market_hash_name": "prénom",
-                "index": "Indice"
+                "index": "Indice",
+                "amount": "Montant"
             }
         },
         "accounttransactions": {
@@ -134,7 +136,8 @@
                 "price": "Total",
                 "is_credit": "Crédit",
                 "count": "Compter",
-                "date": "Rendez-vous amoureux"
+                "date": "Rendez-vous amoureux",
+                "amount": "Montant"
             },
             "column_names": {
                 "transaction_id": "identifiant de transaction",
@@ -142,7 +145,8 @@
                 "price": "Total",
                 "is_credit": "​",
                 "count": "Compter",
-                "date": "Rendez-vous amoureux"
+                "date": "Rendez-vous amoureux",
+                "amount": "Montant"
             },
             "identifiers": {
                 "transaction_type": {

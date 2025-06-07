@@ -106,7 +106,8 @@
                 "name": "namn",
                 "market_name": "namn",
                 "market_hash_name": "namn",
-                "index": "Index"
+                "index": "Index",
+                "amount": "Belopp"
             },
             "column_names": {
                 "transaction_id": "Transaktions ID",
@@ -124,7 +125,8 @@
                 "name": "namn",
                 "market_name": "namn",
                 "market_hash_name": "namn",
-                "index": "Index"
+                "index": "Index",
+                "amount": "Belopp"
             }
         },
         "accounttransactions": {
@@ -134,7 +136,8 @@
                 "price": "Total",
                 "is_credit": "Kreditera",
                 "count": "Räkna",
-                "date": "Datum"
+                "date": "Datum",
+                "amount": "Belopp"
             },
             "column_names": {
                 "transaction_id": "Transaktions ID",
@@ -142,7 +145,8 @@
                 "price": "Total",
                 "is_credit": "​",
                 "count": "Räkna",
-                "date": "Datum"
+                "date": "Datum",
+                "amount": "Belopp"
             },
             "identifiers": {
                 "transaction_type": {

@@ -93,7 +93,8 @@
                 "name": "名",
                 "market_name": "名",
                 "market_hash_name": "名",
-                "index": "索引"
+                "index": "索引",
+                "amount": "金額"
             },
             "column_names": {
                 "transaction_id": "トランザクションID",
@@ -111,7 +112,8 @@
                 "name": "名",
                 "market_name": "名",
                 "market_hash_name": "名",
-                "index": "索引"
+                "index": "索引",
+                "amount": "金額"
             }
         },
         "accounttransactions": {
@@ -121,7 +123,8 @@
                 "price": "合計",
                 "is_credit": "クレジット",
                 "count": "カウント",
-                "date": "日付"
+                "date": "日付",
+                "amount": "金額"
             },
             "column_names": {
                 "transaction_id": "トランザクションID",
@@ -129,7 +132,8 @@
                 "price": "合計",
                 "is_credit": "​",
                 "count": "カウント",
-                "date": "日付"
+                "date": "日付",
+                "amount": "金額"
             },
             "identifiers": {
                 "transaction_type": {

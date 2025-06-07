@@ -106,7 +106,8 @@
                 "name": "Name",
                 "market_name": "Name",
                 "market_hash_name": "Name",
-                "index": "Index"
+                "index": "Index",
+                "amount": "Betrag"
             },
             "column_names": {
                 "transaction_id": "Transaktions-ID",
@@ -124,7 +125,8 @@
                 "name": "Name",
                 "market_name": "Name",
                 "market_hash_name": "Name",
-                "index": "Index"
+                "index": "Index",
+                "amount": "Betrag"
             }
         },
         "accounttransactions": {
@@ -134,7 +136,8 @@
                 "price": "Gesamt",
                 "is_credit": "Kredit",
                 "count": "Anzahl",
-                "date": "Datum"
+                "date": "Datum",
+                "amount": "Betrag"
             },
             "column_names": {
                 "transaction_id": "Transaktions-ID",
@@ -142,7 +145,8 @@
                 "price": "Gesamt",
                 "is_credit": "​",
                 "count": "Anzahl",
-                "date": "Datum"
+                "date": "Datum",
+                "amount": "Betrag"
             },
             "identifiers": {
                 "transaction_type": {

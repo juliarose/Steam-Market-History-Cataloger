@@ -136,7 +136,8 @@
                 "price": "Total",
                 "is_credit": "Credit",
                 "count": "Count",
-                "date": "Date"
+                "date": "Date",
+                "amount": "Amount"
             },
             "column_names": {
                 "transaction_id": "Transaction ID",
@@ -144,7 +145,8 @@
                 "price": "Total",
                 "is_credit": "​",
                 "count": "Count",
-                "date": "Date"
+                "date": "Date",
+                "amount": "Amount"
             },
             "identifiers": {
                 "transaction_type": {

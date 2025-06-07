@@ -106,7 +106,8 @@
                 "name": "Nome",
                 "market_name": "Nome",
                 "market_hash_name": "Nome",
-                "index": "Indice"
+                "index": "Indice",
+                "amount": "Importo"
             },
             "column_names": {
                 "transaction_id": "ID transazione",
@@ -124,7 +125,8 @@
                 "name": "Nome",
                 "market_name": "Nome",
                 "market_hash_name": "Nome",
-                "index": "Indice"
+                "index": "Indice",
+                "amount": "Importo"
             }
         },
         "accounttransactions": {
@@ -134,7 +136,8 @@
                 "price": "Totale",
                 "is_credit": "Credito",
                 "count": "Contare",
-                "date": "Data"
+                "date": "Data",
+                "amount": "Importo"
             },
             "column_names": {
                 "transaction_id": "ID transazione",
@@ -142,7 +145,8 @@
                 "price": "Totale",
                 "is_credit": "​",
                 "count": "Contare",
-                "date": "Data"
+                "date": "Data",
+                "amount": "Importo"
             },
             "identifiers": {
                 "transaction_type": {

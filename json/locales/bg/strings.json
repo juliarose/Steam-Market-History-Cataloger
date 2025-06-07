@@ -106,7 +106,8 @@
                 "name": "име",
                 "market_name": "име",
                 "market_hash_name": "име",
-                "index": "индекс"
+                "index": "индекс",
+                "amount": "Сума"
             },
             "column_names": {
                 "transaction_id": "номер на транзакцията",
@@ -124,7 +125,8 @@
                 "name": "име",
                 "market_name": "име",
                 "market_hash_name": "име",
-                "index": "индекс"
+                "index": "индекс",
+                "amount": "Сума"
             }
         },
         "accounttransactions": {
@@ -134,7 +136,8 @@
                 "price": "Обща сума",
                 "is_credit": "кредит",
                 "count": "Броя",
-                "date": "Дата"
+                "date": "Дата",
+                "amount": "Сума"
             },
             "column_names": {
                 "transaction_id": "номер на транзакцията",
@@ -142,7 +145,8 @@
                 "price": "Обща сума",
                 "is_credit": "​",
                 "count": "Броя",
-                "date": "Дата"
+                "date": "Дата",
+                "amount": "Сума"
             },
             "identifiers": {
                 "transaction_type": {

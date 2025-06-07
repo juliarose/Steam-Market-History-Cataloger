@@ -106,7 +106,8 @@
                 "name": "Nome",
                 "market_name": "Nome",
                 "market_hash_name": "Nome",
-                "index": "Índice"
+                "index": "Índice",
+                "amount": "Montante"
             },
             "column_names": {
                 "transaction_id": "ID de transação",
@@ -124,7 +125,8 @@
                 "name": "Nome",
                 "market_name": "Nome",
                 "market_hash_name": "Nome",
-                "index": "Índice"
+                "index": "Índice",
+                "amount": "Montante"
             }
         },
         "accounttransactions": {
@@ -134,7 +136,8 @@
                 "price": "Total",
                 "is_credit": "Crédito",
                 "count": "Contagem",
-                "date": "Encontro"
+                "date": "Encontro",
+                "amount": "Montante"
             },
             "column_names": {
                 "transaction_id": "ID de transação",
@@ -142,7 +145,8 @@
                 "price": "Total",
                 "is_credit": "​",
                 "count": "Contagem",
-                "date": "Encontro"
+                "date": "Encontro",
+                "amount": "Montante"
             },
             "identifiers": {
                 "transaction_type": {

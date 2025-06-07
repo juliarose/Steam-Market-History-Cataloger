@@ -106,7 +106,8 @@
                 "name": "Naam",
                 "market_name": "Naam",
                 "market_hash_name": "Naam",
-                "index": "Inhoudsopgave"
+                "index": "Inhoudsopgave",
+                "amount": "Bedrag"
             },
             "column_names": {
                 "transaction_id": "Transactie ID",
@@ -124,7 +125,8 @@
                 "name": "Naam",
                 "market_name": "Naam",
                 "market_hash_name": "Naam",
-                "index": "Inhoudsopgave"
+                "index": "Inhoudsopgave",
+                "amount": "Bedrag"
             }
         },
         "accounttransactions": {
@@ -134,7 +136,8 @@
                 "price": "Totaal",
                 "is_credit": "Credit",
                 "count": "tellen",
-                "date": "Datum"
+                "date": "Datum",
+                "amount": "Bedrag"
             },
             "column_names": {
                 "transaction_id": "Transactie ID",
@@ -142,7 +145,8 @@
                 "price": "Totaal",
                 "is_credit": "​",
                 "count": "tellen",
-                "date": "Datum"
+                "date": "Datum",
+                "amount": "Bedrag"
             },
             "identifiers": {
                 "transaction_type": {

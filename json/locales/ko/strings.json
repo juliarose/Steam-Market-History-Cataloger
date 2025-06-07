@@ -106,7 +106,8 @@
                 "name": "이름",
                 "market_name": "이름",
                 "market_hash_name": "이름",
-                "index": "색인"
+                "index": "색인",
+                "amount": "금액"
             },
             "column_names": {
                 "transaction_id": "거래 ID",
@@ -124,7 +125,8 @@
                 "name": "이름",
                 "market_name": "이름",
                 "market_hash_name": "이름",
-                "index": "색인"
+                "index": "색인",
+                "amount": "금액"
             }
         },
         "accounttransactions": {
@@ -134,7 +136,8 @@
                 "price": "합계",
                 "is_credit": "신용",
                 "count": "카운트",
-                "date": "날짜"
+                "date": "날짜",
+                "amount": "금액"
             },
             "column_names": {
                 "transaction_id": "거래 ID",
@@ -142,7 +145,8 @@
                 "price": "합계",
                 "is_credit": "​",
                 "count": "카운트",
-                "date": "날짜"
+                "date": "날짜",
+                "amount": "금액"
             },
             "identifiers": {
                 "transaction_type": {

@@ -93,7 +93,8 @@
                 "name": "名称",
                 "market_name": "名称",
                 "market_hash_name": "名称",
-                "index": "指数"
+                "index": "指数",
+                "amount": "金额"
             },
             "column_names": {
                 "transaction_id": "交易ID",
@@ -111,7 +112,8 @@
                 "name": "名称",
                 "market_name": "名称",
                 "market_hash_name": "名称",
-                "index": "指数"
+                "index": "指数",
+                "amount": "金额"
             }
         },
         "accounttransactions": {
@@ -121,7 +123,8 @@
                 "price": "总",
                 "is_credit": "信用",
                 "count": "计数",
-                "date": "日期"
+                "date": "日期",
+                "amount": "金额"
             },
             "column_names": {
                 "transaction_id": "交易ID",
@@ -129,7 +132,8 @@
                 "price": "总",
                 "is_credit": "​",
                 "count": "计数",
-                "date": "日期"
+                "date": "日期",
+                "amount": "金额"
             },
             "identifiers": {
                 "transaction_type": {
