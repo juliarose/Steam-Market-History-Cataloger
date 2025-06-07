@@ -42,8 +42,6 @@
             "index": "Index",
             "after_date": "Dátum után",
             "before_date": "Dátum előtt",
-            "last_week": "Múlt hét",
-            "last_month": "Múlt hónap",
             "before": "Előtt",
             "after": "Után",
             "start": "Rajt",
@@ -106,7 +104,8 @@
                 "name": "Név",
                 "market_name": "Név",
                 "market_hash_name": "Név",
-                "index": "Index"
+                "index": "Index",
+                "amount": "Összeg"
             },
             "column_names": {
                 "transaction_id": "Tranzakció azonosítója",
@@ -124,7 +123,8 @@
                 "name": "Név",
                 "market_name": "Név",
                 "market_hash_name": "Név",
-                "index": "Index"
+                "index": "Index",
+                "amount": "Összeg"
             }
         },
         "accounttransactions": {
@@ -134,7 +134,8 @@
                 "price": "Teljes",
                 "is_credit": "Hitel",
                 "count": "Számol",
-                "date": "Dátum"
+                "date": "Dátum",
+                "amount": "Összeg"
             },
             "column_names": {
                 "transaction_id": "Tranzakció azonosítója",
@@ -142,7 +143,8 @@
                 "price": "Teljes",
                 "is_credit": "​",
                 "count": "Számol",
-                "date": "Dátum"
+                "date": "Dátum",
+                "amount": "Összeg"
             },
             "identifiers": {
                 "transaction_type": {

@@ -29,8 +29,6 @@
             "index": "索引",
             "after_date": "日付後",
             "before_date": "日付の前に",
-            "last_week": "先週",
-            "last_month": "先月",
             "before": "前",
             "after": "後に",
             "start": "開始",
@@ -87,13 +85,14 @@
                 "price": "価格",
                 "is_credit": "クレジット",
                 "date_listed": "出品日",
-                "date_acted": "作用日",
+                "date_acted": "に作用",
                 "name_color": "色",
                 "background_color": "背景色",
                 "name": "名",
                 "market_name": "名",
                 "market_hash_name": "名",
-                "index": "索引"
+                "index": "索引",
+                "amount": "金額"
             },
             "column_names": {
                 "transaction_id": "トランザクションID",
@@ -111,7 +110,8 @@
                 "name": "名",
                 "market_name": "名",
                 "market_hash_name": "名",
-                "index": "索引"
+                "index": "索引",
+                "amount": "金額"
             }
         },
         "accounttransactions": {
@@ -121,7 +121,8 @@
                 "price": "合計",
                 "is_credit": "クレジット",
                 "count": "カウント",
-                "date": "日付"
+                "date": "日付",
+                "amount": "金額"
             },
             "column_names": {
                 "transaction_id": "トランザクションID",
@@ -129,7 +130,8 @@
                 "price": "合計",
                 "is_credit": "​",
                 "count": "カウント",
-                "date": "日付"
+                "date": "日付",
+                "amount": "金額"
             },
             "identifiers": {
                 "transaction_type": {
