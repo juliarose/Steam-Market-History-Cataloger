@@ -110,7 +110,7 @@ export function createListingDatabase(steamid) {
         });
     });
     
-    // Adds amount to listings
+    // Adds amount and is_pending to listings
     db.version(4).stores({
         listings: [
             '&transaction_id',
@@ -133,7 +133,8 @@ export function createListingDatabase(steamid) {
             'date_acted_raw',
             'date_listed_raw',
             'price',
-            'price_raw'
+            'price_raw',
+            'is_pending'
         ].join(',')
     }).upgrade((trans) => {
         return trans.listings.toCollection().modify((record) => {

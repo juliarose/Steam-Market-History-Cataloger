@@ -176,7 +176,6 @@ export async function buildFilters(table, records, Displayable, options) {
             
             // begin the query
             if (Object.keys(baseQuery).length > 0) {
-                console.log(baseQuery);
                 collection = table.where(baseQuery);
             }
             

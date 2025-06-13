@@ -265,7 +265,6 @@ export class Listing {
             table: {
                 column_names: locales.db.listings.column_names,
                 columns: [
-                    'amount',
                     'is_credit',
                     'icon_url',
                     'market_name',

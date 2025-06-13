@@ -1,1 +1,1 @@
-This folder contains code related to rendering views.
+This folder contains code used only for rendering views.
