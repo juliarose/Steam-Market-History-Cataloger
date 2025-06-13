@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0] - 2025-06-12
+### Added
+- Amount column.
+
+### Fixed
+- INR currency not displaying decimal places.
+
 ## [1.2.2] - 2024-07-08
 ### Fixed
 - web_accessible_resources not having access to dom-parser which caused content scripts to not work.
