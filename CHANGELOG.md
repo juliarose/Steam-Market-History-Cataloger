@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.3.1] - 2025-09-24
+
+### Added
+- More currencies.
+
+### Fixed
+- IDR currency not displaying decimal places.
+- INR currency displaying decimal places.
+
 ## [1.3.0] - 2025-06-12
 ### Added
 - Amount column.
