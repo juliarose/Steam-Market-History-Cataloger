@@ -384,7 +384,7 @@ export const Currency = Object.freeze({
     // Minor unit: Fils (1/100)
     32: {
         wallet_code: 32,
-        code: 'DH',
+        code: 'AED',
         symbol: 'DH',
         precision: 2,
         thousand: ',',
