@@ -536,3 +536,12 @@ export const Currency = Object.freeze({
         after: true
     }
 });
+
+/**
+ * Gets a currency.
+ * @param {(number | string)} id - ID of currency.
+ * @returns {(Currency | undefined)} Currency details.
+ */
+export function getCurrency(id) {
+    return Currency[id];
+}
