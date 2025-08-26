@@ -9,11 +9,13 @@ import { DatabaseSettingsManager } from '../storage/DatabaseSettingsManager.js';
 import { EventEmitter } from '../../lib/eventemitter.js';
 import { getPreferences } from '../preferences.js';
 import { Dexie } from '../dexie.js';
+import { PurchaseHistoryManager } from './PurchaseHistoryManager.js';
 
 /**
  * @typedef {import('../models/Listing.js').Listing} Listing
  * @typedef {import('../steam/requests/get.js').MyHistoryResponse} MyHistoryResponse
  * @typedef {import('../account.js').Account} Account
+ * @typedef {import('../models/AccountTransaction.js').AccountTransaction} AccountTransaction
  */
 
 /**
@@ -42,6 +44,7 @@ import { Dexie } from '../dexie.js';
  * @property {LoadStateDate} date - Current date of load state.
  * @property {(Listing | null)} last_fetched - The listing object at "settings.last_fetched_index".
  * @property {(Listing | null)} last_indexed - The last indexed listing.
+ * @property {AccountTransaction[]} transactions - Array of Steam wallet transactions.
  */
 
 /**
@@ -85,7 +88,8 @@ export class ListingManager extends EventEmitter {
             day: new Date().getDate()
         },
         last_fetched: null,
-        last_indexed: null
+        last_indexed: null,
+        transactions: []
     };
     /**
      * Configuration settings related to loading listings.
@@ -152,7 +156,7 @@ export class ListingManager extends EventEmitter {
      * @type {Object}
      */
     #ListingDB;
-    
+
     /**
      * Creates a ListingManager.
      * @param {Object} deps - Dependencies.
@@ -450,7 +454,7 @@ export class ListingManager extends EventEmitter {
             fatal,
             records,
             dateStore
-        } = parseListings(response, this.#state, currency, this.#locales);
+        } = parseListings(response, this.#state, currency, this.#locales, this.#state.transactions);
         
         if (dateStore) {
             // update date store
@@ -520,7 +524,7 @@ export class ListingManager extends EventEmitter {
         
         return;
     }
-    
+
     /**
      * Loads market history.
      * @param {number} [delay=0] - Delay in Seconds to load.
@@ -619,6 +623,48 @@ export class ListingManager extends EventEmitter {
         
         // Gets locales for the language listings are loaded in
         this.#locales = await Localization.get(this.#settings.language);
+
+        const purchaseHistoryManager = new PurchaseHistoryManager({ account: this.#account });
+
+        const loadTransactions = async () => {
+            let total = [];
+            function done(error) {
+                console.log(error || 'All done!');
+            }
+        
+            async function loadT(cursor, delay = 0){
+                async function getMore({ records, cursor = null }) {
+                    onRecords(records);
+                    
+                    // if the response contained the cursor for the next page
+                    if (cursor) {
+                        // call the load function again
+                        await loadT(cursor, 3);
+                    } else {
+                        // otherwise we have nothing more to load
+                        done('All done!');
+                    }
+                }
+                
+                await purchaseHistoryManager.load(cursor, delay)
+                    .then(getMore)
+                    .catch(done);
+            }
+
+        
+            function onRecords(records) {
+                total = total.concat(records);
+            }
+        
+            await purchaseHistoryManager.setup();
+            await loadT();
+            return total;
+        };
+        
+        const transactions = await loadTransactions();
+        if (transactions != null) {
+            this.#state.transactions = transactions;
+        }
         
         // Gets indexes from stored listings.
         const [
