@@ -42,6 +42,7 @@ export async function loadAccount() {
     }
     
     const accountInfoData = await accountInfoLocalStorage.getSettings();
+    if (!accountInfoData) throw new AppError('No account info.  Please visit a page on the Steam Market to populate.');
     const { language } = accountInfoData;
             
     if (!language) {
